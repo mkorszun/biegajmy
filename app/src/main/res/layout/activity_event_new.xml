@@ -1,0 +1,7 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_new_container"
+    android:name="com.biegajmy.events.EventNewFragment_"
+    tools:layout="@layout/fragment_event_new"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
