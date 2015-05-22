@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.SeekBar;
 import com.biegajmy.R;
+import com.biegajmy.UserDetailsActivity_;
 import com.biegajmy.model.Event;
 import com.squareup.otto.Bus;
 import org.androidannotations.annotations.AfterViews;
@@ -56,6 +57,10 @@ public class EventListActivity extends ActionBarActivity implements EventListFra
 
     @OptionsItem(R.id.action_create_event) void createEvent() {
         startActivity(new Intent(this, EventNewActivity_.class));
+    }
+
+    @OptionsItem(R.id.action_user_details) void editUser() {
+        startActivity(new Intent(this, UserDetailsActivity_.class));
     }
 
     @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

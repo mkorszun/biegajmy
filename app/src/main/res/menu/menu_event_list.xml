@@ -6,4 +6,8 @@
         android:title="Create New"
         android:orderInCategory="100"
         app:showAsAction="always"/>
+    <item android:id="@+id/action_user_details"
+        android:title="User details"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
 </menu>
