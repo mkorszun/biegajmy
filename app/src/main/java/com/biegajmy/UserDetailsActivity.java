@@ -1,10 +1,13 @@
 package com.biegajmy;
 
+import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.biegajmy.events.EventListActivity;
 import com.biegajmy.model.User;
 import com.biegajmy.task.CreateUserExecutor;
 import com.biegajmy.task.CreateUserTask;
@@ -15,6 +18,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import static java.util.Arrays.asList;
@@ -35,6 +39,7 @@ import static java.util.Arrays.asList;
     @AfterViews void setContent() {
         user = storage.getUser();
         Picasso.with(this).load(user.photo_url).into(userPhoto);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         name.setText(user.firstName + " " + user.lastName);
         age.setText(String.valueOf(user.age));
@@ -50,6 +55,10 @@ import static java.util.Arrays.asList;
         saveUser(storage.getToken(), user);
     }
 
+    @OptionsItem(android.R.id.home) public void backHome() {
+        NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
+    }
+
     private void saveUser(String token, User user) {
         new CreateUserTask(new CreateUserExecutor() {
             @Override public void onSuccess() {
@@ -57,7 +66,8 @@ import static java.util.Arrays.asList;
             }
 
             @Override public void onFailure(Exception e) {
-                Toast.makeText(UserDetailsActivity.this, "User update failed: "+e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserDetailsActivity.this, "User update failed: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
             }
         }).execute(token, user);
     }

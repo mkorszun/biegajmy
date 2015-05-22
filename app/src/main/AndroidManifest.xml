@@ -67,7 +67,11 @@ s
         </activity>
         <activity
             android:name=".events.EventNewActivity_"
-            android:label="@string/title_activity_event_new" >
+            android:label="@string/title_activity_event_new"
+            android:parentActivityName=".events.EventListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".events.EventListActivity" />
         </activity>
     </application>
 

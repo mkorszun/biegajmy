@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.view.MenuItem;
 import com.biegajmy.R;
 import java.io.Serializable;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 
 import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
 
@@ -34,12 +34,7 @@ import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
         }
     }
 
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    @OptionsItem(android.R.id.home) public void backHome() {
+        NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
     }
 }
