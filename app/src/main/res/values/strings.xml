@@ -5,10 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">948936338472360</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_user_details">UserDetailsActivity</string>
+    <string name="title_activity_user_details">User Profile</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_event_list">Events</string>
     <string name="title_event_detail">Event Detail</string>
-    <string name="title_activity_event_new">EventNewActivity</string>
+    <string name="title_activity_event_new">New Event</string>
 
 </resources>

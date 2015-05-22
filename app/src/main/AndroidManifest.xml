@@ -51,7 +51,7 @@ s
         </activity>
         <activity
             android:name=".UserDetailsActivity_"
-            android:label="User" >
+            android:label="@string/title_activity_user_details" >
         </activity>
         <activity
             android:name=".events.EventListActivity_"
