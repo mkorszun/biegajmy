@@ -14,13 +14,15 @@ import retrofit.http.Query;
 
 public interface BackendInterface {
 
-    @POST("/event") Response createEvent(@Query("token") String token, @Body NewEvent event);
+    @POST("/event") Response createEvent(@Query("token") String token, @Body NewEvent event)
+        throws BackendError;
 
     @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y,
-        @Query("max") int max, @Query("token") String token);
+        @Query("max") int max, @Query("token") String token) throws BackendError;
 
     @PUT("/event/{event_id}/user") Response joinEvent(@Path("event_id") String eventId,
-        @Query("token") String token);
+        @Query("token") String token) throws BackendError;
 
-    @POST("/user") Response createUser(@Query("token") String token, @Body User user);
+    @POST("/user") Response createUser(@Query("token") String token, @Body User user)
+        throws BackendError;
 }
