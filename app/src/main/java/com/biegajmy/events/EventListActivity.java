@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.SeekBar;
 import com.biegajmy.R;
-import com.biegajmy.UserDetailsActivity_;
+import com.biegajmy.user.UserDetailsActivity_;
 import com.biegajmy.model.Event;
 import com.squareup.otto.Bus;
 import org.androidannotations.annotations.AfterViews;

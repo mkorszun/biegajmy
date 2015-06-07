@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.biegajmy.events.EventListActivity;
 import com.biegajmy.events.EventListActivity_;
 import com.biegajmy.model.User;
 import com.facebook.Request;
@@ -20,8 +19,8 @@ import com.facebook.widget.LoginButton;
 import java.util.Arrays;
 import org.androidannotations.annotations.EFragment;
 
-import static com.biegajmy.UserUtils.getAge;
-import static com.biegajmy.UserUtils.getPhotoUrl;
+import static com.biegajmy.user.UserUtils.getAge;
+import static com.biegajmy.user.UserUtils.getPhotoUrl;
 
 @EFragment
 public class LoginFragment extends Fragment {

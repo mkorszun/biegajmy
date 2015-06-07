@@ -46,11 +46,7 @@ s
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" >
-        </activity>
-        <activity
-            android:name=".UserDetailsActivity_"
+            android:name=".user.UserDetailsActivity_"
             android:label="@string/title_activity_user_details" >
         </activity>
         <activity

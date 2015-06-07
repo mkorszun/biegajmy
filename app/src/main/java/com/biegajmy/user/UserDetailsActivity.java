@@ -1,4 +1,4 @@
-package com.biegajmy;
+package com.biegajmy.user;
 
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.biegajmy.LocalStorage;
+import com.biegajmy.R;
 import com.biegajmy.events.EventListActivity;
 import com.biegajmy.model.User;
 import com.biegajmy.task.CreateUserExecutor;
