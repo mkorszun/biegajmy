@@ -16,6 +16,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
     private final LayoutInflater inflater;
     private Context context;
+    private List<Event> events;
 
     public EventListAdapter(Context context) {
         this(context, R.layout.event_list_item);
@@ -50,5 +51,11 @@ public class EventListAdapter extends ArrayAdapter<Event> {
     public void setData(List<Event> events) {
         clear();
         addAll(events);
+        this.events = events;
+    }
+
+    public void update(Event event) {
+        events.set(events.indexOf(event), event);
+        notifyDataSetChanged();
     }
 }

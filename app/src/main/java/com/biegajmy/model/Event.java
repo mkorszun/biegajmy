@@ -25,4 +25,13 @@ public class Event implements Serializable {
         event.description = description;
         return event;
     }
+
+    @Override public boolean equals(Object o) {
+        if (o instanceof Event) {
+            Event event = (Event) o;
+            return event.id.equals(this.id);
+        }
+
+        return false;
+    }
 }

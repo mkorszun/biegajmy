@@ -7,7 +7,7 @@ import java.util.List;
 
 public class User implements Serializable {
 
-    public String id;
+    public String id = "";
     @SerializedName("age") public int age;
     @SerializedName("photo_url") public String photo_url;
     @SerializedName("firstName") public String firstName = "";
@@ -71,5 +71,13 @@ public class User implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (o instanceof User) {
+            User user = (User) o;
+            return user.id.equals(this.id);
+        }
+        return false;
     }
 }

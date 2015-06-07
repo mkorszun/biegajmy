@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,14 +23,18 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 @EFragment(R.layout.fragment_event_detail) public class EventDetailFragment extends Fragment {
 
     public static final String ARG_EVENT = "event";
     public static final String GEO_QUERY = "geo:%f,%f?q=%f,%f(%s)";
+    private static final String TAG = EventDetailFragment.class.getName();
 
     private Event event;
+    private boolean isMember;
     private Activity activity;
+    private FragmentManager fm;
 
     @Bean LocalStorage storage;
     @ViewById(R.id.event_duration) protected TextView duration;
@@ -35,10 +42,18 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.event_spots) protected TextView spots;
     @ViewById(R.id.event_description) protected TextView description;
     @ViewById(R.id.event_user_photo) protected ImageView userPhoto;
+    @ViewById(R.id.event_join) protected Button joinButton;
+
+    @StringRes(R.string.event_join_error_msg) protected String ERROR_MSG;
+    @StringRes(R.string.event_join) protected String JOIN_TXT;
+    @StringRes(R.string.event_leave) protected String LEAVE_TXT;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.activity = getActivity();
+        this.fm = getChildFragmentManager();
+
         if (getArguments().containsKey(ARG_EVENT)) {
             event = (Event) getArguments().getSerializable(ARG_EVENT);
         }
@@ -46,17 +61,8 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setContent() {
         if (event != null) {
-            duration.setText(String.valueOf(event.duration));
-            date.setText(event.dateAndTime);
-            spots.setText(String.valueOf(event.spots));
-            description.setText(event.description);
-            Picasso.with(activity).load(event.user.photo_url).into(userPhoto);
-
-            Fragment fr = EventParticipantsFragment.newInstance(event.participants);
-            getChildFragmentManager()
-                .beginTransaction()
-                .add(R.id.event_participants_container, fr)
-                .commit();
+            updateEventContent();
+            updateEventParticipants();
         }
     }
 
@@ -72,14 +78,37 @@ import org.androidannotations.annotations.ViewById;
     @Click(R.id.event_join) public void joinEvent() {
         String eventId = event.id;
         String token = storage.getToken();
+
         new JoinEventTask(new JoinEventExecutor() {
-            @Override public void onSuccess() {
-                Toast.makeText(activity, "Joined event", Toast.LENGTH_LONG).show();
+            @Override public void onSuccess(Event e) {
+                EventDetailFragment.this.event = e;
+                EventListBus.getInstance().post(e);
+                updateEventContent();
             }
 
             @Override public void onFailure(Exception e) {
-                Toast.makeText(activity, "Failed to join event: " + e, Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, ERROR_MSG, Toast.LENGTH_LONG).show();
+                Log.e(TAG, String.format("%s failed", msgForAction()), e);
             }
-        }).execute(token, eventId);
+        }).execute(token, eventId, !isMember);
+    }
+
+    private void updateEventContent() {
+        duration.setText(String.valueOf(event.duration));
+        date.setText(event.dateAndTime);
+        spots.setText(String.valueOf(event.spots));
+        description.setText(event.description);
+        Picasso.with(activity).load(event.user.photo_url).into(userPhoto);
+        isMember = event.participants.contains(storage.getUser());
+        joinButton.setText(msgForAction());
+    }
+
+    private void updateEventParticipants() {
+        Fragment fr = EventParticipantsFragment.newInstance(event.id, event.participants);
+        fm.beginTransaction().replace(R.id.event_participants_container, fr).commit();
+    }
+
+    private String msgForAction() {
+        return isMember ? LEAVE_TXT : JOIN_TXT;
     }
 }
