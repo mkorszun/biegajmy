@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.events.participants.EventParticipantsFragment;
 import com.biegajmy.model.Event;
 import com.biegajmy.task.JoinEventExecutor;
 import com.biegajmy.task.JoinEventTask;
@@ -50,6 +51,12 @@ import org.androidannotations.annotations.ViewById;
             spots.setText(String.valueOf(event.spots));
             description.setText(event.description);
             Picasso.with(activity).load(event.user.photo_url).into(userPhoto);
+
+            Fragment fr = EventParticipantsFragment.newInstance(event.participants);
+            getChildFragmentManager()
+                .beginTransaction()
+                .add(R.id.event_participants_container, fr)
+                .commit();
         }
     }
 
