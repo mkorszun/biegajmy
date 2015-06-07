@@ -51,7 +51,6 @@ import static java.util.Arrays.asList;
     @Click(R.id.update) void update() {
         user.setBio(bio.getText().toString());
         user.setTags(new LinkedList(asList(tags.getText().toString().split(" "))));
-        storage.updateUser(user);
         saveUser(storage.getToken(), user);
     }
 
@@ -59,9 +58,11 @@ import static java.util.Arrays.asList;
         NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
     }
 
-    private void saveUser(String token, User user) {
+    private void saveUser(String token, final User user) {
         new CreateUserTask(new CreateUserExecutor() {
-            @Override public void onSuccess() {
+            @Override public void onSuccess(String id) {
+                user.id = id;
+                storage.updateUser(user);
                 Toast.makeText(UserDetailsActivity.this, "User updated", Toast.LENGTH_LONG).show();
             }
 

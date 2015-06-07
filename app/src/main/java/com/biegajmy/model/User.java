@@ -7,10 +7,11 @@ import java.util.List;
 
 public class User implements Serializable {
 
+    public String id;
     @SerializedName("age") public int age;
     @SerializedName("photo_url") public String photo_url;
-    @SerializedName("first_name") public String firstName = "";
-    @SerializedName("last_name") public String lastName = "";
+    @SerializedName("firstName") public String firstName = "";
+    @SerializedName("lastName") public String lastName = "";
     @SerializedName("location") public String location;
 
     @SerializedName("bio") public String bio = "";
