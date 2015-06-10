@@ -22,4 +22,10 @@
         android:layout_marginRight="16dp"
         tools:context="com.biegajmy.events.EventListActivity"
         tools:layout="@android:layout/list_content"/>
+
+    <com.biegajmy.BottomMenu
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>
