@@ -1,27 +1,40 @@
 package com.biegajmy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+import com.biegajmy.events.EventUserListActivity_;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EViewGroup;
 
-public class BottomMenu extends LinearLayout {
+@EViewGroup(R.layout.bottom_menu_layout) public class BottomMenu extends LinearLayout {
 
-    private LayoutInflater inflater;
-    private LinearLayout layout;
+    private Context context;
 
     public BottomMenu(Context context) {
         super(context);
-        inflate(context);
+        this.context = context;
     }
 
     public BottomMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
-        inflate(context);
+        this.context = context;
     }
 
-    private void inflate(Context context) {
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layout = (LinearLayout) inflater.inflate(R.layout.bottom_menu_layout, this, true);
+    @Click(R.id.all_events) public void allEvents() {
+        Toast.makeText(context, "Display all events", Toast.LENGTH_LONG).show();
+        context.startActivity(new Intent(context, EventUserListActivity_.class));
+    }
+
+    @Click(R.id.user_events) public void userEvents() {
+        Toast.makeText(context, "Display user events", Toast.LENGTH_LONG).show();
+        context.startActivity(new Intent(context, EventUserListActivity_.class));
+    }
+
+    @Click(R.id.user_tags) public void userTags() {
+        Toast.makeText(context, "Display user tags", Toast.LENGTH_LONG).show();
+        context.startActivity(new Intent(context, EventUserListActivity_.class));
     }
 }

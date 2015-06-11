@@ -23,7 +23,7 @@
         tools:context="com.biegajmy.events.EventListActivity"
         tools:layout="@android:layout/list_content"/>
 
-    <com.biegajmy.BottomMenu
+    <com.biegajmy.BottomMenu_
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"/>
