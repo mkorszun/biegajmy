@@ -96,7 +96,7 @@ public class EventNewFragment extends Fragment
     }
 
     @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        date.setText(String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear, year));
+        date.setText(String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear+1, year));
     }
 
     private void setUpMap(double lat, double lon) {
