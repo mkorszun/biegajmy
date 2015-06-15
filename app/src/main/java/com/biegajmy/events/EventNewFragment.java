@@ -1,11 +1,15 @@
 package com.biegajmy.events;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
@@ -18,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.LinkedList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
@@ -27,7 +32,8 @@ import org.androidannotations.annotations.ViewById;
 import static java.util.Arrays.asList;
 
 @EFragment(R.layout.fragment_event_new) @OptionsMenu(R.menu.menu_event_new)
-public class EventNewFragment extends Fragment {
+public class EventNewFragment extends Fragment
+    implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private Activity activity;
     private GoogleMap mMap;
@@ -37,6 +43,7 @@ public class EventNewFragment extends Fragment {
     @ViewById(R.id.new_event_headline) TextView headline;
     @ViewById(R.id.new_event_description) TextView description;
     @ViewById(R.id.new_event_date) TextView date;
+    @ViewById(R.id.new_event_time) TextView time;
     @ViewById(R.id.new_event_duration) TextView duration;
     @ViewById(R.id.new_event_spots) TextView spots;
     @ViewById(R.id.new_event_tags) TextView tags;
@@ -55,7 +62,7 @@ public class EventNewFragment extends Fragment {
         NewEvent event = new NewEvent();
         event.headline = headline.getText().toString();
         event.description = description.getText().toString();
-        event.dateAndTime = date.getText().toString();
+        event.dateAndTime = date.getText().toString() + " " + time.getText().toString();
         event.duration = Integer.valueOf(duration.getText().toString());
         event.spots = Integer.valueOf(spots.getText().toString());
         event.tags = new LinkedList(asList(tags.getText().toString().split(" ")));
@@ -72,6 +79,24 @@ public class EventNewFragment extends Fragment {
                 Toast.makeText(activity, "Event creation failed: " + e, Toast.LENGTH_LONG).show();
             }
         }).execute(storage.getToken(), event);
+    }
+
+    @Click(R.id.new_event_time) public void setTime() {
+        TimePickerDialog timePicker = new TimePickerDialog(getActivity(), this, 24, 0, true);
+        timePicker.show();
+    }
+
+    @Click(R.id.new_event_date) public void setDate() {
+        DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, 2015, 12, 1);
+        datePicker.show();
+    }
+
+    @Override public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        time.setText(String.format("%02d:%02d", hourOfDay, minute));
+    }
+
+    @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        date.setText(String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear, year));
     }
 
     private void setUpMap(double lat, double lon) {

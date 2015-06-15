@@ -16,8 +16,19 @@
              which is used to tint widgets -->
         <item name="colorAccent">@color/accent</item>
 
+        <item name="android:dialogTheme">@style/Theme.Dialog</item>
+
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight & colorSwitchThumbNormal. -->
+    </style>
+
+    <style name="Theme.Dialog"
+        parent="Theme.AppCompat.Light.Dialog">
+
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+
     </style>
 
     <style name="bottombar_button">

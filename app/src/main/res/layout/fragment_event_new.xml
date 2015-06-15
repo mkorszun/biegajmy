@@ -28,18 +28,38 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/new_event_headline"
         android:layout_alignEnd="@+id/new_event_headline"/>
-    <EditText
+    <LinearLayout
+        android:id="@+id/new_event_date_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="datetime"
-        android:ems="10"
-        android:id="@+id/new_event_date"
-        android:hint="Date"
         android:layout_below="@+id/new_event_description"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/new_event_description"
-        android:layout_alignEnd="@+id/new_event_description"/>
+        android:layout_alignEnd="@+id/new_event_description">
+        <EditText
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:editable="false"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="datetime"
+            android:id="@+id/new_event_date"
+            android:hint="Date"
+            />
+        <EditText
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:editable="false"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="datetime"
+            android:id="@+id/new_event_time"
+            android:hint="Time"
+            />
+    </LinearLayout>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,11 +67,11 @@
         android:ems="10"
         android:id="@+id/new_event_duration"
         android:hint="Duration[h]"
-        android:layout_below="@+id/new_event_date"
+        android:layout_below="@+id/new_event_date_time"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/new_event_date"
-        android:layout_alignEnd="@+id/new_event_date"/>
+        android:layout_alignRight="@+id/new_event_date_time"
+        android:layout_alignEnd="@+id/new_event_date_time"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
