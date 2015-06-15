@@ -61,20 +61,13 @@ import org.androidannotations.annotations.RootContext;
     }
 
     private void setUpTracking() {
-        map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-            @Override public void onMarkerDragStart(Marker marker) {
-            }
-
-            @Override public void onMarkerDrag(Marker marker) {
-            }
-
-            @Override public void onMarkerDragEnd(Marker marker) {
-                LatLng newPosition = marker.getPosition();
-                Log.d(TAG, "New marker position: " + newPosition);
-                currentPosition = newPosition;
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override public void onMapClick(LatLng latLng) {
+                Log.d(TAG, "New marker position: " + latLng);
+                marker.setPosition(latLng);
+                currentPosition = latLng;
             }
         });
-        marker.setDraggable(true);
     }
 
     private void setInitialPoint() {
