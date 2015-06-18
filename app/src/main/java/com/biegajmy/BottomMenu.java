@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.biegajmy.events.EventUserListActivity_;
+import com.biegajmy.events.user.EventUserListActivity_;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 

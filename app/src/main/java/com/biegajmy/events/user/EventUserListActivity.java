@@ -1,4 +1,4 @@
-package com.biegajmy.events;
+package com.biegajmy.events.user;
 
 import android.content.Intent;
 import android.os.Bundle;
