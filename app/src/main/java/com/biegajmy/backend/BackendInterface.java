@@ -29,4 +29,7 @@ public interface BackendInterface {
 
     @POST("/user") Response createUser(@Query("token") String token, @Body User user)
         throws BackendError;
+
+    @GET("/user/{user_id}/events") List<Event> listEvents(@Path("user_id") String userId,
+        @Query("token") String token) throws BackendError;
 }
