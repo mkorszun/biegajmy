@@ -22,6 +22,12 @@ android {
 
 def AAVersion = '3.3.1'
 
+repositories {
+    maven {
+        url "http://dl.bintray.com/veinhorn/maven"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -38,6 +44,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'joda-time:joda-time:2.7'
     compile 'com.google.guava:guava:18.0'
+    compile 'com.veinhorn.tagview:library:1.0.3@aar'
+    compile 'org.apmem.tools:layouts:1.9@aar'
 }
 
 apt {

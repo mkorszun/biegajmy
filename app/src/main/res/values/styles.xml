@@ -42,4 +42,13 @@
         <item name="android:textSize">10sp</item>
         <item name="android:gravity">bottom|center</item>
     </style>
+
+    <style name="tag">
+        <item name="android:layout_margin">5px</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="tagType">modern</item>
+        <item name="tagUpperCase">true</item>
+    </style>
 </resources>

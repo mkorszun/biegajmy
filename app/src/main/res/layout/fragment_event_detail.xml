@@ -137,6 +137,12 @@
         android:layout_below="@+id/event_description"
         android:id="@+id/event_participants_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
+
+    <FrameLayout
+        android:layout_below="@+id/event_participants_container"
+        android:id="@+id/event_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
