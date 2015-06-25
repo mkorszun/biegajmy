@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.biegajmy.user.UserBasicDetailsFragment">
+
+    <com.pkmmte.view.CircularImageView
+        android:id="@+id/user_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/tmp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        app:border="true"
+        app:border_color="@color/primary_light"
+        app:border_width="4dp"
+        />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+
+    <TextView
+        android:id="@+id/user_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/user_photo"
+        android:layout_toStartOf="@+id/user_photo"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+
+</RelativeLayout>

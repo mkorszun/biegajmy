@@ -18,6 +18,8 @@ import com.biegajmy.model.Event;
 import com.biegajmy.tags.TagListFragment_;
 import com.biegajmy.task.JoinEventExecutor;
 import com.biegajmy.task.JoinEventTask;
+import com.biegajmy.user.UserBasicDetailsFragment;
+import com.biegajmy.user.UserBasicDetailsFragment_;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
@@ -66,6 +68,7 @@ import org.androidannotations.annotations.res.StringRes;
             updateEventContent();
             updateEventParticipants();
             updateEventTags();
+            updateEventOwner();
         }
     }
 
@@ -114,6 +117,11 @@ import org.androidannotations.annotations.res.StringRes;
     private void updateEventTags() {
         TagListFragment_ fr = TagListFragment_.newInstance(new ArrayList(event.tags));
         fm.beginTransaction().replace(R.id.event_tags, fr).commit();
+    }
+
+    private void updateEventOwner() {
+        UserBasicDetailsFragment_ fr = UserBasicDetailsFragment_.newInstance(event.user);
+        fm.beginTransaction().replace(R.id.event_owner, fr).commit();
     }
 
     private String msgForAction() {
