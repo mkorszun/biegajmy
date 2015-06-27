@@ -1,10 +1,11 @@
 package com.biegajmy.backend;
 
+import com.biegajmy.BuildConfig;
 import retrofit.RestAdapter;
 
 public class BackendInterfaceFactory {
 
-    public static final String URL = "https://development-eventbackend.cloudcontrolled.com/";
+    public static final String URL = BuildConfig.BACKEND_URL;
 
     public static BackendInterface build() {
         return build(URL);

@@ -18,6 +18,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        dev {
+            buildConfigField "String", "BACKEND_URL", "\"https://development-eventbackend.cloudcontrolled.com/\""
+        }
+        prod {
+            buildConfigField "String", "BACKEND_URL", "\"https://eventbackend.cloudcontrolled.com/\""
+        }
+    }
 }
 
 def AAVersion = '3.3.1'
