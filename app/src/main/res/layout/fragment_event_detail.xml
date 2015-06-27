@@ -1,154 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_margin="16dp"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
     <RelativeLayout
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/event_details">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/event_user_photo"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/tmp"
-            android:alpha="0.6"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_height="wrap_content"
+
             android:layout_width="fill_parent"
-            android:layout_toRightOf="@+id/event_user_photo"
-            >
-            <ImageView
-                android:layout_margin="4dp"
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/event_details">
+
+            <Button
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/image_duration"
-                android:background="@drawable/ic_schedule_grey600_36dp"/>
-            <ImageView
-                android:layout_margin="4dp"
-                android:layout_width="wrap_content"
+                android:text="JOIN"
+                android:id="@+id/event_join"
+                />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:text="LOCATION"
+                android:id="@+id/event_location"
+                android:layout_below="@+id/event_join"
+                />
+
+            <RelativeLayout
+                android:id="@+id/event_base_info"
+                android:layout_below="@+id/event_location"
                 android:layout_height="wrap_content"
-                android:id="@+id/image_time"
-                android:background="@drawable/ic_today_grey600_36dp"
-                android:layout_below="@+id/image_duration"/>
-            <ImageView
-                android:layout_margin="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/image_spots"
-                android:layout_below="@+id/image_time"
-                android:background="@drawable/ic_group_grey600_36dp"/>
-            <ImageView
-                android:layout_margin="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/image_stars"
-                android:layout_below="@+id/image_spots"
-                android:background="@drawable/ic_star_grey600_36dp"/>
+                android:layout_width="fill_parent"
+                >
+                <ImageView
+                    android:layout_margin="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/image_duration"
+                    android:background="@drawable/ic_schedule_grey600_36dp"/>
+                <ImageView
+                    android:layout_margin="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/image_time"
+                    android:background="@drawable/ic_today_grey600_36dp"
+                    android:layout_below="@+id/image_duration"/>
+                <ImageView
+                    android:layout_margin="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/image_spots"
+                    android:layout_below="@+id/image_time"
+                    android:background="@drawable/ic_group_grey600_36dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/event_duration"
+                    android:layout_alignTop="@+id/image_duration"
+                    android:layout_toEndOf="@+id/image_duration"
+                    android:layout_toRightOf="@+id/image_duration"
+                    android:layout_alignBottom="@+id/image_duration"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/event_time"
+                    android:layout_alignTop="@+id/image_time"
+                    android:layout_alignLeft="@+id/event_duration"
+                    android:layout_alignStart="@+id/event_duration"
+                    android:layout_alignBottom="@+id/image_time"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/event_spots"
+                    android:layout_alignTop="@+id/image_spots"
+                    android:layout_alignLeft="@+id/event_time"
+                    android:layout_alignStart="@+id/event_time"
+                    android:layout_alignBottom="@+id/image_spots"/>
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/event_duration"
-                android:layout_alignTop="@+id/image_duration"
-                android:layout_toEndOf="@+id/image_duration"
-                android:layout_toRightOf="@+id/image_duration"
-                android:layout_alignBottom="@+id/image_duration"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/event_time"
-                android:layout_alignTop="@+id/image_time"
-                android:layout_alignLeft="@+id/event_duration"
-                android:layout_alignStart="@+id/event_duration"
-                android:layout_alignBottom="@+id/image_time"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/event_spots"
-                android:layout_alignTop="@+id/image_spots"
-                android:layout_alignLeft="@+id/event_time"
-                android:layout_alignStart="@+id/event_time"
-                android:layout_alignBottom="@+id/image_spots"/>
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/event_likes"
-                android:layout_below="@+id/image_spots"
-                android:layout_alignLeft="@+id/event_spots"
-                android:layout_alignStart="@+id/event_spots"
-                android:layout_alignBottom="@+id/image_stars"/>
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/event_description"
+                android:layout_below="@+id/event_base_info"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"/>
         </RelativeLayout>
+
+        <FrameLayout
+            android:layout_below="@+id/event_details"
+            android:id="@+id/event_participants_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <FrameLayout
+            android:layout_below="@+id/event_participants_container"
+            android:id="@+id/event_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <FrameLayout
+            android:layout_below="@+id/event_tags"
+            android:id="@+id/event_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </RelativeLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/event_details"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout">
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="JOIN"
-            android:id="@+id/event_join"
-            />
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="LOCATION"
-            android:id="@+id/event_location"
-            />
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="STAR"
-            android:id="@+id/button3"
-            />
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/event_description"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"/>
-
-    <FrameLayout
-        android:layout_below="@+id/event_description"
-        android:id="@+id/event_participants_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <FrameLayout
-        android:layout_below="@+id/event_participants_container"
-        android:id="@+id/event_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <FrameLayout
-        android:layout_below="@+id/event_tags"
-        android:id="@+id/event_owner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-</RelativeLayout>
+</ScrollView>

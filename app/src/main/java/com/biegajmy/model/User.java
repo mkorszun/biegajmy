@@ -9,6 +9,7 @@ public class User implements Serializable {
 
     public String id = "";
     @SerializedName("age") public int age;
+    @SerializedName("full_name") public String fullName;
     @SerializedName("photo_url") public String photo_url;
     @SerializedName("firstName") public String firstName = "";
     @SerializedName("lastName") public String lastName = "";

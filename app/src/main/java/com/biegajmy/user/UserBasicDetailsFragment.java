@@ -38,7 +38,7 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setContent() {
         Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
-        userName.setText("Mateusz Korszun (30)");
+        userName.setText(String.format("%s (%d)", user.fullName, user.age));
         userBio.setText(user.bio);
     }
 }

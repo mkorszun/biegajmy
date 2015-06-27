@@ -45,7 +45,6 @@ import org.androidannotations.annotations.res.StringRes;
     @ViewById(R.id.event_time) protected TextView date;
     @ViewById(R.id.event_spots) protected TextView spots;
     @ViewById(R.id.event_description) protected TextView description;
-    @ViewById(R.id.event_user_photo) protected ImageView userPhoto;
     @ViewById(R.id.event_join) protected Button joinButton;
 
     @StringRes(R.string.event_join_error_msg) protected String ERROR_MSG;
@@ -104,7 +103,6 @@ import org.androidannotations.annotations.res.StringRes;
         date.setText(event.dateAndTime);
         spots.setText(String.valueOf(event.spots));
         description.setText(event.description);
-        Picasso.with(activity).load(event.user.photo_url).into(userPhoto);
         isMember = event.participants.contains(storage.getUser());
         joinButton.setText(msgForAction());
     }
