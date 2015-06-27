@@ -4,7 +4,7 @@ import retrofit.RestAdapter;
 
 public class BackendInterfaceFactory {
 
-    public static final String URL = "https://eventbackend.cloudcontrolled.com/";
+    public static final String URL = "https://development-eventbackend.cloudcontrolled.com/";
 
     public static BackendInterface build() {
         return build(URL);
