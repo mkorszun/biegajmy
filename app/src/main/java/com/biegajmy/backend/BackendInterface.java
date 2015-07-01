@@ -18,6 +18,9 @@ public interface BackendInterface {
     @POST("/event") Response createEvent(@Query("token") String token, @Body NewEvent event)
         throws BackendError;
 
+    @PUT("/event/{event_id}") Event updateEvent(@Path("event_id") String eventId, @Body NewEvent event,
+        @Query("token") String token);
+
     @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y,
         @Query("max") int max, @Query("token") String token) throws BackendError;
 

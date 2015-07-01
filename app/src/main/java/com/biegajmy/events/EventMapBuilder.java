@@ -43,6 +43,7 @@ import org.androidannotations.annotations.RootContext;
 
     public EventMapBuilder setInitialPosition(LatLng initialPosition) {
         this.initialPosition = initialPosition;
+        this.currentPosition = initialPosition;
         return this;
     }
 

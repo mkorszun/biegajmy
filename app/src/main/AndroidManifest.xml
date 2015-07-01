@@ -77,6 +77,13 @@ s
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".events.EventListActivity_" />
         </activity>
+        <activity
+            android:name=".events.EventUpdateActivity_"
+            android:parentActivityName=".events.user.EventUserListActivity_">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".events.user.EventUserListActivity_" />
+        </activity>
     </application>
 
 </manifest>
