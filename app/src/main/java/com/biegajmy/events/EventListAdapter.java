@@ -58,4 +58,13 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         events.set(events.indexOf(event), event);
         notifyDataSetChanged();
     }
+
+    public void delete(int id) {
+        events.remove(id);
+        notifyDataSetChanged();
+    }
+
+    public Event get(int id) {
+        return events.get(id);
+    }
 }

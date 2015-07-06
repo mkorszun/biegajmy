@@ -20,10 +20,10 @@ android {
     }
     productFlavors {
         dev {
-            buildConfigField "String", "BACKEND_URL", "\"https://development-eventbackend.cloudcontrolled.com/\""
+            buildConfigField "String", "BACKEND_URL", "\"https://development-biegajmy.cloudcontrolled.com/\""
         }
         prod {
-            buildConfigField "String", "BACKEND_URL", "\"https://eventbackend.cloudcontrolled.com/\""
+            buildConfigField "String", "BACKEND_URL", "\"https://biegajmy.cloudcontrolled.com/\""
         }
     }
 }

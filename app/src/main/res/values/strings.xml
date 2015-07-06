@@ -16,4 +16,6 @@
     <string name="event_join">Join</string>
     <string name="event_leave">Leave</string>
 
+    <string name="event_error_msg">Not possible right now</string>
+
 </resources>

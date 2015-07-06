@@ -20,6 +20,8 @@
 
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight & colorSwitchThumbNormal. -->
+
+        <item name="android:windowActionModeOverlay">true</item>
     </style>
 
     <style name="Theme.Dialog"
