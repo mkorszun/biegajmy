@@ -1,4 +1,4 @@
-package com.biegajmy.events.user;
+package com.biegajmy.events;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,9 +17,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
-import com.biegajmy.events.EventListAdapter;
-import com.biegajmy.events.EventUpdateActivity_;
-import com.biegajmy.events.EventUpdateFragment;
 import com.biegajmy.model.Event;
 import com.biegajmy.task.DeleteEventExecutor;
 import com.biegajmy.task.DeleteEventTask;
@@ -75,6 +72,8 @@ public class EventUserListFragment extends ListFragment {
     //********************************************************************************************//
 
     private ActionMode.Callback ACTION_MODE_CALLBACK = new ActionMode.Callback() {
+
+        private int statusBarColor;
 
         @Override public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
@@ -148,6 +147,6 @@ public class EventUserListFragment extends ListFragment {
             }
         });
     }
-    /**********************************************************************************************/
+    //********************************************************************************************//
     //********************************************************************************************//
 }

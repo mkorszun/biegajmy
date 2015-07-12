@@ -70,19 +70,11 @@ s
                 android:value=".events.EventListActivity" />
         </activity>
         <activity
-            android:name=".events.user.EventUserListActivity_"
-            android:label="@string/title_activity_user_events"
+            android:name=".events.EventUpdateActivity_"
             android:parentActivityName=".events.EventListActivity_">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".events.EventListActivity_" />
-        </activity>
-        <activity
-            android:name=".events.EventUpdateActivity_"
-            android:parentActivityName=".events.user.EventUserListActivity_">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".events.user.EventUserListActivity_" />
         </activity>
     </application>
 

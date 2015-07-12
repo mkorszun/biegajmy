@@ -10,7 +10,7 @@
     <string name="title_event_list">Events</string>
     <string name="title_event_detail">Event Detail</string>
     <string name="title_activity_event_new">New Event</string>
-    <string name="title_activity_user_events">My Events</string>
+    <string name="title_activity_user_events">Twoje Treningi</string>
 
     <string name="event_join_error_msg">Not possible right now</string>
     <string name="event_join">Join</string>

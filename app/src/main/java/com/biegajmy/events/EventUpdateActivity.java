@@ -6,9 +6,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.R;
-import com.biegajmy.events.user.EventUserListActivity;
 import com.biegajmy.model.Event;
-import java.io.Serializable;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
@@ -18,7 +16,7 @@ import static com.biegajmy.events.EventUpdateFragment.ARG_EVENT;
     extends ActionBarActivity {
 
     @OptionsItem(android.R.id.home) public void backHome() {
-        NavUtils.navigateUpTo(this, new Intent(this, EventUserListActivity.class));
+        NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
     }
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,7 @@ import static com.biegajmy.events.EventUpdateFragment.ARG_EVENT;
         if (savedInstanceState == null) {
 
             Bundle arguments = new Bundle();
-            Event event = (Event)getIntent().getSerializableExtra(ARG_EVENT);
+            Event event = (Event) getIntent().getSerializableExtra(ARG_EVENT);
             arguments.putSerializable(ARG_EVENT, event);
 
             supportActionBar.setTitle(((Event) event).headline);
