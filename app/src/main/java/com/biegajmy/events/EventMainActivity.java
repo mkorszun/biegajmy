@@ -9,7 +9,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_event_list) @OptionsMenu(R.menu.menu_event_list)
-public class EventListActivity extends ActionBarActivity implements BottomMenu.BottomMenuListener {
+public class EventMainActivity extends ActionBarActivity implements BottomMenu.BottomMenuListener {
 
     @ViewById(R.id.bottom_menu) BottomMenu menu;
 

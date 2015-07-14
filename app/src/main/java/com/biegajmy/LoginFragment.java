@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.biegajmy.events.EventListActivity_;
+import com.biegajmy.events.EventMainActivity_;
 import com.biegajmy.model.User;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -22,8 +22,7 @@ import org.androidannotations.annotations.EFragment;
 import static com.biegajmy.user.UserUtils.getAge;
 import static com.biegajmy.user.UserUtils.getPhotoUrl;
 
-@EFragment
-public class LoginFragment extends Fragment {
+@EFragment public class LoginFragment extends Fragment {
 
     private static final String TAG = LoginFragment.class.getName();
 
@@ -105,7 +104,7 @@ public class LoginFragment extends Fragment {
                         Log.i(TAG, "Age: " + age);
 
                         Intent it =
-                            new Intent(getActivity().getBaseContext(), EventListActivity_.class);
+                            new Intent(getActivity().getBaseContext(), EventMainActivity_.class);
 
                         if (!storage.hasUser()) {
                             User userData = new User();

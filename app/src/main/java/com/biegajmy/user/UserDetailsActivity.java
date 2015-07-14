@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
-import com.biegajmy.events.EventListActivity;
+import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.model.User;
 import com.biegajmy.task.CreateUserExecutor;
 import com.biegajmy.task.CreateUserTask;
@@ -57,7 +57,7 @@ import static java.util.Arrays.asList;
     }
 
     @OptionsItem(android.R.id.home) public void backHome() {
-        NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
+        NavUtils.navigateUpTo(this, new Intent(this, EventMainActivity.class));
     }
 
     private void saveUser(String token, final User user) {

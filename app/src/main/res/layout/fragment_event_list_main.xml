@@ -18,7 +18,7 @@
         android:name="com.biegajmy.events.EventListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.biegajmy.events.EventListActivity"
+        tools:context="com.biegajmy.events.EventMainActivity"
         tools:layout="@android:layout/list_content"/>
 
 </RelativeLayout>

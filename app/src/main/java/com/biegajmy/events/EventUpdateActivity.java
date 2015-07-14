@@ -16,7 +16,7 @@ import static com.biegajmy.events.EventUpdateFragment.ARG_EVENT;
     extends ActionBarActivity {
 
     @OptionsItem(android.R.id.home) public void backHome() {
-        NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
+        NavUtils.navigateUpTo(this, new Intent(this, EventMainActivity.class));
     }
 
     @Override public void onCreate(Bundle savedInstanceState) {

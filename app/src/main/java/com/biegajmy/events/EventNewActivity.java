@@ -9,6 +9,6 @@ import org.androidannotations.annotations.OptionsItem;
 
 @EActivity(R.layout.activity_event_new) public class EventNewActivity extends ActionBarActivity {
     @OptionsItem(android.R.id.home) public void backHome() {
-        NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
+        NavUtils.navigateUpTo(this, new Intent(this, EventMainActivity.class));
     }
 }

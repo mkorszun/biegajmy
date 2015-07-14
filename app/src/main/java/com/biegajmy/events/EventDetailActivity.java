@@ -39,6 +39,6 @@ import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
     }
 
     @OptionsItem(android.R.id.home) public void backHome() {
-        NavUtils.navigateUpTo(this, new Intent(this, EventListActivity.class));
+        NavUtils.navigateUpTo(this, new Intent(this, EventMainActivity.class));
     }
 }
