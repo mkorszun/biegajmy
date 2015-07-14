@@ -1,10 +1,13 @@
 package com.biegajmy.events;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.BottomMenu;
 import com.biegajmy.R;
+import com.biegajmy.user.UserDetailsActivity_;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
@@ -33,5 +36,9 @@ public class EventMainActivity extends ActionBarActivity implements BottomMenu.B
 
     @Override public void onUserTags() {
         // TODO
+    }
+
+    @OptionsItem(R.id.action_user_details) void editUser() {
+        startActivity(new Intent(this, UserDetailsActivity_.class));
     }
 }
