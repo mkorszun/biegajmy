@@ -15,6 +15,7 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.participants.EventParticipantsFragment;
 import com.biegajmy.model.Event;
+import com.biegajmy.tags.TagListFragment;
 import com.biegajmy.tags.TagListFragment_;
 import com.biegajmy.task.JoinEventExecutor;
 import com.biegajmy.task.JoinEventTask;
@@ -113,7 +114,9 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void updateEventTags() {
-        TagListFragment_ fr = TagListFragment_.newInstance(new ArrayList(event.tags));
+        ArrayList tags = new ArrayList(event.tags);
+        TagListFragment_.FragmentBuilder_ builder = TagListFragment_.builder();
+        TagListFragment fr = builder.arg(TagListFragment.ARGS_TAGS, tags).build();
         fm.beginTransaction().replace(R.id.event_tags, fr).commit();
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.BottomMenu;
 import com.biegajmy.R;
+import com.biegajmy.tags.TagEditListFragment_;
 import com.biegajmy.user.UserDetailsActivity_;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -35,7 +36,10 @@ public class EventMainActivity extends ActionBarActivity implements BottomMenu.B
     }
 
     @Override public void onUserTags() {
-        // TODO
+        TagEditListFragment_ fragment = new TagEditListFragment_();
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .commit();
     }
 
     @OptionsItem(R.id.action_user_details) void editUser() {
