@@ -29,7 +29,7 @@ public class EventMainActivity extends ActionBarActivity implements BottomMenu.B
     }
 
     @Override public void onUserEvents() {
-        EventUserListFragment fragment = new EventUserListFragment();
+        EventUserListMainFragment_ fragment = new EventUserListMainFragment_();
         getSupportFragmentManager().beginTransaction()
             .replace(R.id.main_container, fragment)
             .commit();

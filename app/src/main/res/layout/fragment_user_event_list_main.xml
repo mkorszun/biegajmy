@@ -1,0 +1,28 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_event"
+        android:text="Dodaj Trenning"
+        android:textColor="#FFFFFF"
+        android:background="@color/primary"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <fragment
+        android:id="@+id/event_list"
+        android:layout_below="@+id/new_event"
+        android:name="com.biegajmy.events.EventUserListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.biegajmy.events.EventMainActivity"
+        tools:layout="@android:layout/list_content"/>
+
+</RelativeLayout>
