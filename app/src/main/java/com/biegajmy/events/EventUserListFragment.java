@@ -3,7 +3,7 @@ package com.biegajmy.events;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.general.RefreshableListFragment;
 import com.biegajmy.model.Event;
 import com.biegajmy.task.DeleteEventExecutor;
 import com.biegajmy.task.DeleteEventTask;
@@ -24,7 +25,8 @@ import com.biegajmy.task.ListUserEventExecutor;
 import com.biegajmy.task.ListUserEventTask;
 import java.util.List;
 
-public class EventUserListFragment extends ListFragment {
+public class EventUserListFragment extends RefreshableListFragment
+    implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = EventUserListFragment.class.getName();
 
@@ -57,6 +59,7 @@ public class EventUserListFragment extends ListFragment {
 
     @Override public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setOnRefreshListener(this);
         registerLongClick();
     }
 
@@ -105,12 +108,14 @@ public class EventUserListFragment extends ListFragment {
         new ListUserEventTask(new ListUserEventExecutor() {
             @Override public void onSuccess(List<Event> events) {
                 adapter.setData(events);
+                setRefreshing(false);
             }
 
             @Override public void onFailure(Exception e) {
                 Log.e(TAG, "Failed to list user events", e);
                 String msg = getResources().getString(R.string.event_error_msg);
                 Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+                setRefreshing(false);
             }
         }).execute(storage.getUser().id, storage.getToken());
     }
@@ -146,6 +151,10 @@ public class EventUserListFragment extends ListFragment {
                 return true;
             }
         });
+    }
+
+    @Override public void onRefresh() {
+        loadData();
     }
     //********************************************************************************************//
     //********************************************************************************************//
