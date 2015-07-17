@@ -22,6 +22,7 @@ import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
 
 public class EventListFragment extends ListFragment {
 
+    private int lastRange;
     private Activity activity;
     private EventListAdapter adapter;
     private LocalStorage storage;
@@ -40,7 +41,7 @@ public class EventListFragment extends ListFragment {
 
     @Override public void onResume() {
         super.onResume();
-        loadData(2000);
+        loadData(lastRange);
     }
 
     @Override public void onListItemClick(ListView listView, View view, int position, long id) {
@@ -50,6 +51,7 @@ public class EventListFragment extends ListFragment {
     }
 
     @Subscribe public void reloadEvents(EventRange range) {
+        lastRange = range.getMax();
         loadData(range.getMax());
     }
 
