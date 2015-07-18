@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.model.Event;
-import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +31,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         View view = convertView == null ? inflate(getContext(), parent) : convertView;
         ((TextView) view.findViewById(R.id.event_headline)).setText(item.headline);
         ((TextView) view.findViewById(R.id.event_date)).setText(item.dateAndTime);
-
-        ImageView userPhoto = ((ImageView) view.findViewById(R.id.user_photo));
-        Picasso.with(getContext()).load(item.user.photo_url).into(userPhoto);
+        ((TextView) view.findViewById(R.id.event_distance)).setText("20km");
 
         return view;
     }
