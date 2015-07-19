@@ -13,8 +13,10 @@ import org.apmem.tools.layouts.FlowLayout;
 @EFragment(R.layout.tag_view) public class TagListFragment extends Fragment {
 
     public static final String ARGS_TAGS = "ARGS_TAGS";
+    public static final String ARGS_EDITABLE = "ARGS_EDITABLE";
     private static final int[] COLORS = { 0xffaa66cc, 0xff669900 };
 
+    private boolean isEditable;
     private ArrayList<String> tags = new ArrayList();
     @ViewById(R.id.tag_root_view) protected FlowLayout rootView;
 
@@ -24,13 +26,15 @@ import org.apmem.tools.layouts.FlowLayout;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TagListBus.getInstance().register(this);
         setInitialTags();
+
+        if (isEditable) TagListBus.getInstance().register(this);
     }
 
     @Override public void onDestroy() {
         super.onDestroy();
-        TagListBus.getInstance().unregister(this);
+
+        if (isEditable) TagListBus.getInstance().unregister(this);
     }
 
     @AfterViews public void setUpTags() {
@@ -39,9 +43,17 @@ import org.apmem.tools.layouts.FlowLayout;
         }
     }
 
-    @Subscribe public void onNewTag(String tag) {
-        tags.add(tag);
-        rootView.addView(newTag(tag));
+    //********************************************************************************************//
+    // Events - only for editable mode
+    //********************************************************************************************//
+
+    @Subscribe public void onNewTag(TagListBus.NewTagEvent event) {
+        tags.add(event.tag);
+        rootView.addView(newTag(event.tag));
+    }
+
+    @Subscribe public void onSaveTags(TagListBus.SaveTagsEvent event) {
+        TagListBus.getInstance().post(new TagListBus.UpdateTagsEvent(tags));
     }
 
     //********************************************************************************************//
@@ -58,7 +70,10 @@ import org.apmem.tools.layouts.FlowLayout;
 
     private void setInitialTags() {
         Bundle args = getArguments();
-        if (args != null) tags.addAll((ArrayList<String>) args.getSerializable(ARGS_TAGS));
+        if (args != null) {
+            tags.addAll((ArrayList<String>) args.getSerializable(ARGS_TAGS));
+            isEditable = args.getBoolean(ARGS_EDITABLE);
+        }
     }
     //********************************************************************************************//
     //********************************************************************************************//

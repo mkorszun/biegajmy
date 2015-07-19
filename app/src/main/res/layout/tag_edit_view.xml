@@ -25,12 +25,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
-    <fragment
-
+    <FrameLayout
         android:id="@+id/tag_list_container"
         android:layout_below="@+id/new_tag"
-        android:name="com.biegajmy.tags.TagListFragment_"
-        tools:layout="@layout/fragment_event_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
