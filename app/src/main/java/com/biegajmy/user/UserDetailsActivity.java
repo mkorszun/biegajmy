@@ -11,8 +11,8 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.model.User;
-import com.biegajmy.task.CreateUserExecutor;
-import com.biegajmy.task.CreateUserTask;
+import com.biegajmy.task.UpdateUserExecutor;
+import com.biegajmy.task.UpdateUserTask;
 import com.google.common.base.Joiner;
 import com.squareup.picasso.Picasso;
 import java.util.LinkedList;
@@ -61,7 +61,7 @@ import static java.util.Arrays.asList;
     }
 
     private void saveUser(String token, final User user) {
-        new CreateUserTask(new CreateUserExecutor() {
+        new UpdateUserTask(new UpdateUserExecutor() {
             @Override public void onSuccess(String id) {
                 user.id = id;
                 storage.updateUser(user);

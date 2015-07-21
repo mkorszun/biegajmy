@@ -1,6 +1,6 @@
 package com.biegajmy.task;
 
-public interface CreateUserExecutor {
+public interface UpdateUserExecutor {
 
     public void onSuccess(String id);
 

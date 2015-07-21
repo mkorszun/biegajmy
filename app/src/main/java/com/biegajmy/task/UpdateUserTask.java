@@ -7,12 +7,12 @@ import com.biegajmy.model.User;
 import retrofit.client.Header;
 import retrofit.client.Response;
 
-public class CreateUserTask extends AsyncTask<Object, Void, String> {
+public class UpdateUserTask extends AsyncTask<Object, Void, String> {
 
-    private CreateUserExecutor executor;
+    private UpdateUserExecutor executor;
     private Exception exception;
 
-    public CreateUserTask(CreateUserExecutor executor) {
+    public UpdateUserTask(UpdateUserExecutor executor) {
         this.executor = executor;
     }
 
