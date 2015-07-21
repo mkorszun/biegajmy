@@ -35,6 +35,8 @@ import static java.util.Arrays.asList;
         event.tags = new LinkedList(asList(tags.getText().toString().split(" ")));
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;
+        event.distance = Integer.valueOf(distance.getText().toString());
+        event.pace = Double.valueOf(pace.getText().toString());
         final Activity activity = getActivity();
 
         new CreateEventTask(new CreateEventExecutor() {

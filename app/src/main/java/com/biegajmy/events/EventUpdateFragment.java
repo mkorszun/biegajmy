@@ -41,6 +41,8 @@ import static java.util.Arrays.asList;
         duration.setText(String.valueOf(event.duration));
         spots.setText(String.valueOf(event.spots));
         tags.setText(Joiner.on(" ").join(event.tags));
+        distance.setText(String.valueOf(event.distance));
+        pace.setText(String.valueOf(event.pace));
     }
 
     @Override public void save() {
@@ -53,6 +55,8 @@ import static java.util.Arrays.asList;
         event.tags = new LinkedList(asList(tags.getText().toString().split(" ")));
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;
+        event.distance = Integer.valueOf(distance.getText().toString());
+        event.pace = Double.valueOf(pace.getText().toString());
 
         new UpdateEventTask(new UpdateEventExecutor() {
             @Override public void onSuccess(Event event) {

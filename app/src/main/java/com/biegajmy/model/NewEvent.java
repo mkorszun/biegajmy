@@ -14,4 +14,6 @@ public class NewEvent implements Serializable {
     @SerializedName("x") public double x;
     @SerializedName("y") public double y;
     @SerializedName("tags") public List<String> tags;
+    @SerializedName("distance") public int distance;
+    @SerializedName("pace") public double pace;
 }

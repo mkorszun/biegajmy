@@ -18,9 +18,11 @@ public class Event implements Serializable {
     @SerializedName("participants") public ArrayList<User> participants;
     @SerializedName("loc") public EventLocation location;
     @SerializedName("tags") public List<String> tags;
+    @SerializedName("distance") public int distance;
+    @SerializedName("pace") public double pace;
 
     public static Event build(String headline, String description) {
-        Event event  = new Event();
+        Event event = new Event();
         event.headline = headline;
         event.description = description;
         return event;
