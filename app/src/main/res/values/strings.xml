@@ -18,4 +18,17 @@
 
     <string name="event_error_msg">Not possible right now</string>
 
+    <!-- Event Form -->
+    <string name="event_form_headline">Tytuł</string>
+    <string name="event_form_description">Opis treningu</string>
+    <string name="event_form_date">Dzień</string>
+    <string name="event_form_time">Godzina</string>
+    <string name="event_form_duration">Czas trwania [h]</string>
+    <string name="event_form_distance">Dystans [km]</string>
+    <string name="event_form_pace">Tempo [min/km]</string>
+    <string name="event_form_spots">Liczba miejsc</string>
+    <string name="event_form_tags">Tagi</string>
+    <!-- -->
+
+
 </resources>
