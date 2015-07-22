@@ -10,9 +10,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.validators.TextFormValidator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import java.util.HashMap;
+import java.util.Map;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -29,6 +32,7 @@ public abstract class EventFormFragment extends Fragment
     private GoogleMap mMap;
     protected EventDateTime eventDateTime;
 
+    @Bean TextFormValidator validator;
     @Bean protected LocalStorage storage;
     @Bean protected EventMapBuilder eventMap;
 
@@ -43,17 +47,25 @@ public abstract class EventFormFragment extends Fragment
     @ViewById(R.id.form_event_pace) protected TextView pace;
     @SystemService protected LocationManager locationManager;
 
+    //********************************************************************************************//
+    // CALLBACKS
+    //********************************************************************************************//
+
     public abstract void save();
 
     public abstract LatLng location();
+
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
 
     @AfterViews public void setContent() {
         eventDateTime = new EventDateTime();
         if (mMap == null) setUpMap(location());
     }
 
-    @OptionsItem(R.id.action_event_save) public void createEvent() {
-        save();
+    @OptionsItem(R.id.action_event_save) public void createOrUpdateEvent() {
+        if (validator.validate(fields())) save();
     }
 
     @Click(R.id.form_event_time) public void setTime() {
@@ -84,6 +96,7 @@ public abstract class EventFormFragment extends Fragment
         eventTime.setMinute(minute);
         eventTime.setHour(hourOfDay);
         time.setText(eventTime.toString());
+        time.setError(null);
     }
 
     @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -92,7 +105,12 @@ public abstract class EventFormFragment extends Fragment
         eventDate.setMonth(monthOfYear + 1);
         eventDate.setDay(dayOfMonth);
         date.setText(eventDate.toString());
+        date.setError(null);
     }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
 
     private void setUpMap(LatLng loc) {
 
@@ -103,4 +121,21 @@ public abstract class EventFormFragment extends Fragment
             eventMap.setDraggable(true).setInitialPosition(loc).setMap(mMap).setTitle("").build();
         }
     }
+
+    private Map<TextView, Integer> fields() {
+        Map<TextView, Integer> map = new HashMap<>();
+        map.put(headline, R.string.event_form_headline_error_msg);
+        map.put(description, R.string.event_form_description_error_msg);
+        map.put(date, R.string.event_form_date_error_msg);
+        map.put(time, R.string.event_form_time_error_msg);
+        map.put(duration, R.string.event_form_duration_error_msg);
+        map.put(spots, R.string.event_form_spots_error_msg);
+        map.put(tags, R.string.event_form_tags_error_msg);
+        map.put(distance, R.string.event_form_distance_error_msg);
+        map.put(pace, R.string.event_form_pace_error_msg);
+        return map;
+    }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }
