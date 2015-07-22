@@ -15,6 +15,7 @@
         <EditText style="@style/event_form_field"
             android:id="@+id/form_event_headline"
             android:hint="@string/event_form_headline"
+            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_location"/>
 
         <LinearLayout style="@style/event_form_field"
@@ -23,10 +24,12 @@
 
             <EditText style="@style/event_form_datetime_field"
                 android:id="@+id/form_event_date"
+                android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
                 android:hint="@string/event_form_date"/>
 
             <EditText style="@style/event_form_datetime_field"
                 android:id="@+id/form_event_time"
+                android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
                 android:hint="@string/event_form_time"/>
 
         </LinearLayout>
@@ -34,31 +37,37 @@
         <EditText style="@style/event_form_numeric_field"
             android:id="@+id/form_event_distance"
             android:hint="@string/event_form_distance"
+            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_date_time"/>
 
         <EditText style="@style/event_form_decimal_field"
             android:id="@+id/form_event_pace"
             android:hint="@string/event_form_pace"
+            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_distance"/>
 
         <EditText style="@style/event_form_numeric_field"
             android:id="@+id/form_event_duration"
             android:hint="@string/event_form_duration"
+            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_pace"/>
 
         <EditText style="@style/event_form_numeric_field"
             android:id="@+id/form_event_spots"
             android:hint="@string/event_form_spots"
+            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_duration"/>
 
         <EditText style="@style/event_form_multiline_field"
             android:id="@+id/form_event_description"
             android:hint="@string/event_form_description"
+            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_spots"/>
 
         <EditText style="@style/event_form_multiline_field"
             android:id="@+id/form_event_tags"
             android:hint="@string/event_form_tags"
+            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_description"/>
 
     </RelativeLayout>
