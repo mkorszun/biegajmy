@@ -45,7 +45,6 @@ public abstract class EventFormFragment extends Fragment
     @ViewById(R.id.form_event_tags) protected TextView tags;
     @ViewById(R.id.form_event_distance) protected TextView distance;
     @ViewById(R.id.form_event_pace) protected TextView pace;
-    @SystemService protected LocationManager locationManager;
 
     //********************************************************************************************//
     // CALLBACKS

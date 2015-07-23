@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.biegajmy.events.EventMainActivity_;
 import com.biegajmy.model.User;
+import com.biegajmy.splash.SplashActivity_;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -104,7 +105,8 @@ import static com.biegajmy.user.UserUtils.getPhotoUrl;
                         Log.i(TAG, "Age: " + age);
 
                         Intent it =
-                            new Intent(getActivity().getBaseContext(), EventMainActivity_.class);
+                            new Intent(getActivity().getBaseContext(), SplashActivity_.class);
+                        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         if (!storage.hasUser()) {
                             User userData = new User();
@@ -118,6 +120,7 @@ import static com.biegajmy.user.UserUtils.getPhotoUrl;
 
                         storage.updateToken(accessToken);
                         startActivity(it);
+                        getActivity().finish();
                     }
                 }
             }).executeAsync();

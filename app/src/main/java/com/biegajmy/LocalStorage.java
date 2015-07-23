@@ -2,11 +2,13 @@ package com.biegajmy;
 
 import android.content.Context;
 import android.util.Log;
+import com.biegajmy.location.LastLocation;
 import com.biegajmy.model.User;
 import com.snappydb.DB;
 import com.snappydb.DBFactory;
 import com.snappydb.SnappydbException;
 import java.io.Serializable;
+import java.util.Calendar;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -63,6 +65,24 @@ import org.androidannotations.annotations.RootContext;
 
     public void updateToken(String token) {
         this.put("token", token);
+    }
+
+    public LastLocation getLastLocation() {
+        return this.get("last_location", LastLocation.class);
+    }
+
+    public synchronized LastLocation updateLastLocation(double lat, double lng) {
+        LastLocation loc = get("last_location", LastLocation.class);
+        if (loc == null) {
+            loc = new LastLocation(lat, lng);
+        } else {
+            loc.lat = lat;
+            loc.lng = lng;
+        }
+
+        loc.lastUpdate = Calendar.getInstance().getTime().getTime();
+        this.put("last_location", loc);
+        return loc;
     }
 
     public boolean hasUser() {

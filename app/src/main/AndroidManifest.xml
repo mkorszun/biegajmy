@@ -84,8 +84,19 @@
                 android:value=".events.EventListActivity_" />
         </activity>
 
+        <activity
+            android:name=".splash.SplashActivity_"
+            android:screenOrientation="portrait" >
+        </activity>
+
         <service
             android:name=".backend.UserBackendService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <service
+            android:name=".location.LocationService_"
             android:enabled="true"
             android:exported="true" >
         </service>

@@ -1,8 +1,6 @@
 package com.biegajmy.events;
 
 import android.app.Activity;
-import android.location.Location;
-import android.location.LocationManager;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
@@ -21,8 +19,7 @@ import static java.util.Arrays.asList;
     @Bean LocalStorage storage;
 
     @Override public LatLng location() {
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        return new LatLng(location.getLatitude(), location.getLongitude());
+        return storage.getLastLocation().get();
     }
 
     @Override public void save() {

@@ -41,5 +41,12 @@
 
     <!-- -->
 
+    <!-- Splash -->
+    <string name="splash_location_services_dialog_yes">Włącz</string>
+    <string name="splash_location_services_dialog_no">Anuluj</string>
+    <string name="splash_location_services_disabled">Aby kontynuować włącz usługi lokalizacyjne</string>
+    <string name="splash_location_services_waiting">Pobieram twoją ostatnią lokalizację...</string>
+    <!-- -->
+
 
 </resources>
