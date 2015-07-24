@@ -90,7 +90,7 @@
         </activity>
 
         <service
-            android:name=".backend.UserBackendService"
+            android:name=".backend.UserBackendService_"
             android:enabled="true"
             android:exported="true" >
         </service>

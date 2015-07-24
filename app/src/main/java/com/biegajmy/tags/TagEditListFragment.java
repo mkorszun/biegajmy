@@ -33,12 +33,10 @@ public class TagEditListFragment extends Fragment {
             .build();
 
         getChildFragmentManager().beginTransaction().add(R.id.tag_list_container, fr).commit();
-        getActivity().startService(new Intent(getActivity(), UserBackendService.class));
     }
 
     @Override public void onDestroy() {
         super.onDestroy();
-        getActivity().stopService(new Intent(getActivity(), UserBackendService.class));
     }
 
     @AfterViews public void setUp() {

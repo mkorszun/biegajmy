@@ -3,6 +3,7 @@ package com.biegajmy.tags;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import com.biegajmy.R;
+import com.biegajmy.user.UserEventBus;
 import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
@@ -53,7 +54,7 @@ import org.apmem.tools.layouts.FlowLayout;
     }
 
     @Subscribe public void onSaveTags(TagListBus.SaveTagsEvent event) {
-        TagListBus.getInstance().post(new TagListBus.UpdateTagsEvent(tags));
+        TagListBus.getInstance().post(new UserEventBus.UpdateUserTagsEvent(tags));
     }
 
     //********************************************************************************************//

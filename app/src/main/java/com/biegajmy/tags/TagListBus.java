@@ -15,15 +15,6 @@ public class TagListBus extends Bus {
         return bus;
     }
 
-    public static class UpdateTagsEvent {
-
-        public ArrayList<String> tags;
-
-        public UpdateTagsEvent(ArrayList<String> tags) {
-            this.tags = tags;
-        }
-    }
-
     public static class NewTagEvent {
         public String tag;
 
