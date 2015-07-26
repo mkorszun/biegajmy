@@ -7,6 +7,7 @@ import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
+import com.biegajmy.task.GetTokenTask;
 import com.biegajmy.task.GetUserTask;
 import com.biegajmy.task.TaskExecutor;
 import com.biegajmy.task.UpdateUserTask;
@@ -20,7 +21,6 @@ import org.androidannotations.annotations.EService;
 
     private static final String TAG = UserBackendService.class.getName();
 
-    Token token;
     @Bean LocalStorage localStorage;
     Bus userBus = UserEventBus.getInstance();
 
@@ -30,9 +30,7 @@ import org.androidannotations.annotations.EService;
 
     @Override public void onCreate() {
         Log.d(TAG, "Starting user backend service");
-        token = localStorage.getToken2();
         userBus.register(this);
-        syncUserData(null);
     }
 
     @Override public void onDestroy() {
@@ -48,13 +46,13 @@ import org.androidannotations.annotations.EService;
     // Event handlers
     //********************************************************************************************//
 
-    @Subscribe public void updateTags(UserEventBus.UpdateUserTagsEvent event) {
+    @Subscribe public void event(UserEventBus.UpdateUserTagsEvent event) {
         User user = localStorage.getUser();
+        Token token = localStorage.getToken();
         user.setTags(event.tags);
-        localStorage.updateUser(user);
-
         new UpdateUserTask(new TaskExecutor<User>() {
             @Override public void onSuccess(User user) {
+                localStorage.updateUser(user);
                 Log.d(TAG, "Successfully updated user");
             }
 
@@ -64,7 +62,8 @@ import org.androidannotations.annotations.EService;
         }).execute(token.id, token.token, user);
     }
 
-    @Subscribe public void syncUserData(UserEventBus.SyncUserDataEvent event) {
+    @Subscribe public void event(UserEventBus.SyncUserDataEvent event) {
+        Token token = localStorage.getToken();
         new GetUserTask(new TaskExecutor<User>() {
             @Override public void onSuccess(User user) {
                 Log.d(TAG, "Successfully synced user");
@@ -77,8 +76,9 @@ import org.androidannotations.annotations.EService;
         }).execute(token.id, token.token);
     }
 
-    @Subscribe public void updateUserData(UserEventBus.UpdateUserEvent event) {
+    @Subscribe public void event(UserEventBus.UpdateUserEvent event) {
         final User user = event.user;
+        Token token = localStorage.getToken();
         new UpdateUserTask(new TaskExecutor<User>() {
             @Override public void onSuccess(User user) {
                 Log.d(TAG, "Successfully updated user");
@@ -93,6 +93,26 @@ import org.androidannotations.annotations.EService;
         }).execute(token.id, token.token, user);
     }
 
+    @Subscribe public void event(UserEventBus.CheckTokenEvent event) {
+        if (!localStorage.hasToken()) {
+            Log.d(TAG, "Token not available. Requesting it from backend");
+            new GetTokenTask(new TaskExecutor<Token>() {
+                @Override public void onSuccess(Token t) {
+                    Log.d(TAG, "Token request succeeded. Updating token locally");
+                    localStorage.updateToke(t);
+                    userBus.post(new UserEventBus.TokenOKEvent());
+                }
+
+                @Override public void onFailure(Exception e) {
+                    Log.e(TAG, "Token request failed", e);
+                    userBus.post(new UserEventBus.TokenNOKEvent());
+                }
+            }).execute(event.socialToken);
+        } else {
+            Log.d(TAG, "Token already stored locally");
+            userBus.post(new UserEventBus.TokenOKEvent());
+        }
+    }
     //********************************************************************************************//
     //********************************************************************************************//
 }

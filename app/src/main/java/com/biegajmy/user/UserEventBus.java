@@ -47,4 +47,25 @@ public class UserEventBus extends Bus {
     public static class SyncUserDataEvent {
 
     }
+
+    //********************************************************************************************//
+    // Token
+    //********************************************************************************************//
+
+    public static class CheckTokenEvent {
+        public String socialToken;
+
+        public CheckTokenEvent(String socialToken) {
+            this.socialToken = socialToken;
+        }
+    }
+
+    public static class TokenOKEvent {
+    }
+
+    public static class TokenNOKEvent {
+    }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
@@ -19,9 +18,7 @@ import com.biegajmy.tags.TagListFragment;
 import com.biegajmy.tags.TagListFragment_;
 import com.biegajmy.task.JoinEventExecutor;
 import com.biegajmy.task.JoinEventTask;
-import com.biegajmy.user.UserBasicDetailsFragment;
 import com.biegajmy.user.UserBasicDetailsFragment_;
-import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -83,7 +80,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Click(R.id.event_join) public void joinEvent() {
         String eventId = event.id;
-        String token = storage.getToken2().token;
+        String token = storage.getToken().token;
 
         new JoinEventTask(new JoinEventExecutor() {
             @Override public void onSuccess(Event e) {

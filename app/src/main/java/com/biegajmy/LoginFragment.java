@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
-import com.biegajmy.model.Token;
 import com.biegajmy.splash.SplashActivity_;
-import com.biegajmy.task.GetTokenTask;
-import com.biegajmy.task.TaskExecutor;
+import com.biegajmy.user.UserEventBus;
+import com.biegajmy.user.UserEventBus.CheckTokenEvent;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -19,34 +15,39 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
-import java.util.Arrays;
+import com.squareup.otto.Subscribe;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+import org.androidannotations.annotations.res.StringRes;
 
-@EFragment public class LoginFragment extends Fragment {
+@EFragment(R.layout.fragment_login) public class LoginFragment extends Fragment {
 
     private static final String TAG = LoginFragment.class.getName();
 
-    LocalStorage storage;
     private Session session;
-    private LoginButton login;
     private UiLifecycleHelper uiHelper;
     private Session.StatusCallback statusCallback = new SessionStatusCallback();
 
+    @ViewById(R.id.authButton) LoginButton login;
+    @StringRes(R.string.user_token_request_failed_msg) String MSG;
+    @StringArrayRes(R.array.facebook_permissions) String[] PERMISSIONS;
+
+    //********************************************************************************************//
+    // Callbacks
+    //********************************************************************************************//
+
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        storage = new LocalStorage(getActivity().getApplicationContext());
         uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
         uiHelper.onCreate(savedInstanceState);
+        UserEventBus.getInstance().register(this);
     }
 
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
-        login = (LoginButton) rootView.findViewById(R.id.authButton);
-        login.setReadPermissions(Arrays.asList("public_profile", "user_birthday", "user_location"));
+    @AfterViews public void setUp() {
+        login.setReadPermissions(PERMISSIONS);
         login.setFragment(this);
-        return rootView;
     }
 
     @Override public void onResume() {
@@ -71,12 +72,35 @@ import org.androidannotations.annotations.EFragment;
     @Override public void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
+        UserEventBus.getInstance().unregister(this);
     }
 
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         uiHelper.onSaveInstanceState(outState);
     }
+
+    //********************************************************************************************//
+    // Events
+    //********************************************************************************************//
+
+    @Subscribe public void event(UserEventBus.TokenOKEvent event) {
+        UserEventBus.getInstance().post(new UserEventBus.SyncUserDataEvent());
+        final Intent it = new Intent(getActivity(), SplashActivity_.class);
+        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(it);
+        getActivity().finish();
+    }
+
+    @Subscribe public void event(UserEventBus.TokenNOKEvent event) {
+        Toast.makeText(getActivity(), MSG, Toast.LENGTH_LONG).show();
+        getActivity().finish();
+    }
+
+    //********************************************************************************************//
+    // Event handlers
+    //********************************************************************************************//
 
     private void onSessionStateChange(final Session session, SessionState state,
         Exception exception) {
@@ -89,30 +113,8 @@ import org.androidannotations.annotations.EFragment;
 
                 @Override public void onCompleted(GraphUser user, Response response) {
                     if (user != null) {
-
                         String accessToken = session.getAccessToken();
-                        final Intent it = new Intent(getActivity(), SplashActivity_.class);
-                        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                        if (!storage.hasToken2()) {
-
-                            new GetTokenTask(new TaskExecutor<Token>() {
-                                @Override public void onSuccess(Token t) {
-                                    storage.updateToke2(t);
-                                    startActivity(it);
-                                    getActivity().finish();
-                                }
-
-                                @Override public void onFailure(Exception e) {
-                                    Toast.makeText(getActivity(), "Failed to authorize",
-                                        Toast.LENGTH_LONG).show();
-                                    getActivity().finish();
-                                }
-                            }).execute(accessToken);
-                        } else {
-                            startActivity(it);
-                            getActivity().finish();
-                        }
+                        UserEventBus.getInstance().post(new CheckTokenEvent(accessToken));
                     }
                 }
             }).executeAsync();
@@ -143,4 +145,7 @@ import org.androidannotations.annotations.EFragment;
 
         return false;
     }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }

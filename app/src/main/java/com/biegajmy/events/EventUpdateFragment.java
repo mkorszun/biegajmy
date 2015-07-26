@@ -67,7 +67,7 @@ import static java.util.Arrays.asList;
             @Override public void onFailure(Exception e) {
                 Toast.makeText(activity, "Event update failed: " + e, Toast.LENGTH_LONG).show();
             }
-        }).execute(this.event.id, event, storage.getToken2().token);
+        }).execute(this.event.id, event, storage.getToken().token);
     }
 
     @Override public LatLng location() {

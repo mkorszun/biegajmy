@@ -14,7 +14,7 @@ public class LoginActivity extends ActionBarActivity {
         UserBackendService_.intent(getApplication()).start();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, new LoginFragment())
+                .add(R.id.container, new LoginFragment_())
                 .commit();
         }
     }

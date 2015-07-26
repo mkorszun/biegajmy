@@ -67,6 +67,6 @@ public class EventListFragment extends ListFragment {
             @Override public void onFailure(Exception e) {
                 Toast.makeText(activity, "Exception: " + e, Toast.LENGTH_LONG).show();
             }
-        }).execute(storage.getToken2().token, pos.lat, pos.lng, max);
+        }).execute(storage.getToken().token, pos.lat, pos.lng, max);
     }
 }

@@ -39,7 +39,6 @@ import org.androidannotations.annotations.RootContext;
         try {
             return localStorage.getObject(key, clazz);
         } catch (SnappydbException e) {
-            Log.e(TAG, "Failed to get object", e);
             return null;
         }
     }
@@ -60,24 +59,16 @@ import org.androidannotations.annotations.RootContext;
         this.put("user", user);
     }
 
-    //public String getToken() {
-    //    return this.get("token", String.class);
-    //}
-    //
-    //public void updateToken(String token) {
-    //    this.put("token", token);
-    //}
-
-    public Token getToken2() {
-        return this.get("token2", Token.class);
+    public Token getToken() {
+        return this.get("token", Token.class);
     }
 
-    public void updateToke2(Token token) {
-        this.put("token2", token);
+    public void updateToke(Token token) {
+        this.put("token", token);
     }
 
-    public boolean hasToken2() {
-        return getToken2() != null;
+    public boolean hasToken() {
+        return getToken() != null;
     }
 
     public LastLocation getLastLocation() {

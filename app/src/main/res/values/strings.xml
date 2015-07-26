@@ -55,6 +55,7 @@
     <string name="user_form_tags">Moje tagi</string>
 
     <string name="user_update_failed_msg">Aktualnie nie możliwe</string>
+    <string name="user_token_request_failed_msg">Weryfikacja aktualnie nie możliwa</string>
     <!-- -->
 
 
