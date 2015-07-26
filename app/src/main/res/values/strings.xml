@@ -48,5 +48,14 @@
     <string name="splash_location_services_waiting">Pobieram twoją ostatnią lokalizację...</string>
     <!-- -->
 
+    <!-- User -->
+    <string name="user_form_first_name">Imię</string>
+    <string name="user_form_last_name">Nazwisko</string>
+    <string name="user_form_bio">O mnie</string>
+    <string name="user_form_tags">Moje tagi</string>
+
+    <string name="user_update_failed_msg">Aktualnie nie możliwe</string>
+    <!-- -->
+
 
 </resources>

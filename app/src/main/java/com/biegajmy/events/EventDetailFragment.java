@@ -83,7 +83,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Click(R.id.event_join) public void joinEvent() {
         String eventId = event.id;
-        String token = storage.getToken();
+        String token = storage.getToken2().token;
 
         new JoinEventTask(new JoinEventExecutor() {
             @Override public void onSuccess(Event e) {

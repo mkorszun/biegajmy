@@ -1,9 +1,12 @@
 package com.biegajmy.events;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.BottomMenu;
 import com.biegajmy.R;
+import com.biegajmy.backend.UserBackendService_;
+import com.biegajmy.location.LocationService_;
 import com.biegajmy.tags.TagEditListFragment_;
 import com.biegajmy.user.UserDetailsActivity_;
 import org.androidannotations.annotations.AfterViews;
@@ -16,6 +19,12 @@ import org.androidannotations.annotations.ViewById;
 public class EventMainActivity extends ActionBarActivity implements BottomMenu.BottomMenuListener {
 
     @ViewById(R.id.bottom_menu) BottomMenu menu;
+
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        LocationService_.intent(getApplication()).stop();
+        UserBackendService_.intent(getApplication()).stop();
+    }
 
     @AfterViews public void initialize() {
         menu.setListener(this);

@@ -117,7 +117,7 @@ public class EventUserListFragment extends RefreshableListFragment
                 Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
                 setRefreshing(false);
             }
-        }).execute(storage.getUser().id, storage.getToken());
+        }).execute(storage.getToken2().id, storage.getToken2().token);
     }
 
     private void deleteEvent(final int position) {
@@ -132,7 +132,7 @@ public class EventUserListFragment extends RefreshableListFragment
                 String msg = getResources().getString(R.string.event_error_msg);
                 Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
             }
-        }).execute(adapter.get(position).id, storage.getToken());
+        }).execute(adapter.get(position).id, storage.getToken2().token);
     }
 
     private void registerLongClick() {

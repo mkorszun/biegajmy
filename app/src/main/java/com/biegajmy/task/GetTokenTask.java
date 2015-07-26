@@ -3,32 +3,32 @@ package com.biegajmy.task;
 import android.os.AsyncTask;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
-import com.biegajmy.model.User;
+import com.biegajmy.model.Token;
 
-public class GetUserTask extends AsyncTask<String, Void, User> {
+public class GetTokenTask extends AsyncTask<String, Void, Token> {
 
     private Exception exception;
     private TaskExecutor executor;
 
-    public GetUserTask(TaskExecutor executor) {
+    public GetTokenTask(TaskExecutor executor) {
         this.executor = executor;
     }
 
-    @Override protected User doInBackground(String... params) {
+    @Override protected Token doInBackground(String... params) {
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
-            return backend.getUser(params[0], params[1]);
+            return backend.createToken(params[0]);
         } catch (Exception e) {
             this.exception = e;
             return null;
         }
     }
 
-    @Override protected void onPostExecute(User user) {
+    @Override protected void onPostExecute(Token token) {
         if (exception != null) {
             executor.onFailure(exception);
         } else {
-            executor.onSuccess(user);
+            executor.onSuccess(token);
         }
     }
 }

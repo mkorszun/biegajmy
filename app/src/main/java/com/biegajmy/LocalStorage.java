@@ -3,6 +3,7 @@ package com.biegajmy;
 import android.content.Context;
 import android.util.Log;
 import com.biegajmy.location.LastLocation;
+import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
 import com.snappydb.DB;
 import com.snappydb.DBFactory;
@@ -59,12 +60,24 @@ import org.androidannotations.annotations.RootContext;
         this.put("user", user);
     }
 
-    public String getToken() {
-        return this.get("token", String.class);
+    //public String getToken() {
+    //    return this.get("token", String.class);
+    //}
+    //
+    //public void updateToken(String token) {
+    //    this.put("token", token);
+    //}
+
+    public Token getToken2() {
+        return this.get("token2", Token.class);
     }
 
-    public void updateToken(String token) {
-        this.put("token", token);
+    public void updateToke2(Token token) {
+        this.put("token2", token);
+    }
+
+    public boolean hasToken2() {
+        return getToken2() != null;
     }
 
     public LastLocation getLastLocation() {

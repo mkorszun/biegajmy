@@ -11,7 +11,7 @@ import org.androidannotations.annotations.RootContext;
     @RootContext Context context;
 
     public boolean validate(Map<TextView, Integer> form) {
-        boolean result = false;
+        boolean result = true;
 
         for (Map.Entry<TextView, Integer> e : form.entrySet()) {
             String msg = context.getResources().getString(e.getValue());

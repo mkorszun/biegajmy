@@ -1,7 +1,10 @@
 package com.biegajmy.model;
 
-/**
- * Created by mateusz on 13/05/15.
- */
-public class Token {
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+
+public class Token implements Serializable {
+
+    @SerializedName("id") public String id;
+    @SerializedName("token") public String token;
 }

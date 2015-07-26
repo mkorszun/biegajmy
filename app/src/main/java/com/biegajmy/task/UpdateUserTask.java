@@ -4,43 +4,34 @@ import android.os.AsyncTask;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
 import com.biegajmy.model.User;
-import retrofit.client.Header;
-import retrofit.client.Response;
 
-public class UpdateUserTask extends AsyncTask<Object, Void, String> {
+public class UpdateUserTask extends AsyncTask<Object, Void, User> {
 
-    private UpdateUserExecutor executor;
+    private TaskExecutor executor;
     private Exception exception;
 
-    public UpdateUserTask(UpdateUserExecutor executor) {
+    public UpdateUserTask(TaskExecutor executor) {
         this.executor = executor;
     }
 
-    @Override protected String doInBackground(Object... args) {
+    @Override protected User doInBackground(Object... args) {
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
-            Response resp = backend.createUser(args[0].toString(), (User) args[1]);
-            return getUserId(resp);
+            String userId = args[0].toString();
+            String token = args[1].toString();
+            User user = (User) args[2];
+            return backend.updateUser(userId, token, user);
         } catch (Exception e) {
             this.exception = e;
             return null;
         }
     }
 
-    @Override protected void onPostExecute(String v) {
+    @Override protected void onPostExecute(User user) {
         if (exception != null) {
             executor.onFailure(exception);
         } else {
-            executor.onSuccess(v);
+            executor.onSuccess(user);
         }
-    }
-
-    private String getUserId(Response resp) {
-        for (Header h : resp.getHeaders()) {
-            if ("Location".equals(h.getName())) {
-                return h.getValue();
-            }
-        }
-        return null;
     }
 }

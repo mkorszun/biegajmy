@@ -81,7 +81,7 @@
     </style>
 
     <style name="event_form_field">
-        <item name="android:textColor">@color/primary</item>
+        <item name="android:textColor">@color/accent</item>
         <item name="android:textColorHint">@color/primary_light</item>
         <item name="android:maxLength">80</item>
         <item name="android:layout_width">fill_parent</item>
@@ -115,6 +115,27 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">200dp</item>
         <item name="android:name">com.google.android.gms.maps.SupportMapFragment</item>
+    </style>
+    <!-- -->
+
+    <!-- User Form -->
+    <style name="user_photo">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+    </style>
+
+    <style name="user_form_field">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textColorHint">@color/primary_light</item>
+        <item name="android:maxLength">40</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="user_form_multiline_field" parent="user_form_field">
+        <item name="android:maxLength">300</item>
+        <item name="android:inputType">textMultiLine</item>
     </style>
     <!-- -->
 

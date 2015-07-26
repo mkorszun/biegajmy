@@ -54,7 +54,7 @@ import org.apmem.tools.layouts.FlowLayout;
     }
 
     @Subscribe public void onSaveTags(TagListBus.SaveTagsEvent event) {
-        TagListBus.getInstance().post(new UserEventBus.UpdateUserTagsEvent(tags));
+        UserEventBus.getInstance().post(new UserEventBus.UpdateUserTagsEvent(tags));
     }
 
     //********************************************************************************************//

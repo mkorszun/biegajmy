@@ -45,6 +45,6 @@ import static java.util.Arrays.asList;
             @Override public void onFailure(Exception e) {
                 Toast.makeText(activity, "Event creation failed: " + e, Toast.LENGTH_LONG).show();
             }
-        }).execute(storage.getToken(), event);
+        }).execute(storage.getToken2().token, event);
     }
 }

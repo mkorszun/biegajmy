@@ -1,5 +1,6 @@
 package com.biegajmy.user;
 
+import com.biegajmy.model.User;
 import com.squareup.otto.Bus;
 import java.util.ArrayList;
 
@@ -21,6 +22,25 @@ public class UserEventBus extends Bus {
 
         public UpdateUserTagsEvent(ArrayList<String> tags) {
             this.tags = tags;
+        }
+    }
+
+    public static class UpdateUserEvent {
+        public User user;
+
+        public UpdateUserEvent(User user) {
+            this.user = user;
+        }
+    }
+
+    public static class UpdateUserEventOk {
+    }
+
+    public static class UpdateUserEventFailed {
+        public Exception exception;
+
+        public UpdateUserEventFailed(Exception e) {
+            this.exception = e;
         }
     }
 

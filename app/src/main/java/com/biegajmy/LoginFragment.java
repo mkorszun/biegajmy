@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.biegajmy.events.EventMainActivity_;
-import com.biegajmy.model.User;
+import android.widget.Toast;
+import com.biegajmy.model.Token;
 import com.biegajmy.splash.SplashActivity_;
+import com.biegajmy.task.GetTokenTask;
+import com.biegajmy.task.TaskExecutor;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -19,9 +21,6 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import java.util.Arrays;
 import org.androidannotations.annotations.EFragment;
-
-import static com.biegajmy.user.UserUtils.getAge;
-import static com.biegajmy.user.UserUtils.getPhotoUrl;
 
 @EFragment public class LoginFragment extends Fragment {
 
@@ -91,36 +90,29 @@ import static com.biegajmy.user.UserUtils.getPhotoUrl;
                 @Override public void onCompleted(GraphUser user, Response response) {
                     if (user != null) {
 
-                        int age = getAge(user.getBirthday());
-                        String firstName = user.getFirstName();
-                        String lastName = user.getLastName();
-                        String location = user.getLocation().getName();
                         String accessToken = session.getAccessToken();
-
-                        Log.i(TAG, "First Name: " + firstName);
-                        Log.i(TAG, "Last Name: " + lastName);
-                        Log.i(TAG, "Token: " + accessToken);
-                        Log.i(TAG, "Location: " + location);
-                        Log.i(TAG, "Birthday: " + user.getBirthday());
-                        Log.i(TAG, "Age: " + age);
-
-                        Intent it =
-                            new Intent(getActivity().getBaseContext(), SplashActivity_.class);
+                        final Intent it = new Intent(getActivity(), SplashActivity_.class);
                         it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                        if (!storage.hasUser()) {
-                            User userData = new User();
-                            userData.setAge(age);
-                            userData.setFirstName(firstName);
-                            userData.setLastName(lastName);
-                            userData.setLocation(location);
-                            userData.setPhoto_url(getPhotoUrl(user.getId()));
-                            storage.updateUser(userData);
-                        }
+                        if (!storage.hasToken2()) {
 
-                        storage.updateToken(accessToken);
-                        startActivity(it);
-                        getActivity().finish();
+                            new GetTokenTask(new TaskExecutor<Token>() {
+                                @Override public void onSuccess(Token t) {
+                                    storage.updateToke2(t);
+                                    startActivity(it);
+                                    getActivity().finish();
+                                }
+
+                                @Override public void onFailure(Exception e) {
+                                    Toast.makeText(getActivity(), "Failed to authorize",
+                                        Toast.LENGTH_LONG).show();
+                                    getActivity().finish();
+                                }
+                            }).execute(accessToken);
+                        } else {
+                            startActivity(it);
+                            getActivity().finish();
+                        }
                     }
                 }
             }).executeAsync();

@@ -2,6 +2,7 @@ package com.biegajmy.backend;
 
 import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
+import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
 import java.util.List;
 import retrofit.client.Response;
@@ -33,11 +34,16 @@ public interface BackendInterface {
     @DELETE("/event/{event_id}/user") Event leaveEvent(@Path("event_id") String eventId,
         @Query("token") String token) throws BackendError;
 
-    @POST("/user") Response createUser(@Query("token") String token, @Body User user)
-        throws BackendError;
+    // User
+    @PUT("/user/{user_id}") User updateUser(@Path("user_id") String userId,
+        @Query("token") String token, @Body User user) throws BackendError;
 
-    @GET("/user") User getUser(@Query("token") String token) throws BackendError;
+    @GET("/user/{user_id}") User getUser(@Path("user_id") String userId,
+        @Query("token") String token) throws BackendError;
 
     @GET("/user/{user_id}/events") List<Event> listEvents(@Path("user_id") String userId,
         @Query("token") String token) throws BackendError;
+
+    // Token
+    @POST("/token") Token createToken(@Query("facebook_token") String facebook_token);
 }

@@ -38,7 +38,7 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setContent() {
         Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
-        userName.setText(String.format("%s (%d)", user.fullName, user.age));
+        userName.setText(String.format("%s (%d)", user.firstName, 20));
         userBio.setText(user.bio);
     }
 }

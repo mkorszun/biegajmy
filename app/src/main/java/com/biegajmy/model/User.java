@@ -7,24 +7,12 @@ import java.util.List;
 
 public class User implements Serializable {
 
-    public String id = "";
-    @SerializedName("age") public int age;
-    @SerializedName("full_name") public String fullName;
+    @SerializedName("first_name") public String firstName = "";
+    @SerializedName("last_name") public String lastName = "";
     @SerializedName("photo_url") public String photo_url;
-    @SerializedName("firstName") public String firstName = "";
-    @SerializedName("lastName") public String lastName = "";
-    @SerializedName("location") public String location;
 
     @SerializedName("bio") public String bio = "";
     @SerializedName("tags") public List<String> tags = Collections.emptyList();
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getPhoto_url() {
         return photo_url;
@@ -66,18 +54,10 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     @Override public boolean equals(Object o) {
         if (o instanceof User) {
             User user = (User) o;
-            return user.id.equals(this.id);
+            return user.firstName.equals(this.firstName);
         }
         return false;
     }
