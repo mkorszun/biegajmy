@@ -28,7 +28,7 @@ import org.androidannotations.annotations.RootContext;
     public void build() {
 
         if (initialPosition != null) {
-            setInitialPoint();
+            setPosition(initialPosition);
         }
 
         if (draggable) {
@@ -61,6 +61,16 @@ import org.androidannotations.annotations.RootContext;
         return currentPosition;
     }
 
+    public EventMapBuilder setOnClickListener(GoogleMap.OnMapClickListener l) {
+        map.getUiSettings().setAllGesturesEnabled(false);
+        map.setOnMapClickListener(l);
+        return this;
+    }
+
+    public void updateMarker(LatLng loc) {
+        setPosition(loc);
+    }
+
     private void setUpTracking() {
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override public void onMapClick(LatLng latLng) {
@@ -71,11 +81,11 @@ import org.androidannotations.annotations.RootContext;
         });
     }
 
-    private void setInitialPoint() {
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(initialPosition, ZOOM));
+    private void setPosition(LatLng position) {
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(position, ZOOM));
         CameraPosition.Builder builder = new CameraPosition.Builder();
-        CameraPosition cameraPosition = builder.target(initialPosition).zoom(ZOOM).build();
+        CameraPosition cameraPosition = builder.target(position).zoom(ZOOM).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        marker = map.addMarker(new MarkerOptions().position(initialPosition).title(title));
+        marker = map.addMarker(new MarkerOptions().position(position).title(title));
     }
 }

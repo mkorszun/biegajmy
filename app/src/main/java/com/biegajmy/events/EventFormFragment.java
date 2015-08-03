@@ -2,7 +2,7 @@ package com.biegajmy.events;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.location.LocationManager;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.DatePicker;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.location.LocationActivity;
+import com.biegajmy.location.LocationActivity_;
 import com.biegajmy.validators.TextFormValidator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -22,7 +24,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_event_form) @OptionsMenu(R.menu.menu_event_new)
@@ -30,6 +31,7 @@ public abstract class EventFormFragment extends Fragment
     implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private GoogleMap mMap;
+    private LatLng location;
     protected EventDateTime eventDateTime;
 
     @Bean TextFormValidator validator;
@@ -59,8 +61,9 @@ public abstract class EventFormFragment extends Fragment
     //********************************************************************************************//
 
     @AfterViews public void setContent() {
+        location = location();
         eventDateTime = new EventDateTime();
-        if (mMap == null) setUpMap(location());
+        if (mMap == null) setUpMap(location);
     }
 
     @OptionsItem(R.id.action_event_save) public void createOrUpdateEvent() {
@@ -107,6 +110,14 @@ public abstract class EventFormFragment extends Fragment
         date.setError(null);
     }
 
+    @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode == LocationActivity.LOCATION_PROVIDED) {
+            location = data.getParcelableExtra(LocationActivity.LOCATION_ARG);
+            eventMap.updateMarker(location);
+        }
+    }
+
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
@@ -117,8 +128,22 @@ public abstract class EventFormFragment extends Fragment
         Fragment fr = cfm.findFragmentById(R.id.form_event_location);
 
         if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
-            eventMap.setDraggable(true).setInitialPosition(loc).setMap(mMap).setTitle("").build();
+            eventMap.setInitialPosition(loc)
+                .setMap(mMap)
+                .setTitle("")
+                .setOnClickListener(getMapClickListener())
+                .build();
         }
+    }
+
+    private GoogleMap.OnMapClickListener getMapClickListener() {
+        return new GoogleMap.OnMapClickListener() {
+            @Override public void onMapClick(LatLng latLng) {
+                Intent it = new Intent(getActivity(), LocationActivity_.class);
+                it.putExtra(LocationActivity.LOCATION_ARG, location);
+                startActivityForResult(it, 111);
+            }
+        };
     }
 
     private Map<TextView, Integer> fields() {

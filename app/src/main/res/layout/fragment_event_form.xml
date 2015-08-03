@@ -4,7 +4,7 @@
 
     <RelativeLayout style="@style/event_form">
 
-        <fragment style="@style/event_form_map"
+        <fragment style="@style/event_form_map_small"
             android:id="@+id/form_event_location"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
