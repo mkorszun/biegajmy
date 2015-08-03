@@ -48,6 +48,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:windowSoftInputMode="stateHidden"
             android:name=".user.UserDetailsActivity_"
             android:label="@string/title_activity_user_details"
             android:screenOrientation="portrait" >
@@ -67,6 +68,7 @@
                 android:value=".events.EventMainActivity" />
         </activity>
         <activity
+            android:windowSoftInputMode="stateHidden"
             android:name=".events.EventNewActivity_"
             android:label="@string/title_activity_event_new"
             android:parentActivityName=".events.EventMainActivity"
@@ -76,6 +78,7 @@
                 android:value=".events.EventMainActivity" />
         </activity>
         <activity
+            android:windowSoftInputMode="stateHidden"
             android:name=".events.EventUpdateActivity_"
             android:parentActivityName=".events.EventListActivity_"
             android:screenOrientation="portrait" >
