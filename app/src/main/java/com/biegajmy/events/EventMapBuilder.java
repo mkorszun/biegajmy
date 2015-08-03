@@ -25,10 +25,14 @@ import org.androidannotations.annotations.RootContext;
     private String title;
     private boolean draggable = false;
 
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
     public void build() {
 
         if (initialPosition != null) {
-            setPosition(initialPosition);
+            setInitialPositin(initialPosition);
         }
 
         if (draggable) {
@@ -68,8 +72,14 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public void updateMarker(LatLng loc) {
-        setPosition(loc);
+        currentPosition = loc;
+        marker.setPosition(loc);
+        animate(loc);
     }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
 
     private void setUpTracking() {
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -81,11 +91,18 @@ import org.androidannotations.annotations.RootContext;
         });
     }
 
-    private void setPosition(LatLng position) {
+    private void setInitialPositin(LatLng position) {
+        marker = map.addMarker(new MarkerOptions().position(position).title(title));
+        animate(position);
+    }
+
+    private void animate(LatLng position) {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(position, ZOOM));
         CameraPosition.Builder builder = new CameraPosition.Builder();
         CameraPosition cameraPosition = builder.target(position).zoom(ZOOM).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        marker = map.addMarker(new MarkerOptions().position(position).title(title));
     }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }
