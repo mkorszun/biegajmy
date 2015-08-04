@@ -31,7 +31,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         View view = convertView == null ? inflate(getContext(), parent) : convertView;
         ((TextView) view.findViewById(R.id.event_headline)).setText(item.headline);
         ((TextView) view.findViewById(R.id.event_date)).setText(item.dateAndTime);
-        ((TextView) view.findViewById(R.id.event_distance)).setText("20km");
+        ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance+" km");
 
         return view;
     }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.participants.EventParticipantsFragment;
+import com.biegajmy.events.participants.EventParticipantsFragment_;
 import com.biegajmy.model.Event;
 import com.biegajmy.tags.TagListFragment;
 import com.biegajmy.tags.TagListFragment_;
@@ -106,7 +107,10 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void updateEventParticipants() {
-        Fragment fr = EventParticipantsFragment.newInstance(event.id, event.participants);
+        Fragment fr = EventParticipantsFragment_.builder()
+            .arg(EventParticipantsFragment.ARG_EVENT_ID, event.id)
+            .arg(EventParticipantsFragment.ARG_PARTICIPANTS, event.participants)
+            .build();
         fm.beginTransaction().replace(R.id.event_participants_container, fr).commit();
     }
 
