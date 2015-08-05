@@ -19,14 +19,14 @@
                 android:layout_alignParentStart="true"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:background="@color/primary"
                 android:text="JOIN"
                 android:id="@+id/event_join"
                 />
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="100dp"
-                android:text="LOCATION"
+            <fragment style="@style/event_form_map_small"
+                android:layout_marginTop="10dp"
                 android:id="@+id/event_location"
                 android:layout_below="@+id/event_join"
                 />

@@ -125,7 +125,7 @@ public abstract class EventFormFragment extends Fragment
     private void setUpMap(LatLng loc) {
 
         FragmentManager cfm = getChildFragmentManager();
-        Fragment fr = cfm.findFragmentById(R.id.form_event_location);
+        Fragment fr = cfm.findFragmentById(R.id.event_location);
 
         if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
             eventMap.setInitialPosition(loc)

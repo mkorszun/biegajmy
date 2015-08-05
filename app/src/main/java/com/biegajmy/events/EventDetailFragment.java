@@ -20,6 +20,9 @@ import com.biegajmy.tags.TagListFragment_;
 import com.biegajmy.task.JoinEventExecutor;
 import com.biegajmy.task.JoinEventTask;
 import com.biegajmy.user.UserBasicDetailsFragment_;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -30,16 +33,19 @@ import org.androidannotations.annotations.res.StringRes;
 
 @EFragment(R.layout.fragment_event_detail) public class EventDetailFragment extends Fragment {
 
-    public static final String ARG_EVENT = "event";
-    public static final String GEO_QUERY = "geo:%f,%f?q=%f,%f(%s)";
+    public static final String ARG_EVENT = "ARG_EVENT";
+    private static final String GEO_QUERY = "geo:%f,%f?q=%f,%f(%s)";
     private static final String TAG = EventDetailFragment.class.getName();
 
     private Event event;
+    private GoogleMap mMap;
     private boolean isMember;
     private Activity activity;
     private FragmentManager fm;
 
-    @Bean LocalStorage storage;
+    @Bean protected LocalStorage storage;
+    @Bean protected EventMapBuilder eventMap;
+
     @ViewById(R.id.event_duration) protected TextView duration;
     @ViewById(R.id.event_time) protected TextView date;
     @ViewById(R.id.event_spots) protected TextView spots;
@@ -49,6 +55,10 @@ import org.androidannotations.annotations.res.StringRes;
     @StringRes(R.string.event_join_error_msg) protected String ERROR_MSG;
     @StringRes(R.string.event_join) protected String JOIN_TXT;
     @StringRes(R.string.event_leave) protected String LEAVE_TXT;
+
+    //********************************************************************************************//
+    // Callbacks
+    //********************************************************************************************//
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,16 +77,8 @@ import org.androidannotations.annotations.res.StringRes;
             updateEventParticipants();
             updateEventTags();
             updateEventOwner();
+            updateEventLocation();
         }
-    }
-
-    @Click(R.id.event_location) public void showLocation() {
-        Double lat = event.location.coordinates.get(0);
-        Double lon = event.location.coordinates.get(1);
-        String label = event.headline;
-        String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
-        startActivity(intent);
     }
 
     @Click(R.id.event_join) public void joinEvent() {
@@ -96,6 +98,10 @@ import org.androidannotations.annotations.res.StringRes;
             }
         }).execute(token, eventId, !isMember);
     }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
 
     private void updateEventContent() {
         duration.setText(String.valueOf(event.duration));
@@ -126,7 +132,43 @@ import org.androidannotations.annotations.res.StringRes;
         fm.beginTransaction().replace(R.id.event_owner, fr).commit();
     }
 
+    private void updateEventLocation() {
+        double lat = event.location.coordinates.get(0);
+        double lng = event.location.coordinates.get(1);
+        setUpMap(new LatLng(lat, lng));
+    }
+
     private String msgForAction() {
         return isMember ? LEAVE_TXT : JOIN_TXT;
     }
+
+    private void setUpMap(LatLng loc) {
+
+        FragmentManager cfm = getChildFragmentManager();
+        Fragment fr = cfm.findFragmentById(R.id.event_location);
+
+        if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
+            eventMap.setInitialPosition(loc)
+                .setMap(mMap)
+                .setTitle("")
+                .setOnClickListener(getMapClickListener())
+                .build();
+        }
+    }
+
+    private GoogleMap.OnMapClickListener getMapClickListener() {
+        return new GoogleMap.OnMapClickListener() {
+            @Override public void onMapClick(LatLng latLng) {
+                Double lat = event.location.coordinates.get(0);
+                Double lon = event.location.coordinates.get(1);
+                String label = event.headline;
+                String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
+                startActivity(intent);
+            }
+        };
+    }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }
