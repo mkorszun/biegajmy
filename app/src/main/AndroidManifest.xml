@@ -59,6 +59,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:windowSoftInputMode="stateHidden"
             android:name=".events.EventDetailActivity_"
             android:label="@string/title_event_detail"
             android:parentActivityName=".events.EventMainActivity"

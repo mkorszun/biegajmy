@@ -42,13 +42,15 @@ import org.androidannotations.annotations.res.StringRes;
     private boolean isMember;
     private Activity activity;
     private FragmentManager fm;
+    private EventDateTime eventDateTime = new EventDateTime();
 
     @Bean protected LocalStorage storage;
     @Bean protected EventMapBuilder eventMap;
 
-    @ViewById(R.id.event_duration) protected TextView duration;
-    @ViewById(R.id.event_time) protected TextView date;
-    @ViewById(R.id.event_spots) protected TextView spots;
+    @ViewById(R.id.event_date) protected TextView date;
+    @ViewById(R.id.event_time) protected TextView time;
+    @ViewById(R.id.event_pace) protected TextView pace;
+    @ViewById(R.id.event_distance) protected TextView distance;
     @ViewById(R.id.event_description) protected TextView description;
     @ViewById(R.id.event_join) protected Button joinButton;
 
@@ -104,9 +106,11 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     private void updateEventContent() {
-        duration.setText(String.valueOf(event.duration));
-        date.setText(event.dateAndTime);
-        spots.setText(String.valueOf(event.spots));
+        eventDateTime.set(event.dateAndTime);
+        date.setText(eventDateTime.getDate().toString());
+        time.setText(eventDateTime.getTime().toString());
+        pace.setText(event.pace + " MIN/KM");
+        distance.setText(event.distance + " KM");
         description.setText(event.description);
         isMember = event.participants.contains(storage.getUser());
         joinButton.setText(msgForAction());
