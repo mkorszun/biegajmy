@@ -27,8 +27,6 @@ import static java.util.Arrays.asList;
         event.headline = headline.getText().toString();
         event.description = description.getText().toString();
         event.dateAndTime = eventDateTime.toString();
-        event.duration = Integer.valueOf(duration.getText().toString());
-        event.spots = Integer.valueOf(spots.getText().toString());
         event.tags = new LinkedList(asList(tags.getText().toString().split(" ")));
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;

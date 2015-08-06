@@ -42,8 +42,6 @@ public abstract class EventFormFragment extends Fragment
     @ViewById(R.id.form_event_description) protected TextView description;
     @ViewById(R.id.form_event_date) protected TextView date;
     @ViewById(R.id.form_event_time) protected TextView time;
-    @ViewById(R.id.form_event_duration) protected TextView duration;
-    @ViewById(R.id.form_event_spots) protected TextView spots;
     @ViewById(R.id.form_event_tags) protected TextView tags;
     @ViewById(R.id.form_event_distance) protected TextView distance;
     @ViewById(R.id.form_event_pace) protected TextView pace;
@@ -152,8 +150,6 @@ public abstract class EventFormFragment extends Fragment
         map.put(description, R.string.event_form_description_error_msg);
         map.put(date, R.string.event_form_date_error_msg);
         map.put(time, R.string.event_form_time_error_msg);
-        map.put(duration, R.string.event_form_duration_error_msg);
-        map.put(spots, R.string.event_form_spots_error_msg);
         map.put(tags, R.string.event_form_tags_error_msg);
         map.put(distance, R.string.event_form_distance_error_msg);
         map.put(pace, R.string.event_form_pace_error_msg);
