@@ -20,6 +20,14 @@ public class EventMainActivity extends ActionBarActivity implements BottomMenu.B
 
     @ViewById(R.id.bottom_menu) BottomMenu menu;
 
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventListMainFragment fragment = new EventListMainFragment_();
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .commit();
+    }
+
     @Override protected void onDestroy() {
         super.onDestroy();
         LocationService_.intent(getApplication()).stop();

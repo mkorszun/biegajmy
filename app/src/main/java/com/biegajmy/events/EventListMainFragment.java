@@ -16,6 +16,7 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setContent() {
         seekBar.setOnSeekBarChangeListener(this);
+        bus.post(new EventRange(seekBar.getProgress()));
     }
 
     @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
