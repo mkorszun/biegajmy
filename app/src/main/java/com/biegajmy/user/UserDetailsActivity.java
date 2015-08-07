@@ -12,7 +12,7 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.model.User;
-import com.google.common.base.Joiner;
+import com.biegajmy.utils.StringUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import java.util.LinkedList;
@@ -26,8 +26,8 @@ import org.androidannotations.annotations.res.StringRes;
 
 import static java.util.Arrays.asList;
 
-@EActivity(R.layout.activity_user_details) @OptionsMenu(R.menu.menu_user_details)
-public class UserDetailsActivity extends ActionBarActivity {
+@EActivity(R.layout.activity_user_details) @OptionsMenu(R.menu.menu_user_details) public class UserDetailsActivity
+    extends ActionBarActivity {
 
     @Bean LocalStorage storage;
     @ViewById(R.id.userPhoto) ImageView userPhoto;
@@ -61,7 +61,7 @@ public class UserDetailsActivity extends ActionBarActivity {
         firstName.setText(user.firstName);
         lastName.setText(user.lastName);
         bio.setText(user.bio);
-        tags.setText(Joiner.on(" ").join(user.tags));
+        tags.setText(StringUtils.join(user.tags, " "));
     }
 
     @OptionsItem(R.id.action_user_save) void update() {

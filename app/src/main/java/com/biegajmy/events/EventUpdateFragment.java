@@ -8,8 +8,8 @@ import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
 import com.biegajmy.task.UpdateEventExecutor;
 import com.biegajmy.task.UpdateEventTask;
+import com.biegajmy.utils.StringUtils;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.common.base.Joiner;
 import java.util.LinkedList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -38,7 +38,7 @@ import static java.util.Arrays.asList;
         description.setText(event.description);
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
-        tags.setText(Joiner.on(" ").join(event.tags));
+        tags.setText(StringUtils.join(event.tags, " "));
         distance.setText(String.valueOf(event.distance));
         pace.setText(String.valueOf(event.pace));
     }
