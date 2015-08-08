@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.model.Comment;
+import com.squareup.picasso.Picasso;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +31,8 @@ public class CommentsListAdapter extends ArrayAdapter<Comment> {
         View view = convertView == null ? inflate(getContext(), parent) : convertView;
         ((TextView) view.findViewById(R.id.comment_msg)).setText(item.msg);
         ((TextView) view.findViewById(R.id.comment_date)).setText(new Date(item.timestamp).toString());
+        ImageView userPhoto = (ImageView) view.findViewById(R.id.event_comment_user_photo);
+        Picasso.with(this.getContext()).load(item.photoURL).into(userPhoto);
 
         return view;
     }
