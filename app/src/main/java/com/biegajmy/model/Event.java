@@ -20,6 +20,7 @@ public class Event implements Serializable {
     @SerializedName("tags") public List<String> tags;
     @SerializedName("distance") public int distance;
     @SerializedName("pace") public double pace;
+    @SerializedName("comments") public List<Comment> comments;
 
     public static Event build(String headline, String description) {
         Event event = new Event();

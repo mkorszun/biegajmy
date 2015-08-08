@@ -16,33 +16,35 @@ import retrofit.http.Query;
 
 public interface BackendInterface {
 
-    @POST("/event") Response createEvent(@Query("token") String token, @Body NewEvent event)
+    @POST("/event") Response createEvent(@Query("token") String token, @Body NewEvent event) throws BackendError;
+
+    @PUT("/event/{event_id}") Event updateEvent(@Path("event_id") String eventId, @Body NewEvent event,
+        @Query("token") String token);
+
+    @DELETE("/event/{event_id}") Response deleteEvent(@Path("event_id") String eventId, @Query("token") String token)
         throws BackendError;
 
-    @PUT("/event/{event_id}") Event updateEvent(@Path("event_id") String eventId,
-        @Body NewEvent event, @Query("token") String token);
-
-    @DELETE("/event/{event_id}") Response deleteEvent(@Path("event_id") String eventId,
+    @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y, @Query("max") int max,
         @Query("token") String token) throws BackendError;
 
-    @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y,
-        @Query("max") int max, @Query("token") String token) throws BackendError;
+    @PUT("/event/{event_id}/user") Event joinEvent(@Path("event_id") String eventId, @Query("token") String token)
+        throws BackendError;
 
-    @PUT("/event/{event_id}/user") Event joinEvent(@Path("event_id") String eventId,
-        @Query("token") String token) throws BackendError;
+    @DELETE("/event/{event_id}/user") Event leaveEvent(@Path("event_id") String eventId, @Query("token") String token)
+        throws BackendError;
 
-    @DELETE("/event/{event_id}/user") Event leaveEvent(@Path("event_id") String eventId,
+    @PUT("/event/{event_id}/comment/{msg}") Event comment(@Path("event_id") String eventId, @Path("msg") String msg,
         @Query("token") String token) throws BackendError;
 
     // User
-    @PUT("/user/{user_id}") User updateUser(@Path("user_id") String userId,
-        @Query("token") String token, @Body User user) throws BackendError;
+    @PUT("/user/{user_id}") User updateUser(@Path("user_id") String userId, @Query("token") String token,
+        @Body User user) throws BackendError;
 
-    @GET("/user/{user_id}") User getUser(@Path("user_id") String userId,
-        @Query("token") String token) throws BackendError;
+    @GET("/user/{user_id}") User getUser(@Path("user_id") String userId, @Query("token") String token)
+        throws BackendError;
 
-    @GET("/user/{user_id}/events") List<Event> listEvents(@Path("user_id") String userId,
-        @Query("token") String token) throws BackendError;
+    @GET("/user/{user_id}/events") List<Event> listEvents(@Path("user_id") String userId, @Query("token") String token)
+        throws BackendError;
 
     // Token
     @POST("/token") Token createToken(@Query("facebook_token") String facebook_token);

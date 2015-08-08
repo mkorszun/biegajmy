@@ -54,5 +54,9 @@
     <string name="user_token_request_failed_msg">Weryfikacja aktualnie nie możliwa</string>
     <!-- -->
 
+    <!-- Comments -->
+    <string name="event_comment_add_hint">Dodaj komentarz</string>
+    <!-- -->
+
 
 </resources>

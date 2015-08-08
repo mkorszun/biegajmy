@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.comments.CommentsListFragment;
+import com.biegajmy.comments.CommentsListFragment_;
 import com.biegajmy.events.participants.EventParticipantsFragment;
 import com.biegajmy.events.participants.EventParticipantsFragment_;
 import com.biegajmy.model.Event;
@@ -80,6 +82,7 @@ import org.androidannotations.annotations.res.StringRes;
             updateEventTags();
             updateEventOwner();
             updateEventLocation();
+            updateEventComments();
         }
     }
 
@@ -134,6 +137,15 @@ import org.androidannotations.annotations.res.StringRes;
     private void updateEventOwner() {
         UserBasicDetailsFragment_ fr = UserBasicDetailsFragment_.newInstance(event.user);
         fm.beginTransaction().replace(R.id.event_owner, fr).commit();
+    }
+
+    private void updateEventComments() {
+        Fragment fr = CommentsListFragment_.builder()
+            .arg(CommentsListFragment.EVENT_ID_ARG, event.id)
+            .arg(CommentsListFragment.COMMENTS_ARG, new ArrayList(event.comments))
+            .build();
+
+        fm.beginTransaction().replace(R.id.event_comments, fr).commit();
     }
 
     private void updateEventLocation() {
