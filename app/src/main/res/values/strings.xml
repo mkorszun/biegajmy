@@ -17,6 +17,7 @@
     <string name="event_leave">Leave</string>
 
     <string name="event_error_msg">Not possible right now</string>
+    <string name="event_search_error_msg">Ups. Coś się nie udało. Spróbuj jeszcze raz</string>
 
     <!-- Event Form -->
     <string name="event_form_headline">Tytuł</string>
