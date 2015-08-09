@@ -59,5 +59,9 @@
     <string name="event_comment_add_hint">Dodaj komentarz</string>
     <!-- -->
 
+    <!-- Search Settings -->
+    <string name="search_settings_button">FILTRUJ TRENINGI</string>
+    <string name="distance_selector_label">ODLEGŁOŚC STARTU OD CIEBIE / KM</string>
+    <!-- -->
 
 </resources>

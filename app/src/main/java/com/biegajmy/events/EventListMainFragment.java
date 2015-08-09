@@ -1,33 +1,50 @@
 package com.biegajmy.events;
 
 import android.support.v4.app.Fragment;
-import android.widget.SeekBar;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.view.View;
 import com.biegajmy.R;
-import com.squareup.otto.Bus;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_event_list_main) public class EventListMainFragment extends Fragment
-    implements SeekBar.OnSeekBarChangeListener {
+    implements DrawerLayout.DrawerListener {
 
-    private Bus bus = EventListBus.getInstance();
-    @ViewById(R.id.seekBar) protected SeekBar seekBar;
+    @ViewById(R.id.drawer_layout) protected DrawerLayout drawerLayout;
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        drawerLayout.setDrawerListener(null);
+    }
 
     @AfterViews public void setContent() {
-        seekBar.setOnSeekBarChangeListener(this);
-        bus.post(new EventRange(seekBar.getProgress()));
+        drawerLayout.setDrawerListener(this);
     }
 
-    @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-    }
-
-    @Override public void onStartTrackingTouch(SeekBar seekBar) {
+    @Override public void onDrawerSlide(View drawerView, float slideOffset) {
 
     }
 
-    @Override public void onStopTrackingTouch(SeekBar seekBar) {
-        bus.post(new EventRange(seekBar.getProgress()));
+    @Override public void onDrawerOpened(View drawerView) {
+
+    }
+
+    @Override public void onDrawerClosed(View drawerView) {
+
+    }
+
+    @Override public void onDrawerStateChanged(int newState) {
+
+    }
+
+    @Click(R.id.event_search_filter_button) public void settings() {
+        if (drawerLayout.isDrawerOpen(Gravity.END)) {
+            drawerLayout.closeDrawer(Gravity.START);
+        } else {
+            drawerLayout.openDrawer(Gravity.END);
+        }
     }
 }

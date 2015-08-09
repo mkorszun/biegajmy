@@ -22,7 +22,7 @@ import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
 
 public class EventListFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private int lastRange;
+    private int lastRange = 5000;
     private Activity activity;
     private EventListAdapter adapter;
     private LocalStorage storage;

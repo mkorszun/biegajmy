@@ -225,4 +225,50 @@
 
     <!-- -->
 
+    <style name="main_button">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <!-- Search settings -->
+
+    <style name="search_settings">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="search_settings_button" parent="main_button">
+        <item name="android:text">@string/search_settings_button</item>
+    </style>
+
+    <style name="distance_selector_button">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/distance_selector</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="distance_selector_label">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@color/primary_light</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/distance_selector_label</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- -->
+
 </resources>

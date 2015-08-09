@@ -1,25 +1,38 @@
-<RelativeLayout
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content">
-    <SeekBar
-        android:layout_width="fill_parent"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        android:max="10000"
-        android:progress="5000"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_width="wrap_content">
 
-    <fragment
-        android:id="@+id/event_list"
-        android:layout_below="@+id/seekBar"
-        android:name="com.biegajmy.events.EventListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.biegajmy.events.EventMainActivity"
-        tools:layout="@android:layout/list_content"/>
+        <Button style="@style/search_settings_button"
+            android:id="@+id/event_search_filter_button"/>
 
-</RelativeLayout>
+        <fragment
+            android:id="@+id/event_list"
+            android:layout_below="@+id/event_search_filter_button"
+            android:name="com.biegajmy.events.EventListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.biegajmy.events.EventMainActivity"
+            tools:layout="@android:layout/list_content"/>
+
+    </RelativeLayout>
+
+    <LinearLayout style="@style/search_settings"
+        android:id="@+id/search_filter_layout">
+
+        <fragment
+            android:id="@+id/event_search_settings"
+            android:name="com.biegajmy.events.EventSearchSettingsFragment_"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.biegajmy.events.EventUserListMainFragment_"/>
+
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>
