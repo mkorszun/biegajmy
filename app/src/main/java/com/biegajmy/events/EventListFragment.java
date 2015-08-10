@@ -45,6 +45,7 @@ public class EventListFragment extends RefreshableListFragment implements SwipeR
 
     @Override public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getListView().setFastScrollEnabled(true);
         setListShown(true);
     }
 

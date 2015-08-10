@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.model.Event;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EventListAdapter extends ArrayAdapter<Event> {
@@ -28,9 +29,12 @@ public class EventListAdapter extends ArrayAdapter<Event> {
     @Override public View getView(int position, View convertView, ViewGroup parent) {
 
         Event item = getItem(position);
+        EventDateTime dateTime = new EventDateTime();
+        dateTime.set(item.timestamp);
+
         View view = convertView == null ? inflate(getContext(), parent) : convertView;
         ((TextView) view.findViewById(R.id.event_headline)).setText(item.headline);
-        ((TextView) view.findViewById(R.id.event_date)).setText(item.dateAndTime);
+        ((TextView) view.findViewById(R.id.event_date)).setText(dateTime.toString());
         ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance+" km");
 
         return view;

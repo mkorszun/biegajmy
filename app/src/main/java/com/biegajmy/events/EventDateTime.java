@@ -3,6 +3,7 @@ package com.biegajmy.events;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EventDateTime {
 
@@ -41,6 +42,14 @@ public class EventDateTime {
             calendar.setTime(DT_FORMAT.parse(str));
         } catch (ParseException e) {
         }
+    }
+
+    public void set(long timestamp) {
+        calendar.setTime(new Date(timestamp));
+    }
+
+    public long getTimestamp() {
+        return calendar.getTime().getTime();
     }
 
     @Override public String toString() {

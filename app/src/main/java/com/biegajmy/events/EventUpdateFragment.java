@@ -32,7 +32,7 @@ import static java.util.Arrays.asList;
         super.setContent();
 
         activity = getActivity();
-        eventDateTime.set(event.dateAndTime);
+        eventDateTime.set(event.timestamp);
 
         headline.setText(event.headline);
         description.setText(event.description);
@@ -47,7 +47,7 @@ import static java.util.Arrays.asList;
         NewEvent event = new NewEvent();
         event.headline = headline.getText().toString();
         event.description = description.getText().toString();
-        event.dateAndTime = eventDateTime.toString();
+        event.timestamp = eventDateTime.getTimestamp();
         event.tags = new LinkedList(asList(tags.getText().toString().split(" ")));
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;

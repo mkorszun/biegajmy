@@ -109,7 +109,7 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     private void updateEventContent() {
-        eventDateTime.set(event.dateAndTime);
+        eventDateTime.set(event.timestamp);
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
         pace.setText(event.pace + " MIN/KM");

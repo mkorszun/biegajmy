@@ -10,7 +10,7 @@ public class Event implements Serializable {
     @SerializedName("_id") public String id;
     @SerializedName("user") public User user;
     @SerializedName("spots") public int spots;
-    @SerializedName("date_and_time") public String dateAndTime;
+    @SerializedName("timestamp") public long timestamp;
     @SerializedName("headline") public String headline;
     @SerializedName("cost") public double cost;
     @SerializedName("duration") public int duration;
