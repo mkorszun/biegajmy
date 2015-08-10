@@ -269,6 +269,18 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="event_main_tabs">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/primary_material_light</item>
+    </style>
+
+    <style name="event_main_pager">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
     <!-- -->
 
 </resources>

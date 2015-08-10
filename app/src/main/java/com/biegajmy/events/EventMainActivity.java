@@ -1,65 +1,55 @@
 package com.biegajmy.events;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import com.biegajmy.BottomMenu;
 import com.biegajmy.R;
 import com.biegajmy.backend.UserBackendService_;
+import com.biegajmy.general.SlidingTabLayout;
+import com.biegajmy.general.ViewPagerAdapter;
 import com.biegajmy.location.LocationService_;
-import com.biegajmy.tags.TagEditListFragment_;
 import com.biegajmy.user.UserDetailsActivity_;
+import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_event_list) @OptionsMenu(R.menu.menu_event_list)
-public class EventMainActivity extends ActionBarActivity implements BottomMenu.BottomMenuListener {
+import static java.util.Arrays.asList;
 
-    @ViewById(R.id.bottom_menu) BottomMenu menu;
+@EActivity(R.layout.activity_event_list) @OptionsMenu(R.menu.menu_event_list) public class EventMainActivity
+    extends ActionBarActivity {
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventListMainFragment fragment = new EventListMainFragment_();
-        getSupportFragmentManager().beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .commit();
+    private static final String[] OPTIONS = new String[] { "Szukaj", "Dodaj" };
+    @ViewById(R.id.event_main_pager) protected ViewPager pager;
+    @ViewById(R.id.event_main_tabs) protected SlidingTabLayout tabs;
+
+    @AfterViews public void initialize() {
+        FragmentManager fm = getSupportFragmentManager();
+        pager.setAdapter(new ViewPagerAdapter(fm, OPTIONS, getFragments()));
+
+        tabs.setDistributeEvenly(true);
+        tabs.setCustomTabColorizer(null);
+        tabs.setCustomTabView(R.layout.tab_view_layout, R.id.tab_custom_layout);
+        tabs.setViewPager(pager);
     }
 
     @Override protected void onDestroy() {
         super.onDestroy();
+
         LocationService_.intent(getApplication()).stop();
         UserBackendService_.intent(getApplication()).stop();
-    }
-
-    @AfterViews public void initialize() {
-        menu.setListener(this);
-    }
-
-    @Override public void onAllEvents() {
-        EventListMainFragment fragment = new EventListMainFragment_();
-        getSupportFragmentManager().beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .commit();
-    }
-
-    @Override public void onUserEvents() {
-        EventUserListMainFragment_ fragment = new EventUserListMainFragment_();
-        getSupportFragmentManager().beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .commit();
-    }
-
-    @Override public void onUserTags() {
-        TagEditListFragment_ fragment = new TagEditListFragment_();
-        getSupportFragmentManager().beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .commit();
+        tabs.setViewPager(null);
     }
 
     @OptionsItem(R.id.action_user_details) void editUser() {
         startActivity(new Intent(this, UserDetailsActivity_.class));
+    }
+
+    private List<Fragment> getFragments() {
+        return asList(new Fragment[] { new EventListMainFragment_(), new EventUserListMainFragment_() });
     }
 }
