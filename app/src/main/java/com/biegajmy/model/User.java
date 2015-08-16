@@ -7,6 +7,7 @@ import java.util.List;
 
 public class User implements Serializable {
 
+    @SerializedName("id") public String id;
     @SerializedName("first_name") public String firstName = "";
     @SerializedName("last_name") public String lastName = "";
     @SerializedName("photo_url") public String photo_url;
@@ -57,7 +58,7 @@ public class User implements Serializable {
     @Override public boolean equals(Object o) {
         if (o instanceof User) {
             User user = (User) o;
-            return user.firstName.equals(this.firstName);
+            return user.id.equals(this.id);
         }
         return false;
     }
