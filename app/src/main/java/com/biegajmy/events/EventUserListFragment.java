@@ -25,8 +25,9 @@ import com.biegajmy.task.ListUserEventExecutor;
 import com.biegajmy.task.ListUserEventTask;
 import java.util.List;
 
-public class EventUserListFragment extends RefreshableListFragment
-    implements SwipeRefreshLayout.OnRefreshListener {
+import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
+
+public class EventUserListFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = EventUserListFragment.class.getName();
 
@@ -45,8 +46,7 @@ public class EventUserListFragment extends RefreshableListFragment
         storage = new LocalStorage(getActivity());
     }
 
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         activity = getActivity();
         adapter = new EventListAdapter(activity);
@@ -65,9 +65,18 @@ public class EventUserListFragment extends RefreshableListFragment
 
     @Override public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
-        Intent it = new Intent(activity, EventUpdateActivity_.class);
-        it.putExtra(EventUpdateFragment.ARG_EVENT, adapter.get(position));
-        startActivity(it);
+
+        Event event = adapter.get(position);
+
+        if (event.user.equals(storage.getUser())) {
+            Intent it = new Intent(activity, EventUpdateActivity_.class);
+            it.putExtra(EventUpdateFragment.ARG_EVENT, event);
+            startActivity(it);
+        } else {
+            Intent detailIntent = new Intent(activity, EventDetailActivity_.class);
+            detailIntent.putExtra(ARG_EVENT, event);
+            startActivity(detailIntent);
+        }
     }
 
     //********************************************************************************************//
@@ -137,8 +146,7 @@ public class EventUserListFragment extends RefreshableListFragment
 
     private void registerLongClick() {
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
-                long id) {
+            @Override public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (actionMode != null) {
                     return false;
