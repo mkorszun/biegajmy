@@ -26,9 +26,8 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_event_form) @OptionsMenu(R.menu.menu_event_new)
-public abstract class EventFormFragment extends Fragment
-    implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+@EFragment(R.layout.fragment_event_form) @OptionsMenu(R.menu.menu_event_new) public abstract class EventFormFragment
+    extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private GoogleMap mMap;
     private LatLng location;
@@ -147,10 +146,10 @@ public abstract class EventFormFragment extends Fragment
     private Map<TextView, Integer> fields() {
         Map<TextView, Integer> map = new HashMap<>();
         map.put(headline, R.string.event_form_headline_error_msg);
-        map.put(description, R.string.event_form_description_error_msg);
+        //map.put(description, R.string.event_form_description_error_msg);
         map.put(date, R.string.event_form_date_error_msg);
         map.put(time, R.string.event_form_time_error_msg);
-        map.put(tags, R.string.event_form_tags_error_msg);
+        //map.put(tags, R.string.event_form_tags_error_msg);
         map.put(distance, R.string.event_form_distance_error_msg);
         map.put(pace, R.string.event_form_pace_error_msg);
         return map;
