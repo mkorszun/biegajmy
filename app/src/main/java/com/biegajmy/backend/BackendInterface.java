@@ -33,7 +33,7 @@ public interface BackendInterface {
     @DELETE("/event/{event_id}/user") Event leaveEvent(@Path("event_id") String eventId, @Query("token") String token)
         throws BackendError;
 
-    @PUT("/event/{event_id}/comment/{msg}") Event comment(@Path("event_id") String eventId, @Path("msg") String msg,
+    @PUT("/event/{event_id}/comment") Event comment(@Path("event_id") String eventId, @Query("msg") String msg,
         @Query("token") String token) throws BackendError;
 
     // User
