@@ -208,7 +208,8 @@
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
     </style>
 
     <style name="event_comment_list_item_text_view">
@@ -216,6 +217,14 @@
         <item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="event_comment_list_item_text_view_date" parent="event_comment_list_item_text_view">
+        <item name="android:textSize">13dp</item>
+    </style>
+
+    <style name="event_comment_list_item_text_view_user_name" parent="event_comment_list_item_text_view">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="event_comment_list_item_user_photo">

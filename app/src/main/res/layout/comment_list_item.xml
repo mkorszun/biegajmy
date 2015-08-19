@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/event_comment_list_item_layout">
 
     <com.pkmmte.view.CircularImageView style="@style/event_comment_list_item_user_photo"
         android:id="@+id/event_comment_user_photo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:border="true"
-        app:border_color="@color/primary_light"
-        app:border_width="4dp"/>
+        android:layout_alignParentTop="true"/>
 
     <TextView style="@style/event_comment_list_item_text_view"
         android:id="@+id/comment_msg"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/event_comment_user_photo"/>
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/event_comment_user_photo"/>
 
-    <TextView style="@style/event_comment_list_item_text_view"
+    <TextView style="@style/event_comment_list_item_text_view_date"
         android:id="@+id/comment_date"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/event_comment_user_photo"
+        android:layout_below="@+id/comment_msg"/>
 
 </RelativeLayout>

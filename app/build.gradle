@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.5"
+        versionName "1.6"
         multiDexEnabled true
     }
     buildTypes {
@@ -54,6 +54,7 @@ dependencies {
     compile 'com.veinhorn.tagview:library:1.0.3@aar'
     compile 'org.apmem.tools:layouts:1.9@aar'
     compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'joda-time:joda-time:2.3'
 }
 
 apt {

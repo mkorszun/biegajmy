@@ -9,4 +9,5 @@ public class Comment implements Serializable {
     @SerializedName("msg") public String msg;
     @SerializedName("date") public long timestamp;
     @SerializedName("photo_url") public String photoURL;
+    @SerializedName("user_name") public String userName = "Anonymous";
 }
