@@ -34,4 +34,28 @@
             android:id="@+id/fifty_km"/>
     </LinearLayout>
 
+    <RelativeLayout
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView style="@style/tag_selector_label"
+            android:id="@+id/tag_label"/>
+
+        <EditText style="@style/tag_selector_edit_text"
+            android:id="@+id/tag_edit_text"
+            android:layout_below="@+id/tag_label"
+            android:layout_toLeftOf="@+id/tag_edit_confirmation"/>
+
+        <ImageButton style="@style/tag_selector_confirmation_button"
+            android:id="@+id/tag_edit_confirmation"
+            android:layout_below="@+id/tag_label"
+            android:layout_alignParentRight="true"/>
+
+        <TextView style="@style/tag_recommendation_label"
+            android:id="@+id/tag_recommendation_label"
+            android:layout_below="@+id/tag_edit_confirmation"/>
+
+    </RelativeLayout>
+
 </LinearLayout>

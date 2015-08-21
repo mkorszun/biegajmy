@@ -62,6 +62,8 @@
     <!-- Search Settings -->
     <string name="search_settings_button">FILTRUJ TRENINGI</string>
     <string name="distance_selector_label">ODLEGŁOŚC STARTU OD CIEBIE / KM</string>
+    <string name="tag_selector_label">ZNACZNIKI</string>
+    <string name="tag_recommendation_label">POPULARNE W TWOJEJ OKOLICY</string>
     <!-- -->
 
 </resources>

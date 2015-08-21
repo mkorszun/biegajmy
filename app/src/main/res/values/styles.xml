@@ -248,9 +248,10 @@
     <!-- Search settings -->
 
     <style name="search_settings">
+        <item name="android:padding">10dp</item>
         <item name="android:background">@android:color/white</item>
         <item name="android:layout_gravity">end</item>
-        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_width">300dp</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:orientation">horizontal</item>
     </style>
@@ -277,6 +278,31 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="tag_selector_label" parent="distance_selector_label">
+        <item name="android:text">@string/tag_selector_label</item>
+    </style>
+
+    <style name="tag_recommendation_label" parent="distance_selector_label">
+        <item name="android:text">@string/tag_recommendation_label</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+    <style name="tag_selector_edit_text">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+
+    <style name="tag_selector_confirmation_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:src">@drawable/ic_check_grey600_36dp</item>
+    </style>
+
+    <!-- -->
 
     <style name="event_main_tabs">
         <item name="android:layout_width">match_parent</item>
