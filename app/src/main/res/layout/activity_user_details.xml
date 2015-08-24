@@ -35,15 +35,24 @@
 
     </LinearLayout>
 
+    <EditText style="@style/user_form_field"
+        android:id="@+id/telephone"
+        android:layout_below="@+id/full_Name"
+        android:hint="@string/user_form_telephone"/>
+
+    <EditText style="@style/user_form_field"
+        android:id="@+id/www"
+        android:layout_below="@+id/telephone"
+        android:hint="@string/user_form_www"/>
+
+    <EditText style="@style/user_form_field"
+        android:id="@+id/email"
+        android:layout_below="@+id/www"
+        android:hint="@string/user_form_email"/>
 
     <EditText style="@style/user_form_multiline_field"
         android:id="@+id/bio"
-        android:layout_below="@+id/full_Name"
+        android:layout_below="@+id/email"
         android:hint="@string/user_form_bio"/>
-
-    <EditText style="@style/user_form_multiline_field"
-        android:id="@+id/tags"
-        android:layout_below="@+id/bio"
-        android:hint="@string/user_form_tags"/>
 
 </RelativeLayout>

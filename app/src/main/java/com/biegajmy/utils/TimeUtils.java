@@ -34,6 +34,8 @@ public class TimeUtils {
     }
 
     public static TimeDiff getDiff(Date date1, Date date2) {
+
+        if (date1.after(date2)) return new TimeDiff(0, "");
         Interval interval = new Interval(date1.getTime(), date2.getTime());
         Period period = interval.toPeriod();
 

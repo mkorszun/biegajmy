@@ -49,7 +49,6 @@ import org.androidannotations.annotations.EService;
     @Subscribe public void event(UserEventBus.UpdateUserTagsEvent event) {
         User user = localStorage.getUser();
         Token token = localStorage.getToken();
-        user.setTags(event.tags);
         new UpdateUserTask(new TaskExecutor<User>() {
             @Override public void onSuccess(User user) {
                 localStorage.updateUser(user);
