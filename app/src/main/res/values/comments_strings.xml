@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="comment_add_failed_msg">Aktualnie niemożliwe</string>
+    <string name="comment_add_hint">Dodaj komentarz</string>
+    <string name="comment_label">KOMENTARZE</string>
+</resources>

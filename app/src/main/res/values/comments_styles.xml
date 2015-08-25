@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="event_comment_layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="event_comment_add_field">
+        <item name="android:hint">@string/comment_add_hint</item>
+        <item name="android:lines">1</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="event_comment_list">
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:focusable">false</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="event_comment_list_item_layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="event_comment_list_item_text_view">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="event_comment_list_item_text_view_date" parent="event_comment_list_item_text_view">
+        <item name="android:textSize">13dp</item>
+    </style>
+
+    <style name="event_comment_list_item_text_view_user_name" parent="event_comment_list_item_text_view">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="event_comment_list_item_user_photo">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+    </style>
+
+    <style name="event_main_comment_list" parent="event_comment_list">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:transcriptMode">alwaysScroll</item>
+        <item name="android:stackFromBottom">true</item>
+    </style>
+
+    <style name="event_comment_add_layout">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="event_main_comment_add_field" parent="event_comment_add_field">
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColorHint">#ffffff</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/primary_light</item>
+    </style>
+
+    <style name="event_main_comment_add_button">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:src">@drawable/ic_check_white_36dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+</resources>

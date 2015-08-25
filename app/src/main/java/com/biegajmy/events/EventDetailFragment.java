@@ -14,6 +14,7 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.comments.CommentsListFragment;
 import com.biegajmy.comments.CommentsListFragment_;
+import com.biegajmy.comments.CommentsListPlaceholderFragment_;
 import com.biegajmy.events.participants.EventParticipantsFragment;
 import com.biegajmy.events.participants.EventParticipantsFragment_;
 import com.biegajmy.model.Event;
@@ -140,7 +141,7 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void updateEventComments() {
-        Fragment fr = CommentsListFragment_.builder()
+        Fragment fr = CommentsListPlaceholderFragment_.builder()
             .arg(CommentsListFragment.EVENT_ID_ARG, event.id)
             .arg(CommentsListFragment.COMMENTS_ARG, new ArrayList(event.comments))
             .build();
