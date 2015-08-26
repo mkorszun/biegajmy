@@ -76,10 +76,10 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     private void addComment(String comment) {
-        new CommentEventTask(new TaskExecutor<Event>() {
-            @Override public void onSuccess(Event event) {
+        new CommentEventTask(new TaskExecutor<List<Comment>>() {
+            @Override public void onSuccess(List<Comment> comments) {
                 adapter.clear();
-                adapter.addAll(event.comments);
+                adapter.addAll(comments);
                 adapter.notifyDataSetChanged();
             }
 

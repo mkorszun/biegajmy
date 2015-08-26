@@ -1,5 +1,6 @@
 package com.biegajmy.backend;
 
+import com.biegajmy.model.CommentList;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
 import com.biegajmy.model.Token;
@@ -33,7 +34,7 @@ public interface BackendInterface {
     @DELETE("/event/{event_id}/user") Event leaveEvent(@Path("event_id") String eventId, @Query("token") String token)
         throws BackendError;
 
-    @PUT("/event/{event_id}/comment") Event comment(@Path("event_id") String eventId, @Query("msg") String msg,
+    @PUT("/event/{event_id}/comment") CommentList comment(@Path("event_id") String eventId, @Query("msg") String msg,
         @Query("token") String token) throws BackendError;
 
     // User
