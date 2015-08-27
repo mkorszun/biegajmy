@@ -5,19 +5,18 @@ import android.support.v4.app.Fragment;
 import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.model.User;
-import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
+import de.hdodenhof.circleimageview.CircleImageView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_user_basic_details) public class UserBasicDetailsFragment
-    extends Fragment {
+@EFragment(R.layout.fragment_user_basic_details) public class UserBasicDetailsFragment extends Fragment {
 
     private static final String ARG_USER = "ARG_USER";
     private User user;
 
-    @ViewById(R.id.user_photo) CircularImageView userPhoto;
+    @ViewById(R.id.user_photo) CircleImageView userPhoto;
     @ViewById(R.id.user_name) TextView userName;
     @ViewById(R.id.user_bio) TextView userBio;
 
@@ -34,6 +33,10 @@ import org.androidannotations.annotations.ViewById;
         if (getArguments() != null) {
             user = (User) getArguments().getSerializable(ARG_USER);
         }
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
     }
 
     @AfterViews public void setContent() {
