@@ -71,10 +71,21 @@ import org.androidannotations.annotations.RootContext;
         return this;
     }
 
+    public EventMapBuilder setOnMarkerClickListener(GoogleMap.OnMarkerClickListener l) {
+        map.setOnMarkerClickListener(l);
+        return this;
+    }
+
     public void updateMarker(LatLng loc) {
         currentPosition = loc;
         marker.setPosition(loc);
         animate(loc);
+    }
+
+    public void clear() {
+        setOnClickListener(null);
+        setOnMarkerClickListener(null);
+        map.clear();
     }
 
     //********************************************************************************************//

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -13,7 +14,6 @@ import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.comments.CommentsListFragment;
-import com.biegajmy.comments.CommentsListFragment_;
 import com.biegajmy.comments.CommentsListPlaceholderFragment_;
 import com.biegajmy.events.participants.EventParticipantsFragment;
 import com.biegajmy.events.participants.EventParticipantsFragment_;
@@ -26,6 +26,7 @@ import com.biegajmy.user.UserBasicDetailsFragment_;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -41,7 +42,6 @@ import org.androidannotations.annotations.res.StringRes;
     private static final String TAG = EventDetailFragment.class.getName();
 
     private Event event;
-    private GoogleMap mMap;
     private boolean isMember;
     private Activity activity;
     private FragmentManager fm;
@@ -96,6 +96,7 @@ import org.androidannotations.annotations.res.StringRes;
                 EventDetailFragment.this.event = e;
                 EventListBus.getInstance().post(e);
                 updateEventContent();
+                updateEventComments();
             }
 
             @Override public void onFailure(Exception e) {
@@ -103,6 +104,13 @@ import org.androidannotations.annotations.res.StringRes;
                 Log.e(TAG, String.format("%s failed", msgForAction()), e);
             }
         }).execute(token, eventId, !isMember);
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        eventMap.clear();
+        activity = null;
+        fm = null;
     }
 
     //********************************************************************************************//
@@ -141,12 +149,17 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void updateEventComments() {
-        Fragment fr = CommentsListPlaceholderFragment_.builder()
-            .arg(CommentsListFragment.EVENT_ID_ARG, event.id)
-            .arg(CommentsListFragment.COMMENTS_ARG, new ArrayList(event.comments))
-            .build();
+        if (isMember) {
+            Fragment fr = CommentsListPlaceholderFragment_.builder()
+                .arg(CommentsListFragment.EVENT_ID_ARG, event.id)
+                .arg(CommentsListFragment.COMMENTS_ARG, new ArrayList(event.comments))
+                .build();
 
-        fm.beginTransaction().replace(R.id.event_comments, fr).commit();
+            fm.beginTransaction().replace(R.id.event_comments, fr).commit();
+        } else {
+            Fragment fr = fm.findFragmentById(R.id.event_comments);
+            if (fr != null) fm.beginTransaction().remove(fr).commit();
+        }
     }
 
     private void updateEventLocation() {
@@ -164,26 +177,41 @@ import org.androidannotations.annotations.res.StringRes;
         FragmentManager cfm = getChildFragmentManager();
         Fragment fr = cfm.findFragmentById(R.id.event_location);
 
+        GoogleMap mMap;
         if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
             eventMap.setInitialPosition(loc)
                 .setMap(mMap)
                 .setTitle("")
+                .setOnMarkerClickListener(getMarkerClickListener())
                 .setOnClickListener(getMapClickListener())
                 .build();
         }
     }
 
-    private GoogleMap.OnMapClickListener getMapClickListener() {
-        return new GoogleMap.OnMapClickListener() {
-            @Override public void onMapClick(LatLng latLng) {
-                Double lat = event.location.coordinates.get(0);
-                Double lon = event.location.coordinates.get(1);
-                String label = event.headline;
-                String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
-                startActivity(intent);
+    @NonNull private GoogleMap.OnMarkerClickListener getMarkerClickListener() {
+        return new GoogleMap.OnMarkerClickListener() {
+            @Override public boolean onMarkerClick(Marker marker) {
+                startGoogleMaps();
+                return true;
             }
         };
+    }
+
+    @NonNull private GoogleMap.OnMapClickListener getMapClickListener() {
+        return new GoogleMap.OnMapClickListener() {
+            @Override public void onMapClick(LatLng latLng) {
+                startGoogleMaps();
+            }
+        };
+    }
+
+    private void startGoogleMaps() {
+        Double lat = event.location.coordinates.get(0);
+        Double lon = event.location.coordinates.get(1);
+        String label = event.headline;
+        String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
+        startActivity(intent);
     }
 
     //********************************************************************************************//

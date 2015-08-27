@@ -3,6 +3,7 @@ package com.biegajmy.events;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.DatePicker;
@@ -16,6 +17,7 @@ import com.biegajmy.validators.TextFormValidator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import java.util.HashMap;
 import java.util.Map;
 import org.androidannotations.annotations.AfterViews;
@@ -29,7 +31,6 @@ import org.androidannotations.annotations.ViewById;
 @EFragment(R.layout.fragment_event_form) @OptionsMenu(R.menu.menu_event_new) public abstract class EventFormFragment
     extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    private GoogleMap mMap;
     private LatLng location;
     protected EventDateTime eventDateTime;
 
@@ -60,7 +61,7 @@ import org.androidannotations.annotations.ViewById;
     @AfterViews public void setContent() {
         location = location();
         eventDateTime = new EventDateTime();
-        if (mMap == null) setUpMap(location);
+        setUpMap(location);
     }
 
     @OptionsItem(R.id.action_event_save) public void createOrUpdateEvent() {
@@ -115,6 +116,11 @@ import org.androidannotations.annotations.ViewById;
         }
     }
 
+    @Override public void onDestroy() {
+        super.onDestroy();
+        eventMap.clear();
+    }
+
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
@@ -124,32 +130,45 @@ import org.androidannotations.annotations.ViewById;
         FragmentManager cfm = getChildFragmentManager();
         Fragment fr = cfm.findFragmentById(R.id.event_location);
 
+        GoogleMap mMap;
         if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
             eventMap.setInitialPosition(loc)
                 .setMap(mMap)
                 .setTitle("")
+                .setOnMarkerClickListener(getMarkerClickListener())
                 .setOnClickListener(getMapClickListener())
                 .build();
         }
     }
 
-    private GoogleMap.OnMapClickListener getMapClickListener() {
-        return new GoogleMap.OnMapClickListener() {
-            @Override public void onMapClick(LatLng latLng) {
-                Intent it = new Intent(getActivity(), LocationActivity_.class);
-                it.putExtra(LocationActivity.LOCATION_ARG, location);
-                startActivityForResult(it, 111);
+    @NonNull private GoogleMap.OnMarkerClickListener getMarkerClickListener() {
+        return new GoogleMap.OnMarkerClickListener() {
+            @Override public boolean onMarkerClick(Marker marker) {
+                startMapAcitivity();
+                return true;
             }
         };
+    }
+
+    @NonNull private GoogleMap.OnMapClickListener getMapClickListener() {
+        return new GoogleMap.OnMapClickListener() {
+            @Override public void onMapClick(LatLng latLng) {
+                startMapAcitivity();
+            }
+        };
+    }
+
+    private void startMapAcitivity() {
+        Intent it = new Intent(getActivity(), LocationActivity_.class);
+        it.putExtra(LocationActivity.LOCATION_ARG, location);
+        startActivityForResult(it, 111);
     }
 
     private Map<TextView, Integer> fields() {
         Map<TextView, Integer> map = new HashMap<>();
         map.put(headline, R.string.event_form_headline_error_msg);
-        //map.put(description, R.string.event_form_description_error_msg);
         map.put(date, R.string.event_form_date_error_msg);
         map.put(time, R.string.event_form_time_error_msg);
-        //map.put(tags, R.string.event_form_tags_error_msg);
         map.put(distance, R.string.event_form_distance_error_msg);
         map.put(pace, R.string.event_form_pace_error_msg);
         return map;
