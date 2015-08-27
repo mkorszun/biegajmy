@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "1.10"
+        versionName "1.11"
         multiDexEnabled true
     }
     buildTypes {
@@ -22,9 +22,11 @@ android {
     productFlavors {
         dev {
             buildConfigField "String", "BACKEND_URL", "\"https://development-biegajmy.cloudcontrolled.com/\""
+            buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
         }
         prod {
             buildConfigField "String", "BACKEND_URL", "\"https://biegajmy.cloudcontrolled.com/\""
+            buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
         }
     }
 }
@@ -34,6 +36,9 @@ def AAVersion = '3.3.1'
 repositories {
     maven {
         url "http://dl.bintray.com/veinhorn/maven"
+    }
+    maven {
+        url "https://mint.splunk.com/gradle/"
     }
 }
 
@@ -55,6 +60,7 @@ dependencies {
     compile 'org.apmem.tools:layouts:1.9@aar'
     compile 'com.pkmmte.view:circularimageview:1.1'
     compile 'joda-time:joda-time:2.3'
+    compile "com.splunk.mint:mint:4.2.1"
 }
 
 apt {
