@@ -59,7 +59,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:windowSoftInputMode="stateHidden"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".events.EventDetailActivity_"
             android:label="@string/title_event_detail"
             android:launchMode="singleTop"
@@ -101,7 +101,7 @@
 
         <activity
             android:label="@string/comment_label"
-            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:name=".comments.CommentsListActivity_"
             android:parentActivityName=".events.EventDetailActivity_"
             android:screenOrientation="portrait">

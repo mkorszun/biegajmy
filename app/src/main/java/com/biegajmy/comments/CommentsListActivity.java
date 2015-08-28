@@ -14,6 +14,7 @@ import org.androidannotations.annotations.EActivity;
 
     public static final String EVENT_ID_ARG = "EVENT_ID_ARG";
     public static final String COMMENTS_ARG = "COMMENTS_ARG";
+    public static final String EDIT_MODE_ARG = "EDIT_MODE_ARG";
 
     //********************************************************************************************//
     // Callbacks
@@ -24,11 +25,13 @@ import org.androidannotations.annotations.EActivity;
 
         Intent it = getIntent();
         String eventID = it.getStringExtra(EVENT_ID_ARG);
+        boolean editMode = it.getBooleanExtra(EDIT_MODE_ARG, true);
         List<Comment> comments = (List<Comment>) it.getSerializableExtra(COMMENTS_ARG);
 
         Fragment fr = CommentsListFragment_.builder()
             .arg(CommentsListFragment.EVENT_ID_ARG, eventID)
             .arg(CommentsListFragment.COMMENTS_ARG, new ArrayList(comments))
+            .arg(CommentsListFragment.EDIT_MODE_ARG, editMode)
             .build();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.comments_container, fr).commit();

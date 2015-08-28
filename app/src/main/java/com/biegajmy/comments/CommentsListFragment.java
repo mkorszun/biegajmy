@@ -2,6 +2,7 @@ package com.biegajmy.comments;
 
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -9,7 +10,6 @@ import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.model.Comment;
-import com.biegajmy.model.Event;
 import com.biegajmy.task.CommentEventTask;
 import com.biegajmy.task.TaskExecutor;
 import java.util.List;
@@ -25,6 +25,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     public static final String EVENT_ID_ARG = "EVENT_ID_ARG";
     public static final String COMMENTS_ARG = "COMMENTS_ARG";
+    public static final String EDIT_MODE_ARG = "EDIT_MODE_ARG";
     public static final String TEXT_EMPTY = "";
 
     private String eventID;
@@ -42,11 +43,12 @@ import org.androidannotations.annotations.res.StringRes;
     @AfterViews public void setup() {
         List<Comment> comments = (List<Comment>) getArguments().getSerializable(COMMENTS_ARG);
         eventID = getArguments().getString(EVENT_ID_ARG);
+        boolean editMode = getArguments().getBoolean(EDIT_MODE_ARG);
 
         adapter = new CommentsListAdapter(getActivity(), comments);
         commentList.setAdapter(adapter);
         commentAdd.setOnEditorActionListener(this);
-        commentAdd.requestFocus();
+        if (editMode) requestFocus();
     }
 
     @Click(R.id.event_main_comment_add_button) public void add() {
@@ -74,6 +76,11 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
+
+    private void requestFocus() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        commentAdd.requestFocus();
+    }
 
     private void addComment(String comment) {
         new CommentEventTask(new TaskExecutor<List<Comment>>() {

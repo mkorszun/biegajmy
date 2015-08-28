@@ -1,6 +1,8 @@
 package com.biegajmy.comments;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.AdapterView;
 import com.biegajmy.R;
 import com.biegajmy.general.ExpandableHeightListView;
 import com.biegajmy.model.Comment;
@@ -11,7 +13,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_comments_placeholder) public class CommentsListPlaceholderFragment extends Fragment {
+@EFragment(R.layout.fragment_comments_placeholder) public class CommentsListPlaceholderFragment extends Fragment
+    implements AdapterView.OnItemClickListener {
 
     public static final String EVENT_ID_ARG = "EVENT_ID_ARG";
     public static final String COMMENTS_ARG = "COMMENTS_ARG";
@@ -33,6 +36,7 @@ import org.androidannotations.annotations.ViewById;
         adapter = new CommentsListAdapter(getActivity(), getLast(comments));
         commentList.setAdapter(adapter);
         commentList.setExpanded(true);
+        commentList.setOnItemClickListener(this);
     }
 
     @Click(R.id.comment_add) public void onClick() {
@@ -46,10 +50,19 @@ import org.androidannotations.annotations.ViewById;
         super.onDestroy();
         adapter.clear();
         commentList.setAdapter(null);
+        commentList.setOnItemClickListener(null);
         eventID = null;
         adapter = null;
         comments = null;
         commentList = null;
+    }
+
+    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CommentsListActivity_.intent(getActivity())
+            .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
+            .extra(CommentsListActivity.COMMENTS_ARG, comments)
+            .extra(CommentsListActivity.EDIT_MODE_ARG, false)
+            .start();
     }
 
     //********************************************************************************************//
