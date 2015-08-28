@@ -25,6 +25,23 @@
 
                 <LinearLayout style="@style/event_form_field"
                     android:layout_marginBottom="1dp"
+                    android:id="@+id/event_date_time_labels">
+
+                    <TextView style="@style/event_details_label"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/event_day"/>
+
+                    <TextView style="@style/event_details_label"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/event_time"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/event_form_field"
+                    android:layout_below="@+id/event_date_time_labels"
+                    android:layout_marginBottom="1dp"
                     android:id="@+id/event_date_time">
 
                     <TextView style="@style/event_details_datetime_field"
@@ -36,8 +53,26 @@
                 </LinearLayout>
 
                 <LinearLayout style="@style/event_form_field"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/event_date_time"
+                    android:id="@+id/form_event_distance_pace_labels">
+
+                    <TextView style="@style/event_details_label"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/event_distance"/>
+
+                    <TextView style="@style/event_details_label"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/event_pace"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/event_form_field"
                     android:id="@+id/form_event_distance_pace"
-                    android:layout_below="@+id/event_date_time">
+                    android:layout_below="@+id/form_event_distance_pace_labels">
 
                     <TextView style="@style/event_details_numeric_field"
                         android:id="@+id/event_distance"
