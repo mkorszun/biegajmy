@@ -67,6 +67,6 @@ import static java.util.Arrays.asList;
     }
 
     @Override public LatLng location() {
-        return new LatLng(event.location.coordinates.get(0), event.location.coordinates.get(1));
+        return new LatLng(event.location.coordinates.get(1), event.location.coordinates.get(0));
     }
 }

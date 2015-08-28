@@ -163,8 +163,8 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void updateEventLocation() {
-        double lat = event.location.coordinates.get(0);
-        double lng = event.location.coordinates.get(1);
+        double lat = event.location.coordinates.get(1);
+        double lng = event.location.coordinates.get(0);
         setUpMap(new LatLng(lat, lng));
     }
 
@@ -206,8 +206,8 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void startGoogleMaps() {
-        Double lat = event.location.coordinates.get(0);
-        Double lon = event.location.coordinates.get(1);
+        Double lat = event.location.coordinates.get(1);
+        Double lon = event.location.coordinates.get(0);
         String label = event.headline;
         String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
