@@ -15,7 +15,7 @@ import org.apmem.tools.layouts.FlowLayout;
 
     public static final String ARGS_TAGS = "ARGS_TAGS";
     public static final String ARGS_EDITABLE = "ARGS_EDITABLE";
-    private static final int[] COLORS = { 0xffaa66cc, 0xff669900 };
+    private static final int[] COLORS = { 0xff2D4F69, 0xff649AC3 };
 
     private boolean isEditable;
     private ArrayList<String> tags = new ArrayList();

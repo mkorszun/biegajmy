@@ -1,19 +1,17 @@
 package com.biegajmy.comments;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
-import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.general.ExpandableHeightListView;
 import com.biegajmy.model.Comment;
 import java.util.ArrayList;
 import java.util.List;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_comments_placeholder) public class CommentsListPlaceholderFragment extends Fragment
-    implements View.OnClickListener {
+@EFragment(R.layout.fragment_comments_placeholder) public class CommentsListPlaceholderFragment extends Fragment {
 
     public static final String EVENT_ID_ARG = "EVENT_ID_ARG";
     public static final String COMMENTS_ARG = "COMMENTS_ARG";
@@ -22,7 +20,6 @@ import org.androidannotations.annotations.ViewById;
     private String eventID;
     private CommentsListAdapter adapter;
     private ArrayList<Comment> comments;
-    @ViewById(R.id.comment_add) TextView commentAdd;
     @ViewById(R.id.comment_list) ExpandableHeightListView commentList;
 
     //********************************************************************************************//
@@ -36,10 +33,9 @@ import org.androidannotations.annotations.ViewById;
         adapter = new CommentsListAdapter(getActivity(), getLast(comments));
         commentList.setAdapter(adapter);
         commentList.setExpanded(true);
-        commentAdd.setOnClickListener(this);
     }
 
-    @Override public void onClick(View v) {
+    @Click(R.id.comment_add) public void onClick() {
         CommentsListActivity_.intent(getActivity())
             .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
             .extra(CommentsListActivity.COMMENTS_ARG, comments)
@@ -50,11 +46,9 @@ import org.androidannotations.annotations.ViewById;
         super.onDestroy();
         adapter.clear();
         commentList.setAdapter(null);
-        commentAdd.setOnClickListener(null);
         eventID = null;
         adapter = null;
         comments = null;
-        commentAdd = null;
         commentList = null;
     }
 

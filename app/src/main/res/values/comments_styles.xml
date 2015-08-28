@@ -85,4 +85,11 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+
+    <style name="event_small_comment_add_button">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/primary_light</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

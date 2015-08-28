@@ -18,7 +18,8 @@ import org.androidannotations.annotations.ViewById;
 
     @ViewById(R.id.user_photo) CircleImageView userPhoto;
     @ViewById(R.id.user_name) TextView userName;
-    @ViewById(R.id.user_bio) TextView userBio;
+    @ViewById(R.id.user_www) TextView userWWW;
+    @ViewById(R.id.user_email) TextView userEmail;
 
     public static UserBasicDetailsFragment_ newInstance(User user) {
         UserBasicDetailsFragment_ fragment = new UserBasicDetailsFragment_();
@@ -41,7 +42,8 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setContent() {
         Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
-        userName.setText(String.format("%s (%d)", user.firstName, 20));
-        userBio.setText(user.bio);
+        userName.setText(String.format("%s %s", user.firstName, user.lastName));
+        userWWW.setText(user.www);
+        userEmail.setText(user.email);
     }
 }

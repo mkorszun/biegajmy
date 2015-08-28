@@ -145,42 +145,6 @@
     </style>
     <!-- -->
 
-    <!-- Event Details -->
-
-    <style name="event_details">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="event_details_join_button">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:background">@color/primary</item>
-    </style>
-
-    <style name="event_details_datetime_field" parent="event_form_datetime_field">
-        <item name="android:enabled">false</item>
-    </style>
-
-    <style name="event_details_numeric_field" parent="event_form_numeric_field">
-        <item name="android:enabled">false</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="event_details_description">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/accent</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
-    </style>
-
-    <!-- -->
-
-    <!-- Event Comments -->
-
-
-
     <!-- -->
 
     <style name="main_button">

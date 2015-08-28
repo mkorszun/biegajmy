@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="event_join_error_msg">Aktualnie nie możliwe</string>
+    <string name="event_join">Dołącz</string>
+    <string name="event_leave">Opuść</string>
+    <string name="event_description">OPIS</string>
+    <string name="event_owner">ORGANIZATOR</string>
+    <string name="event_participants">INNI UCZESTNICY</string>
+</resources>

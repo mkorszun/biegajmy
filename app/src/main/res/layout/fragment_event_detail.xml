@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="16dp"
+    android:background="@color/details_main_background"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
@@ -16,22 +16,22 @@
 
             <fragment style="@style/event_form_map_small"
                 android:id="@+id/event_location"
-                android:layout_marginTop="10dp"
                 android:layout_below="@+id/event_join"/>
 
-            <RelativeLayout style="@style/event_details"
+            <RelativeLayout style="@style/event_details_basic_info"
                 android:id="@+id/event_base_info"
+                android:layout_marginBottom="@dimen/details_section_big_margin"
                 android:layout_below="@+id/event_location">
 
-                <LinearLayout style="@style/event_form_field" android:id="@+id/event_date_time">
+                <LinearLayout style="@style/event_form_field"
+                    android:layout_marginBottom="1dp"
+                    android:id="@+id/event_date_time">
 
-                    <EditText style="@style/event_details_datetime_field"
-                        android:id="@+id/event_date"
-                        android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"/>
+                    <TextView style="@style/event_details_datetime_field"
+                        android:id="@+id/event_date"/>
 
-                    <EditText style="@style/event_details_datetime_field"
-                        android:id="@+id/event_time"
-                        android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"/>
+                    <TextView style="@style/event_details_datetime_field"
+                        android:id="@+id/event_time"/>
 
                 </LinearLayout>
 
@@ -39,49 +39,50 @@
                     android:id="@+id/form_event_distance_pace"
                     android:layout_below="@+id/event_date_time">
 
-                    <EditText style="@style/event_details_numeric_field"
+                    <TextView style="@style/event_details_numeric_field"
                         android:id="@+id/event_distance"
-                        android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
                         android:layout_below="@+id/form_event_date_time"/>
 
-                    <EditText style="@style/event_details_numeric_field"
+                    <TextView style="@style/event_details_numeric_field"
                         android:id="@+id/event_pace"
-                        android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
                         android:layout_below="@+id/event_distance"/>
 
                 </LinearLayout>
 
             </RelativeLayout>
 
-            <TextView style="@style/event_details_description"
-                android:id="@+id/event_description"
-                android:layout_below="@+id/event_base_info"/>
+            <LinearLayout style="@style/event_details_description_layout"
+                android:layout_marginBottom="@dimen/details_section_small_margin"
+                android:layout_below="@+id/event_base_info">
+
+                <TextView style="@style/event_details_label"
+                    android:id="@+id/comment_label"
+                    android:text="@string/event_description"/>
+
+                <TextView style="@style/event_details_description"
+                    android:id="@+id/event_description"/>
+            </LinearLayout>
 
         </RelativeLayout>
 
-        <FrameLayout
-            android:layout_below="@+id/event_details"
-            android:id="@+id/event_participants_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <FrameLayout
-            android:layout_below="@+id/event_participants_container"
+        <FrameLayout style="@style/event_details_frame_layout"
             android:id="@+id/event_tags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_marginBottom="@dimen/details_section_big_margin"
+            android:layout_below="@+id/event_details"/>
 
-        <FrameLayout
-            android:layout_below="@+id/event_tags"
+        <FrameLayout style="@style/event_details_frame_layout"
             android:id="@+id/event_owner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_marginBottom="@dimen/details_section_small_margin"
+            android:layout_below="@+id/event_tags"/>
 
-        <FrameLayout
-            android:layout_below="@+id/event_owner"
+        <FrameLayout style="@style/event_details_frame_layout"
+            android:id="@+id/event_participants_container"
+            android:layout_marginBottom="@dimen/details_section_big_margin"
+            android:layout_below="@+id/event_owner"/>
+
+        <FrameLayout style="@style/event_details_frame_layout"
             android:id="@+id/event_comments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_below="@+id/event_participants_container"/>
 
     </RelativeLayout>
 </ScrollView>

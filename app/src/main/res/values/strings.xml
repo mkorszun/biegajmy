@@ -12,9 +12,7 @@
     <string name="title_activity_event_new">New Event</string>
     <string name="title_activity_user_events">Twoje Treningi</string>
 
-    <string name="event_join_error_msg">Aktualnie nie możliwe</string>
-    <string name="event_join">Dołącz</string>
-    <string name="event_leave">Opuść</string>
+
 
     <string name="event_error_msg">Not possible right now</string>
     <string name="event_search_error_msg">Ups. Coś się nie udało. Spróbuj jeszcze raz</string>
