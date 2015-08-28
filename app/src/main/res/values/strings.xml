@@ -5,12 +5,12 @@
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">1002789146420412</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_user_details">User Profile</string>
+    <string name="title_activity_user_details">USTAWIENIA</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_event_list">Events</string>
+    <string name="title_event_list">BIEGAJMY</string>
     <string name="title_event_detail">Event Detail</string>
-    <string name="title_activity_event_new">New Event</string>
-    <string name="title_activity_user_events">Twoje Treningi</string>
+    <string name="title_activity_event_new">UTWÓRZ TRENING</string>
+    <string name="title_activity_user_events">MOJE TRENINGI</string>
 
 
 
