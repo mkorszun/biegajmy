@@ -8,7 +8,7 @@
 
     <style name="event_details_basic_info" parent="event_details">
         <item name="android:padding">16dp</item>
-        <item name="android:background">#ffffff</item>
+        <item name="android:background">@color/details_section_background</item>
     </style>
 
     <style name="event_details_join_button">
@@ -40,7 +40,7 @@
     </style>
 
     <style name="event_details_description_layout">
-        <item name="android:background">#ffffff</item>
+        <item name="android:background">@color/details_section_background</item>
         <item name="android:padding">16dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>

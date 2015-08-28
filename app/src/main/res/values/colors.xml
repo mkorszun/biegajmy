@@ -10,6 +10,6 @@
     <color name="divider">#B6B6B6</color>
     <color name="transparent">#00000000</color>
     <color name="details_main_background">#D1D2D4</color>
-    <color name="details_section_background">#ffffff</color>
+    <color name="details_section_background">#eeeded</color>
     <color name="main_button_color">#ED8685</color>
 </resources>
