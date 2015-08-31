@@ -28,9 +28,7 @@ import static java.util.Arrays.asList;
         event = (Event) getArguments().getSerializable(ARG_EVENT);
     }
 
-    @AfterViews public void setContent() {
-        super.setContent();
-
+    @Override public void afterViews() {
         activity = getActivity();
         eventDateTime.set(event.timestamp);
 

@@ -22,6 +22,10 @@ import static java.util.Arrays.asList;
         return storage.getLastLocation().get();
     }
 
+    @Override public void afterViews() {
+        // TODO
+    }
+
     @Override public void save() {
         NewEvent event = new NewEvent();
         event.headline = headline.getText().toString();

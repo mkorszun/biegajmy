@@ -54,6 +54,8 @@ import org.androidannotations.annotations.ViewById;
 
     public abstract LatLng location();
 
+    public abstract void afterViews();
+
     //********************************************************************************************//
     // API
     //********************************************************************************************//
@@ -62,6 +64,7 @@ import org.androidannotations.annotations.ViewById;
         location = location();
         eventDateTime = new EventDateTime();
         setUpMap(location);
+        afterViews();
     }
 
     @OptionsItem(R.id.action_event_save) public void createOrUpdateEvent() {
