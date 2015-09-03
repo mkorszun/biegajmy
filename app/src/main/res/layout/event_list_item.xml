@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:padding="5dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/event_icon"
-        android:src="@drawable/ic_whatshot_grey600_36dp"
-        />
-
     <TextView
-        style="@style/event_list_item"
-        android:id="@+id/event_headline"
-        android:paddingLeft="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/event_icon"
-        android:layout_toEndOf="@+id/event_icon"/>
+        style="@style/event_list_label"
+        android:id="@+id/event_list_label"
+        android:layout_alignParentTop="true"/>
 
-    <TextView
-        style="@style/event_list_item"
-        android:id="@+id/event_date"
-        android:paddingRight="5dp"
-        android:layout_below="@+id/event_headline"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_below="@+id/event_list_label"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        style="@style/event_list_item"
-        android:id="@+id/event_distance"
-        android:paddingRight="5dp"
-        android:layout_above="@+id/event_date"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        <ImageView
+            android:padding="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/event_icon"
+            android:src="@drawable/list_icon"
+            />
+
+        <TextView
+            style="@style/event_list_item"
+            android:id="@+id/event_headline"
+            android:paddingLeft="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/event_icon"
+            android:layout_toEndOf="@+id/event_icon"/>
+
+        <TextView
+            style="@style/event_list_item"
+            android:id="@+id/event_date"
+            android:paddingLeft="5dp"
+            android:layout_below="@+id/event_headline"
+            android:layout_toRightOf="@+id/event_icon"/>
+
+        <TextView
+            style="@style/event_list_item"
+            android:id="@+id/event_distance"
+            android:paddingLeft="10dp"
+            android:layout_below="@+id/event_headline"
+            android:layout_toRightOf="@+id/event_date"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

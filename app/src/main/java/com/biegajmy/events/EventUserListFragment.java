@@ -57,6 +57,11 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     @Override public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setOnRefreshListener(this);

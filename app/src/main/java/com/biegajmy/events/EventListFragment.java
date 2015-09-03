@@ -55,6 +55,11 @@ public class EventListFragment extends RefreshableListFragment implements SwipeR
         setOnRefreshListener(this);
     }
 
+    @Override public void onResume() {
+        super.onResume();
+        loadData(lastRange);
+    }
+
     @Override public void onDestroy() {
         super.onDestroy();
         bus.unregister(this);
