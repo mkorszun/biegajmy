@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content">
-    <com.veinhorn.tagview.TagView android:id="@+id/tagview" style="@style/tag" android:text="asdas"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/tag_element_layout_main">
+    <LinearLayout style="@style/tag_element_layout" android:id="@+id/tag_view_layout">
+        <TextView style="@style/tag_element" android:id="@+id/tag_view"/>
+        <ImageView style="@style/tag_element_remove_icon" android:id="@+id/delete_tag"/>
+    </LinearLayout>
 </LinearLayout>
 

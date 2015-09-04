@@ -1,6 +1,5 @@
 package com.biegajmy.tags;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -8,24 +7,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
-import com.biegajmy.backend.UserBackendService;
 import java.util.ArrayList;
+import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.tag_edit_view) @OptionsMenu(R.menu.menu_edit_tags)
-public class TagEditListFragment extends Fragment {
+@EFragment(R.layout.tag_edit_view) public class TagEditListFragment extends Fragment {
 
     @Bean LocalStorage localStorage;
     @ViewById(R.id.new_tag) EditText newTag;
 
+    public static final String ARGS_TAGS = "ARGS_TAGS";
+
+    //********************************************************************************************//
+    // Callbacks
+    //********************************************************************************************//
+
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<String> tags = new ArrayList<>(localStorage.getUser().tags);
+
+        ArrayList<String> tags = (ArrayList<String>) getArguments().getSerializable(ARGS_TAGS);
 
         Fragment fr = TagListFragment_.builder()
             .arg(TagListFragment.ARGS_TAGS, tags)
@@ -37,19 +40,35 @@ public class TagEditListFragment extends Fragment {
 
     @Override public void onDestroy() {
         super.onDestroy();
+        newTag.setOnEditorActionListener(null);
     }
 
     @AfterViews public void setUp() {
         newTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                TagListBus.getInstance().post(new TagListBus.NewTagEvent(v.getText().toString()));
+                getTagListFragment().addTag(v.getText().toString());
                 v.setText("");
                 return false;
             }
         });
     }
 
-    @OptionsItem(R.id.action_tags_update) public void updateTags() {
-        TagListBus.getInstance().post(new TagListBus.SaveTagsEvent());
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
+    public List<String> getTags() {
+        return getTagListFragment().getTags();
     }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    private TagListFragment getTagListFragment() {
+        return (TagListFragment) getChildFragmentManager().findFragmentById(R.id.tag_list_container);
+    }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }

@@ -10,8 +10,8 @@ import com.biegajmy.task.UpdateEventExecutor;
 import com.biegajmy.task.UpdateEventTask;
 import com.biegajmy.utils.StringUtils;
 import com.google.android.gms.maps.model.LatLng;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 
 import static java.util.Arrays.asList;
@@ -36,7 +36,6 @@ import static java.util.Arrays.asList;
         description.setText(event.description);
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
-        tags.setText(StringUtils.join(event.tags, " "));
         distance.setText(String.valueOf(event.distance));
         pace.setText(String.valueOf(event.pace));
     }
@@ -46,7 +45,7 @@ import static java.util.Arrays.asList;
         event.headline = headline.getText().toString();
         event.description = description.getText().toString();
         event.timestamp = eventDateTime.getTimestamp();
-        event.tags = new LinkedList(asList(tags.getText().toString().split(" ")));
+        event.tags = getTags();
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;
         event.distance = Integer.valueOf(distance.getText().toString());
@@ -66,5 +65,9 @@ import static java.util.Arrays.asList;
 
     @Override public LatLng location() {
         return new LatLng(event.location.coordinates.get(1), event.location.coordinates.get(0));
+    }
+
+    @Override public ArrayList<String> setTags() {
+        return new ArrayList(event.tags);
     }
 }

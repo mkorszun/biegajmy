@@ -8,6 +8,7 @@ import com.biegajmy.model.NewEvent;
 import com.biegajmy.task.CreateEventExecutor;
 import com.biegajmy.task.CreateEventTask;
 import com.google.android.gms.maps.model.LatLng;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -31,7 +32,7 @@ import static java.util.Arrays.asList;
         event.headline = headline.getText().toString();
         event.description = description.getText().toString();
         event.timestamp = eventDateTime.getTimestamp();
-        event.tags = new LinkedList(asList(tags.getText().toString().split(" ")));
+        event.tags = getTags();
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;
         event.distance = Integer.valueOf(distance.getText().toString());
@@ -48,5 +49,9 @@ import static java.util.Arrays.asList;
                 Toast.makeText(activity, "Event creation failed: " + e, Toast.LENGTH_LONG).show();
             }
         }).execute(storage.getToken().token, event);
+    }
+
+    @Override public ArrayList<String> setTags() {
+        return new ArrayList();
     }
 }

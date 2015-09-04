@@ -2,16 +2,16 @@ package com.biegajmy.tags;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.TextView;
 import com.biegajmy.R;
-import com.biegajmy.user.UserEventBus;
-import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.apmem.tools.layouts.FlowLayout;
 
-@EFragment(R.layout.tag_view) public class TagListFragment extends Fragment {
+@EFragment(R.layout.tag_view) public class TagListFragment extends Fragment implements View.OnClickListener {
 
     public static final String ARGS_TAGS = "ARGS_TAGS";
     public static final String ARGS_EDITABLE = "ARGS_EDITABLE";
@@ -22,20 +22,17 @@ import org.apmem.tools.layouts.FlowLayout;
     @ViewById(R.id.tag_root_view) protected FlowLayout rootView;
 
     //********************************************************************************************//
-    // API
+    // Callbacks
     //********************************************************************************************//
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setInitialTags();
-
-        if (isEditable) TagListBus.getInstance().register(this);
     }
 
     @Override public void onDestroy() {
         super.onDestroy();
-
-        if (isEditable) TagListBus.getInstance().unregister(this);
+        rootView.removeAllViews();
     }
 
     @AfterViews public void setUpTags() {
@@ -44,17 +41,23 @@ import org.apmem.tools.layouts.FlowLayout;
         }
     }
 
-    //********************************************************************************************//
-    // Events - only for editable mode
-    //********************************************************************************************//
-
-    @Subscribe public void onNewTag(TagListBus.NewTagEvent event) {
-        tags.add(event.tag);
-        rootView.addView(newTag(event.tag));
+    @Override public void onClick(View v) {
+        TextView tw = (TextView) v.findViewById(R.id.tag_view);
+        rootView.removeView(v);
+        tags.remove(tw.getText());
     }
 
-    @Subscribe public void onSaveTags(TagListBus.SaveTagsEvent event) {
-        UserEventBus.getInstance().post(new UserEventBus.UpdateUserTagsEvent(tags));
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+        rootView.addView(newTag(tag));
     }
 
     //********************************************************************************************//
@@ -62,11 +65,15 @@ import org.apmem.tools.layouts.FlowLayout;
     //********************************************************************************************//
 
     private TagListElement getTag(int i) {
-        return new TagListElement(getActivity(), tags.get(i), COLORS[i % COLORS.length]);
+        return new TagListElement(getActivity(), tags.get(i), COLORS[i % COLORS.length], getListener());
     }
 
     private TagListElement newTag(String tag) {
-        return new TagListElement(getActivity(), tag, COLORS[(tags.size() - 1) % COLORS.length]);
+        return new TagListElement(getActivity(), tag, COLORS[(tags.size() - 1) % COLORS.length], getListener());
+    }
+
+    private TagListFragment getListener() {
+        return isEditable ? this : null;
     }
 
     private void setInitialTags() {
@@ -76,6 +83,7 @@ import org.apmem.tools.layouts.FlowLayout;
             isEditable = args.getBoolean(ARGS_EDITABLE);
         }
     }
+
     //********************************************************************************************//
     //********************************************************************************************//
 }

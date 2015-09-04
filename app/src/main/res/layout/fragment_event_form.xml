@@ -60,10 +60,10 @@
             android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
             android:layout_below="@+id/form_event_distance_pace"/>
 
-        <EditText style="@style/event_form_multiline_field"
-            android:id="@+id/form_event_tags"
-            android:hint="@string/event_form_tags"
-            android:drawableLeft="@drawable/ic_mode_edit_grey600_36dp"
+        <FrameLayout
+            android:id="@+id/tags_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/form_event_description"/>
 
     </RelativeLayout>

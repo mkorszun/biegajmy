@@ -13,12 +13,16 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.location.LocationActivity;
 import com.biegajmy.location.LocationActivity_;
+import com.biegajmy.tags.TagEditListFragment;
+import com.biegajmy.tags.TagEditListFragment_;
 import com.biegajmy.validators.TextFormValidator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -42,7 +46,6 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.form_event_description) protected TextView description;
     @ViewById(R.id.form_event_date) protected TextView date;
     @ViewById(R.id.form_event_time) protected TextView time;
-    @ViewById(R.id.form_event_tags) protected TextView tags;
     @ViewById(R.id.form_event_distance) protected TextView distance;
     @ViewById(R.id.form_event_pace) protected TextView pace;
 
@@ -56,6 +59,8 @@ import org.androidannotations.annotations.ViewById;
 
     public abstract void afterViews();
 
+    public abstract ArrayList<String> setTags();
+
     //********************************************************************************************//
     // API
     //********************************************************************************************//
@@ -65,6 +70,10 @@ import org.androidannotations.annotations.ViewById;
         eventDateTime = new EventDateTime();
         setUpMap(location);
         afterViews();
+
+        ArrayList<String> value = setTags();
+        Fragment fr = TagEditListFragment_.builder().arg(TagEditListFragment.ARGS_TAGS, value).build();
+        getChildFragmentManager().beginTransaction().replace(R.id.tags_container, fr).commit();
     }
 
     @OptionsItem(R.id.action_event_save) public void createOrUpdateEvent() {
@@ -122,6 +131,10 @@ import org.androidannotations.annotations.ViewById;
     @Override public void onDestroy() {
         super.onDestroy();
         eventMap.clear();
+    }
+
+    public List<String> getTags() {
+        return ((TagEditListFragment) getChildFragmentManager().findFragmentById(R.id.tags_container)).getTags();
     }
 
     //********************************************************************************************//
