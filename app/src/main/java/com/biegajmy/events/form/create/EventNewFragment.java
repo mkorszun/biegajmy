@@ -1,8 +1,11 @@
-package com.biegajmy.events;
+package com.biegajmy.events.form.create;
 
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.events.EventBackendService_;
+import com.biegajmy.events.EventListBus;
+import com.biegajmy.events.form.EventFormFragment;
 import com.biegajmy.model.NewEvent;
 import com.google.android.gms.maps.model.LatLng;
 import com.squareup.otto.Subscribe;

@@ -71,7 +71,7 @@
         </activity>
         <activity
             android:windowSoftInputMode="stateHidden"
-            android:name=".events.EventNewActivity_"
+            android:name=".events.form.create.EventNewActivity_"
             android:label="@string/title_activity_event_new"
             android:parentActivityName=".events.EventMainActivity"
             android:screenOrientation="portrait">
@@ -81,7 +81,7 @@
         </activity>
         <activity
             android:windowSoftInputMode="stateHidden"
-            android:name=".events.EventUpdateActivity_"
+            android:name=".events.form.update.EventUpdateActivity_"
             android:parentActivityName=".events.EventListActivity_"
             android:screenOrientation="portrait">
             <meta-data

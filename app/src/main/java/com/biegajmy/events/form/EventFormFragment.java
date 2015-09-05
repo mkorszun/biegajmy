@@ -1,4 +1,4 @@
-package com.biegajmy.events;
+package com.biegajmy.events.form;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.events.EventDateTime;
+import com.biegajmy.events.EventMapBuilder;
 import com.biegajmy.location.LocationActivity;
 import com.biegajmy.location.LocationActivity_;
 import com.biegajmy.tags.TagEditListFragment;
@@ -38,7 +40,7 @@ import org.androidannotations.annotations.ViewById;
     private LatLng location;
     protected EventDateTime eventDateTime;
 
-    @Bean TextFormValidator validator;
+    @Bean protected TextFormValidator validator;
     @Bean protected LocalStorage storage;
     @Bean protected EventMapBuilder eventMap;
 
