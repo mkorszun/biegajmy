@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="event_created">Trening utworzony</string>
+    <string name="event_create_failed">Nie można utworzyć treningu</string>
+</resources>

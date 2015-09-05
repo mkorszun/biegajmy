@@ -1,30 +1,34 @@
 package com.biegajmy.events;
 
-import android.app.Activity;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.model.NewEvent;
-import com.biegajmy.task.CreateEventExecutor;
-import com.biegajmy.task.CreateEventTask;
 import com.google.android.gms.maps.model.LatLng;
+import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-
-import static java.util.Arrays.asList;
 
 @EFragment(R.layout.fragment_event_form) public class EventNewFragment extends EventFormFragment {
 
     @Bean LocalStorage storage;
+
+    //********************************************************************************************//
+    // Callbacks
+    //********************************************************************************************//
 
     @Override public LatLng location() {
         return storage.getLastLocation().get();
     }
 
     @Override public void afterViews() {
-        // TODO
+        EventListBus.getInstance().register(this);
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        EventListBus.getInstance().unregister(this);
     }
 
     @Override public void save() {
@@ -37,21 +41,26 @@ import static java.util.Arrays.asList;
         event.y = eventMap.getCurrentPosition().longitude;
         event.distance = Integer.valueOf(distance.getText().toString());
         event.pace = Double.valueOf(pace.getText().toString());
-        final Activity activity = getActivity();
-
-        new CreateEventTask(new CreateEventExecutor() {
-            @Override public void onSuccess() {
-                Toast.makeText(activity, "Event saved", Toast.LENGTH_LONG).show();
-                activity.finish();
-            }
-
-            @Override public void onFailure(Exception e) {
-                Toast.makeText(activity, "Event creation failed: " + e, Toast.LENGTH_LONG).show();
-            }
-        }).execute(storage.getToken().token, event);
+        EventBackendService_.intent(getActivity()).createEvent(event).start();
     }
 
     @Override public ArrayList<String> setTags() {
         return new ArrayList();
     }
+
+    //********************************************************************************************//
+    // Events
+    //********************************************************************************************//
+
+    @Subscribe public void event(EventListBus.EventCreateOK event) {
+        Toast.makeText(getActivity(), R.string.event_created, Toast.LENGTH_LONG).show();
+        getActivity().finish();
+    }
+
+    @Subscribe public void event(EventListBus.EventCreateNOK event) {
+        Toast.makeText(getActivity(), R.string.event_create_failed, Toast.LENGTH_LONG).show();
+    }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }

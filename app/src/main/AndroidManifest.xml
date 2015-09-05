@@ -121,6 +121,13 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
+        <service
+            android:name=".events.EventBackendService_"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
     </application>
 
 </manifest>
