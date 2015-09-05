@@ -11,7 +11,7 @@
     <fragment
         android:id="@+id/event_list"
         android:layout_below="@+id/new_event"
-        android:name="com.biegajmy.events.EventUserListFragment"
+        android:name="com.biegajmy.events.user.EventUserListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.biegajmy.events.EventMainActivity"

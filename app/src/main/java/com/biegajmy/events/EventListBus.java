@@ -2,7 +2,9 @@ package com.biegajmy.events;
 
 import android.os.Handler;
 import android.os.Looper;
+import com.biegajmy.model.Event;
 import com.squareup.otto.Bus;
+import java.util.List;
 
 public class EventListBus extends Bus {
 
@@ -38,10 +40,26 @@ public class EventListBus extends Bus {
     }
 
     public static class EventUpdateOK {
+        public Event event;
 
+        public EventUpdateOK(Event event) {
+            this.event = event;
+        }
     }
 
     public static class EventUpdateNOK {
+
+    }
+
+    public static class ListUserEventsOK {
+        public List<Event> events;
+
+        public ListUserEventsOK(List<Event> events) {
+            this.events = events;
+        }
+    }
+
+    public static class ListUserEventsNOK {
 
     }
 }

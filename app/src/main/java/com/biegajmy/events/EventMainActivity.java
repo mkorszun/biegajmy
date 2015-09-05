@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.R;
 import com.biegajmy.backend.UserBackendService_;
+import com.biegajmy.events.user.EventUserListMainFragment_;
 import com.biegajmy.general.SlidingTabLayout;
 import com.biegajmy.general.ViewPagerAdapter;
 import com.biegajmy.location.LocationService_;
