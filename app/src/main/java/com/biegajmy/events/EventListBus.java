@@ -36,4 +36,12 @@ public class EventListBus extends Bus {
     public static class EventCreateNOK {
 
     }
+
+    public static class EventUpdateOK {
+
+    }
+
+    public static class EventUpdateNOK {
+
+    }
 }

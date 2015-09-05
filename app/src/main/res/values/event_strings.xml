@@ -2,4 +2,7 @@
 <resources>
     <string name="event_created">Trening utworzony</string>
     <string name="event_create_failed">Nie można utworzyć treningu</string>
+
+    <string name="event_updated">Trening zaktualizowany</string>
+    <string name="event_update_failed">Nie można zaaktualizować treningu</string>
 </resources>

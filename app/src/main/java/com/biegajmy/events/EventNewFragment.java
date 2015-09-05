@@ -44,6 +44,10 @@ import org.androidannotations.annotations.EFragment;
         EventBackendService_.intent(getActivity()).createEvent(event).start();
     }
 
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
     @Override public ArrayList<String> setTags() {
         return new ArrayList();
     }

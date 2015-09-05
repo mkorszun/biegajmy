@@ -1,5 +1,6 @@
 package com.biegajmy.events;
 
+import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
@@ -29,7 +30,19 @@ import org.androidannotations.api.support.app.AbstractIntentService;
             backend.createEvent(localStorage.getToken().token, event);
             EventListBus.getInstance().post(new EventListBus.EventCreateOK());
         } catch (Exception e) {
+            Log.e(TAG, "Event creation failed", e);
             EventListBus.getInstance().post(new EventListBus.EventCreateNOK());
+        }
+    }
+
+    @ServiceAction public void updateEvent(String id, NewEvent event) {
+        try {
+            BackendInterface backend = BackendInterfaceFactory.build();
+            backend.updateEvent(id, event, localStorage.getToken().token);
+            EventListBus.getInstance().post(new EventListBus.EventUpdateOK());
+        } catch (Exception e) {
+            Log.e(TAG, "Event update failed", e);
+            EventListBus.getInstance().post(new EventListBus.EventUpdateNOK());
         }
     }
 
