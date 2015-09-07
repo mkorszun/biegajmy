@@ -13,7 +13,7 @@ import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_user_basic_details) public class UserBasicDetailsFragment extends Fragment {
 
-    private static final String ARG_USER = "ARG_USER";
+    public static final String ARG_USER = "ARG_USER";
     private User user;
 
     @ViewById(R.id.user_photo) CircleImageView userPhoto;
@@ -21,23 +21,9 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.user_www) TextView userWWW;
     @ViewById(R.id.user_email) TextView userEmail;
 
-    public static UserBasicDetailsFragment_ newInstance(User user) {
-        UserBasicDetailsFragment_ fragment = new UserBasicDetailsFragment_();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_USER, user);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            user = (User) getArguments().getSerializable(ARG_USER);
-        }
-    }
-
-    @Override public void onDestroy() {
-        super.onDestroy();
+        user = (User) getArguments().getSerializable(ARG_USER);
     }
 
     @AfterViews public void setContent() {

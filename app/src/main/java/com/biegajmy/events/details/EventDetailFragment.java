@@ -1,7 +1,5 @@
 package com.biegajmy.events.details;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +19,7 @@ import com.biegajmy.events.participants.EventParticipantsFragment_;
 import com.biegajmy.model.Event;
 import com.biegajmy.tags.TagListFragment;
 import com.biegajmy.tags.TagListFragment_;
+import com.biegajmy.user.UserBasicDetailsFragment;
 import com.biegajmy.user.UserBasicDetailsFragment_;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -39,7 +38,6 @@ import org.androidannotations.annotations.res.StringRes;
     implements GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
 
     public static final String ARG_EVENT = "ARG_EVENT";
-    private static final String GEO_QUERY = "geo:%f,%f?q=%f,%f(%s)";
 
     private Event event;
     private boolean isMember;
@@ -66,7 +64,6 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.fm = getChildFragmentManager();
         event = (Event) getArguments().getSerializable(ARG_EVENT);
         EventListBus.getInstance().register(this);
@@ -75,9 +72,6 @@ import org.androidannotations.annotations.res.StringRes;
     @AfterViews public void setContent() {
         if (event != null) {
             updateEventContent();
-            updateEventParticipants();
-            updateEventTags();
-            updateEventOwner();
             updateEventLocation();
             updateEventComments();
         }
@@ -95,12 +89,12 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Override public boolean onMarkerClick(Marker marker) {
-        startGoogleMaps();
+        eventMap.startGoogleMaps(event.headline);
         return true;
     }
 
     @Override public void onMapClick(LatLng latLng) {
-        startGoogleMaps();
+        eventMap.startGoogleMaps(event.headline);
     }
 
     //********************************************************************************************//
@@ -129,26 +123,19 @@ import org.androidannotations.annotations.res.StringRes;
         description.setText(event.description);
         isMember = event.participants.contains(storage.getUser());
         joinButton.setText(msgForAction());
-    }
 
-    private void updateEventParticipants() {
-        Fragment fr = EventParticipantsFragment_.builder()
-            .arg(EventParticipantsFragment.ARG_EVENT_ID, event.id)
-            .arg(EventParticipantsFragment.ARG_PARTICIPANTS, event.participants)
-            .build();
-        fm.beginTransaction().replace(R.id.event_participants_container, fr).commit();
-    }
-
-    private void updateEventTags() {
-        ArrayList tags = new ArrayList(event.tags);
-        TagListFragment_.FragmentBuilder_ builder = TagListFragment_.builder();
-        TagListFragment fr = builder.arg(TagListFragment.ARGS_TAGS, tags).build();
-        fm.beginTransaction().replace(R.id.event_tags, fr).commit();
-    }
-
-    private void updateEventOwner() {
-        UserBasicDetailsFragment_ fr = UserBasicDetailsFragment_.newInstance(event.user);
-        fm.beginTransaction().replace(R.id.event_owner, fr).commit();
+        fm.beginTransaction()
+            .replace(R.id.event_participants_container, EventParticipantsFragment_.builder()
+                .arg(EventParticipantsFragment.ARG_EVENT_ID, event.id)
+                .arg(EventParticipantsFragment.ARG_PARTICIPANTS, event.participants)
+                .build())
+            .replace(R.id.event_tags, TagListFragment_.builder()
+                .arg(TagListFragment.ARGS_TAGS, new ArrayList(event.tags))
+                .build())
+            .replace(R.id.event_owner, UserBasicDetailsFragment_.builder()
+                .arg(UserBasicDetailsFragment.ARG_USER, event.user)
+                .build())
+            .commit();
     }
 
     private void updateEventLocation() {
@@ -189,10 +176,10 @@ import org.androidannotations.annotations.res.StringRes;
 
     private void setUpMap(LatLng loc) {
 
+        GoogleMap mMap;
         FragmentManager cfm = getChildFragmentManager();
         Fragment fr = cfm.findFragmentById(R.id.event_location);
 
-        GoogleMap mMap;
         if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
             eventMap.setInitialPosition(loc)
                 .setMap(mMap)
@@ -201,15 +188,6 @@ import org.androidannotations.annotations.res.StringRes;
                 .setOnClickListener(this)
                 .build();
         }
-    }
-
-    private void startGoogleMaps() {
-        Double lat = event.location.coordinates.get(1);
-        Double lon = event.location.coordinates.get(0);
-        String label = event.headline;
-        String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
-        startActivity(intent);
     }
 
     //********************************************************************************************//

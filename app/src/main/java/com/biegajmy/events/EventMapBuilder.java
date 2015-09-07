@@ -1,6 +1,8 @@
 package com.biegajmy.events;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +16,7 @@ import org.androidannotations.annotations.RootContext;
 @EBean public class EventMapBuilder {
 
     private static final String TAG = EventMapBuilder.class.getName();
+    private static final String GEO_QUERY = "geo:%f,%f?q=%f,%f(%s)";
     private static final int ZOOM = 13;
 
     @RootContext Context context;
@@ -86,6 +89,14 @@ import org.androidannotations.annotations.RootContext;
         setOnClickListener(null);
         setOnMarkerClickListener(null);
         map.clear();
+    }
+
+    public void startGoogleMaps(String label) {
+        Double lat = currentPosition.latitude;
+        Double lon = currentPosition.longitude;
+        String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
+        context.startActivity(intent);
     }
 
     //********************************************************************************************//
