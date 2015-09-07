@@ -15,7 +15,7 @@
         <fragment
             android:id="@+id/event_list"
             android:layout_below="@+id/event_search_filter_button"
-            android:name="com.biegajmy.events.EventListFragment"
+            android:name="com.biegajmy.events.search.EventSearchFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context="com.biegajmy.events.EventMainActivity"
@@ -28,7 +28,7 @@
 
         <fragment
             android:id="@+id/event_search_settings"
-            android:name="com.biegajmy.events.EventSearchSettingsFragment_"
+            android:name="com.biegajmy.events.search.EventSearchSettingsFragment_"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context="com.biegajmy.events.EventUserListMainFragment_"/>

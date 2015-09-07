@@ -1,9 +1,10 @@
-package com.biegajmy.events;
+package com.biegajmy.events.search;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import com.biegajmy.R;
+import com.biegajmy.events.EventListBus;
 import com.squareup.otto.Bus;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -41,32 +42,32 @@ import org.androidannotations.annotations.ViewById;
 
     @Click(R.id.one_km) public void one_km() {
         setSelected(button1);
-        bus.post(new EventRange(1000));
+        bus.post(new EventSearchRange(1000));
     }
 
     @Click(R.id.three_km) public void three_km() {
         setSelected(button3);
-        bus.post(new EventRange(3000));
+        bus.post(new EventSearchRange(3000));
     }
 
     @Click(R.id.five_km) public void five_km() {
         setSelected(button5);
-        bus.post(new EventRange(5000));
+        bus.post(new EventSearchRange(5000));
     }
 
     @Click(R.id.ten_km) public void ten_km() {
         setSelected(button10);
-        bus.post(new EventRange(10000));
+        bus.post(new EventSearchRange(10000));
     }
 
     @Click(R.id.twenty_five_km) public void twenty_five_km() {
         setSelected(button25);
-        bus.post(new EventRange(25000));
+        bus.post(new EventSearchRange(25000));
     }
 
     @Click(R.id.fifty_km) public void fifty_km() {
         setSelected(button50);
-        bus.post(new EventRange(50000));
+        bus.post(new EventSearchRange(50000));
     }
 
     //********************************************************************************************//

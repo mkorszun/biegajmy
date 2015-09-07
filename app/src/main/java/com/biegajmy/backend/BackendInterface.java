@@ -25,8 +25,8 @@ public interface BackendInterface {
     @DELETE("/event/{event_id}") Response deleteEvent(@Path("event_id") String eventId, @Query("token") String token)
         throws BackendError;
 
-    @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y, @Query("max") int max,
-        @Query("token") String token) throws BackendError;
+    @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y, @Query("max") int max)
+        throws BackendError;
 
     @PUT("/event/{event_id}/user") Event joinEvent(@Path("event_id") String eventId, @Query("token") String token)
         throws BackendError;

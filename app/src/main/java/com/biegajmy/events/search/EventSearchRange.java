@@ -1,9 +1,9 @@
-package com.biegajmy.events;
+package com.biegajmy.events.search;
 
-public class EventRange {
+public class EventSearchRange {
     private int max;
 
-    public EventRange(int max) {
+    public EventSearchRange(int max) {
         this.max = max;
     }
 

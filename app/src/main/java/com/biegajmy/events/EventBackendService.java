@@ -59,6 +59,17 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         }
     }
 
+    @ServiceAction public void searchEvents(double x, double y, int max) {
+        try {
+            BackendInterface backend = BackendInterfaceFactory.build();
+            List<Event> events = backend.listEvents(x, y, max);
+            EventListBus.getInstance().post(new EventListBus.SearchEventsOK(events));
+        } catch (Exception e) {
+            Log.e(TAG, "List user event failed", e);
+            EventListBus.getInstance().post(new EventListBus.SearchEventsNOK(e));
+        }
+    }
+
     //********************************************************************************************//
     //********************************************************************************************//
 }

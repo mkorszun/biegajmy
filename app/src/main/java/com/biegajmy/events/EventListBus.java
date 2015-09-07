@@ -62,4 +62,20 @@ public class EventListBus extends Bus {
     public static class ListUserEventsNOK {
 
     }
+
+    public static class SearchEventsOK {
+        public List<Event> events;
+
+        public SearchEventsOK(List<Event> events) {
+            this.events = events;
+        }
+    }
+
+    public static class SearchEventsNOK {
+        public Exception exception;
+
+        public SearchEventsNOK(Exception exception) {
+            this.exception = exception;
+        }
+    }
 }

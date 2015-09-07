@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.R;
 import com.biegajmy.backend.UserBackendService_;
+import com.biegajmy.events.search.EventSearchMainFragment_;
 import com.biegajmy.events.user.EventUserListMainFragment_;
 import com.biegajmy.general.SlidingTabLayout;
 import com.biegajmy.general.ViewPagerAdapter;
@@ -51,6 +52,6 @@ import static java.util.Arrays.asList;
     }
 
     private List<Fragment> getFragments() {
-        return asList(new Fragment[] { new EventListMainFragment_(), new EventUserListMainFragment_() });
+        return asList(new Fragment[] { new EventSearchMainFragment_(), new EventUserListMainFragment_() });
     }
 }

@@ -1,4 +1,4 @@
-package com.biegajmy.events;
+package com.biegajmy.events.search;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -10,7 +10,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_event_list_main) public class EventListMainFragment extends Fragment
+@EFragment(R.layout.fragment_event_list_main) public class EventSearchMainFragment extends Fragment
     implements DrawerLayout.DrawerListener {
 
     @ViewById(R.id.drawer_layout) protected DrawerLayout drawerLayout;

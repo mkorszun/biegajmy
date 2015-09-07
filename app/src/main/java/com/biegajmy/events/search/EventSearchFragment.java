@@ -1,4 +1,4 @@
-package com.biegajmy.events;
+package com.biegajmy.events.search;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,18 +9,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.events.EventBackendService_;
+import com.biegajmy.events.EventDetailActivity_;
+import com.biegajmy.events.EventListAdapter;
+import com.biegajmy.events.EventListBus;
 import com.biegajmy.general.RefreshableListFragment;
 import com.biegajmy.location.LastLocation;
-import com.biegajmy.model.Event;
-import com.biegajmy.task.ListEventExecutor;
-import com.biegajmy.task.ListEventTask;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
-import java.util.List;
 
 import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
 
-public class EventListFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class EventSearchFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private int lastRange = 5000;
     private Activity activity;
@@ -83,12 +83,18 @@ public class EventListFragment extends RefreshableListFragment implements SwipeR
     // Events
     //********************************************************************************************//
 
-    @Subscribe public void event(EventRange range) {
+    @Subscribe public void event(EventSearchRange range) {
         loadData(lastRange = range.getMax());
     }
 
-    @Subscribe public void event(Event event) {
-        adapter.update(event);
+    @Subscribe public void event(EventListBus.SearchEventsOK event) {
+        setRefreshing(false);
+        adapter.setData(event.events);
+    }
+
+    @Subscribe public void event(EventListBus.SearchEventsNOK event) {
+        setRefreshing(false);
+        Toast.makeText(getActivity(), R.string.event_search_error_msg, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//
@@ -97,19 +103,7 @@ public class EventListFragment extends RefreshableListFragment implements SwipeR
 
     private void loadData(int max) {
         LastLocation pos = storage.getLastLocation();
-
-        new ListEventTask(new ListEventExecutor() {
-            @Override public void onSuccess(List<Event> events) {
-                setRefreshing(false);
-                adapter.setData(events);
-            }
-
-            @Override public void onFailure(Exception e) {
-                setRefreshing(false);
-                Toast.makeText(activity, activity.getResources().getString(R.string.event_search_error_msg),
-                    Toast.LENGTH_LONG).show();
-            }
-        }).execute(storage.getToken().token, pos.lat, pos.lng, max);
+        EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max).start();
     }
 
     //********************************************************************************************//
