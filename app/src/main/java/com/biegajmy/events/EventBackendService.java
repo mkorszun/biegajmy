@@ -54,7 +54,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
             List<Event> events = backend.listEvents(localStorage.getToken().id, localStorage.getToken().token);
             EventListBus.getInstance().post(new EventListBus.ListUserEventsOK(events));
         } catch (Exception e) {
-            Log.e(TAG, "List user event failed", e);
+            Log.e(TAG, "List user events failed", e);
             EventListBus.getInstance().post(new EventListBus.ListUserEventsNOK());
         }
     }
@@ -65,8 +65,26 @@ import org.androidannotations.api.support.app.AbstractIntentService;
             List<Event> events = backend.listEvents(x, y, max);
             EventListBus.getInstance().post(new EventListBus.SearchEventsOK(events));
         } catch (Exception e) {
-            Log.e(TAG, "List user event failed", e);
+            Log.e(TAG, "List user events failed", e);
             EventListBus.getInstance().post(new EventListBus.SearchEventsNOK(e));
+        }
+    }
+
+    @ServiceAction public void joinEvent(String eventID, boolean join) {
+        try {
+            Event event;
+            BackendInterface backend = BackendInterfaceFactory.build();
+
+            if (join) {
+                event = backend.joinEvent(eventID, localStorage.getToken().token);
+            } else {
+                event = backend.leaveEvent(eventID, localStorage.getToken().token);
+            }
+
+            EventListBus.getInstance().post(new EventListBus.EventJoinLeaveOK(event));
+        } catch (Exception e) {
+            Log.e(TAG, String.format("Failed to %s event", join ? "join" : "leave"), e);
+            EventListBus.getInstance().post(new EventListBus.EventJoinLeaveNOK(e));
         }
     }
 

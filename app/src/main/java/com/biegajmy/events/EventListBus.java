@@ -78,4 +78,20 @@ public class EventListBus extends Bus {
             this.exception = exception;
         }
     }
+
+    public static class EventJoinLeaveOK {
+        public Event event;
+
+        public EventJoinLeaveOK(Event event) {
+            this.event = event;
+        }
+    }
+
+    public static class EventJoinLeaveNOK {
+        public Exception exception;
+
+        public EventJoinLeaveNOK(Exception e) {
+            this.exception = e;
+        }
+    }
 }

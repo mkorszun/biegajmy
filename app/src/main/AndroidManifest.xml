@@ -60,7 +60,7 @@
         </activity>
         <activity
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:name=".events.EventDetailActivity_"
+            android:name=".events.details.EventDetailActivity_"
             android:label="@string/title_event_detail"
             android:launchMode="singleTop"
             android:parentActivityName=".events.EventMainActivity"
@@ -103,11 +103,11 @@
             android:label="@string/comment_label"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:name=".comments.CommentsListActivity_"
-            android:parentActivityName=".events.EventDetailActivity_"
+            android:parentActivityName=".events.details.EventDetailActivity_"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".events.EventDetailActivity_"/>
+                android:value=".events.details.EventDetailActivity_"/>
         </activity>
 
         <service

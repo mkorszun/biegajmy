@@ -12,16 +12,16 @@ import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.EventBackendService_;
-import com.biegajmy.events.EventDetailActivity_;
 import com.biegajmy.events.EventListAdapter;
 import com.biegajmy.events.EventListBus;
+import com.biegajmy.events.details.EventDetailActivity_;
 import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.general.RefreshableListFragment;
 import com.biegajmy.model.Event;
 import com.squareup.otto.Subscribe;
 
-import static com.biegajmy.events.EventDetailFragment.ARG_EVENT;
+import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
 public class EventUserListFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
 
