@@ -30,7 +30,7 @@ public class UserEventBus extends Bus {
     }
 
     //********************************************************************************************//
-    // Update user events
+    // Update user
     //********************************************************************************************//
 
     public static class UpdateUserEventOk {
@@ -45,13 +45,40 @@ public class UserEventBus extends Bus {
     }
 
     //********************************************************************************************//
-    // Check token events
+    // Check token
     //********************************************************************************************//
 
     public static class TokenOKEvent {
     }
 
     public static class TokenNOKEvent {
+    }
+
+    //********************************************************************************************//
+    // Update photo
+    //********************************************************************************************//
+
+    public static class UpdateUserPhotoOk {
+    }
+
+    public static class UpdateUserPhotoFailed {
+        public Exception exception;
+
+        public UpdateUserPhotoFailed(Exception e) {
+            this.exception = e;
+        }
+    }
+
+    //********************************************************************************************//
+    // Scale photo
+    //********************************************************************************************//
+
+    public static class ScalePhotoOK {
+        public String path;
+
+        public ScalePhotoOK(String path) {
+            this.path = path;
+        }
     }
 
     //********************************************************************************************//

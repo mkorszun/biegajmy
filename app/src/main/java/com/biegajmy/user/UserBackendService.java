@@ -1,16 +1,23 @@
 package com.biegajmy.user;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
+import com.biegajmy.utils.PhotoUtils;
 import com.squareup.otto.Bus;
+import java.io.File;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EIntentService;
 import org.androidannotations.annotations.ServiceAction;
 import org.androidannotations.api.support.app.AbstractIntentService;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 
 @EIntentService public class UserBackendService extends AbstractIntentService {
 
@@ -72,6 +79,35 @@ import org.androidannotations.api.support.app.AbstractIntentService;
             Log.d(TAG, "Token already stored locally");
             userBus.post(new UserEventBus.TokenOKEvent());
         }
+    }
+
+    @ServiceAction public void updatePhoto(String path) {
+        if (path == null) return;
+        File scaledFile = PhotoUtils.scale(getApplicationContext(), path);
+        backend.updatePhoto(localStorage.getToken().id, localStorage.getToken().token,
+            new TypedFile("application/octet-stream", scaledFile), new Callback<User>() {
+
+                @Override public void success(User user, Response response) {
+                    Log.d(TAG, "Photo update successfully");
+                    localStorage.updateUser(user);
+                    userBus.post(new UserEventBus.UpdateUserPhotoOk());
+                }
+
+                @Override public void failure(RetrofitError error) {
+                    Log.e(TAG, "Failed to update photo", error);
+                    userBus.post(new UserEventBus.UpdateUserPhotoFailed(error));
+                }
+            });
+    }
+
+    @ServiceAction public void scalePhotoFromPath(String path) {
+        File file = PhotoUtils.scale(this, path);
+        userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
+    }
+
+    @ServiceAction public void scalePhotoFromBitmap(Bitmap bitmap) {
+        File file = PhotoUtils.scale(this, bitmap);
+        userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
     }
 
     //********************************************************************************************//

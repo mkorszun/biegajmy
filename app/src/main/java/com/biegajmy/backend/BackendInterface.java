@@ -6,16 +6,24 @@ import com.biegajmy.model.NewEvent;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
 import java.util.List;
+import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.DELETE;
 import retrofit.http.GET;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.PUT;
+import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.TypedFile;
 
 public interface BackendInterface {
+
+    //********************************************************************************************//
+    // Events
+    //********************************************************************************************//
 
     @POST("/event") Response createEvent(@Query("token") String token, @Body NewEvent event) throws BackendError;
 
@@ -37,9 +45,15 @@ public interface BackendInterface {
     @PUT("/event/{event_id}/comment") CommentList comment(@Path("event_id") String eventId, @Query("msg") String msg,
         @Query("token") String token) throws BackendError;
 
+    //********************************************************************************************//
     // User
+    //********************************************************************************************//
+
     @PUT("/user/{user_id}") User updateUser(@Path("user_id") String userId, @Query("token") String token,
         @Body User user) throws BackendError;
+
+    @Multipart @PUT("/user/{user_id}/photo") void updatePhoto(@Path("user_id") String userId,
+        @Query("token") String token, @Part("photo") TypedFile file, Callback<User> cb);
 
     @GET("/user/{user_id}") User getUser(@Path("user_id") String userId, @Query("token") String token)
         throws BackendError;
@@ -47,6 +61,12 @@ public interface BackendInterface {
     @GET("/user/{user_id}/events") List<Event> listEvents(@Path("user_id") String userId, @Query("token") String token)
         throws BackendError;
 
+    //********************************************************************************************//
     // Token
+    //********************************************************************************************//
+
     @POST("/token") Token createToken(@Query("facebook_token") String facebook_token);
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }
