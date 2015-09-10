@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 import com.biegajmy.splash.SplashActivity_;
+import com.biegajmy.user.UserBackendService_;
 import com.biegajmy.user.UserEventBus;
-import com.biegajmy.user.UserEventBus.CheckTokenEvent;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -20,7 +20,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
-import org.androidannotations.annotations.res.StringRes;
 
 @EFragment(R.layout.fragment_login) public class LoginFragment extends Fragment {
 
@@ -31,7 +30,6 @@ import org.androidannotations.annotations.res.StringRes;
     private Session.StatusCallback statusCallback = new SessionStatusCallback();
 
     @ViewById(R.id.authButton) LoginButton login;
-    @StringRes(R.string.user_token_request_failed_msg) String MSG;
     @StringArrayRes(R.array.facebook_permissions) String[] PERMISSIONS;
 
     //********************************************************************************************//
@@ -85,7 +83,7 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     @Subscribe public void event(UserEventBus.TokenOKEvent event) {
-        UserEventBus.getInstance().post(new UserEventBus.SyncUserDataEvent());
+        UserBackendService_.intent(getActivity()).syncUser().start();
         final Intent it = new Intent(getActivity(), SplashActivity_.class);
         it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -94,7 +92,7 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Subscribe public void event(UserEventBus.TokenNOKEvent event) {
-        Toast.makeText(getActivity(), MSG, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), R.string.user_token_request_failed_msg, Toast.LENGTH_LONG).show();
         getActivity().finish();
     }
 
@@ -102,8 +100,7 @@ import org.androidannotations.annotations.res.StringRes;
     // Event handlers
     //********************************************************************************************//
 
-    private void onSessionStateChange(final Session session, SessionState state,
-        Exception exception) {
+    private void onSessionStateChange(final Session session, SessionState state, Exception exception) {
         if (state.isOpened() && (this.session == null || isSessionChanged(session))) {
 
             this.session = session;
@@ -114,7 +111,7 @@ import org.androidannotations.annotations.res.StringRes;
                 @Override public void onCompleted(GraphUser user, Response response) {
                     if (user != null) {
                         String accessToken = session.getAccessToken();
-                        UserEventBus.getInstance().post(new CheckTokenEvent(accessToken));
+                        UserBackendService_.intent(getActivity()).checkToken(accessToken).start();
                     }
                 }
             }).executeAsync();

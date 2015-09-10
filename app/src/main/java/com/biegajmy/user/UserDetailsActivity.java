@@ -20,7 +20,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringRes;
 
 @EActivity(R.layout.activity_user_details) @OptionsMenu(R.menu.menu_user_details) public class UserDetailsActivity
     extends ActionBarActivity {
@@ -33,7 +32,6 @@ import org.androidannotations.annotations.res.StringRes;
     @ViewById(R.id.telephone) EditText telephone;
     @ViewById(R.id.www) EditText www;
     @ViewById(R.id.email) EditText email;
-    @StringRes(R.string.user_update_failed_msg) String ERROR_MSG;
 
     private User user;
 
@@ -71,7 +69,7 @@ import org.androidannotations.annotations.res.StringRes;
         user.telephone = telephone.getText().toString();
         user.www = www.getText().toString();
         user.email = email.getText().toString();
-        UserEventBus.getInstance().post(new UserEventBus.UpdateUserEvent(user));
+        UserBackendService_.intent(this).updateUser(user).start();
     }
 
     @OptionsItem(android.R.id.home) public void backHome() {
@@ -87,7 +85,7 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Subscribe public void onUpdateFailed(UserEventBus.UpdateUserEventFailed event) {
-        Toast.makeText(this, ERROR_MSG, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//

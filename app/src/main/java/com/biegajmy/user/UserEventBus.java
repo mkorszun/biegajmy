@@ -1,12 +1,13 @@
 package com.biegajmy.user;
 
-import com.biegajmy.model.User;
+import android.os.Handler;
+import android.os.Looper;
 import com.squareup.otto.Bus;
-import java.util.ArrayList;
 
 public class UserEventBus extends Bus {
 
     private static UserEventBus bus;
+    private static final Handler mainThread = new Handler(Looper.getMainLooper());
 
     public static synchronized Bus getInstance() {
         if (bus == null) {
@@ -16,22 +17,21 @@ public class UserEventBus extends Bus {
         return bus;
     }
 
-    public static class UpdateUserTagsEvent {
-
-        public ArrayList<String> tags;
-
-        public UpdateUserTagsEvent(ArrayList<String> tags) {
-            this.tags = tags;
+    @Override public void post(final Object event) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            super.post(event);
+        } else {
+            mainThread.post(new Runnable() {
+                @Override public void run() {
+                    post(event);
+                }
+            });
         }
     }
 
-    public static class UpdateUserEvent {
-        public User user;
-
-        public UpdateUserEvent(User user) {
-            this.user = user;
-        }
-    }
+    //********************************************************************************************//
+    // Update user events
+    //********************************************************************************************//
 
     public static class UpdateUserEventOk {
     }
@@ -44,21 +44,9 @@ public class UserEventBus extends Bus {
         }
     }
 
-    public static class SyncUserDataEvent {
-
-    }
-
     //********************************************************************************************//
-    // Token
+    // Check token events
     //********************************************************************************************//
-
-    public static class CheckTokenEvent {
-        public String socialToken;
-
-        public CheckTokenEvent(String socialToken) {
-            this.socialToken = socialToken;
-        }
-    }
 
     public static class TokenOKEvent {
     }

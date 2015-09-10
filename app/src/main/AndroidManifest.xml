@@ -111,7 +111,7 @@
         </activity>
 
         <service
-            android:name=".backend.UserBackendService_"
+            android:name=".user.UserBackendService_"
             android:enabled="true"
             android:exported="true">
         </service>

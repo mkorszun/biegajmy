@@ -6,12 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.R;
-import com.biegajmy.backend.UserBackendService_;
 import com.biegajmy.events.search.EventSearchMainFragment_;
 import com.biegajmy.events.user.EventUserListMainFragment_;
 import com.biegajmy.general.SlidingTabLayout;
 import com.biegajmy.general.ViewPagerAdapter;
-import com.biegajmy.location.LocationService_;
 import com.biegajmy.user.UserDetailsActivity_;
 import java.util.List;
 import org.androidannotations.annotations.AfterViews;
@@ -41,9 +39,6 @@ import static java.util.Arrays.asList;
 
     @Override protected void onDestroy() {
         super.onDestroy();
-
-        LocationService_.intent(getApplication()).stop();
-        UserBackendService_.intent(getApplication()).stop();
         tabs.setViewPager(null);
     }
 
