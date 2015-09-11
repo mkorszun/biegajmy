@@ -9,9 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.events.EventBackendService_;
+import com.biegajmy.events.EventListBus;
 import com.biegajmy.model.Comment;
-import com.biegajmy.task.CommentEventTask;
-import com.biegajmy.task.TaskExecutor;
+import com.squareup.otto.Subscribe;
 import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -41,6 +42,7 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     @AfterViews public void setup() {
+        EventListBus.getInstance().register(this);
         List<Comment> comments = (List<Comment>) getArguments().getSerializable(COMMENTS_ARG);
         eventID = getArguments().getString(EVENT_ID_ARG);
         boolean editMode = getArguments().getBoolean(EDIT_MODE_ARG);
@@ -64,6 +66,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Override public void onDestroy() {
         super.onDestroy();
+        EventListBus.getInstance().unregister(this);
         adapter.clear();
         commentList.setAdapter(null);
         commentAdd.setOnEditorActionListener(null);
@@ -71,6 +74,20 @@ import org.androidannotations.annotations.res.StringRes;
         adapter = null;
         commentAdd = null;
         commentList = null;
+    }
+
+    //********************************************************************************************//
+    // Events
+    //********************************************************************************************//
+
+    @Subscribe public void event(EventListBus.EventAddCommentOK event) {
+        adapter.clear();
+        adapter.addAll(event.comments);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe public void event(EventListBus.EventAddCommentNOK event) {
+        Toast.makeText(getActivity(), R.string.comment_add_failed_msg, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//
@@ -83,17 +100,7 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void addComment(String comment) {
-        new CommentEventTask(new TaskExecutor<List<Comment>>() {
-            @Override public void onSuccess(List<Comment> comments) {
-                adapter.clear();
-                adapter.addAll(comments);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override public void onFailure(Exception e) {
-                Toast.makeText(getActivity(), ERROR, Toast.LENGTH_LONG).show();
-            }
-        }).execute(eventID, localStorage.getToken().token, comment);
+        EventBackendService_.intent(getActivity()).addComment(eventID, comment).start();
     }
 
     //********************************************************************************************//

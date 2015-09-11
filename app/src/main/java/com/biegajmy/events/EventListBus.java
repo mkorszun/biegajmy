@@ -2,6 +2,7 @@ package com.biegajmy.events;
 
 import android.os.Handler;
 import android.os.Looper;
+import com.biegajmy.model.Comment;
 import com.biegajmy.model.Event;
 import com.squareup.otto.Bus;
 import java.util.List;
@@ -92,6 +93,22 @@ public class EventListBus extends Bus {
 
         public EventJoinLeaveNOK(Exception e) {
             this.exception = e;
+        }
+    }
+
+    public static class EventAddCommentOK {
+        public List<Comment> comments;
+
+        public EventAddCommentOK(List<Comment> comments) {
+            this.comments = comments;
+        }
+    }
+
+    public static class EventAddCommentNOK {
+        public Exception exception;
+
+        public EventAddCommentNOK(Exception excepton) {
+            this.exception = exception;
         }
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
+import com.biegajmy.model.Comment;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
 import java.util.List;
@@ -85,6 +86,17 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         } catch (Exception e) {
             Log.e(TAG, String.format("Failed to %s event", join ? "join" : "leave"), e);
             EventListBus.getInstance().post(new EventListBus.EventJoinLeaveNOK(e));
+        }
+    }
+
+    @ServiceAction public void addComment(String eventID, String msg) {
+        try {
+            BackendInterface backend = BackendInterfaceFactory.build();
+            List<Comment> comments = backend.comment(eventID, msg, localStorage.getToken().token).comments;
+            EventListBus.getInstance().post(new EventListBus.EventAddCommentOK(comments));
+        } catch (Exception e) {
+            Log.e(TAG, String.format("Failed to add comment to event %s", eventID), e);
+            EventListBus.getInstance().post(new EventListBus.EventAddCommentNOK(e));
         }
     }
 
