@@ -101,6 +101,7 @@
         </RelativeLayout>
 
         <FrameLayout style="@style/event_details_frame_layout"
+            android:padding="16dp"
             android:id="@+id/event_tags"
             android:layout_marginBottom="@dimen/details_section_big_margin"
             android:layout_below="@+id/event_details"/>

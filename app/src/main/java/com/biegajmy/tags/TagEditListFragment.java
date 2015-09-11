@@ -14,12 +14,13 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.tag_edit_view) public class TagEditListFragment extends Fragment {
-
-    @Bean LocalStorage localStorage;
-    @ViewById(R.id.new_tag) EditText newTag;
+@EFragment(R.layout.tag_edit_view) public class TagEditListFragment extends Fragment
+    implements TextView.OnEditorActionListener {
 
     public static final String ARGS_TAGS = "ARGS_TAGS";
+
+    @Bean protected LocalStorage localStorage;
+    @ViewById(R.id.new_tag) protected EditText newTag;
 
     //********************************************************************************************//
     // Callbacks
@@ -44,13 +45,13 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @AfterViews public void setUp() {
-        newTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                getTagListFragment().addTag(v.getText().toString());
-                v.setText("");
-                return false;
-            }
-        });
+        newTag.setOnEditorActionListener(this);
+    }
+
+    @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        getTagListFragment().addTag(v.getText().toString());
+        v.setText("");
+        return false;
     }
 
     //********************************************************************************************//
