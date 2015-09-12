@@ -41,10 +41,10 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Click(R.id.event_search_filter_button) public void settings() {
-        if (drawerLayout.isDrawerOpen(Gravity.END)) {
-            drawerLayout.closeDrawer(Gravity.START);
+        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+            drawerLayout.closeDrawer(Gravity.RIGHT);
         } else {
-            drawerLayout.openDrawer(Gravity.END);
+            drawerLayout.openDrawer(Gravity.RIGHT);
         }
     }
 }
