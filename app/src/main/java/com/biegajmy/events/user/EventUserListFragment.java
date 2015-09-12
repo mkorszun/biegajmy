@@ -44,7 +44,6 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
         adapter = new EventListAdapter(activity);
 
         setListAdapter(adapter);
-        onRefresh();
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }

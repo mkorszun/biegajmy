@@ -47,7 +47,6 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
         super.onViewCreated(view, savedInstanceState);
         getListView().setFastScrollEnabled(true);
         setListShown(true);
-        loadData(lastRange);
     }
 
     @Override public void onActivityCreated(Bundle savedInstanceState) {
