@@ -4,10 +4,11 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
 import com.biegajmy.R;
+import com.biegajmy.events.EventListBus;
 import com.biegajmy.general.ExpandableHeightListView;
 import com.biegajmy.model.Comment;
+import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
-import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -18,7 +19,6 @@ import org.androidannotations.annotations.ViewById;
 
     public static final String EVENT_ID_ARG = "EVENT_ID_ARG";
     public static final String COMMENTS_ARG = "COMMENTS_ARG";
-    private static final int COMMENTS_LIMIT = 3;
 
     private String eventID;
     private CommentsListAdapter adapter;
@@ -33,10 +33,11 @@ import org.androidannotations.annotations.ViewById;
         comments = (ArrayList<Comment>) getArguments().getSerializable(COMMENTS_ARG);
         eventID = getArguments().getString(EVENT_ID_ARG);
 
-        adapter = new CommentsListAdapter(getActivity(), getLast(comments));
+        adapter = new CommentsListAdapter(getActivity(), CommentsUtils.getLast(comments));
         commentList.setAdapter(adapter);
         commentList.setExpanded(true);
         commentList.setOnItemClickListener(this);
+        EventListBus.getInstance().register(this);
     }
 
     @Click(R.id.comment_add) public void onClick() {
@@ -48,9 +49,12 @@ import org.androidannotations.annotations.ViewById;
 
     @Override public void onDestroy() {
         super.onDestroy();
-        adapter.clear();
+
         commentList.setAdapter(null);
         commentList.setOnItemClickListener(null);
+        EventListBus.getInstance().unregister(this);
+
+        adapter.clear();
         eventID = null;
         adapter = null;
         comments = null;
@@ -66,17 +70,13 @@ import org.androidannotations.annotations.ViewById;
     }
 
     //********************************************************************************************//
-    // Helpers
+    // Events
     //********************************************************************************************//
 
-    private List<Comment> getLast(List<Comment> comments) {
-        int size = comments.size();
-        if (size > COMMENTS_LIMIT) {
-            int start = comments.size() - COMMENTS_LIMIT;
-            return comments.subList(start, comments.size());
-        } else {
-            return comments;
-        }
+    @Subscribe public void event(ArrayList<Comment> comments) {
+        adapter.clear();
+        adapter.addAll(comments);
+        adapter.notifyDataSetChanged();
     }
 
     //********************************************************************************************//

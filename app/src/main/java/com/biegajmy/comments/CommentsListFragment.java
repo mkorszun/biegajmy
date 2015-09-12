@@ -66,6 +66,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Override public void onDestroy() {
         super.onDestroy();
+        EventListBus.getInstance().post(CommentsUtils.getLast(adapter.getComments()));
         EventListBus.getInstance().unregister(this);
         adapter.clear();
         commentList.setAdapter(null);

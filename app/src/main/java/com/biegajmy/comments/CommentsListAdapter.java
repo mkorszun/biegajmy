@@ -18,9 +18,11 @@ import java.util.List;
 public class CommentsListAdapter extends ArrayAdapter<Comment> {
 
     private LayoutInflater inflater;
+    private List<Comment> comments;
 
     public CommentsListAdapter(Context context, List<Comment> comments) {
         super(context, R.layout.comment_list_item, comments);
+        this.comments = comments;
     }
 
     //********************************************************************************************//
@@ -41,6 +43,14 @@ public class CommentsListAdapter extends ArrayAdapter<Comment> {
         Picasso.with(this.getContext()).load(item.photoURL).into(userPhoto);
 
         return view;
+    }
+
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
     //********************************************************************************************//
