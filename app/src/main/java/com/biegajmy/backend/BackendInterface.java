@@ -65,7 +65,16 @@ public interface BackendInterface {
     // Token
     //********************************************************************************************//
 
-    @POST("/token") Token createToken(@Query("facebook_token") String facebook_token);
+    @POST("/token") Token createToken(@Query("facebook_token") String facebook_token) throws BackendError;
+
+    //********************************************************************************************//
+    // Tags
+    //********************************************************************************************//
+
+    @GET("/tag") List<String> getTagRecommendations() throws BackendError;
+
+    @GET("/tag") List<String> getPopularTags(@Query("x") double x, @Query("y") double y, @Query("max") int max)
+        throws BackendError;
 
     //********************************************************************************************//
     //********************************************************************************************//

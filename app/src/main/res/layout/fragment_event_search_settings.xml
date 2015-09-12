@@ -56,6 +56,11 @@
             android:id="@+id/tag_recommendation_label"
             android:layout_below="@+id/tag_edit_confirmation"/>
 
+        <FrameLayout style="@style/event_details_frame_layout"
+            android:id="@+id/popular_tags"
+            android:background="@android:color/transparent"
+            android:layout_below="@+id/tag_recommendation_label"/>
+
     </RelativeLayout>
 
 </LinearLayout>

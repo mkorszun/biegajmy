@@ -15,9 +15,11 @@ import org.apmem.tools.layouts.FlowLayout;
 @EFragment(R.layout.tag_view) public class TagListFragment extends Fragment implements View.OnClickListener {
 
     public static final String ARGS_TAGS = "ARGS_TAGS";
+    public static final String ARGS_HIDE_LABEL = "ARGS_HIDE_LABEL";
     public static final String ARGS_EDITABLE = "ARGS_EDITABLE";
 
     private boolean isEditable;
+    private boolean hideLabel;
     private ArrayList<String> tags = new ArrayList();
 
     @ViewById(R.id.tag_label) protected TextView tagLabel;
@@ -32,6 +34,7 @@ import org.apmem.tools.layouts.FlowLayout;
         super.onCreate(savedInstanceState);
         tags.addAll((ArrayList<String>) getArguments().getSerializable(ARGS_TAGS));
         isEditable = getArguments().getBoolean(ARGS_EDITABLE);
+        hideLabel = getArguments().getBoolean(ARGS_HIDE_LABEL);
     }
 
     @Override public void onDestroy() {
@@ -40,7 +43,7 @@ import org.apmem.tools.layouts.FlowLayout;
     }
 
     @AfterViews public void setUpTags() {
-        tagLabel.setVisibility(isEditable ? View.GONE : View.VISIBLE);
+        tagLabel.setVisibility(isEditable || hideLabel ? View.GONE : View.VISIBLE);
         for (int i = 0; i < tags.size(); i++) rootView.addView(getTag(i));
     }
 

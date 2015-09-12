@@ -9,7 +9,9 @@ import com.snappydb.DB;
 import com.snappydb.DBFactory;
 import com.snappydb.SnappydbException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -95,5 +97,21 @@ import org.androidannotations.annotations.RootContext;
         } catch (SnappydbException e) {
             return false;
         }
+    }
+
+    public void updateTagRecommendations(ArrayList<String> tags) {
+        this.put("tag_recommendations", tags);
+    }
+
+    public List<String> getTagRecommendations() {
+        return this.get("tag_recommendations", ArrayList.class);
+    }
+
+    public void updatePopularTags(ArrayList<String> tags) {
+        this.put("tag_popular", tags);
+    }
+
+    public List<String> getPopularTags() {
+        return this.get("tag_popular", ArrayList.class);
     }
 }
