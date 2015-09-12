@@ -1,6 +1,7 @@
 package com.biegajmy.events;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.util.Map;
 
 public class EventListAdapter extends ArrayAdapter<Event> {
 
+    private static final String TAG = EventListAdapter.class.getName();
+
     private List<Event> events;
     private LayoutInflater inflater;
     private Map<String, Integer> labels = new HashMap<>();
@@ -27,7 +30,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
     public EventListAdapter(Context context, int resource, List<Event> events) {
         super(context, resource, events);
         this.events = events;
-        sort(comparator);
+        setData(this.events);
     }
 
     //********************************************************************************************//
@@ -44,6 +47,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         ((TextView) view.findViewById(R.id.event_headline)).setText(item.headline);
         ((TextView) view.findViewById(R.id.event_date)).setText(dateTime.getTime().toString());
         ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance + " km");
+        Log.d(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
         setLabel(position, view, dateTime.getDate().toString());
 
         return view;
@@ -55,20 +59,9 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
     public void setData(List<Event> events) {
         clear();
-        labels.clear();
         addAll(events);
-        notifyDataSetChanged();
         sort(comparator);
-    }
-
-    public void update(Event event) {
-        events.set(events.indexOf(event), event);
-        notifyDataSetChanged();
-    }
-
-    public void delete(int id) {
-        events.remove(id);
-        notifyDataSetChanged();
+        prepareLabels();
     }
 
     public Event get(int id) {
@@ -87,18 +80,24 @@ public class EventListAdapter extends ArrayAdapter<Event> {
     }
 
     private void setLabel(int position, View view, String label) {
-        if (!labels.containsKey(label)) {
-            ((TextView) view.findViewById(R.id.event_list_label)).setText(label);
-            view.findViewById(R.id.event_list_label).setVisibility(View.VISIBLE);
-            labels.put(label, position);
-        }
-
         if (labels.get(label) == position) {
+            Log.d(TAG, String.format("Position %d date %s label should be here", position, label));
             ((TextView) view.findViewById(R.id.event_list_label)).setText(label);
             view.findViewById(R.id.event_list_label).setVisibility(View.VISIBLE);
         } else {
+            Log.d(TAG, String.format("Position %d date %s label should not be here", position, label));
             ((TextView) view.findViewById(R.id.event_list_label)).setText("");
             view.findViewById(R.id.event_list_label).setVisibility(View.GONE);
+        }
+    }
+
+    private void prepareLabels() {
+        labels.clear();
+        EventDateTime dateTime = new EventDateTime();
+        for (int i = 0; i < events.size(); i++) {
+            dateTime.set(events.get(i).timestamp);
+            String label = dateTime.getDate().toString();
+            if (!labels.containsKey(label)) labels.put(label, i);
         }
     }
 
