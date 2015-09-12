@@ -3,6 +3,7 @@ package com.biegajmy.comments;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import com.biegajmy.R;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.general.ExpandableHeightListView;
@@ -19,10 +20,15 @@ import org.androidannotations.annotations.ViewById;
 
     public static final String EVENT_ID_ARG = "EVENT_ID_ARG";
     public static final String COMMENTS_ARG = "COMMENTS_ARG";
+    public static final String COMMENTS_READ_ONLY_ARG = "COMMENTS_READ_ONLY_ARG";
 
     private String eventID;
+    private boolean readOnly;
+
     private CommentsListAdapter adapter;
     private ArrayList<Comment> comments;
+
+    @ViewById(R.id.comment_add) Button addComment;
     @ViewById(R.id.comment_list) ExpandableHeightListView commentList;
 
     //********************************************************************************************//
@@ -31,20 +37,35 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setup() {
         comments = (ArrayList<Comment>) getArguments().getSerializable(COMMENTS_ARG);
+        readOnly = getArguments().getBoolean(COMMENTS_READ_ONLY_ARG);
         eventID = getArguments().getString(EVENT_ID_ARG);
 
-        adapter = new CommentsListAdapter(getActivity(), CommentsUtils.getLast(comments));
+        ArrayList<Comment> last = CommentsUtils.getLast(comments);
+        adapter = new CommentsListAdapter(getActivity(), last);
         commentList.setAdapter(adapter);
         commentList.setExpanded(true);
         commentList.setOnItemClickListener(this);
         EventListBus.getInstance().register(this);
+        addComment.setVisibility(readOnly ? View.GONE : View.VISIBLE);
     }
 
     @Click(R.id.comment_add) public void onClick() {
-        CommentsListActivity_.intent(getActivity())
-            .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
-            .extra(CommentsListActivity.COMMENTS_ARG, comments)
-            .start();
+        if (!readOnly) {
+            CommentsListActivity_.intent(getActivity())
+                .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
+                .extra(CommentsListActivity.COMMENTS_ARG, comments)
+                .start();
+        }
+    }
+
+    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (!readOnly) {
+            CommentsListActivity_.intent(getActivity())
+                .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
+                .extra(CommentsListActivity.COMMENTS_ARG, comments)
+                .extra(CommentsListActivity.EDIT_MODE_ARG, false)
+                .start();
+        }
     }
 
     @Override public void onDestroy() {
@@ -61,12 +82,13 @@ import org.androidannotations.annotations.ViewById;
         commentList = null;
     }
 
-    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        CommentsListActivity_.intent(getActivity())
-            .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
-            .extra(CommentsListActivity.COMMENTS_ARG, comments)
-            .extra(CommentsListActivity.EDIT_MODE_ARG, false)
-            .start();
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+        addComment.setVisibility(readOnly ? View.GONE : View.VISIBLE);
     }
 
     //********************************************************************************************//

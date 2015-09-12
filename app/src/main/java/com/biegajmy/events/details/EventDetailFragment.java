@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
-import com.biegajmy.comments.CommentsListFragment;
+import com.biegajmy.comments.CommentsListPlaceholderFragment;
 import com.biegajmy.comments.CommentsListPlaceholderFragment_;
 import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventDateTime;
@@ -54,7 +54,6 @@ import org.androidannotations.annotations.res.StringRes;
     @ViewById(R.id.event_description) protected TextView description;
     @ViewById(R.id.event_join) protected Button joinButton;
 
-    @StringRes(R.string.event_join_error_msg) protected String ERROR_MSG;
     @StringRes(R.string.event_join) protected String JOIN_TXT;
     @StringRes(R.string.event_leave) protected String LEAVE_TXT;
 
@@ -129,12 +128,10 @@ import org.androidannotations.annotations.res.StringRes;
                 .arg(EventParticipantsFragment.ARG_EVENT_ID, event.id)
                 .arg(EventParticipantsFragment.ARG_PARTICIPANTS, event.participants)
                 .build())
-            .replace(R.id.event_tags, TagListFragment_.builder()
-                .arg(TagListFragment.ARGS_TAGS, new ArrayList(event.tags))
-                .build())
-            .replace(R.id.event_owner, UserBasicDetailsFragment_.builder()
-                .arg(UserBasicDetailsFragment.ARG_USER, event.user)
-                .build())
+            .replace(R.id.event_tags,
+                TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, new ArrayList(event.tags)).build())
+            .replace(R.id.event_owner,
+                UserBasicDetailsFragment_.builder().arg(UserBasicDetailsFragment.ARG_USER, event.user).build())
             .commit();
     }
 
@@ -145,10 +142,20 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     private void updateEventComments() {
-        if (isMember) {
-            showComments();
+        boolean readOnly = !isMember;
+        Fragment commentsFragment;
+
+        if ((commentsFragment = fm.findFragmentById(R.id.event_comments)) != null) {
+            ((CommentsListPlaceholderFragment) commentsFragment).setReadOnly(readOnly);
         } else {
-            removeComments();
+
+            fm.beginTransaction()
+                .replace(R.id.event_comments, CommentsListPlaceholderFragment_.builder()
+                    .arg(CommentsListPlaceholderFragment.EVENT_ID_ARG, event.id)
+                    .arg(CommentsListPlaceholderFragment.COMMENTS_ARG, new ArrayList(event.comments))
+                    .arg(CommentsListPlaceholderFragment.COMMENTS_READ_ONLY_ARG, readOnly)
+                    .build())
+                .commit();
         }
     }
 
@@ -158,20 +165,6 @@ import org.androidannotations.annotations.res.StringRes;
 
     private String msgForAction() {
         return isMember ? LEAVE_TXT : JOIN_TXT;
-    }
-
-    private void removeComments() {
-        Fragment fr = fm.findFragmentById(R.id.event_comments);
-        if (fr != null) fm.beginTransaction().remove(fr).commit();
-    }
-
-    private void showComments() {
-        Fragment fr = CommentsListPlaceholderFragment_.builder()
-            .arg(CommentsListFragment.EVENT_ID_ARG, event.id)
-            .arg(CommentsListFragment.COMMENTS_ARG, new ArrayList(event.comments))
-            .build();
-
-        fm.beginTransaction().replace(R.id.event_comments, fr).commit();
     }
 
     private void setUpMap(LatLng loc) {
