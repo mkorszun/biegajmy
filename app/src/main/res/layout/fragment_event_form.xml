@@ -38,12 +38,18 @@
             <EditText style="@style/event_form_numeric_field"
                 android:layout_weight="1"
                 android:id="@+id/form_event_distance"
+                android:editable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:hint="@string/event_form_distance"
                 android:layout_below="@+id/form_event_date_time"/>
 
             <EditText style="@style/event_form_decimal_field"
                 android:layout_weight="1"
                 android:id="@+id/form_event_pace"
+                android:editable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:hint="@string/event_form_pace"
                 android:layout_below="@+id/form_event_distance"/>
 
