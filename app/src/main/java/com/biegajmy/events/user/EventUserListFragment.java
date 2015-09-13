@@ -15,8 +15,6 @@ import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventListAdapter;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.details.EventDetailActivity_;
-import com.biegajmy.events.form.update.EventUpdateActivity_;
-import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.general.RefreshableListFragment;
 import com.biegajmy.model.Event;
 import com.squareup.otto.Subscribe;
@@ -90,15 +88,9 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
     //********************************************************************************************//
 
     private void actionForEvent(Event event) {
-        if (event.user.equals(storage.getUser())) {
-            Intent it = new Intent(activity, EventUpdateActivity_.class);
-            it.putExtra(EventUpdateFragment.ARG_EVENT, event);
-            startActivity(it);
-        } else {
-            Intent detailIntent = new Intent(activity, EventDetailActivity_.class);
-            detailIntent.putExtra(ARG_EVENT, event);
-            startActivity(detailIntent);
-        }
+        Intent detailIntent = new Intent(activity, EventDetailActivity_.class);
+        detailIntent.putExtra(ARG_EVENT, event);
+        startActivity(detailIntent);
     }
 
     //********************************************************************************************//
