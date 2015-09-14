@@ -13,7 +13,6 @@
     <string name="title_activity_user_events">MOJE TRENINGI</string>
 
 
-
     <string name="event_error_msg">Ups. Coś się nie udało. Spróbuj jeszcze raz</string>
     <string name="event_search_error_msg">Ups. Coś się nie udało. Spróbuj jeszcze raz</string>
 
@@ -51,7 +50,9 @@
     <string name="user_form_www">www</string>
     <string name="user_form_email">email</string>
 
+    <string name="user_update_ok_msg">Profil zaktualizowany</string>
     <string name="user_update_failed_msg">Aktualnie nie możliwe</string>
+    <string name="user_photo_update_ok_msg">Zdjęcie zaktualizowane</string>
     <string name="user_photo_update_failed_msg">Nie udało się zaktualizować zdjęcia</string>
     <string name="user_token_request_failed_msg">Weryfikacja aktualnie nie możliwa</string>
 

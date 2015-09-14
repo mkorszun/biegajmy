@@ -48,14 +48,9 @@
             android:value="@string/google_maps_key"/>
 
         <activity
-            android:windowSoftInputMode="stateHidden"
-            android:name=".user.UserDetailsActivity_"
-            android:label="@string/title_activity_user_details"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".events.EventMainActivity_"
             android:label="@string/title_event_list"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
         </activity>
         <activity
