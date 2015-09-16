@@ -29,6 +29,9 @@ android {
             buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
         }
     }
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
 }
 
 def AAVersion = '3.3.1'
@@ -61,6 +64,7 @@ dependencies {
     compile 'joda-time:joda-time:2.3'
     compile "com.splunk.mint:mint:4.2.1"
     compile 'com.afollestad:material-dialogs:0.7.8.1'
+    compile 'com.android.support:multidex:1.0.0'
 }
 
 apt {
