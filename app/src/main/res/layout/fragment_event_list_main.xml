@@ -23,7 +23,8 @@
 
     </RelativeLayout>
 
-    <LinearLayout style="@style/search_settings"
+    <ScrollView style="@style/search_settings"
+        android:clickable="false"
         android:id="@+id/search_filter_layout">
 
         <fragment
@@ -34,5 +35,5 @@
             tools:context="com.biegajmy.events.EventUserListMainFragment_"/>
 
 
-    </LinearLayout>
+    </ScrollView>
 </android.support.v4.widget.DrawerLayout>

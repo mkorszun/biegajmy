@@ -5,12 +5,12 @@
     <com.biegajmy.general.SlidingTabLayout
         style="@style/event_main_tabs"
         android:background="@color/primary"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:id="@+id/event_main_tabs"/>
 
     <android.support.v4.view.ViewPager
         style="@style/event_main_pager"
         android:id="@+id/event_main_pager"
-        android:layout_above="@+id/event_main_tabs"/>
+        android:layout_below="@+id/event_main_tabs"/>
 
 </RelativeLayout>
