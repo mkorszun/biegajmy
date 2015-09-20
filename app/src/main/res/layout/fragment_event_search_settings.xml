@@ -42,19 +42,21 @@
         <TextView style="@style/tag_selector_label"
             android:id="@+id/tag_label"/>
 
-        <AutoCompleteTextView style="@style/tag_selector_edit_text"
-            android:id="@+id/tag_edit_text"
-            android:layout_below="@+id/tag_label"
-            android:layout_toLeftOf="@+id/tag_edit_confirmation"/>
+        <LinearLayout style="@style/search_tag_add_layout"
+            android:id="@+id/tag_search_layout"
+            android:layout_below="@+id/tag_label">
 
-        <ImageButton style="@style/tag_selector_confirmation_button"
-            android:id="@+id/tag_edit_confirmation"
-            android:layout_below="@+id/tag_label"
-            android:layout_alignParentRight="true"/>
+            <AutoCompleteTextView style="@style/search_tag_add_field"
+                android:id="@+id/tag_edit_text"/>
+
+            <ImageButton style="@style/event_main_comment_add_button"
+                android:id="@+id/tag_add_confirmation"/>
+
+        </LinearLayout>
 
         <TextView style="@style/tag_recommendation_label"
             android:id="@+id/tag_recommendation_label"
-            android:layout_below="@+id/tag_edit_confirmation"/>
+            android:layout_below="@+id/tag_search_layout"/>
 
         <FrameLayout style="@style/event_details_frame_layout"
             android:id="@+id/popular_tags"
