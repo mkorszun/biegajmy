@@ -5,6 +5,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
 import com.biegajmy.R;
+import com.biegajmy.utils.SystemUtils;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -14,6 +15,10 @@ import org.androidannotations.annotations.ViewById;
     implements DrawerLayout.DrawerListener {
 
     @ViewById(R.id.drawer_layout) protected DrawerLayout drawerLayout;
+
+    //********************************************************************************************//
+    // Callbacks
+    //********************************************************************************************//
 
     @Override public void onDestroy() {
         super.onDestroy();
@@ -33,7 +38,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Override public void onDrawerClosed(View drawerView) {
-
+        SystemUtils.hideKeyboard(getActivity());
     }
 
     @Override public void onDrawerStateChanged(int newState) {
@@ -47,4 +52,7 @@ import org.androidannotations.annotations.ViewById;
             drawerLayout.openDrawer(Gravity.RIGHT);
         }
     }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }
