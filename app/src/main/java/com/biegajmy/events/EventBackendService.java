@@ -60,13 +60,20 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         }
     }
 
-    @ServiceAction public void searchEvents(double x, double y, int max) {
+    @ServiceAction public void searchEvents(double x, double y, int max, String tags) {
         try {
+            List<Event> events;
             BackendInterface backend = BackendInterfaceFactory.build();
-            List<Event> events = backend.listEvents(x, y, max);
+
+            if (tags != null && !tags.isEmpty()) {
+                events = backend.listEvents(x, y, max, tags);
+            } else {
+                events = backend.listEvents(x, y, max);
+            }
+
             EventListBus.getInstance().post(new EventListBus.SearchEventsOK(events));
         } catch (Exception e) {
-            Log.e(TAG, "List user events failed", e);
+            Log.e(TAG, "Search events failed", e);
             EventListBus.getInstance().post(new EventListBus.SearchEventsNOK(e));
         }
     }

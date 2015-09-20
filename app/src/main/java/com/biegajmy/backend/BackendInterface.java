@@ -36,6 +36,9 @@ public interface BackendInterface {
     @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y, @Query("max") int max)
         throws BackendError;
 
+    @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y, @Query("max") int max,
+        @Query("tags") String tags) throws BackendError;
+
     @PUT("/event/{event_id}/user") Event joinEvent(@Path("event_id") String eventId, @Query("token") String token)
         throws BackendError;
 

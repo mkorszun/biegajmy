@@ -23,6 +23,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 public class EventSearchFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private int lastRange = 5000;
+    private String lastTag = "";
     private Activity activity;
     private EventListAdapter adapter;
     private LocalStorage storage;
@@ -56,7 +57,7 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
 
     @Override public void onResume() {
         super.onResume();
-        loadData(lastRange);
+        loadData(lastRange, lastTag);
     }
 
     @Override public void onDestroy() {
@@ -75,7 +76,7 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
     }
 
     @Override public void onRefresh() {
-        loadData(lastRange);
+        loadData(lastRange, lastTag);
     }
 
     //********************************************************************************************//
@@ -83,7 +84,7 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
     //********************************************************************************************//
 
     @Subscribe public void event(EventSearchRange range) {
-        loadData(lastRange = range.getMax());
+        loadData(lastRange = range.getMax(), lastTag = range.getTags());
     }
 
     @Subscribe public void event(EventListBus.SearchEventsOK event) {
@@ -100,9 +101,9 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
     // Helpers
     //********************************************************************************************//
 
-    private void loadData(int max) {
+    private void loadData(int max, String tag) {
         LastLocation pos = storage.getLastLocation();
-        EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max).start();
+        EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max, tag).start();
     }
 
     //********************************************************************************************//
