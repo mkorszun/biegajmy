@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.biegajmy.user.UserDetailsFragment">
     <item android:id="@+id/action_user_save"
-        android:title="Save"
-        android:icon="@drawable/ic_done_white_36dp"
+        android:title="@string/save"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 </menu>
