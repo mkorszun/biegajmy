@@ -42,7 +42,7 @@
         <TextView style="@style/tag_selector_label"
             android:id="@+id/tag_label"/>
 
-        <EditText style="@style/tag_selector_edit_text"
+        <AutoCompleteTextView style="@style/tag_selector_edit_text"
             android:id="@+id/tag_edit_text"
             android:layout_below="@+id/tag_label"
             android:layout_toLeftOf="@+id/tag_edit_confirmation"/>

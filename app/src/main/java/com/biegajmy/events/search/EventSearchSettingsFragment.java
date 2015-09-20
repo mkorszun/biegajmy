@@ -3,6 +3,8 @@ package com.biegajmy.events.search;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
@@ -28,6 +30,7 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.ten_km) protected Button button10;
     @ViewById(R.id.twenty_five_km) protected Button button25;
     @ViewById(R.id.fifty_km) protected Button button50;
+    @ViewById(R.id.tag_edit_text) AutoCompleteTextView addTag;
 
     @Bean LocalStorage localStorage;
 
@@ -47,13 +50,16 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setup() {
         button5.setSelected(true);
-        List<String> tags = localStorage.getPopularTags();
+
+        List<String> popular = localStorage.getPopularTags();
+        List<String> recommendations = localStorage.getTagRecommendations();
 
         TagListFragment fr = TagListFragment_.builder()
-            .arg(TagListFragment.ARGS_TAGS, new ArrayList(tags))
+            .arg(TagListFragment.ARGS_TAGS, new ArrayList(popular))
             .arg(TagListFragment.ARGS_HIDE_LABEL, true)
             .build();
 
+        addTag.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, recommendations));
         FragmentManager childFragmentManager = getChildFragmentManager();
         childFragmentManager.beginTransaction().add(R.id.popular_tags, fr).commit();
     }
