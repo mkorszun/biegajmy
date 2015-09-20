@@ -22,8 +22,8 @@ import org.androidannotations.annotations.EService;
     implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final String TAG = LocationService.class.getName();
-    private static final int LOCATION_UPDATE_INTERVAL = 60 * 1000;
-    private static final int LOCATION_UPDATE_FASTEST_INTERVAL = 10 * 1000;
+    private static final int LOCATION_UPDATE_INTERVAL = 10 * 60 * 1000;
+    private static final int LOCATION_UPDATE_FASTEST_INTERVAL = 5 * 60 * 1000;
 
     @Bean LocalStorage localStorage;
 
