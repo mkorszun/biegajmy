@@ -9,6 +9,7 @@ import com.biegajmy.events.search.EventSearchMainFragment_;
 import com.biegajmy.events.user.EventUserListMainFragment_;
 import com.biegajmy.general.SlidingTabLayout;
 import com.biegajmy.general.ViewPagerAdapter;
+import com.biegajmy.location.LocationService_;
 import com.biegajmy.user.UserDetailsFragment_;
 import java.util.List;
 import org.androidannotations.annotations.AfterViews;
@@ -37,6 +38,8 @@ import static java.util.Arrays.asList;
     @Override protected void onDestroy() {
         super.onDestroy();
         tabs.setViewPager(null);
+
+        LocationService_.intent(getApplication()).stop();
     }
 
     private List<Fragment> getFragments() {

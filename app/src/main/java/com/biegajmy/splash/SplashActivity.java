@@ -28,12 +28,12 @@ import static com.biegajmy.location.LocationUpdatesBus.LastLocationRequestEvent;
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bus = LocationUpdatesBus.getInstance();
+        bus.register(this);
 
         if (!locationServiceStatus.isEnabled()) {
             locationDialog.build().show();
         }
 
-        bus.register(this);
         bus.post(new LastLocationRequestEvent());
     }
 

@@ -20,4 +20,8 @@ public class LastLocation implements Serializable {
     public LatLng get() {
         return new LatLng(lat, lng);
     }
+
+    @Override public String toString() {
+        return String.format("(%f, %f)", lat, lng);
+    }
 }
