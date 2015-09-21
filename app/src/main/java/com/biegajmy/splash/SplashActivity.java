@@ -32,9 +32,9 @@ import static com.biegajmy.location.LocationUpdatesBus.LastLocationRequestEvent;
 
         if (!locationServiceStatus.isEnabled()) {
             locationDialog.build().show();
+        } else {
+            bus.post(new LastLocationRequestEvent());
         }
-
-        bus.post(new LastLocationRequestEvent());
     }
 
     @Override protected void onDestroy() {
