@@ -106,10 +106,12 @@ import org.androidannotations.annotations.ViewById;
     @Click(R.id.tag_add_confirmation) public void searchTag() {
         bus.post(new EventSearchRange(lastRange, addTag.getText().toString()));
         SystemUtils.hideKeyboard(getActivity());
+        addTag.dismissDropDown();
     }
 
     @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         bus.post(new EventSearchRange(lastRange, addTag.getText().toString()));
+        addTag.dismissDropDown();
         return false;
     }
 
