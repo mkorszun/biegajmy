@@ -3,4 +3,6 @@
     <string name="save">Zapisz</string>
     <string name="delete">Usuń</string>
     <string name="edit">Edytuj</string>
+    <string name="search">Szukaj</string>
+    <string name="add">Dodaj</string>
 </resources>

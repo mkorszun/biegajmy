@@ -7,12 +7,13 @@ import android.view.View;
 import com.biegajmy.R;
 import com.biegajmy.utils.SystemUtils;
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_event_list_main) public class EventSearchMainFragment extends Fragment
-    implements DrawerLayout.DrawerListener {
+@EFragment(R.layout.fragment_event_list_main) @OptionsMenu(R.menu.menu_search) public class EventSearchMainFragment
+    extends Fragment implements DrawerLayout.DrawerListener {
 
     @ViewById(R.id.drawer_layout) protected DrawerLayout drawerLayout;
 
@@ -45,7 +46,7 @@ import org.androidannotations.annotations.ViewById;
 
     }
 
-    @Click(R.id.event_search_filter_button) public void settings() {
+    @OptionsItem(R.id.action_search_settings) public void settings() {
         if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
             drawerLayout.closeDrawer(Gravity.RIGHT);
         } else {
