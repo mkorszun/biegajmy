@@ -9,8 +9,7 @@
     tools:context="com.biegajmy.user.UserDetailsFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView style="@style/user_photo"
-        android:id="@+id/userPhoto"
-        android:src="@drawable/tmp"/>
+        android:id="@+id/userPhoto"/>
 
     <LinearLayout
         android:id="@+id/full_Name"
