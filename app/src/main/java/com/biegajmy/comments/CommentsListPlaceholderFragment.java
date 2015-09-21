@@ -99,6 +99,8 @@ import org.androidannotations.annotations.ViewById;
         adapter.clear();
         adapter.addAll(comments);
         adapter.notifyDataSetChanged();
+        this.comments.clear();
+        this.comments.addAll(comments);
     }
 
     //********************************************************************************************//
