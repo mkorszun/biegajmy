@@ -26,7 +26,7 @@ import org.androidannotations.annotations.ViewById;
 @EFragment(R.layout.fragment_event_search_settings) public class EventSearchSettingsFragment extends Fragment
     implements TextView.OnEditorActionListener {
 
-    private int lastRange;
+    private int lastRange = 5000;
     private Bus bus = EventListBus.getInstance();
 
     @ViewById(R.id.one_km) protected Button button1;
