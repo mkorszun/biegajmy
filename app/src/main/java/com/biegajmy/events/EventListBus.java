@@ -111,4 +111,16 @@ public class EventListBus extends Bus {
             this.exception = exception;
         }
     }
+
+    public static class GetEventDetailsOK {
+        public Event event;
+
+        public GetEventDetailsOK(Event event) {
+            this.event = event;
+        }
+    }
+
+    public static class GetEventDetailsNOK {
+
+    }
 }

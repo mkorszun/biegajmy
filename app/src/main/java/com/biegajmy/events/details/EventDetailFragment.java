@@ -68,16 +68,17 @@ import org.androidannotations.annotations.res.StringRes;
         EventListBus.getInstance().register(this);
     }
 
+    @Override public void onResume() {
+        super.onResume();
+        EventBackendService_.intent(getActivity()).getEvent(event.id).start();
+    }
+
     @AfterViews public void setContent() {
         if (event != null) {
             updateEventContent();
             updateEventLocation();
             updateEventComments();
         }
-    }
-
-    @Click(R.id.event_join) public void joinEvent() {
-        EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
     }
 
     @Override public void onDestroy() {
@@ -96,16 +97,32 @@ import org.androidannotations.annotations.res.StringRes;
         eventMap.startGoogleMaps(event.headline);
     }
 
+    @Click(R.id.event_join) public void joinEvent() {
+        EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
+        joinButton.setEnabled(false);
+    }
+
     //********************************************************************************************//
     // Events
     //********************************************************************************************//
 
     @Subscribe public void event(EventListBus.EventJoinLeaveOK event) {
-        EventDetailFragment.this.event = event.event;
+        joinButton.setEnabled(true);
+        this.event = event.event;
         setContent();
     }
 
     @Subscribe public void event(EventListBus.EventJoinLeaveNOK event) {
+        joinButton.setEnabled(true);
+        Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Subscribe public void event(EventListBus.GetEventDetailsOK event) {
+        this.event = event.event;
+        setContent();
+    }
+
+    @Subscribe public void event(EventListBus.GetEventDetailsNOK event) {
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
     }
 

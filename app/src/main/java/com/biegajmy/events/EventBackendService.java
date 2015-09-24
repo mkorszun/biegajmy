@@ -38,6 +38,17 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         }
     }
 
+    @ServiceAction public void getEvent(String id) {
+        try {
+            BackendInterface backend = BackendInterfaceFactory.build();
+            Event event = backend.getEvent(id);
+            EventListBus.getInstance().post(new EventListBus.GetEventDetailsOK(event));
+        } catch (Exception e) {
+            Log.e(TAG, "Get event details failed", e);
+            EventListBus.getInstance().post(new EventListBus.GetEventDetailsNOK());
+        }
+    }
+
     @ServiceAction public void updateEvent(String id, NewEvent event) {
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
