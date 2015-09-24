@@ -3,10 +3,13 @@ package com.biegajmy.events.search;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
@@ -24,7 +27,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_event_search_settings) public class EventSearchSettingsFragment extends Fragment
-    implements TextView.OnEditorActionListener {
+    implements TextView.OnEditorActionListener, TextWatcher {
 
     private int lastRange = 5000;
     private Bus bus = EventListBus.getInstance();
@@ -36,8 +39,11 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.twenty_five_km) protected Button button25;
     @ViewById(R.id.fifty_km) protected Button button50;
     @ViewById(R.id.tag_edit_text) protected AutoCompleteTextView addTag;
+    @ViewById(R.id.tag_add_confirmation) protected ImageButton confirmationButton;
 
     @Bean LocalStorage localStorage;
+
+    private boolean clearMode;
 
     //********************************************************************************************//
     // Callbacks
@@ -53,6 +59,7 @@ import org.androidannotations.annotations.ViewById;
         bus.unregister(this);
         addTag.setAdapter(null);
         addTag.setOnEditorActionListener(null);
+        addTag.addTextChangedListener(null);
     }
 
     @AfterViews public void setup() {
@@ -68,6 +75,7 @@ import org.androidannotations.annotations.ViewById;
 
         addTag.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, recommendations));
         addTag.setOnEditorActionListener(this);
+        addTag.addTextChangedListener(this);
 
         FragmentManager childFragmentManager = getChildFragmentManager();
         childFragmentManager.beginTransaction().add(R.id.popular_tags, fr).commit();
@@ -104,15 +112,25 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Click(R.id.tag_add_confirmation) public void searchTag() {
-        bus.post(new EventSearchRange(lastRange, addTag.getText().toString()));
         SystemUtils.hideKeyboard(getActivity());
-        addTag.dismissDropDown();
+        actionForTag();
     }
 
     @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        bus.post(new EventSearchRange(lastRange, addTag.getText().toString()));
-        addTag.dismissDropDown();
+        actionForTag();
         return false;
+    }
+
+    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override public void afterTextChanged(Editable s) {
+
     }
 
     //********************************************************************************************//
@@ -127,6 +145,21 @@ import org.androidannotations.annotations.ViewById;
         button25.setSelected(false);
         button50.setSelected(false);
         button.setSelected(true);
+    }
+
+    private void actionForTag() {
+
+        if (addTag.getText().length() == 0 && !clearMode) return;
+
+        addTag.dismissDropDown();
+        addTag.setEnabled(clearMode);
+        if (clearMode) addTag.setText(null);
+
+        clearMode = !clearMode;
+
+        int res = clearMode ? R.drawable.ic_clear_white_18dp : R.drawable.ic_check_white_36dp;
+        confirmationButton.setImageResource(res);
+        bus.post(new EventSearchRange(lastRange, addTag.getText().toString()));
     }
 
     //********************************************************************************************//
