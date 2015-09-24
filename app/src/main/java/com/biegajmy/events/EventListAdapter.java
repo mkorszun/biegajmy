@@ -47,7 +47,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         ((TextView) view.findViewById(R.id.event_headline)).setText(item.headline);
         ((TextView) view.findViewById(R.id.event_date)).setText(dateTime.getTime().toString());
         ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance + " km");
-        Log.d(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
+        Log.v(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
         setLabel(position, view, dateTime.getDate().toString());
 
         return view;
@@ -81,11 +81,11 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
     private void setLabel(int position, View view, String label) {
         if (labels.get(label) == position) {
-            Log.d(TAG, String.format("Position %d date %s label should be here", position, label));
+            Log.v(TAG, String.format("Position %d date %s label should be here", position, label));
             ((TextView) view.findViewById(R.id.event_list_label)).setText(label);
             view.findViewById(R.id.event_list_label).setVisibility(View.VISIBLE);
         } else {
-            Log.d(TAG, String.format("Position %d date %s label should not be here", position, label));
+            Log.v(TAG, String.format("Position %d date %s label should not be here", position, label));
             ((TextView) view.findViewById(R.id.event_list_label)).setText("");
             view.findViewById(R.id.event_list_label).setVisibility(View.GONE);
         }
