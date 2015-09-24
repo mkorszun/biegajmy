@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import java.util.Locale;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
@@ -94,7 +95,7 @@ import org.androidannotations.annotations.RootContext;
     public void startGoogleMaps(String label) {
         Double lat = currentPosition.latitude;
         Double lon = currentPosition.longitude;
-        String uriString = String.format(GEO_QUERY, lat, lon, lat, lon, label);
+        String uriString = String.format(Locale.ENGLISH, GEO_QUERY, lat, lon, lat, lon, label);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
         context.startActivity(intent);
     }
