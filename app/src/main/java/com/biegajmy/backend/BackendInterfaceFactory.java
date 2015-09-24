@@ -12,10 +12,10 @@ public class BackendInterfaceFactory {
     }
 
     public static BackendInterface build(String url) {
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setErrorHandler(new BackendErrorHandler())
-                .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setEndpoint(url).build();
+        RestAdapter restAdapter = new RestAdapter.Builder().setErrorHandler(new BackendErrorHandler())
+            .setLogLevel(RestAdapter.LogLevel.BASIC)
+            .setEndpoint(url)
+            .build();
         return restAdapter.create(BackendInterface.class);
     }
 }
