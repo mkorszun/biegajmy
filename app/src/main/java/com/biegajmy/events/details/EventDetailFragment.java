@@ -10,6 +10,7 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.comments.CommentsListPlaceholderFragment;
 import com.biegajmy.comments.CommentsListPlaceholderFragment_;
+import com.biegajmy.comments.CommentsUtils;
 import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventDateTime;
 import com.biegajmy.events.EventListBus;
@@ -41,7 +42,6 @@ import org.androidannotations.annotations.res.StringRes;
 
     private Event event;
     private boolean isMember;
-    private FragmentManager fm;
     private EventDateTime eventDateTime = new EventDateTime();
 
     @Bean protected LocalStorage storage;
@@ -63,7 +63,6 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.fm = getChildFragmentManager();
         event = (Event) getArguments().getSerializable(ARG_EVENT);
         EventListBus.getInstance().register(this);
     }
@@ -77,14 +76,12 @@ import org.androidannotations.annotations.res.StringRes;
         if (event != null) {
             updateEventContent();
             updateEventLocation();
-            updateEventComments();
         }
     }
 
     @Override public void onDestroy() {
         super.onDestroy();
         eventMap.clear();
-        fm = null;
         EventListBus.getInstance().unregister(this);
     }
 
@@ -140,10 +137,15 @@ import org.androidannotations.annotations.res.StringRes;
         isMember = event.participants.contains(storage.getUser());
         joinButton.setText(msgForAction());
 
-        fm.beginTransaction()
+        getChildFragmentManager().beginTransaction()
             .replace(R.id.event_participants_container, EventParticipantsFragment_.builder()
                 .arg(EventParticipantsFragment.ARG_EVENT_ID, event.id)
                 .arg(EventParticipantsFragment.ARG_PARTICIPANTS, event.participants)
+                .build())
+            .replace(R.id.event_comments, CommentsListPlaceholderFragment_.builder()
+                .arg(CommentsListPlaceholderFragment.EVENT_ID_ARG, event.id)
+                .arg(CommentsListPlaceholderFragment.COMMENTS_ARG, CommentsUtils.getLast(event.comments))
+                .arg(CommentsListPlaceholderFragment.COMMENTS_READ_ONLY_ARG, !isMember)
                 .build())
             .replace(R.id.event_tags,
                 TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, new ArrayList(event.tags)).build())
@@ -156,24 +158,6 @@ import org.androidannotations.annotations.res.StringRes;
         double lat = event.location.coordinates.get(1);
         double lng = event.location.coordinates.get(0);
         setUpMap(new LatLng(lat, lng));
-    }
-
-    private void updateEventComments() {
-        boolean readOnly = !isMember;
-        Fragment commentsFragment;
-
-        if ((commentsFragment = fm.findFragmentById(R.id.event_comments)) != null) {
-            ((CommentsListPlaceholderFragment) commentsFragment).setReadOnly(readOnly);
-        } else {
-
-            fm.beginTransaction()
-                .replace(R.id.event_comments, CommentsListPlaceholderFragment_.builder()
-                    .arg(CommentsListPlaceholderFragment.EVENT_ID_ARG, event.id)
-                    .arg(CommentsListPlaceholderFragment.COMMENTS_ARG, new ArrayList(event.comments))
-                    .arg(CommentsListPlaceholderFragment.COMMENTS_READ_ONLY_ARG, readOnly)
-                    .build())
-                .commit();
-        }
     }
 
     //********************************************************************************************//

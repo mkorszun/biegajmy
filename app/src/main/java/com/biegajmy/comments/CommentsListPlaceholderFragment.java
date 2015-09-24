@@ -40,8 +40,7 @@ import org.androidannotations.annotations.ViewById;
         readOnly = getArguments().getBoolean(COMMENTS_READ_ONLY_ARG);
         eventID = getArguments().getString(EVENT_ID_ARG);
 
-        ArrayList<Comment> last = CommentsUtils.getLast(comments);
-        adapter = new CommentsListAdapter(getActivity(), last);
+        adapter = new CommentsListAdapter(getActivity(), comments);
         commentList.setAdapter(adapter);
         commentList.setExpanded(true);
         commentList.setOnItemClickListener(this);
@@ -91,6 +90,10 @@ import org.androidannotations.annotations.ViewById;
         addComment.setVisibility(readOnly ? View.GONE : View.VISIBLE);
     }
 
+    public void update(ArrayList<Comment> comments) {
+        event(comments);
+    }
+
     //********************************************************************************************//
     // Events
     //********************************************************************************************//
@@ -98,7 +101,6 @@ import org.androidannotations.annotations.ViewById;
     @Subscribe public void event(ArrayList<Comment> comments) {
         adapter.clear();
         adapter.addAll(comments);
-        adapter.notifyDataSetChanged();
         this.comments.clear();
         this.comments.addAll(comments);
     }
