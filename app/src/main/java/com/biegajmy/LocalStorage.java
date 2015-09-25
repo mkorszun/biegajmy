@@ -15,8 +15,13 @@ import org.androidannotations.annotations.RootContext;
 
 @EBean public class LocalStorage {
 
-    private static final String TAG = LocalStorage.class.getName();
+    private static final String BOOK_NAME = "biegaj.my";
+
     private static final String USER = "user";
+    private static final String TOKEN = "token";
+    private static final String LAST_LOCATION = "last_location";
+    private static final String TAG_RECOMMENDATIONS = "tag_recommendations";
+    private static final String TAG_POPULAR = "tag_popular";
 
     @RootContext Context context;
 
@@ -30,39 +35,55 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public <T> T get(String key, Class<T> clazz) {
-        return Paper.book().read(key);
+        return Paper.book(BOOK_NAME).read(key);
     }
 
     public void put(String key, Serializable value) {
-        Paper.book().write(key, value);
+        Paper.book(BOOK_NAME).write(key, value);
     }
 
+    public boolean has(String key) {
+        return Paper.book(BOOK_NAME).exist(key);
+    }
+
+    //********************************************************************************************//
+    // User
+    //********************************************************************************************//
+
     public User getUser() {
-        return this.get("user", User.class);
+        return this.get(USER, User.class);
     }
 
     public void updateUser(User user) {
-        this.put("user", user);
+        this.put(USER, user);
     }
 
+    //********************************************************************************************//
+    // Token
+    //********************************************************************************************//
+
     public Token getToken() {
-        return this.get("token", Token.class);
+        return this.get(TOKEN, Token.class);
     }
 
     public void updateToke(Token token) {
-        this.put("token", token);
+        this.put(TOKEN, token);
     }
 
     public boolean hasToken() {
-        return getToken() != null;
+        return has(TOKEN);
     }
 
+    //********************************************************************************************//
+    // Last location
+    //********************************************************************************************//
+
     public LastLocation getLastLocation() {
-        return this.get("last_location", LastLocation.class);
+        return this.get(LAST_LOCATION, LastLocation.class);
     }
 
     public synchronized LastLocation updateLastLocation(double lat, double lng) {
-        LastLocation loc = get("last_location", LastLocation.class);
+        LastLocation loc = get(LAST_LOCATION, LastLocation.class);
         if (loc == null) {
             loc = new LastLocation(lat, lng);
         } else {
@@ -71,27 +92,30 @@ import org.androidannotations.annotations.RootContext;
         }
 
         loc.lastUpdate = Calendar.getInstance().getTime().getTime();
-        this.put("last_location", loc);
+        this.put(LAST_LOCATION, loc);
         return loc;
     }
 
-    public boolean hasUser() {
-        return Paper.book().exist("user");
-    }
+    //********************************************************************************************//
+    // Tag recommendations
+    //********************************************************************************************//
 
     public void updateTagRecommendations(ArrayList<String> tags) {
-        this.put("tag_recommendations", tags);
+        this.put(TAG_RECOMMENDATIONS, tags);
     }
 
     public List<String> getTagRecommendations() {
-        return this.get("tag_recommendations", ArrayList.class);
+        return this.get(TAG_RECOMMENDATIONS, ArrayList.class);
     }
 
     public void updatePopularTags(ArrayList<String> tags) {
-        this.put("tag_popular", tags);
+        this.put(TAG_POPULAR, tags);
     }
 
     public List<String> getPopularTags() {
-        return this.get("tag_popular", ArrayList.class);
+        return this.get(TAG_POPULAR, ArrayList.class);
     }
+
+    //********************************************************************************************//
+    //********************************************************************************************//
 }
