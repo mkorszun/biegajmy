@@ -42,6 +42,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
             Event event = backend.getEvent(id);
+            localStorage.put(id, event);
             EventListBus.getInstance().post(new EventListBus.GetEventDetailsOK(event));
         } catch (Exception e) {
             Log.e(TAG, "Get event details failed", e);
@@ -53,6 +54,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
             Event updated = backend.updateEvent(id, event, localStorage.getToken().token);
+            localStorage.put(id, updated);
             EventListBus.getInstance().post(new EventListBus.EventUpdateOK(updated));
         } catch (Exception e) {
             Log.e(TAG, "Event update failed", e);
@@ -100,6 +102,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
                 event = backend.leaveEvent(eventID, localStorage.getToken().token);
             }
 
+            localStorage.put(eventID, event);
             EventListBus.getInstance().post(new EventListBus.EventJoinLeaveOK(event));
         } catch (Exception e) {
             Log.e(TAG, String.format("Failed to %s event", join ? "join" : "leave"), e);

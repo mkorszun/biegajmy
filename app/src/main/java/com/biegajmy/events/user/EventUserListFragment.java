@@ -81,6 +81,7 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
 
     @Subscribe public void event(EventListBus.ListUserEventsNOK event) {
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
+        setRefreshing(false);
     }
 
     //********************************************************************************************//

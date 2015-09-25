@@ -1,13 +1,10 @@
 package com.biegajmy;
 
 import android.content.Context;
-import android.util.Log;
 import com.biegajmy.location.LastLocation;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
-import com.snappydb.DB;
-import com.snappydb.DBFactory;
-import com.snappydb.SnappydbException;
+import io.paperdb.Paper;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,14 +19,9 @@ import org.androidannotations.annotations.RootContext;
     private static final String USER = "user";
 
     @RootContext Context context;
-    private DB localStorage;
 
     @AfterInject void init() {
-        try {
-            localStorage = DBFactory.open(context);
-        } catch (SnappydbException e) {
-            e.printStackTrace();
-        }
+        Paper.init(context);
     }
 
     public LocalStorage(Context context) {
@@ -38,19 +30,11 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public <T> T get(String key, Class<T> clazz) {
-        try {
-            return localStorage.getObject(key, clazz);
-        } catch (SnappydbException e) {
-            return null;
-        }
+        return Paper.book().read(key);
     }
 
     public void put(String key, Serializable value) {
-        try {
-            localStorage.put(key, value);
-        } catch (SnappydbException e) {
-            Log.e(TAG, "Failed to put object", e);
-        }
+        Paper.book().write(key, value);
     }
 
     public User getUser() {
@@ -92,11 +76,7 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public boolean hasUser() {
-        try {
-            return this.localStorage.exists("user");
-        } catch (SnappydbException e) {
-            return false;
-        }
+        return Paper.book().exist("user");
     }
 
     public void updateTagRecommendations(ArrayList<String> tags) {

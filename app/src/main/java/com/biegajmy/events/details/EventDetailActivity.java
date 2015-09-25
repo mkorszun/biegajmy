@@ -14,6 +14,7 @@ import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.model.Event;
+import io.paperdb.Paper;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
@@ -42,8 +43,11 @@ import org.androidannotations.annotations.OptionsMenuItem;
         ActionBar supportActionBar = getSupportActionBar();
         supportActionBar.setDisplayHomeAsUpEnabled(true);
 
+        Paper.init(this);
         if (savedInstanceState == null) {
-            this.event = (Event) getIntent().getSerializableExtra(EventDetailFragment.ARG_EVENT);
+            Event basicEvent = (Event) getIntent().getSerializableExtra(EventDetailFragment.ARG_EVENT);
+            Event fullEvent = storage.get(basicEvent.id, Event.class);
+            this.event = fullEvent != null ? fullEvent : basicEvent;
             this.owner = event.user.equals(storage.getUser());
         }
 

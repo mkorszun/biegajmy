@@ -52,8 +52,6 @@ dependencies {
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.facebook.android:facebook-android-sdk:3.21.1'
-    compile 'com.snappydb:snappydb-lib:0.5.0'
-    compile 'com.esotericsoftware.kryo:kryo:2.24.0'
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.squareup.retrofit:retrofit:1.4.1'
@@ -65,6 +63,7 @@ dependencies {
     compile "com.splunk.mint:mint:4.2.1"
     compile 'com.afollestad:material-dialogs:0.7.8.1'
     compile 'com.android.support:multidex:1.0.0'
+    compile 'io.paperdb:paperdb:1.0'
 }
 
 apt {
