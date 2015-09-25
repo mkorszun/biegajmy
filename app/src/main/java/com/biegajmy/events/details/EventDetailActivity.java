@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
@@ -48,7 +49,7 @@ import org.androidannotations.annotations.OptionsMenuItem;
             Event basicEvent = (Event) getIntent().getSerializableExtra(EventDetailFragment.ARG_EVENT);
             Event fullEvent = storage.get(basicEvent.id, Event.class);
             this.event = fullEvent != null ? fullEvent : basicEvent;
-            this.owner = event.user.equals(storage.getUser());
+            this.owner = event.user.equals(storage.getUser()) && !event.deleted;
         }
 
         supportActionBar.setTitle(event.headline);
@@ -80,6 +81,10 @@ import org.androidannotations.annotations.OptionsMenuItem;
 
     @OptionsItem(R.id.action_edit_event) public void edit() {
         EventUpdateActivity_.intent(this).extra(EventUpdateFragment.ARG_EVENT, event).start();
+    }
+
+    @OptionsItem(R.id.action_delete_event) public void delete() {
+        EventBackendService_.intent(this).deleteEvent(this.event.id).start();
     }
 
     //********************************************************************************************//

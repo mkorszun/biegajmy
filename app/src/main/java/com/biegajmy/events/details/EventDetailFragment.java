@@ -123,6 +123,15 @@ import org.androidannotations.annotations.res.StringRes;
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
     }
 
+    @Subscribe public void event(EventListBus.DeleteEventOK event) {
+        this.event = event.event;
+        setContent();
+    }
+
+    @Subscribe public void event(EventListBus.DeleteEventNOK event) {
+        Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
+    }
+
     //********************************************************************************************//
     // Components
     //********************************************************************************************//

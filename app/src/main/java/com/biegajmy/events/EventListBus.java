@@ -123,4 +123,20 @@ public class EventListBus extends Bus {
     public static class GetEventDetailsNOK {
 
     }
+
+    public static class DeleteEventOK {
+        public Event event;
+
+        public DeleteEventOK(Event event) {
+            this.event = event;
+        }
+    }
+
+    public static class DeleteEventNOK {
+        public Exception exception;
+
+        public DeleteEventNOK(Exception e) {
+            this.exception = e;
+        }
+    }
 }

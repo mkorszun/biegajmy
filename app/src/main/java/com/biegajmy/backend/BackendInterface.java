@@ -30,7 +30,7 @@ public interface BackendInterface {
     @PUT("/event/{event_id}") Event updateEvent(@Path("event_id") String eventId, @Body NewEvent event,
         @Query("token") String token);
 
-    @DELETE("/event/{event_id}") Response deleteEvent(@Path("event_id") String eventId, @Query("token") String token)
+    @DELETE("/event/{event_id}") Event deleteEvent(@Path("event_id") String eventId, @Query("token") String token)
         throws BackendError;
 
     @GET("/event") List<Event> listEvents(@Query("x") double x, @Query("y") double y, @Query("max") int max)

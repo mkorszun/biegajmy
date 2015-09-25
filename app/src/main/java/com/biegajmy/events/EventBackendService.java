@@ -62,6 +62,18 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         }
     }
 
+    @ServiceAction public void deleteEvent(String id) {
+        try {
+            BackendInterface backend = BackendInterfaceFactory.build();
+            Event deleted = backend.deleteEvent(id, localStorage.getToken().token);
+            localStorage.put(id, deleted);
+            EventListBus.getInstance().post(new EventListBus.DeleteEventOK(deleted));
+        } catch (Exception e) {
+            Log.e(TAG, "Event delete failed", e);
+            EventListBus.getInstance().post(new EventListBus.DeleteEventNOK(e));
+        }
+    }
+
     @ServiceAction public void listUserEvents() {
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
