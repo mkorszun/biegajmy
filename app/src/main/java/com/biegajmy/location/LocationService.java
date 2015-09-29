@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import com.biegajmy.LocalStorage;
-import com.biegajmy.location.LocationUpdatesBus.LastLocationChangedEvent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -26,6 +25,7 @@ import org.androidannotations.annotations.EService;
     private static final int LOCATION_UPDATE_FASTEST_INTERVAL = 2 * 60 * 1000;
 
     @Bean LocalStorage localStorage;
+    @Bean LocationUpdatesBus locationUpdatesBus;
 
     private LastLocation lastLocation;
     private GoogleApiClient googleApiClient;
@@ -37,15 +37,15 @@ import org.androidannotations.annotations.EService;
 
     @Override public void onCreate() {
         Log.d(TAG, "Starting location service");
-        LocationUpdatesBus.getInstance().register(this);
         googleApiClient = buildGoogleApiClient();
         googleApiClient.connect();
         locationRequest = buildLocationRequest();
+        locationUpdatesBus.register(this);
     }
 
     @Override public void onDestroy() {
         Log.d(TAG, "Stopping location service");
-        LocationUpdatesBus.getInstance().unregister(this);
+        locationUpdatesBus.unregister(this);
         removeLocationUpdates();
         googleApiClient.disconnect();
     }
@@ -76,6 +76,7 @@ import org.androidannotations.annotations.EService;
         double longitude = location.getLongitude();
         lastLocation = localStorage.updateLastLocation(latitude, longitude);
         Log.d(TAG, String.format("Updating last location to: %f %f", latitude, longitude));
+        locationUpdatesBus.post(new LocationUpdatesBus.LastLocationUpdatedEvent());
     }
 
     //********************************************************************************************//
@@ -85,7 +86,7 @@ import org.androidannotations.annotations.EService;
     @Subscribe @Background public void lastLocationRequest(LocationUpdatesBus.LastLocationRequestEvent e) {
         LastLocation lastLocation = getLastLocation();
         Log.d(TAG, String.format("Received location update request. Current location: %s", lastLocation));
-        if (lastLocation != null) LocationUpdatesBus.getInstance().post(new LastLocationChangedEvent(lastLocation));
+        if (lastLocation != null) locationUpdatesBus.post(new LocationUpdatesBus.LastLocationUpdatedEvent());
     }
 
     //********************************************************************************************//

@@ -1,5 +1,6 @@
 package com.biegajmy.events.details;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.auth.LoginActivity;
+import com.biegajmy.auth.LoginDialog;
 import com.biegajmy.comments.CommentsListPlaceholderFragment;
 import com.biegajmy.comments.CommentsListPlaceholderFragment_;
 import com.biegajmy.comments.CommentsUtils;
@@ -46,6 +49,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Bean protected LocalStorage storage;
     @Bean protected EventMapBuilder eventMap;
+    @Bean protected LoginDialog loginDialog;
 
     @ViewById(R.id.event_date) protected TextView date;
     @ViewById(R.id.event_time) protected TextView time;
@@ -95,8 +99,19 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Click(R.id.event_join) public void joinEvent() {
-        EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
-        joinButton.setEnabled(false);
+        if (storage.hasToken()) {
+            EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
+            joinButton.setEnabled(false);
+        } else {
+            loginDialog.actionConfirmation(R.string.auth_required_join);
+        }
+    }
+
+    @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == LoginActivity.RESULT_OK) {
+            EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
+            joinButton.setEnabled(false);
+        }
     }
 
     //********************************************************************************************//

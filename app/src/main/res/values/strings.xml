@@ -57,8 +57,8 @@
     <string name="user_token_request_failed_msg">Weryfikacja aktualnie nie możliwa</string>
 
     <string-array name="photo_sources">
-        <item>Galeria</item>
-        <item>Nowe</item>
+        <item>Wybierz z galerii</item>
+        <item>Utwórz nowe</item>
     </string-array>
     <!-- -->
 
@@ -68,5 +68,10 @@
     <string name="tag_selector_label">ZNACZNIKI</string>
     <string name="tag_recommendation_label">POPULARNE W TWOJEJ OKOLICY</string>
     <!-- -->
+
+    <string name="auth_required_join">Aby dołączyć do treningu wymagane jest konto użytkownika. Czy chcesz założyć konto?</string>
+    <string name="auth_required_create">Aby utworzyć trening wymagane jest konto użytkownika. Czy chcesz założyć konto?</string>
+    <string name="auth_required_yes">TAK</string>
+    <string name="auth_required_no">NIE</string>
 
 </resources>

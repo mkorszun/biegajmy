@@ -50,9 +50,14 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     @Override public void onCreate(Bundle savedInstanceState) {
-        user = storage.getUser();
         super.onCreate(savedInstanceState);
         UserEventBus.getInstance().register(this);
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        user = storage.getUser();
+        setContent();
     }
 
     @Override public void onDestroy() {
@@ -61,28 +66,34 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @AfterViews void setContent() {
-        Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
+        if (user != null) {
+            Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
 
-        firstName.setText(user.firstName);
-        lastName.setText(user.lastName);
-        bio.setText(user.bio);
-        telephone.setText(user.telephone);
-        www.setText(user.www);
-        email.setText(user.email);
+            firstName.setText(user.firstName);
+            lastName.setText(user.lastName);
+            bio.setText(user.bio);
+            telephone.setText(user.telephone);
+            www.setText(user.www);
+            email.setText(user.email);
+        }
     }
 
     @OptionsItem(R.id.action_user_save) void update() {
-        user.firstName = firstName.getText().toString();
-        user.lastName = lastName.getText().toString();
-        user.bio = bio.getText().toString();
-        user.telephone = telephone.getText().toString();
-        user.www = www.getText().toString();
-        user.email = email.getText().toString();
-        UserBackendService_.intent(getActivity()).updateUser(user).start();
+        if (user != null) {
+            user.firstName = firstName.getText().toString();
+            user.lastName = lastName.getText().toString();
+            user.bio = bio.getText().toString();
+            user.telephone = telephone.getText().toString();
+            user.www = www.getText().toString();
+            user.email = email.getText().toString();
+            UserBackendService_.intent(getActivity()).updateUser(user).start();
+        }
     }
 
     @Click(R.id.userPhoto) public void selectPicture() {
-        new MaterialDialog.Builder(getActivity()).items(R.array.photo_sources).itemsCallback(this).show();
+        if (user != null) {
+            new MaterialDialog.Builder(getActivity()).items(R.array.photo_sources).itemsCallback(this).show();
+        }
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {

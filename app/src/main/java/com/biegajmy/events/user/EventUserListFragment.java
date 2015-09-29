@@ -1,7 +1,6 @@
 package com.biegajmy.events.user;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.biegajmy.events.EventListAdapter;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.details.EventDetailActivity_;
 import com.biegajmy.general.RefreshableListFragment;
-import com.biegajmy.model.Event;
 import com.squareup.otto.Subscribe;
 
 import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
@@ -42,7 +40,6 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
         adapter = new EventListAdapter(activity);
 
         setListAdapter(adapter);
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -57,7 +54,11 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
     }
 
     @Override public void onRefresh() {
-        EventBackendService_.intent(getActivity()).listUserEvents().start();
+        if (storage.hasToken()) {
+            EventBackendService_.intent(getActivity()).listUserEvents().start();
+        } else {
+            setRefreshing(false);
+        }
     }
 
     @Override public void onDestroy() {
@@ -66,8 +67,7 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
     }
 
     @Override public void onListItemClick(ListView listView, View view, int position, long id) {
-        super.onListItemClick(listView, view, position, id);
-        actionForEvent(adapter.get(position));
+        EventDetailActivity_.intent(activity).extra(ARG_EVENT, adapter.get(position)).start();
     }
 
     //********************************************************************************************//
@@ -82,16 +82,6 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
     @Subscribe public void event(EventListBus.ListUserEventsNOK event) {
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
         setRefreshing(false);
-    }
-
-    //********************************************************************************************//
-    // Helpers
-    //********************************************************************************************//
-
-    private void actionForEvent(Event event) {
-        Intent detailIntent = new Intent(activity, EventDetailActivity_.class);
-        detailIntent.putExtra(ARG_EVENT, event);
-        startActivity(detailIntent);
     }
 
     //********************************************************************************************//

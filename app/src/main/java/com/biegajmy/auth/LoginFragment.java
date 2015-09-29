@@ -1,11 +1,11 @@
-package com.biegajmy;
+package com.biegajmy.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
-import com.biegajmy.splash.SplashActivity_;
+import com.biegajmy.R;
 import com.biegajmy.user.UserBackendService_;
 import com.biegajmy.user.UserEventBus;
 import com.facebook.Request;
@@ -84,15 +84,13 @@ import org.androidannotations.annotations.res.StringArrayRes;
 
     @Subscribe public void event(UserEventBus.TokenOKEvent event) {
         UserBackendService_.intent(getActivity()).syncUser().start();
-        final Intent it = new Intent(getActivity(), SplashActivity_.class);
-        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        startActivity(it);
+        getActivity().setResult(LoginActivity.AUTH_OK);
         getActivity().finish();
     }
 
     @Subscribe public void event(UserEventBus.TokenNOKEvent event) {
         Toast.makeText(getActivity(), R.string.user_token_request_failed_msg, Toast.LENGTH_LONG).show();
+        getActivity().setResult(LoginActivity.AUTH_FAILED);
         getActivity().finish();
     }
 

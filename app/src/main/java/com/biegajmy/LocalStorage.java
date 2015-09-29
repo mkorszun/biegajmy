@@ -8,6 +8,7 @@ import io.paperdb.Paper;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
@@ -105,7 +106,8 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public List<String> getTagRecommendations() {
-        return this.get(TAG_RECOMMENDATIONS, ArrayList.class);
+        ArrayList arrayList = this.get(TAG_RECOMMENDATIONS, ArrayList.class);
+        return arrayList != null ? arrayList : Collections.EMPTY_LIST;
     }
 
     public void updatePopularTags(ArrayList<String> tags) {
@@ -113,7 +115,8 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public List<String> getPopularTags() {
-        return this.get(TAG_POPULAR, ArrayList.class);
+        ArrayList arrayList = this.get(TAG_POPULAR, ArrayList.class);
+        return arrayList != null ? arrayList : Collections.EMPTY_LIST;
     }
 
     //********************************************************************************************//

@@ -3,19 +3,11 @@ package com.biegajmy.location;
 import android.os.Handler;
 import android.os.Looper;
 import com.squareup.otto.Bus;
+import org.androidannotations.annotations.EBean;
 
-public class LocationUpdatesBus extends Bus {
+@EBean(scope = EBean.Scope.Singleton) public class LocationUpdatesBus extends Bus {
 
-    private static LocationUpdatesBus bus;
     private static final Handler mainThread = new Handler(Looper.getMainLooper());
-
-    public static synchronized Bus getInstance() {
-        if (bus == null) {
-            bus = new LocationUpdatesBus();
-        }
-
-        return bus;
-    }
 
     @Override public void post(final Object event) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
@@ -29,15 +21,12 @@ public class LocationUpdatesBus extends Bus {
         }
     }
 
-    public static class LastLocationChangedEvent {
-        public LastLocation location;
+    public static class LocationServiceStartedEvent {
+    }
 
-        public LastLocationChangedEvent(LastLocation location) {
-            this.location = location;
-        }
+    public static class LastLocationUpdatedEvent {
     }
 
     public static class LastLocationRequestEvent {
-
     }
 }
