@@ -1,6 +1,7 @@
 package com.biegajmy.events.search;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
@@ -40,6 +41,10 @@ import org.androidannotations.annotations.ViewById;
 
     @Override public void onDrawerClosed(View drawerView) {
         SystemUtils.hideKeyboard(getActivity());
+        FragmentManager childFragmentManager = getChildFragmentManager();
+        EventSearchSettingsFragment fr =
+            (EventSearchSettingsFragment) childFragmentManager.findFragmentById(R.id.event_search_settings);
+        fr.setClearMode();
     }
 
     @Override public void onDrawerStateChanged(int newState) {

@@ -44,6 +44,7 @@ import org.androidannotations.annotations.ViewById;
     @Bean LocalStorage localStorage;
 
     private boolean clearMode;
+    private String previousTag = "";
 
     //********************************************************************************************//
     // Callbacks
@@ -112,8 +113,11 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Click(R.id.tag_add_confirmation) public void searchTag() {
-        SystemUtils.hideKeyboard(getActivity());
         actionForTag();
+    }
+
+    @Click(R.id.tag_edit_text) public void editTag() {
+        setButton(clearMode = false);
     }
 
     @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -133,6 +137,13 @@ import org.androidannotations.annotations.ViewById;
 
     }
 
+    public void setClearMode() {
+        addTag.setText(previousTag);
+        addTag.dismissDropDown();
+        addTag.clearFocus();
+        setButton(clearMode = !previousTag.isEmpty());
+    }
+
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
@@ -148,18 +159,19 @@ import org.androidannotations.annotations.ViewById;
     }
 
     private void actionForTag() {
-
+        SystemUtils.hideKeyboard(getActivity());
         if (addTag.getText().length() == 0 && !clearMode) return;
-
-        addTag.dismissDropDown();
-        addTag.setEnabled(clearMode);
         if (clearMode) addTag.setText(null);
 
-        clearMode = !clearMode;
+        addTag.dismissDropDown();
+        addTag.clearFocus();
+        setButton(clearMode = !clearMode);
+        bus.post(new EventSearchRange(lastRange, previousTag = addTag.getText().toString()));
+    }
 
+    private void setButton(boolean clearMode) {
         int res = clearMode ? R.drawable.ic_clear_white_18dp : R.drawable.ic_check_white_36dp;
         confirmationButton.setImageResource(res);
-        bus.post(new EventSearchRange(lastRange, addTag.getText().toString()));
     }
 
     //********************************************************************************************//
