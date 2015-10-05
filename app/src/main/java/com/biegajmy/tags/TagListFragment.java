@@ -20,6 +20,7 @@ import org.apmem.tools.layouts.FlowLayout;
 
     private boolean isEditable;
     private boolean hideLabel;
+    private View.OnClickListener onClickListener;
     private ArrayList<String> tags = new ArrayList();
 
     @ViewById(R.id.tag_label) protected TextView tagLabel;
@@ -66,20 +67,26 @@ import org.apmem.tools.layouts.FlowLayout;
         rootView.addView(newTag(tag));
     }
 
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
 
     private TagListElement getTag(int i) {
-        return new TagListElement(getActivity(), tags.get(i), COLORS[i % COLORS.length], getListener());
+        int color = COLORS[i % COLORS.length];
+        return new TagListElement(getActivity(), tags.get(i), color, getListener(), isEditable);
     }
 
     private TagListElement newTag(String tag) {
-        return new TagListElement(getActivity(), tag, COLORS[(tags.size() - 1) % COLORS.length], getListener());
+        int color = COLORS[(tags.size() - 1) % COLORS.length];
+        return new TagListElement(getActivity(), tag, color, getListener(), isEditable);
     }
 
-    private TagListFragment getListener() {
-        return isEditable ? this : null;
+    private View.OnClickListener getListener() {
+        return isEditable ? this : onClickListener;
     }
 
     //********************************************************************************************//

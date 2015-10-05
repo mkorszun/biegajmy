@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -27,7 +28,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_event_search_settings) public class EventSearchSettingsFragment extends Fragment
-    implements TextView.OnEditorActionListener, TextWatcher {
+    implements TextView.OnEditorActionListener, TextWatcher, View.OnClickListener {
 
     private int lastRange = 5000;
     private Bus bus = EventListBus.getInstance();
@@ -78,6 +79,7 @@ import org.androidannotations.annotations.ViewById;
         addTag.setOnEditorActionListener(this);
         addTag.addTextChangedListener(this);
 
+        fr.setOnClickListener(this);
         FragmentManager childFragmentManager = getChildFragmentManager();
         childFragmentManager.beginTransaction().add(R.id.popular_tags, fr).commit();
     }
@@ -136,6 +138,15 @@ import org.androidannotations.annotations.ViewById;
     @Override public void afterTextChanged(Editable s) {
 
     }
+
+    @Override public void onClick(View v) {
+        TextView tag = (TextView) v.findViewById(R.id.tag_view);
+        addTag.setText(tag.getText().toString());
+    }
+
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
 
     public void setClearMode() {
         addTag.setText(previousTag);

@@ -8,17 +8,7 @@ import com.biegajmy.R;
 
 public class TagListElement extends LinearLayout {
 
-    public TagListElement(Context context, String text, int color) {
-        super(context, null);
-
-        View rootView = View.inflate(context, R.layout.tag_view_element, this);
-        TextView tagView = (TextView) rootView.findViewById(R.id.tag_view);
-
-        tagView.setText(text);
-        rootView.setBackgroundColor(color);
-    }
-
-    public TagListElement(Context context, String text, int color, OnClickListener listener) {
+    public TagListElement(Context context, String text, int color, OnClickListener listener, boolean editable) {
         super(context, null);
 
         View rootView = View.inflate(context, R.layout.tag_view_element, this);
@@ -30,7 +20,7 @@ public class TagListElement extends LinearLayout {
 
         if (listener != null) {
             rootView.setOnClickListener(listener);
-            rootView.findViewById(R.id.delete_tag).setVisibility(View.VISIBLE);
+            if (editable) rootView.findViewById(R.id.delete_tag).setVisibility(View.VISIBLE);
         }
     }
 }
