@@ -40,7 +40,6 @@ import org.apmem.tools.layouts.FlowLayout;
 
     @Override public void onDestroy() {
         super.onDestroy();
-        rootView.removeAllViews();
     }
 
     @AfterViews public void setUpTags() {
