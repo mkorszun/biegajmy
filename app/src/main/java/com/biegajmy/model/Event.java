@@ -18,6 +18,7 @@ public class Event implements Serializable {
     @SerializedName("distance") public int distance;
     @SerializedName("pace") public double pace;
     @SerializedName("deleted") public boolean deleted;
+    @SerializedName("spots") public int spots;
     @SerializedName("comments") public List<Comment> comments = new ArrayList<>();
 
     public static Event build(String headline, String description) {

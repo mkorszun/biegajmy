@@ -8,16 +8,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
-import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.model.Event;
-import com.squareup.otto.Subscribe;
 import io.paperdb.Paper;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
@@ -53,7 +50,7 @@ import org.androidannotations.annotations.OptionsMenuItem;
             Event basicEvent = (Event) getIntent().getSerializableExtra(EventDetailFragment.ARG_EVENT);
             Event fullEvent = storage.get(basicEvent.id, Event.class);
             this.event = fullEvent != null ? fullEvent : basicEvent;
-            this.owner = event.user.equals(storage.getUser()) && !event.deleted && storage.hasToken();
+            this.owner = event.user.equals(storage.getUser()) && storage.hasToken();
         }
 
         supportActionBar.setTitle(event.headline);
@@ -74,8 +71,6 @@ import org.androidannotations.annotations.OptionsMenuItem;
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         edit.setVisible(owner);
         edit.setEnabled(owner);
-        delete.setVisible(owner);
-        delete.setEnabled(owner);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -90,22 +85,6 @@ import org.androidannotations.annotations.OptionsMenuItem;
 
     @OptionsItem(R.id.action_edit_event) public void edit() {
         EventUpdateActivity_.intent(this).extra(EventUpdateFragment.ARG_EVENT, event).start();
-    }
-
-    @OptionsItem(R.id.action_delete_event) public void delete() {
-        EventBackendService_.intent(this).deleteEvent(this.event.id).start();
-    }
-
-    //********************************************************************************************//
-    // Events
-    //********************************************************************************************//
-
-    @Subscribe public void event(EventListBus.DeleteEventOK event) {
-        finish();
-    }
-
-    @Subscribe public void event(EventListBus.DeleteEventNOK event) {
-        Toast.makeText(this, R.string.event_error_msg, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//

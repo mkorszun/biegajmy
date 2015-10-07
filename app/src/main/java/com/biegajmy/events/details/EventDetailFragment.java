@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
@@ -35,16 +37,21 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
-@EFragment(R.layout.fragment_event_detail) public class EventDetailFragment extends Fragment
+@EFragment(R.layout.fragment_event_detail) @OptionsMenu(R.menu.menu_fragment_event_details)
+public class EventDetailFragment extends Fragment
     implements GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
 
     public static final String ARG_EVENT = "ARG_EVENT";
 
     private Event event;
     private boolean isMember;
+    private boolean owner;
     private EventDateTime eventDateTime = new EventDateTime();
 
     @Bean protected LocalStorage storage;
@@ -56,10 +63,13 @@ import org.androidannotations.annotations.res.StringRes;
     @ViewById(R.id.event_pace) protected TextView pace;
     @ViewById(R.id.event_distance) protected TextView distance;
     @ViewById(R.id.event_description) protected TextView description;
-    @ViewById(R.id.event_join) protected Button joinButton;
+    //@ViewById(R.id.event_join) protected Button joinButton;
 
     @StringRes(R.string.event_join) protected String JOIN_TXT;
     @StringRes(R.string.event_leave) protected String LEAVE_TXT;
+    @StringRes(R.string.event_delete) protected String DELETE_TXT;
+
+    @OptionsMenuItem(R.id.action_delete_event) protected MenuItem delete;
 
     //********************************************************************************************//
     // Callbacks
@@ -100,8 +110,23 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Click(R.id.event_join) public void joinEvent() {
         if (storage.hasToken()) {
-            EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
-            joinButton.setEnabled(false);
+            if (event.spots == 1 && owner && isMember) {
+                EventBackendService_.intent(getActivity()).deleteEvent(event.id).start();
+            } else {
+                EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
+            }
+        } else {
+            loginDialog.actionConfirmation(R.string.auth_required_join);
+        }
+    }
+
+    @OptionsItem(R.id.action_delete_event) public void action() {
+        if (storage.hasToken()) {
+            if (event.spots == 1 && owner && isMember) {
+                EventBackendService_.intent(getActivity()).deleteEvent(event.id).start();
+            } else {
+                EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
+            }
         } else {
             loginDialog.actionConfirmation(R.string.auth_required_join);
         }
@@ -110,8 +135,12 @@ import org.androidannotations.annotations.res.StringRes;
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == LoginActivity.RESULT_OK) {
             EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
-            joinButton.setEnabled(false);
         }
+    }
+
+    @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        delete.setTitle(msgForAction());
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     //********************************************************************************************//
@@ -119,13 +148,13 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     @Subscribe public void event(EventListBus.EventJoinLeaveOK event) {
-        joinButton.setEnabled(true);
+        //joinButton.setEnabled(true);
         this.event = event.event;
         setContent();
     }
 
     @Subscribe public void event(EventListBus.EventJoinLeaveNOK event) {
-        joinButton.setEnabled(true);
+        //joinButton.setEnabled(true);
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
     }
 
@@ -135,6 +164,14 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Subscribe public void event(EventListBus.GetEventDetailsNOK event) {
+        Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Subscribe public void event(EventListBus.DeleteEventOK event) {
+        getActivity().finish();
+    }
+
+    @Subscribe public void event(EventListBus.DeleteEventNOK event) {
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
     }
 
@@ -150,7 +187,9 @@ import org.androidannotations.annotations.res.StringRes;
         distance.setText(event.distance + " KM");
         description.setText(event.description);
         isMember = event.participants.contains(storage.getUser());
-        joinButton.setText(msgForAction());
+        owner = event.user.equals(storage.getUser()) && storage.hasToken();
+        if (delete != null) delete.setTitle(msgForAction());
+        //joinButton.setText(msgForAction());
 
         getChildFragmentManager().beginTransaction()
             .replace(R.id.event_participants_container, EventParticipantsFragment_.builder()
@@ -180,7 +219,7 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     private String msgForAction() {
-        return isMember ? LEAVE_TXT : JOIN_TXT;
+        return isMember ? (event.spots == 1 && owner ? DELETE_TXT : LEAVE_TXT) : JOIN_TXT;
     }
 
     private void setUpMap(LatLng loc) {

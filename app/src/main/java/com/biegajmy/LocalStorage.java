@@ -23,6 +23,7 @@ import org.androidannotations.annotations.RootContext;
     private static final String LAST_LOCATION = "last_location";
     private static final String TAG_RECOMMENDATIONS = "tag_recommendations";
     private static final String TAG_POPULAR = "tag_popular";
+    private static final String CACHE_BREAKER = "CACHE_BREAKER";
 
     @RootContext Context context;
 
@@ -117,6 +118,23 @@ import org.androidannotations.annotations.RootContext;
     public List<String> getPopularTags() {
         ArrayList arrayList = this.get(TAG_POPULAR, ArrayList.class);
         return arrayList != null ? arrayList : Collections.EMPTY_LIST;
+    }
+
+    //********************************************************************************************//
+    // Cache breaker
+    //********************************************************************************************//
+
+    public void updateCacheBreaker() {
+        this.put(CACHE_BREAKER, System.currentTimeMillis());
+    }
+
+    public long getCacheBreaker() {
+        if (has(CACHE_BREAKER)) {
+            return this.get(CACHE_BREAKER, Long.class);
+        } else {
+            updateCacheBreaker();
+            return getCacheBreaker();
+        }
     }
 
     //********************************************************************************************//

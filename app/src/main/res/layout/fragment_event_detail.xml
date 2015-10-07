@@ -9,6 +9,7 @@
         <RelativeLayout style="@style/event_details" android:id="@+id/event_details">
 
             <Button style="@style/event_details_join_button"
+                android:visibility="gone"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"

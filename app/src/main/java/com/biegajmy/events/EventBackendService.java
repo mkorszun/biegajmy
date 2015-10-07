@@ -31,6 +31,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
             backend.createEvent(localStorage.getToken().token, event);
+            localStorage.updateCacheBreaker();
             EventListBus.getInstance().post(new EventListBus.EventCreateOK());
         } catch (Exception e) {
             Log.e(TAG, "Event creation failed", e);
@@ -55,6 +56,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
             BackendInterface backend = BackendInterfaceFactory.build();
             Event updated = backend.updateEvent(id, event, localStorage.getToken().token);
             localStorage.put(id, updated);
+            localStorage.updateCacheBreaker();
             EventListBus.getInstance().post(new EventListBus.EventUpdateOK(updated));
         } catch (Exception e) {
             Log.e(TAG, "Event update failed", e);
@@ -65,9 +67,9 @@ import org.androidannotations.api.support.app.AbstractIntentService;
     @ServiceAction public void deleteEvent(String id) {
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
-            Event deleted = backend.deleteEvent(id, localStorage.getToken().token);
-            localStorage.put(id, deleted);
-            EventListBus.getInstance().post(new EventListBus.DeleteEventOK(deleted));
+            backend.deleteEvent(id, localStorage.getToken().token);
+            localStorage.updateCacheBreaker();
+            EventListBus.getInstance().post(new EventListBus.DeleteEventOK(null));
         } catch (Exception e) {
             Log.e(TAG, "Event delete failed", e);
             EventListBus.getInstance().post(new EventListBus.DeleteEventNOK(e));
@@ -91,9 +93,9 @@ import org.androidannotations.api.support.app.AbstractIntentService;
             BackendInterface backend = BackendInterfaceFactory.build();
 
             if (tags != null && !tags.isEmpty()) {
-                events = backend.listEvents(x, y, max, tags);
+                events = backend.listEvents(x, y, max, tags, localStorage.getCacheBreaker());
             } else {
-                events = backend.listEvents(x, y, max);
+                events = backend.listEvents(x, y, max, localStorage.getCacheBreaker());
             }
 
             EventListBus.getInstance().post(new EventListBus.SearchEventsOK(events));
@@ -115,6 +117,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
             }
 
             localStorage.put(eventID, event);
+            localStorage.updateCacheBreaker();
             EventListBus.getInstance().post(new EventListBus.EventJoinLeaveOK(event));
         } catch (Exception e) {
             Log.e(TAG, String.format("Failed to %s event", join ? "join" : "leave"), e);
@@ -126,6 +129,7 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
             List<Comment> comments = backend.comment(eventID, msg, localStorage.getToken().token).comments;
+            localStorage.updateCacheBreaker();
             EventListBus.getInstance().post(new EventListBus.EventAddCommentOK(comments));
         } catch (Exception e) {
             Log.e(TAG, String.format("Failed to add comment to event %s", eventID), e);
