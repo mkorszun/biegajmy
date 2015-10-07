@@ -35,7 +35,6 @@ import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
@@ -63,7 +62,6 @@ public class EventDetailFragment extends Fragment
     @ViewById(R.id.event_pace) protected TextView pace;
     @ViewById(R.id.event_distance) protected TextView distance;
     @ViewById(R.id.event_description) protected TextView description;
-    //@ViewById(R.id.event_join) protected Button joinButton;
 
     @StringRes(R.string.event_join) protected String JOIN_TXT;
     @StringRes(R.string.event_leave) protected String LEAVE_TXT;
@@ -108,18 +106,6 @@ public class EventDetailFragment extends Fragment
         eventMap.startGoogleMaps(event.headline);
     }
 
-    @Click(R.id.event_join) public void joinEvent() {
-        if (storage.hasToken()) {
-            if (event.spots == 1 && owner && isMember) {
-                EventBackendService_.intent(getActivity()).deleteEvent(event.id).start();
-            } else {
-                EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
-            }
-        } else {
-            loginDialog.actionConfirmation(R.string.auth_required_join);
-        }
-    }
-
     @OptionsItem(R.id.action_delete_event) public void action() {
         if (storage.hasToken()) {
             if (event.spots == 1 && owner && isMember) {
@@ -148,13 +134,11 @@ public class EventDetailFragment extends Fragment
     //********************************************************************************************//
 
     @Subscribe public void event(EventListBus.EventJoinLeaveOK event) {
-        //joinButton.setEnabled(true);
         this.event = event.event;
         setContent();
     }
 
     @Subscribe public void event(EventListBus.EventJoinLeaveNOK event) {
-        //joinButton.setEnabled(true);
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
     }
 
@@ -189,7 +173,6 @@ public class EventDetailFragment extends Fragment
         isMember = event.participants.contains(storage.getUser());
         owner = event.user.equals(storage.getUser()) && storage.hasToken();
         if (delete != null) delete.setTitle(msgForAction());
-        //joinButton.setText(msgForAction());
 
         getChildFragmentManager().beginTransaction()
             .replace(R.id.event_participants_container, EventParticipantsFragment_.builder()
