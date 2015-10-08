@@ -12,4 +12,10 @@
         tools:context="com.biegajmy.events.EventMainActivity"
         tools:layout="@android:layout/list_content"/>
 
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        style="@style/event_main_fab"
+        android:id="@+id/event_add"
+        app:elevation="10dp"/>
+
 </RelativeLayout>

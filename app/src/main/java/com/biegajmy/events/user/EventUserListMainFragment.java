@@ -8,17 +8,15 @@ import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.auth.LoginDialog;
 import com.biegajmy.events.form.create.EventNewActivity_;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 
-@EFragment(R.layout.fragment_user_event_list_main) @OptionsMenu(R.menu.menu_add) public class EventUserListMainFragment
-    extends Fragment {
+@EFragment(R.layout.fragment_user_event_list_main) public class EventUserListMainFragment extends Fragment {
 
     @Bean LoginDialog loginDialog;
     @Bean LocalStorage localStorage;
 
-    @OptionsItem(R.id.action_add_event) public void newEvent() {
+    @Click(R.id.event_add) public void newEvent() {
         if (localStorage.hasToken()) {
             startActivity(new Intent(getActivity(), EventNewActivity_.class));
         } else {
