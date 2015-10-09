@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "23.0.0"
 
     defaultConfig {
         applicationId "com.biegajmy"
@@ -15,7 +16,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,6 +36,7 @@ android {
     }
     dexOptions {
         javaMaxHeapSize "2g"
+        preDexLibraries = false
     }
 }
 
@@ -42,10 +44,10 @@ def AAVersion = '3.3.1'
 
 repositories {
     maven {
-        url "http://dl.bintray.com/veinhorn/maven"
+        url "https://mint.splunk.com/gradle/"
     }
     maven {
-        url "https://mint.splunk.com/gradle/"
+        url 'https://maven.fabric.io/public'
     }
 }
 
@@ -68,10 +70,25 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'io.paperdb:paperdb:1.0'
     compile 'com.android.support:design:22.2.1'
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
+        transitive = true;
+    }
 }
 
 apt {
     arguments {
         androidManifestFile variant.outputs[0].processResources.manifestFile
+    }
+}
+
+afterEvaluate {
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each { dx ->
+        if (dx.additionalParameters == null) {
+            dx.additionalParameters = ['--multi-dex']
+        } else {
+            dx.additionalParameters += '--multi-dex'
+        }
     }
 }
