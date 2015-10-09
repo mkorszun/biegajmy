@@ -142,6 +142,8 @@ import org.androidannotations.annotations.ViewById;
     @Override public void onClick(View v) {
         TextView tag = (TextView) v.findViewById(R.id.tag_view);
         addTag.setText(tag.getText().toString());
+        clearMode = false;
+        actionForTag();
     }
 
     //********************************************************************************************//
