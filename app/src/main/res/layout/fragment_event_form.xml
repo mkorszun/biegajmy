@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
@@ -6,68 +7,111 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
 
-        <fragment style="@style/event_form_map_small"
-            android:id="@+id/event_location"
-            android:layout_marginBottom="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+        <android.support.v7.widget.CardView style="@style/event_form_card_view"
+            android:id="@+id/card_view"
+            card_view:cardCornerRadius="4dp">
 
-        <EditText style="@style/event_form_field"
-            android:id="@+id/form_event_headline"
-            android:hint="@string/event_form_headline"
-            android:layout_below="@+id/event_location"/>
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
 
-        <LinearLayout style="@style/event_form_field"
-            android:id="@+id/form_event_date_time"
-            android:layout_below="@+id/form_event_headline">
+                <fragment style="@style/event_form_map_small"
+                    android:id="@+id/event_location"
+                    android:layout_marginBottom="16dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
 
-            <EditText style="@style/event_form_datetime_field"
-                android:id="@+id/form_event_date"
-                android:hint="@string/event_form_date"/>
+                <android.support.design.widget.TextInputLayout
+                    style="@style/event_form_field_layout"
+                    android:id="@+id/form_event_headline_layout"
+                    android:layout_below="@+id/event_location">
+                    <EditText style="@style/event_form_field"
+                        android:id="@+id/form_event_headline"
+                        android:hint="@string/event_form_headline"/>
+                </android.support.design.widget.TextInputLayout>
 
-            <EditText style="@style/event_form_datetime_field"
-                android:id="@+id/form_event_time"
-                android:hint="@string/event_form_time"/>
+                <LinearLayout style="@style/event_form_field"
+                    android:id="@+id/form_event_date_time"
+                    android:layout_below="@+id/form_event_headline_layout">
 
-        </LinearLayout>
+                    <android.support.design.widget.TextInputLayout
+                        style="@style/event_form_field_layout_split"
+                        android:id="@+id/form_event_date_layout">
+                        <EditText style="@style/event_form_datetime_field"
+                            android:id="@+id/form_event_date"
+                            android:hint="@string/event_form_date"/>
+                    </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout style="@style/event_form_field"
-            android:id="@+id/form_event_distance_pace"
-            android:layout_below="@+id/form_event_date_time">
+                    <android.support.design.widget.TextInputLayout
+                        style="@style/event_form_field_layout_split"
+                        android:id="@+id/form_event_time_layout">
+                        <EditText style="@style/event_form_datetime_field"
+                            android:id="@+id/form_event_time"
+                            android:hint="@string/event_form_time"/>
+                    </android.support.design.widget.TextInputLayout>
 
-            <EditText style="@style/event_form_numeric_field"
-                android:layout_weight="1"
-                android:id="@+id/form_event_distance"
-                android:editable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/event_form_distance"
-                android:layout_below="@+id/form_event_date_time"/>
+                </LinearLayout>
 
-            <EditText style="@style/event_form_decimal_field"
-                android:layout_weight="1"
-                android:id="@+id/form_event_pace"
-                android:editable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:hint="@string/event_form_pace"
-                android:layout_below="@+id/form_event_distance"/>
+                <LinearLayout style="@style/event_form_field"
+                    android:id="@+id/form_event_distance_pace"
+                    android:layout_below="@+id/form_event_date_time">
 
-        </LinearLayout>
+                    <android.support.design.widget.TextInputLayout
+                        style="@style/event_form_field_layout_split"
+                        android:id="@+id/form_event_distance_layout">
+                        <EditText style="@style/event_form_numeric_field"
+                            android:layout_weight="1"
+                            android:id="@+id/form_event_distance"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/event_form_distance"
+                            android:layout_below="@+id/form_event_date_time"/>
+                    </android.support.design.widget.TextInputLayout>
 
-        <EditText style="@style/event_form_multiline_field"
-            android:id="@+id/form_event_description"
-            android:hint="@string/event_form_description"
-            android:layout_below="@+id/form_event_distance_pace"/>
+                    <android.support.design.widget.TextInputLayout
+                        style="@style/event_form_field_layout_split"
+                        android:id="@+id/form_event_pace_layout">
+                        <EditText style="@style/event_form_decimal_field"
+                            android:layout_weight="1"
+                            android:id="@+id/form_event_pace"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/event_form_pace"
+                            android:layout_below="@+id/form_event_distance"/>
+                    </android.support.design.widget.TextInputLayout>
 
-        <FrameLayout
-            android:id="@+id/tags_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/form_event_description"/>
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/event_form_field_layout"
+                    android:id="@+id/form_event_description_layout"
+                    android:layout_below="@+id/form_event_distance_pace">
+                    <EditText style="@style/event_form_multiline_field"
+                        android:id="@+id/form_event_description"
+                        android:hint="@string/event_form_description"/>
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView style="@style/event_form_card_view"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/card_view"
+            card_view:cardCornerRadius="4dp">
+
+            <FrameLayout
+                android:id="@+id/tags_container"
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.CardView>
 
     </RelativeLayout>
 </ScrollView>

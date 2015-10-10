@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -57,6 +58,13 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.form_event_distance) protected TextView distance;
     @ViewById(R.id.form_event_pace) protected TextView pace;
 
+    @ViewById(R.id.form_event_headline_layout) protected TextInputLayout headlineLayout;
+    @ViewById(R.id.form_event_description_layout) protected TextInputLayout descriptionLayout;
+    @ViewById(R.id.form_event_date_layout) protected TextInputLayout dateLayout;
+    @ViewById(R.id.form_event_time_layout) protected TextInputLayout timeLayout;
+    @ViewById(R.id.form_event_distance_layout) protected TextInputLayout distanceLayout;
+    @ViewById(R.id.form_event_pace_layout) protected TextInputLayout paceLayout;
+
     //********************************************************************************************//
     // CALLBACKS
     //********************************************************************************************//
@@ -101,7 +109,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @OptionsItem(R.id.action_event_save) public void createOrUpdateEvent() {
-        if (validator.validate(fields())) save();
+        if (validator.validate1(fields())) save();
     }
 
     @Click(R.id.form_event_time) public void setTime() {
@@ -214,13 +222,13 @@ import org.androidannotations.annotations.ViewById;
         startActivityForResult(it, 111);
     }
 
-    private Map<TextView, Integer> fields() {
-        Map<TextView, Integer> map = new HashMap<>();
-        map.put(headline, R.string.event_form_headline_error_msg);
-        map.put(date, R.string.event_form_date_error_msg);
-        map.put(time, R.string.event_form_time_error_msg);
-        map.put(distance, R.string.event_form_distance_error_msg);
-        map.put(pace, R.string.event_form_pace_error_msg);
+    private Map<TextInputLayout, Integer> fields() {
+        Map<TextInputLayout, Integer> map = new HashMap<>();
+        map.put(headlineLayout, R.string.event_form_headline_error_msg);
+        map.put(dateLayout, R.string.event_form_date_error_msg);
+        map.put(timeLayout, R.string.event_form_time_error_msg);
+        map.put(distanceLayout, R.string.event_form_distance_error_msg);
+        map.put(paceLayout, R.string.event_form_pace_error_msg);
         return map;
     }
 

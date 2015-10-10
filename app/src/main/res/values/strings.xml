@@ -25,12 +25,12 @@
     <string name="event_form_pace">Tempo [min/km]</string>
     <string name="event_form_tags">Tagi</string>
 
-    <string name="event_form_headline_error_msg">Dodaj tytuł</string>
-    <string name="event_form_description_error_msg">Dodaj opis</string>
-    <string name="event_form_date_error_msg">Dodaj dzień</string>
-    <string name="event_form_time_error_msg">Dodaj godzinę</string>
-    <string name="event_form_distance_error_msg">Dodaj dystans</string>
-    <string name="event_form_pace_error_msg">Dodaj tempo</string>
+    <string name="event_form_headline_error_msg">Tytuł wymagany</string>
+    <string name="event_form_description_error_msg">Opis wymagany</string>
+    <string name="event_form_date_error_msg">Dzień wymagany</string>
+    <string name="event_form_time_error_msg">Godzina wymagana</string>
+    <string name="event_form_distance_error_msg">Dystans wymagany</string>
+    <string name="event_form_pace_error_msg">Tempo wymagane</string>
     <string name="event_form_tags_error_msg">Dodaj tagi</string>
 
     <!-- -->
