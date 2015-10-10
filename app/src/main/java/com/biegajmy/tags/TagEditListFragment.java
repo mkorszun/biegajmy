@@ -1,26 +1,27 @@
 package com.biegajmy.tags;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.text.InputType;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.utils.SystemUtils;
 import java.util.ArrayList;
 import java.util.List;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.FragmentById;
 
 @EFragment(R.layout.tag_edit_view) public class TagEditListFragment extends Fragment
-    implements TextView.OnEditorActionListener {
+    implements MaterialDialog.InputCallback, DialogInterface.OnDismissListener {
 
     public static final String ARGS_TAGS = "ARGS_TAGS";
 
     @Bean protected LocalStorage localStorage;
-    @ViewById(R.id.new_tag) protected EditText newTag;
+    @FragmentById(R.id.tag_list_container) protected TagListFragment tagListFragment;
 
     //********************************************************************************************//
     // Callbacks
@@ -39,19 +40,20 @@ import org.androidannotations.annotations.ViewById;
         getChildFragmentManager().beginTransaction().add(R.id.tag_list_container, fr).commit();
     }
 
-    @Override public void onDestroy() {
-        super.onDestroy();
-        newTag.setOnEditorActionListener(null);
+    @Click(R.id.new_tag) public void newTag() {
+        new MaterialDialog.Builder(getActivity()).inputType(InputType.TYPE_CLASS_TEXT)
+            .positiveText(R.string.tag_add)
+            .input(null, null, false, this)
+            .dismissListener(this)
+            .show();
     }
 
-    @AfterViews public void setUp() {
-        newTag.setOnEditorActionListener(this);
+    @Override public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
+        getTagListFragment().addTag(charSequence.toString());
     }
 
-    @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        getTagListFragment().addTag(v.getText().toString());
-        v.setText("");
-        return false;
+    @Override public void onDismiss(DialogInterface dialog) {
+        SystemUtils.hideKeyboard(getActivity());
     }
 
     //********************************************************************************************//
@@ -67,6 +69,10 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     private TagListFragment getTagListFragment() {
+        return tagListFragment == null ? tagListFragment = getFragmentById() : tagListFragment;
+    }
+
+    private TagListFragment getFragmentById() {
         return (TagListFragment) getChildFragmentManager().findFragmentById(R.id.tag_list_container);
     }
 

@@ -6,6 +6,9 @@
         <item name="android:imeOptions">actionDone</item>
         <item name="android:singleLine">true</item>
         <item name="android:inputType">text</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:editable">false</item>
     </style>
 
     <style name="tag_view_layout">

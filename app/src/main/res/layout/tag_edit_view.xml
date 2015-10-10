@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText style="@style/tag_add_field" android:id="@+id/new_tag"/>
+    <Button style="@style/tag_add_field" android:id="@+id/new_tag"/>
 
     <FrameLayout
         android:id="@+id/tag_list_container"

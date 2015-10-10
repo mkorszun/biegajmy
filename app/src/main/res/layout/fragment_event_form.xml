@@ -2,7 +2,9 @@
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
-    <RelativeLayout style="@style/event_form">
+    <RelativeLayout style="@style/event_form"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
         <fragment style="@style/event_form_map_small"
             android:id="@+id/event_location"
