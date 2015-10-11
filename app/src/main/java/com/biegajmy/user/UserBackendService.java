@@ -41,8 +41,10 @@ import retrofit.mime.TypedFile;
             String token = localStorage.getToken().token;
             localStorage.updateUser(backend.getUser(id, token));
             Log.d(TAG, "Successfully synced user");
+            userBus.post(new UserEventBus.SyncUserEventOK());
         } catch (Exception e) {
             Log.e(TAG, "Failed to sync user data", e);
+            userBus.post(new UserEventBus.SyncUserEventNOK());
         }
     }
 

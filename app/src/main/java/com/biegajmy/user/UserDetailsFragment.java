@@ -149,6 +149,11 @@ import org.androidannotations.annotations.ViewById;
         Picasso.with(getActivity()).load(uri).into(userPhoto);
     }
 
+    @Subscribe public void event(UserEventBus.SyncUserEventOK event) {
+        user = storage.getUser();
+        setContent();
+    }
+
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
