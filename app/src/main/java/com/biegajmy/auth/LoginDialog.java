@@ -9,9 +9,15 @@ import org.androidannotations.annotations.RootContext;
 
 @EBean public class LoginDialog extends MaterialDialog.ButtonCallback {
 
-    @RootContext Activity context;
+    public static final int CREATE_EVENT_REQUEST = 111;
+    public static final int CREATE_PROFILE_REQUEST = 222;
+    public static final int JOIN_EVENT_REQUEST = 333;
 
-    public void actionConfirmation(int res) {
+    @RootContext Activity context;
+    private int requestCode;
+
+    public void actionConfirmation(int res, int requestCode) {
+        this.requestCode = requestCode;
         new MaterialDialog.Builder(context).content(res)
             .positiveText(R.string.auth_required_yes)
             .negativeText(R.string.auth_required_no)
@@ -20,6 +26,6 @@ import org.androidannotations.annotations.RootContext;
     }
 
     @Override public void onPositive(MaterialDialog dialog) {
-        context.startActivityForResult(new Intent(context, LoginActivity.class), 111);
+        context.startActivityForResult(new Intent(context, LoginActivity.class), requestCode);
     }
 }

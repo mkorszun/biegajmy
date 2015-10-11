@@ -20,12 +20,12 @@ import org.androidannotations.annotations.EFragment;
         if (localStorage.hasToken()) {
             startActivity(new Intent(getActivity(), EventNewActivity_.class));
         } else {
-            loginDialog.actionConfirmation(R.string.auth_required_create);
+            loginDialog.actionConfirmation(R.string.auth_required_create, LoginDialog.CREATE_EVENT_REQUEST);
         }
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == LoginActivity.AUTH_OK) {
+        if (resultCode == LoginActivity.AUTH_OK && requestCode == LoginDialog.CREATE_EVENT_REQUEST) {
             startActivity(new Intent(getActivity(), EventNewActivity_.class));
         }
     }

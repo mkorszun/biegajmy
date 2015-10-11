@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.model.User;
 import com.biegajmy.utils.SystemUtils;
@@ -20,21 +19,19 @@ import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import java.io.File;
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_user_details) @OptionsMenu(R.menu.menu_user_details) public class UserDetailsFragment
-    extends Fragment implements MaterialDialog.ListCallback {
+@EFragment(R.layout.fragment_user_details) public class UserDetailsFragment extends Fragment
+    implements MaterialDialog.ListCallback {
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int SELECT_PICTURE = 1;
     private static final String IMAGE = "image/*";
 
-    @Bean LocalStorage storage;
+    public static final String USER_ARG = "USER_ARG";
+
     @ViewById(R.id.userPhoto) ImageView userPhoto;
     @ViewById(R.id.firstname) TextView firstName;
     @ViewById(R.id.lastname) TextView lastName;
@@ -52,12 +49,7 @@ import org.androidannotations.annotations.ViewById;
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UserEventBus.getInstance().register(this);
-    }
-
-    @Override public void onResume() {
-        super.onResume();
-        user = storage.getUser();
-        setContent();
+        user = (User) getArguments().getSerializable(USER_ARG);
     }
 
     @Override public void onDestroy() {
@@ -66,34 +58,18 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @AfterViews void setContent() {
-        if (user != null) {
-            Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
+        Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
 
-            firstName.setText(user.firstName);
-            lastName.setText(user.lastName);
-            bio.setText(user.bio);
-            telephone.setText(user.telephone);
-            www.setText(user.www);
-            email.setText(user.email);
-        }
-    }
-
-    @OptionsItem(R.id.action_user_save) void update() {
-        if (user != null) {
-            user.firstName = firstName.getText().toString();
-            user.lastName = lastName.getText().toString();
-            user.bio = bio.getText().toString();
-            user.telephone = telephone.getText().toString();
-            user.www = www.getText().toString();
-            user.email = email.getText().toString();
-            UserBackendService_.intent(getActivity()).updateUser(user).start();
-        }
+        firstName.setText(user.firstName);
+        lastName.setText(user.lastName);
+        bio.setText(user.bio);
+        telephone.setText(user.telephone);
+        www.setText(user.www);
+        email.setText(user.email);
     }
 
     @Click(R.id.userPhoto) public void selectPicture() {
-        if (user != null) {
-            new MaterialDialog.Builder(getActivity()).items(R.array.photo_sources).itemsCallback(this).show();
-        }
+        new MaterialDialog.Builder(getActivity()).items(R.array.photo_sources).itemsCallback(this).show();
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -149,9 +125,23 @@ import org.androidannotations.annotations.ViewById;
         Picasso.with(getActivity()).load(uri).into(userPhoto);
     }
 
-    @Subscribe public void event(UserEventBus.SyncUserEventOK event) {
-        user = storage.getUser();
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
+    public void updateUser(User user) {
+        this.user = user;
         setContent();
+    }
+
+    public void update() {
+        user.firstName = firstName.getText().toString();
+        user.lastName = lastName.getText().toString();
+        user.bio = bio.getText().toString();
+        user.telephone = telephone.getText().toString();
+        user.www = www.getText().toString();
+        user.email = email.getText().toString();
+        UserBackendService_.intent(getActivity()).updateUser(user).start();
     }
 
     //********************************************************************************************//
@@ -162,12 +152,12 @@ import org.androidannotations.annotations.ViewById;
         Intent intent = new Intent();
         intent.setType(IMAGE);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
+        getParentFragment().startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
     }
 
     private void fromCamera() {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        getParentFragment().startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
     //********************************************************************************************//

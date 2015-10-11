@@ -43,12 +43,12 @@
     <!-- -->
 
     <!-- User -->
-    <string name="user_form_first_name">imię</string>
-    <string name="user_form_last_name">nazwisko</string>
-    <string name="user_form_bio">o mnie</string>
-    <string name="user_form_telephone">tel</string>
-    <string name="user_form_www">www</string>
-    <string name="user_form_email">email</string>
+    <string name="user_form_first_name">Imię</string>
+    <string name="user_form_last_name">Nazwisko</string>
+    <string name="user_form_bio">O mnie</string>
+    <string name="user_form_telephone">Tel</string>
+    <string name="user_form_www">WWW</string>
+    <string name="user_form_email">Email</string>
 
     <string name="user_update_ok_msg">Profil zaktualizowany</string>
     <string name="user_update_failed_msg">Aktualnie nie możliwe</string>
@@ -60,6 +60,9 @@
         <item>Wybierz z galerii</item>
         <item>Utwórz nowe</item>
     </string-array>
+
+    <string name="user_profile_create">Utwórz profil</string>
+    <string name="user_profile_call_to_action">Nie masz jeszcze profilu????\n\nA chcesz biegac z fajnymi dupami?\n\nChcesz byc zajebisty?\n\n\n\nTo na co kurwa czekasz...</string>
     <!-- -->
 
     <!-- Search Settings -->

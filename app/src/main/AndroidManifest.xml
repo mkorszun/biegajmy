@@ -47,6 +47,7 @@
         <activity
             android:name=".events.EventMainActivity_"
             android:label="@string/title_event_list"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
         </activity>

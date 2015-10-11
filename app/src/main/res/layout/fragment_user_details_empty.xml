@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="@style/user_profile_empty_layout">
+
+    <android.support.v7.widget.CardView style="@style/user_form_card_view">
+        <RelativeLayout style="@style/user_profile_empty_layout" android:layout_margin="16dp">
+            <TextView style="@style/user_profile_call_to_action"/>
+            <Button style="@style/user_profile_create_button" android:id="@+id/create_profile_button"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

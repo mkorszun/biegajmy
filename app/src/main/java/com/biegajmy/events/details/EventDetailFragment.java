@@ -114,12 +114,12 @@ public class EventDetailFragment extends Fragment
                 EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
             }
         } else {
-            loginDialog.actionConfirmation(R.string.auth_required_join);
+            loginDialog.actionConfirmation(R.string.auth_required_join, LoginDialog.JOIN_EVENT_REQUEST);
         }
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == LoginActivity.RESULT_OK) {
+        if (resultCode == LoginActivity.RESULT_OK && requestCode == LoginDialog.JOIN_EVENT_REQUEST) {
             EventBackendService_.intent(getActivity()).joinEvent(event.id, !isMember).start();
         }
     }

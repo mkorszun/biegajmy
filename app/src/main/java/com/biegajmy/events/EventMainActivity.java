@@ -10,7 +10,7 @@ import com.biegajmy.events.user.EventUserListMainFragment_;
 import com.biegajmy.general.SlidingTabLayout;
 import com.biegajmy.general.ViewPagerAdapter;
 import com.biegajmy.location.LocationService_;
-import com.biegajmy.user.UserDetailsFragment_;
+import com.biegajmy.user.UserDetailsMainFragment_;
 import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -44,7 +44,7 @@ import static java.util.Arrays.asList;
 
     private List<Fragment> getFragments() {
         return asList(new Fragment[] {
-            new EventSearchMainFragment_(), new EventUserListMainFragment_(), new UserDetailsFragment_()
+            new EventSearchMainFragment_(), new EventUserListMainFragment_(), new UserDetailsMainFragment_()
         });
     }
 }
