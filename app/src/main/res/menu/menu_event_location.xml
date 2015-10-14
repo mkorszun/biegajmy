@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_location_update"
-        android:title="@string/save"
+        android:title="@string/save_location"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 </menu>
