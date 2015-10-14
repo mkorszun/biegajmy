@@ -1,95 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/details_main_background"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <android.support.v7.widget.CardView style="@style/event_details_card_view" android:id="@+id/event_base_info">
+            <RelativeLayout style="@style/event_details_basic_info">
 
-        <RelativeLayout style="@style/event_details" android:id="@+id/event_details">
+                <fragment style="@style/event_form_map_small"
+                    android:id="@+id/event_location"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
 
-            <Button style="@style/event_details_join_button"
-                android:visibility="gone"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/event_join"/>
+                <RelativeLayout style="@style/event_details_basic_info"
+                    android:layout_margin="16dp"
+                    android:layout_below="@+id/event_location">
 
-            <fragment style="@style/event_form_map_small"
-                android:id="@+id/event_location"
-                android:layout_below="@+id/event_join"/>
+                    <LinearLayout style="@style/event_form_field"
+                        android:layout_marginBottom="1dp"
+                        android:id="@+id/event_date_time_labels">
 
-            <RelativeLayout style="@style/event_details_basic_info"
-                android:id="@+id/event_base_info"
-                android:layout_marginBottom="@dimen/details_section_big_margin"
-                android:layout_below="@+id/event_location">
+                        <TextView style="@style/event_details_label"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/event_day"/>
 
-                <LinearLayout style="@style/event_form_field"
-                    android:layout_marginBottom="1dp"
-                    android:id="@+id/event_date_time_labels">
+                        <TextView style="@style/event_details_label"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/event_time"/>
 
-                    <TextView style="@style/event_details_label"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/event_day"/>
+                    </LinearLayout>
 
-                    <TextView style="@style/event_details_label"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/event_time"/>
+                    <LinearLayout style="@style/event_form_field"
+                        android:layout_below="@+id/event_date_time_labels"
+                        android:layout_marginBottom="1dp"
+                        android:id="@+id/event_date_time">
 
-                </LinearLayout>
+                        <TextView style="@style/event_details_datetime_field"
+                            android:id="@+id/event_date"/>
 
-                <LinearLayout style="@style/event_form_field"
-                    android:layout_below="@+id/event_date_time_labels"
-                    android:layout_marginBottom="1dp"
-                    android:id="@+id/event_date_time">
+                        <TextView style="@style/event_details_datetime_field"
+                            android:id="@+id/event_time"/>
 
-                    <TextView style="@style/event_details_datetime_field"
-                        android:id="@+id/event_date"/>
+                    </LinearLayout>
 
-                    <TextView style="@style/event_details_datetime_field"
-                        android:id="@+id/event_time"/>
+                    <LinearLayout style="@style/event_form_field"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/event_date_time"
+                        android:id="@+id/form_event_distance_pace_labels">
 
-                </LinearLayout>
+                        <TextView style="@style/event_details_label"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/event_distance"/>
 
-                <LinearLayout style="@style/event_form_field"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_below="@+id/event_date_time"
-                    android:id="@+id/form_event_distance_pace_labels">
+                        <TextView style="@style/event_details_label"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/event_pace"/>
 
-                    <TextView style="@style/event_details_label"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/event_distance"/>
+                    </LinearLayout>
 
-                    <TextView style="@style/event_details_label"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/event_pace"/>
+                    <LinearLayout style="@style/event_form_field"
+                        android:id="@+id/form_event_distance_pace"
+                        android:layout_below="@+id/form_event_distance_pace_labels">
 
-                </LinearLayout>
+                        <TextView style="@style/event_details_numeric_field"
+                            android:id="@+id/event_distance"
+                            android:layout_below="@+id/form_event_date_time"/>
 
-                <LinearLayout style="@style/event_form_field"
-                    android:id="@+id/form_event_distance_pace"
-                    android:layout_below="@+id/form_event_distance_pace_labels">
+                        <TextView style="@style/event_details_numeric_field"
+                            android:id="@+id/event_pace"
+                            android:layout_below="@+id/event_distance"/>
 
-                    <TextView style="@style/event_details_numeric_field"
-                        android:id="@+id/event_distance"
-                        android:layout_below="@+id/form_event_date_time"/>
+                    </LinearLayout>
 
-                    <TextView style="@style/event_details_numeric_field"
-                        android:id="@+id/event_pace"
-                        android:layout_below="@+id/event_distance"/>
-
-                </LinearLayout>
-
+                </RelativeLayout>
             </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-            <LinearLayout style="@style/event_details_description_layout"
-                android:layout_marginBottom="@dimen/details_section_small_margin"
-                android:layout_below="@+id/event_base_info">
+
+        <android.support.v7.widget.CardView style="@style/event_details_card_view"
+            android:layout_below="@+id/event_base_info"
+            android:id="@+id/event_description_card">
+
+            <LinearLayout style="@style/event_details_description_layout">
 
                 <TextView style="@style/event_details_label"
                     android:id="@+id/comment_label"
@@ -97,29 +95,39 @@
 
                 <TextView style="@style/event_details_description"
                     android:id="@+id/event_description"/>
+
+                <FrameLayout style="@style/event_details_frame_layout"
+                    android:layout_marginTop="@dimen/details_section_big_margin"
+                    android:id="@+id/event_tags"/>
             </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-        </RelativeLayout>
 
-        <FrameLayout style="@style/event_details_frame_layout"
-            android:padding="16dp"
-            android:id="@+id/event_tags"
-            android:layout_marginBottom="@dimen/details_section_big_margin"
-            android:layout_below="@+id/event_details"/>
+        <android.support.v7.widget.CardView
+            style="@style/event_details_card_view"
+            android:layout_below="@+id/event_description_card"
+            android:id="@+id/event_owner_card">
 
-        <FrameLayout style="@style/event_details_frame_layout"
-            android:id="@+id/event_owner"
-            android:layout_marginBottom="@dimen/details_section_small_margin"
-            android:layout_below="@+id/event_tags"/>
+            <RelativeLayout style="@style/event_details_basic_info">
 
-        <FrameLayout style="@style/event_details_frame_layout"
-            android:id="@+id/event_participants_container"
-            android:layout_marginBottom="@dimen/details_section_big_margin"
-            android:layout_below="@+id/event_owner"/>
+                <FrameLayout style="@style/event_details_frame_layout"
+                    android:id="@+id/event_owner"/>
 
-        <FrameLayout style="@style/event_details_frame_layout"
-            android:id="@+id/event_comments"
-            android:layout_below="@+id/event_participants_container"/>
+                <FrameLayout style="@style/event_details_frame_layout"
+                    android:id="@+id/event_participants_container"
+                    android:layout_below="@+id/event_owner"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/event_details_card_view"
+            android:layout_below="@+id/event_owner_card">
+            <FrameLayout style="@style/event_details_frame_layout"
+                android:id="@+id/event_comments"
+                android:layout_below="@+id/event_owner_card"/>
+        </android.support.v7.widget.CardView>
 
     </RelativeLayout>
 </ScrollView>

@@ -188,7 +188,7 @@ public class EventDetailFragment extends Fragment
                 TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, new ArrayList(event.tags)).build())
             .replace(R.id.event_owner,
                 UserBasicDetailsFragment_.builder().arg(UserBasicDetailsFragment.ARG_USER, event.user).build())
-            .commit();
+            .commitAllowingStateLoss();
     }
 
     private void updateEventLocation() {
