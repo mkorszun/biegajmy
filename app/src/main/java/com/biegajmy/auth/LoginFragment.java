@@ -8,29 +8,26 @@ import android.widget.Toast;
 import com.biegajmy.R;
 import com.biegajmy.user.UserBackendService_;
 import com.biegajmy.user.UserEventBus;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
 
-@EFragment(R.layout.fragment_login) public class LoginFragment extends Fragment {
+@EFragment(R.layout.fragment_login) public class LoginFragment extends Fragment
+    implements FacebookCallback<LoginResult> {
 
     private static final String TAG = LoginFragment.class.getName();
 
-    private Session session;
-    private UiLifecycleHelper uiHelper;
-    private Session.StatusCallback statusCallback = new SessionStatusCallback();
-
-    @ViewById(R.id.authButton) LoginButton login;
-    @StringArrayRes(R.array.facebook_permissions) String[] PERMISSIONS;
+    private CallbackManager callbackManager;
+    @ViewById(R.id.authButton) protected LoginButton login;
+    @StringArrayRes(R.array.facebook_permissions) protected String[] PERMISSIONS;
 
     //********************************************************************************************//
     // Callbacks
@@ -38,44 +35,41 @@ import org.androidannotations.annotations.res.StringArrayRes;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
-        uiHelper.onCreate(savedInstanceState);
         UserEventBus.getInstance().register(this);
+        FacebookSdk.sdkInitialize(getActivity());
+        callbackManager = CallbackManager.Factory.create();
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        UserEventBus.getInstance().unregister(this);
     }
 
     @AfterViews public void setUp() {
         login.setReadPermissions(PERMISSIONS);
         login.setFragment(this);
+        login.registerCallback(callbackManager, this);
     }
 
-    @Override public void onResume() {
-        super.onResume();
-        Session session = Session.getActiveSession();
-        if (session != null && (session.isOpened() || session.isClosed())) {
-            onSessionStateChange(session, session.getState(), null);
-        }
-        uiHelper.onResume();
+    @Override public void onSuccess(LoginResult loginResult) {
+        String accessToken = loginResult.getAccessToken().getToken();
+        Log.d(TAG, String.format("Login successful: %s", accessToken));
+        UserBackendService_.intent(getActivity()).checkToken(accessToken).start();
+    }
+
+    @Override public void onCancel() {
+        Log.d(TAG, "Login cancelled");
+        getActivity().finish();
+    }
+
+    @Override public void onError(FacebookException e) {
+        Log.d(TAG, "Login failed", e);
+        getActivity().finish();
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        uiHelper.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override public void onPause() {
-        super.onPause();
-        uiHelper.onPause();
-    }
-
-    @Override public void onDestroy() {
-        super.onDestroy();
-        uiHelper.onDestroy();
-        UserEventBus.getInstance().unregister(this);
-    }
-
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        uiHelper.onSaveInstanceState(outState);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     //********************************************************************************************//
@@ -92,53 +86,6 @@ import org.androidannotations.annotations.res.StringArrayRes;
         Toast.makeText(getActivity(), R.string.user_token_request_failed_msg, Toast.LENGTH_LONG).show();
         getActivity().setResult(LoginActivity.AUTH_FAILED);
         getActivity().finish();
-    }
-
-    //********************************************************************************************//
-    // Event handlers
-    //********************************************************************************************//
-
-    private void onSessionStateChange(final Session session, SessionState state, Exception exception) {
-        if (state.isOpened() && (this.session == null || isSessionChanged(session))) {
-
-            this.session = session;
-            Log.i(TAG, "Logged in...");
-
-            Request.newMeRequest(session, new Request.GraphUserCallback() {
-
-                @Override public void onCompleted(GraphUser user, Response response) {
-                    if (user != null) {
-                        String accessToken = session.getAccessToken();
-                        UserBackendService_.intent(getActivity()).checkToken(accessToken).start();
-                    }
-                }
-            }).executeAsync();
-        } else if (state.isClosed()) {
-            Log.i(TAG, "Logged out...");
-        }
-    }
-
-    private class SessionStatusCallback implements Session.StatusCallback {
-        @Override public void call(Session session, SessionState state, Exception exception) {
-            onSessionStateChange(session, state, exception);
-        }
-    }
-
-    private boolean isSessionChanged(Session session) {
-
-        if (this.session.getState() != session.getState()) {
-            return true;
-        }
-
-        if (this.session.getAccessToken() != null) {
-            if (!this.session.getAccessToken().equals(session.getAccessToken())) {
-                return true;
-            }
-        } else if (session.getAccessToken() != null) {
-            return true;
-        }
-
-        return false;
     }
 
     //********************************************************************************************//
