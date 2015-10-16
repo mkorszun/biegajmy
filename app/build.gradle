@@ -23,14 +23,17 @@ android {
     productFlavors {
         dev {
             buildConfigField "String", "BACKEND_URL", "\"https://development-biegajmy.cloudcontrolled.com/\""
+            buildConfigField "String", "EVENT_PAGE_URL", "\"https://eventpage.cloudcontrolled.com/\""
             buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
         }
         stage {
             buildConfigField "String", "BACKEND_URL", "\"https://staging-biegajmy.cloudcontrolled.com/\""
+            buildConfigField "String", "EVENT_PAGE_URL", "\"https://eventpage.cloudcontrolled.com/\""
             buildConfigField "String", "MINT_TOKEN", "\"49288ebc\""
         }
         prod {
             buildConfigField "String", "BACKEND_URL", "\"https://biegajmy.cloudcontrolled.com/\""
+            buildConfigField "String", "EVENT_PAGE_URL", "\"https://eventpage.cloudcontrolled.com/\""
             buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
         }
     }

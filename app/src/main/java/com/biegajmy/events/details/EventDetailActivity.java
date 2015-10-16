@@ -5,15 +5,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.biegajmy.BuildConfig;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
+import com.biegajmy.general.FacebookShareActivity;
 import com.biegajmy.model.Event;
 import io.paperdb.Paper;
 import org.androidannotations.annotations.Bean;
@@ -23,7 +24,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 
 @EActivity(R.layout.activity_event_detail) @OptionsMenu(R.menu.menu_event_detail) public class EventDetailActivity
-    extends AppCompatActivity {
+    extends FacebookShareActivity {
 
     private static final String EVENT_ARG = "EVENT_ARG";
 
@@ -52,6 +53,10 @@ import org.androidannotations.annotations.OptionsMenuItem;
             this.event = fullEvent != null ? fullEvent : basicEvent;
             this.owner = event.user.equals(storage.getUser()) && storage.hasToken();
         }
+
+        setTitle(event.headline);
+        setDescription(event.description);
+        setURL(BuildConfig.EVENT_PAGE_URL + event.id);
 
         supportActionBar.setTitle(event.headline);
         Fragment fragment = EventDetailFragment_.builder().arg(EventDetailFragment.ARG_EVENT, event).build();
