@@ -14,7 +14,7 @@ import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
-import com.biegajmy.general.FacebookShareActivity;
+import com.biegajmy.general.ShareActivity;
 import com.biegajmy.model.Event;
 import io.paperdb.Paper;
 import org.androidannotations.annotations.Bean;
@@ -24,7 +24,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 
 @EActivity(R.layout.activity_event_detail) @OptionsMenu(R.menu.menu_event_detail) public class EventDetailActivity
-    extends FacebookShareActivity {
+    extends ShareActivity {
 
     private static final String EVENT_ARG = "EVENT_ARG";
 
