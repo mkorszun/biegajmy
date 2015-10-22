@@ -3,6 +3,7 @@ package com.biegajmy.events.details;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -16,7 +17,7 @@ import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.general.ShareActivity;
 import com.biegajmy.model.Event;
-import io.paperdb.Paper;
+import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
@@ -46,7 +47,6 @@ import org.androidannotations.annotations.OptionsMenuItem;
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         EventListBus.getInstance().register(this);
 
-        Paper.init(this);
         if (savedInstanceState == null) {
             Event basicEvent = (Event) getIntent().getSerializableExtra(EventDetailFragment.ARG_EVENT);
             Event fullEvent = storage.get(basicEvent.id, Event.class);
@@ -90,6 +90,35 @@ import org.androidannotations.annotations.OptionsMenuItem;
 
     @OptionsItem(R.id.action_edit_event) public void edit() {
         EventUpdateActivity_.intent(this).extra(EventUpdateFragment.ARG_EVENT, event).start();
+    }
+
+    //********************************************************************************************//
+    // Events
+    //********************************************************************************************//
+
+    @Subscribe public void event(EventListBus.EventUpdateOK event) {
+        setContent(this.event = event.event);
+    }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    private void setContent(Event event) {
+        setTitle(event.headline);
+        setDescription(event.description);
+        setURL(BuildConfig.EVENT_PAGE_URL + event.id);
+        getSupportActionBar().setTitle(event.headline);
+
+        Fragment fragment;
+        FragmentManager fm = getSupportFragmentManager();
+
+        if ((fragment = fm.findFragmentById(R.id.event_detail_container)) != null) {
+            ((EventDetailFragment) fragment).setContent(event);
+        } else {
+            fragment = EventDetailFragment_.builder().arg(EventDetailFragment.ARG_EVENT, event).build();
+            getSupportFragmentManager().beginTransaction().add(R.id.event_detail_container, fragment).commit();
+        }
     }
 
     //********************************************************************************************//

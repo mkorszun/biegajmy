@@ -115,8 +115,12 @@ import org.androidannotations.annotations.RootContext;
     }
 
     private void setInitialPositin(LatLng position) {
-        marker = map.addMarker(new MarkerOptions().position(position).title(title));
-        animate(position);
+        if (marker == null) {
+            marker = map.addMarker(new MarkerOptions().position(position).title(title));
+            animate(position);
+        } else {
+            updateMarker(position);
+        }
     }
 
     private void animate(LatLng position) {

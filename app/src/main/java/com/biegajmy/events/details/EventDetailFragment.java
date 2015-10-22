@@ -77,10 +77,6 @@ public class EventDetailFragment extends Fragment
         super.onCreate(savedInstanceState);
         event = (Event) getArguments().getSerializable(ARG_EVENT);
         EventListBus.getInstance().register(this);
-    }
-
-    @Override public void onResume() {
-        super.onResume();
         EventBackendService_.intent(getActivity()).getEvent(event.id).start();
     }
 
@@ -127,6 +123,15 @@ public class EventDetailFragment extends Fragment
     @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         delete.setTitle(msgForAction());
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    //********************************************************************************************//
+    // API
+    //********************************************************************************************//
+
+    public void setContent(Event event) {
+        this.event = event;
+        setContent();
     }
 
     //********************************************************************************************//
