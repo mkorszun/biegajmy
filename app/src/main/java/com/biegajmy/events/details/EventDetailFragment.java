@@ -27,6 +27,7 @@ import com.biegajmy.tags.TagListFragment;
 import com.biegajmy.tags.TagListFragment_;
 import com.biegajmy.user.UserBasicDetailsFragment;
 import com.biegajmy.user.UserBasicDetailsFragment_;
+import com.biegajmy.utils.StringUtils;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -172,7 +173,10 @@ public class EventDetailFragment extends Fragment
         eventDateTime.set(event.timestamp);
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
-        pace.setText(event.pace + " MIN/KM");
+
+        String paceString = StringUtils.doubleToString(event.pace);
+        pace.setText(paceString != null ? paceString + " MIN/KM" : "-");
+
         distance.setText(event.distance + " KM");
         description.setText(event.description);
         isMember = event.participants.contains(storage.getUser());

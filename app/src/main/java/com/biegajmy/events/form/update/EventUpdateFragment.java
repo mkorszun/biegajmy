@@ -8,6 +8,7 @@ import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.form.EventFormFragment;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
+import com.biegajmy.utils.StringUtils;
 import com.google.android.gms.maps.model.LatLng;
 import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ import org.androidannotations.annotations.EFragment;
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
         distance.setText(String.valueOf(event.distance));
-        pace.setText(String.valueOf(event.pace));
+        pace.setText(StringUtils.doubleToString(event.pace));
     }
 
     @Override public void save() {
@@ -52,7 +53,7 @@ import org.androidannotations.annotations.EFragment;
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;
         event.distance = Integer.valueOf(distance.getText().toString());
-        event.pace = Double.valueOf(pace.getText().toString());
+        event.pace = StringUtils.stringToDouble(pace.getText().toString());
         EventBackendService_.intent(getActivity()).updateEvent(this.event.id, event).start();
     }
 

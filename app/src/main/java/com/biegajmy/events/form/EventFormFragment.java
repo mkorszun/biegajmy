@@ -228,7 +228,6 @@ import org.androidannotations.annotations.ViewById;
         map.put(dateLayout, R.string.event_form_date_error_msg);
         map.put(timeLayout, R.string.event_form_time_error_msg);
         map.put(distanceLayout, R.string.event_form_distance_error_msg);
-        map.put(paceLayout, R.string.event_form_pace_error_msg);
         return map;
     }
 
