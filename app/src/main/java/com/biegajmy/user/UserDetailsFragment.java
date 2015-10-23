@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,7 +25,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_user_details) public class UserDetailsFragment extends Fragment
-    implements MaterialDialog.ListCallback {
+    implements MaterialDialog.ListCallback, View.OnTouchListener {
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int SELECT_PICTURE = 1;
@@ -32,6 +33,7 @@ import org.androidannotations.annotations.ViewById;
 
     public static final String USER_ARG = "USER_ARG";
 
+    @ViewById(R.id.user_form) View mainView;
     @ViewById(R.id.userPhoto) ImageView userPhoto;
     @ViewById(R.id.firstname) TextView firstName;
     @ViewById(R.id.lastname) TextView lastName;
@@ -55,6 +57,7 @@ import org.androidannotations.annotations.ViewById;
     @Override public void onDestroy() {
         super.onDestroy();
         UserEventBus.getInstance().unregister(this);
+        mainView.setOnTouchListener(null);
     }
 
     @AfterViews void setContent() {
@@ -66,6 +69,12 @@ import org.androidannotations.annotations.ViewById;
         telephone.setText(user.telephone);
         www.setText(user.www);
         email.setText(user.email);
+        mainView.setOnTouchListener(this);
+    }
+
+    @Override public boolean onTouch(View v, MotionEvent event) {
+        SystemUtils.hideKeyboard(getActivity());
+        return false;
     }
 
     @Click(R.id.userPhoto) public void selectPicture() {

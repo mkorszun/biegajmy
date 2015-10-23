@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.biegajmy.location.LocationActivity;
 import com.biegajmy.location.LocationActivity_;
 import com.biegajmy.tags.TagEditListFragment;
 import com.biegajmy.tags.TagEditListFragment_;
+import com.biegajmy.utils.SystemUtils;
 import com.biegajmy.validators.TextFormValidator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -40,7 +42,8 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_event_form) @OptionsMenu(R.menu.menu_event_new) public abstract class EventFormFragment
-    extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+    extends Fragment
+    implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener, View.OnTouchListener {
 
     private LatLng location;
     protected EventDateTime eventDateTime;
@@ -51,6 +54,7 @@ import org.androidannotations.annotations.ViewById;
     @Bean protected DistanceDialog distanceDialog;
     @Bean protected PaceDialog paceDialog;
 
+    @ViewById(R.id.event_form) protected View mainView;
     @ViewById(R.id.form_event_headline) protected TextView headline;
     @ViewById(R.id.form_event_description) protected TextView description;
     @ViewById(R.id.form_event_date) protected TextView date;
@@ -84,6 +88,7 @@ import org.androidannotations.annotations.ViewById;
     @AfterViews public void setContent() {
         location = location();
         eventDateTime = new EventDateTime();
+        mainView.setOnTouchListener(this);
         setUpMap(location);
 
         distanceDialog.setSelectionListener(new MaterialDialog.ListCallback() {
@@ -171,8 +176,14 @@ import org.androidannotations.annotations.ViewById;
     @Override public void onDestroy() {
         super.onDestroy();
         eventMap.clear();
+        mainView.setOnTouchListener(null);
         distanceDialog.setSelectionListener(null);
         paceDialog.setSelectionListener(null);
+    }
+
+    @Override public boolean onTouch(View v, MotionEvent event) {
+        SystemUtils.hideKeyboard(getActivity());
+        return false;
     }
 
     public List<String> getTags() {
