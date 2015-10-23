@@ -68,7 +68,7 @@ import org.androidannotations.annotations.EService;
     }
 
     @Override public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(TAG, String.format("Google api connection failed, cause: %d", connectionResult.toString()));
+        Log.e(TAG, String.format("Google api connection failed, cause: %s", connectionResult.toString()));
     }
 
     @Override @Background public void onLocationChanged(Location location) {
