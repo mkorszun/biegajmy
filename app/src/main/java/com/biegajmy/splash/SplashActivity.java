@@ -1,7 +1,6 @@
 package com.biegajmy.splash;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import com.biegajmy.R;
@@ -34,14 +33,12 @@ import static com.biegajmy.location.LocationUpdatesBus.LastLocationUpdatedEvent;
     //********************************************************************************************//
 
     @AfterInject public void setup() {
-        serviceManager.start();
         locationUpdatesBus.register(this);
-        handleLocationServices();
-    }
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (!SystemUtils.checkGooglePlayServices(this)) finish();
+        if (SystemUtils.checkGooglePlayServices(this)) {
+            serviceManager.start();
+            handleLocationServices();
+        }
     }
 
     @Override protected void onDestroy() {
