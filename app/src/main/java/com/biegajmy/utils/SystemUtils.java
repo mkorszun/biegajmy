@@ -5,10 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class SystemUtils {
+
+    private static final String TAG = SystemUtils.class.getName();
 
     public static String getPath(Context context, Uri uri) {
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
@@ -34,5 +39,17 @@ public class SystemUtils {
                 (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public static boolean checkGooglePlayServices(Activity activity) {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+
+        if (resultCode != ConnectionResult.SUCCESS) {
+            GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 9000).show();
+            Log.d(TAG, "Google play services unavailable. Error code: " + resultCode);
+            return false;
+        }
+
+        return true;
     }
 }

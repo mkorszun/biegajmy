@@ -1,6 +1,7 @@
 package com.biegajmy.splash;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import com.biegajmy.R;
@@ -10,6 +11,7 @@ import com.biegajmy.location.LocationDialog;
 import com.biegajmy.location.LocationServiceStatus;
 import com.biegajmy.location.LocationUpdatesBus;
 import com.biegajmy.tags.TagBackendService_;
+import com.biegajmy.utils.SystemUtils;
 import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -35,6 +37,11 @@ import static com.biegajmy.location.LocationUpdatesBus.LastLocationUpdatedEvent;
         serviceManager.start();
         locationUpdatesBus.register(this);
         handleLocationServices();
+    }
+
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (!SystemUtils.checkGooglePlayServices(this)) finish();
     }
 
     @Override protected void onDestroy() {
