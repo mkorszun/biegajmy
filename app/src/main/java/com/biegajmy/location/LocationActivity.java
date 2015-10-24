@@ -7,9 +7,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.EventMapBuilder;
+import com.biegajmy.utils.SystemUtils;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -58,12 +60,13 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        eventMap.updatePosition(locationResolver.getLocation(v.getText().toString()));
+        setAddress(v.getText().toString());
         return false;
     }
 
     @Click(R.id.address_search_button) public void search() {
-        eventMap.updatePosition(locationResolver.getLocation(address.getText().toString()));
+        setAddress(address.getText().toString());
+        SystemUtils.hideKeyboard(this);
     }
 
     @Override protected void onDestroy() {
@@ -94,6 +97,15 @@ import org.androidannotations.annotations.ViewById;
             setResult(LOCATION_PROVIDED, intent);
         } else {
             getParent().setResult(LOCATION_PROVIDED, intent);
+        }
+    }
+
+    private void setAddress(String address) {
+        LatLng location = locationResolver.getLocation(address);
+        if (location != null) {
+            eventMap.updatePosition(location);
+        } else {
+            Toast.makeText(this, R.string.location_not_found, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -77,4 +77,6 @@
     <string name="auth_required_yes">TAK</string>
     <string name="auth_required_no">NIE</string>
 
+    <string name="location_not_found">Nie można znaleźć podanego adresu</string>
+
 </resources>
