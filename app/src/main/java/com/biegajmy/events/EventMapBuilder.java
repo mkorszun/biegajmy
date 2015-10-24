@@ -36,7 +36,7 @@ import org.androidannotations.annotations.RootContext;
     public void build() {
 
         if (initialPosition != null) {
-            setInitialPositin(initialPosition);
+            updatePosition(initialPosition);
         }
 
         if (draggable) {
@@ -100,6 +100,15 @@ import org.androidannotations.annotations.RootContext;
         context.startActivity(intent);
     }
 
+    public void updatePosition(LatLng position) {
+        if (marker == null) {
+            marker = map.addMarker(new MarkerOptions().position(position).title(title));
+            animate(position);
+        } else {
+            updateMarker(position);
+        }
+    }
+
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
@@ -112,15 +121,6 @@ import org.androidannotations.annotations.RootContext;
                 currentPosition = latLng;
             }
         });
-    }
-
-    private void setInitialPositin(LatLng position) {
-        if (marker == null) {
-            marker = map.addMarker(new MarkerOptions().position(position).title(title));
-            animate(position);
-        } else {
-            updateMarker(position);
-        }
     }
 
     private void animate(LatLng position) {

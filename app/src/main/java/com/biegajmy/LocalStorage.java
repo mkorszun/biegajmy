@@ -24,6 +24,7 @@ import org.androidannotations.annotations.RootContext;
     private static final String TAG_RECOMMENDATIONS = "tag_recommendations";
     private static final String TAG_POPULAR = "tag_popular";
     private static final String CACHE_BREAKER = "CACHE_BREAKER";
+    private static final String CURRENT_CITY = "CURRENT_CITY";
 
     @RootContext Context context;
 
@@ -135,6 +136,18 @@ import org.androidannotations.annotations.RootContext;
             updateCacheBreaker();
             return getCacheBreaker();
         }
+    }
+
+    //********************************************************************************************//
+    // Current city
+    //********************************************************************************************//
+
+    public void updateCurrentCity(String city) {
+        this.put(CURRENT_CITY, city);
+    }
+
+    public String getCurrentCity() {
+        return has(CURRENT_CITY) ? get(CURRENT_CITY, String.class) : null;
     }
 
     //********************************************************************************************//

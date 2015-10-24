@@ -25,6 +25,7 @@ import org.androidannotations.annotations.EService;
     private static final int LOCATION_UPDATE_FASTEST_INTERVAL = 2 * 60 * 1000;
 
     @Bean LocalStorage localStorage;
+    @Bean LocationResolver locationResolver;
     @Bean LocationUpdatesBus locationUpdatesBus;
 
     private LastLocation lastLocation;
@@ -77,6 +78,7 @@ import org.androidannotations.annotations.EService;
         lastLocation = localStorage.updateLastLocation(latitude, longitude);
         Log.d(TAG, String.format("Updating last location to: %f %f", latitude, longitude));
         locationUpdatesBus.post(new LocationUpdatesBus.LastLocationUpdatedEvent());
+        localStorage.updateCurrentCity(locationResolver.getCity(latitude, longitude));
     }
 
     //********************************************************************************************//
@@ -103,7 +105,7 @@ import org.androidannotations.annotations.EService;
         }
     }
 
-    protected LocationRequest buildLocationRequest() {
+    private LocationRequest buildLocationRequest() {
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(LOCATION_UPDATE_INTERVAL);
         locationRequest.setFastestInterval(LOCATION_UPDATE_FASTEST_INTERVAL);
@@ -111,7 +113,7 @@ import org.androidannotations.annotations.EService;
         return locationRequest;
     }
 
-    protected GoogleApiClient buildGoogleApiClient() {
+    private GoogleApiClient buildGoogleApiClient() {
         return new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
             .addApi(LocationServices.API)

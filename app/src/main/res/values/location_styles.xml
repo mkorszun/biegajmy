@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="search_address_layout" parent="search_tag_add_layout"/>
+
+    <style name="search_address_field" parent="search_tag_add_field">
+        <item name="android:imeOptions">actionSearch</item>
+    </style>
+
+    <style name="search_address_button" parent="event_main_comment_add_button">
+        <item name="android:src">@drawable/ic_search_white_24dp</item>
+    </style>
+</resources>
