@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/event_list_item_layout">
 
-    <TextView style="@style/event_list_label"
+    <com.biegajmy.general.textview.CustomTextViewBold
+        style="@style/event_list_label"
         android:id="@+id/event_list_label"
         android:layout_alignParentTop="true"/>
 
@@ -23,14 +24,17 @@
             android:layout_toRightOf="@+id/event_icon"
             android:layout_toEndOf="@+id/event_icon">
 
-            <TextView style="@style/event_list_item_text_view"
+            <com.biegajmy.general.textview.CustomTextView
+                style="@style/event_list_item_text_view"
                 android:id="@+id/event_headline"/>
 
-            <TextView style="@style/event_list_item_text_view"
+            <com.biegajmy.general.textview.CustomTextView
+                style="@style/event_list_item_text_view"
                 android:id="@+id/event_date"
                 android:layout_below="@+id/event_headline"/>
 
-            <TextView style="@style/event_list_item_text_view"
+            <com.biegajmy.general.textview.CustomTextView
+                style="@style/event_list_item_text_view"
                 android:id="@+id/event_distance"
                 android:paddingLeft="10dp"
                 android:layout_below="@+id/event_headline"
