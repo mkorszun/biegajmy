@@ -78,7 +78,8 @@ import org.androidannotations.annotations.EService;
         lastLocation = localStorage.updateLastLocation(latitude, longitude);
         Log.d(TAG, String.format("Updating last location to: %f %f", latitude, longitude));
         locationUpdatesBus.post(new LocationUpdatesBus.LastLocationUpdatedEvent());
-        localStorage.updateCurrentCity(locationResolver.getCity(latitude, longitude));
+        String city = locationResolver.getCity(latitude, longitude);
+        if (city != null) localStorage.updateCurrentCity(city);
     }
 
     //********************************************************************************************//
