@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView style="@style/event_list_item" android:id="@+id/event_list_label"/>
+    <TextView style="@style/event_list_item_text_view" android:id="@+id/event_list_label"/>
 
 </RelativeLayout>

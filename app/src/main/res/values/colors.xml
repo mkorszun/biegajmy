@@ -17,4 +17,6 @@
         <item>0xff2D4F69</item>
         <item>0xff649AC3</item>
     </integer-array>
+
+    <color name="my_event_color">#ED8685</color>
 </resources>
