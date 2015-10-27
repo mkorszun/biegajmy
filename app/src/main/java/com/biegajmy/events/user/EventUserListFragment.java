@@ -3,9 +3,7 @@ package com.biegajmy.events.user;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
@@ -31,16 +29,20 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        storage = new LocalStorage(getActivity());
-        EventListBus.getInstance().register(this);
-    }
 
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = getActivity();
+        storage = new LocalStorage(getActivity());
         adapter = new EventListAdapter(activity);
 
+        EventListBus.getInstance().register(this);
         setListAdapter(adapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getListView().setFastScrollEnabled(true);
+        getListView().setDrawSelectorOnTop(true);
+        setListShown(true);
     }
 
     @Override public void onResume() {
