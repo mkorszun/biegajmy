@@ -23,6 +23,7 @@ import com.biegajmy.tags.TagEditListFragment_;
 import com.biegajmy.utils.SystemUtils;
 import com.biegajmy.validators.TextFormValidator;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -163,20 +164,20 @@ import org.androidannotations.annotations.ViewById;
     // Helpers
     //********************************************************************************************//
 
-    private void setUpMap(LatLng loc) {
-
+    private void setUpMap(final LatLng loc) {
         FragmentManager cfm = getChildFragmentManager();
         Fragment fr = cfm.findFragmentById(R.id.event_location);
 
-        GoogleMap mMap;
-        if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
-            eventMap.setInitialPosition(loc)
-                .setMap(mMap)
-                .setTitle("")
-                .setOnMarkerClickListener(getMarkerClickListener())
-                .setOnClickListener(getMapClickListener())
-                .build();
-        }
+        ((SupportMapFragment) fr).getMapAsync(new OnMapReadyCallback() {
+            @Override public void onMapReady(GoogleMap googleMap) {
+                eventMap.setInitialPosition(loc)
+                    .setMap(googleMap)
+                    .setTitle("")
+                    .setOnMarkerClickListener(getMarkerClickListener())
+                    .setOnClickListener(getMapClickListener())
+                    .build();
+            }
+        });
     }
 
     @NonNull private GoogleMap.OnMarkerClickListener getMarkerClickListener() {

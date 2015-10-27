@@ -29,6 +29,7 @@ import com.biegajmy.user.UserBasicDetailsFragment;
 import com.biegajmy.user.UserBasicDetailsFragment_;
 import com.biegajmy.utils.StringUtils;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -214,20 +215,20 @@ public class EventDetailFragment extends Fragment
         return isMember ? (event.spots == 1 && owner ? DELETE_TXT : LEAVE_TXT) : JOIN_TXT;
     }
 
-    private void setUpMap(LatLng loc) {
-
-        GoogleMap mMap;
+    private void setUpMap(final LatLng loc) {
         FragmentManager cfm = getChildFragmentManager();
         Fragment fr = cfm.findFragmentById(R.id.event_location);
 
-        if ((mMap = ((SupportMapFragment) fr).getMap()) != null) {
-            eventMap.setInitialPosition(loc)
-                .setMap(mMap)
-                .setTitle("")
-                .setOnMarkerClickListener(this)
-                .setOnClickListener(this)
-                .build();
-        }
+        ((SupportMapFragment) fr).getMapAsync(new OnMapReadyCallback() {
+            @Override public void onMapReady(GoogleMap googleMap) {
+                eventMap.setInitialPosition(loc)
+                    .setMap(googleMap)
+                    .setTitle("")
+                    .setOnMarkerClickListener(EventDetailFragment.this)
+                    .setOnClickListener(EventDetailFragment.this)
+                    .build();
+            }
+        });
     }
 
     //********************************************************************************************//
