@@ -1,13 +1,12 @@
 package com.biegajmy.general.textview;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 public class CustomTextView extends TextView {
 
-    private static final String FONTS_ISTOK_REGULAR_TTF = "fonts/OpenSans-CondLight.ttf";
+    private static final String FONT = "";
 
     public CustomTextView(Context context) {
         super(context);
@@ -25,6 +24,6 @@ public class CustomTextView extends TextView {
     }
 
     protected void setTypeFace(Context context) {
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), FONTS_ISTOK_REGULAR_TTF));
+        //this.setTypeface(Typeface.createFromAsset(context.getAssets(), FONT));
     }
 }

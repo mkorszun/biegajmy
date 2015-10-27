@@ -1,12 +1,11 @@
 package com.biegajmy.general.textview;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 
 public class CustomTextViewBold extends CustomTextView {
 
-    private static final String FONTS_ISTOK_BOLD_TTF = "fonts/OpenSans-CondBold.ttf";
+    private static final String FONT = "";
 
     public CustomTextViewBold(Context context) {
         super(context);
@@ -21,6 +20,6 @@ public class CustomTextViewBold extends CustomTextView {
     }
 
     protected void setTypeFace(Context context) {
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), FONTS_ISTOK_BOLD_TTF));
+        //this.setTypeface(Typeface.createFromAsset(context.getAssets(), FONT));
     }
 }
