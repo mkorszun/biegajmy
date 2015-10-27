@@ -19,4 +19,5 @@
     </integer-array>
 
     <color name="my_event_color">#ED8685</color>
+    <color name="someone_else_event_color">#649AC3</color>
 </resources>

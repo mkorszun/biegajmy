@@ -8,7 +8,7 @@
         android:layout_alignParentTop="true"/>
 
     <RelativeLayout style="@style/event_list_item_layout"
-        android:background="@color/my_event_color"
+        android:id="@+id/event_list_item_layout"
         android:layout_below="@+id/event_list_label">
 
         <RelativeLayout style="@style/event_list_item_image_layout"

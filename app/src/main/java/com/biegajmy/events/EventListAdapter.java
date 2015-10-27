@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.model.Event;
+import com.biegajmy.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
     private static final String TAG = EventListAdapter.class.getName();
 
+    private User user;
     private List<Event> events;
     private LayoutInflater inflater;
     private Map<String, Integer> labels = new HashMap<>();
@@ -47,6 +49,10 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         ((TextView) view.findViewById(R.id.event_headline)).setText(item.headline);
         ((TextView) view.findViewById(R.id.event_date)).setText(dateTime.getTime().toString());
         ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance + " km");
+
+        int resId = item.user.equals(user) ? R.color.my_event_color : R.color.someone_else_event_color;
+        view.findViewById(R.id.event_list_item_layout).setBackgroundResource(resId);
+
         Log.v(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
         setLabel(position, view, dateTime.getDate().toString());
 
@@ -66,6 +72,10 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 
     public Event get(int id) {
         return events.get(id);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //********************************************************************************************//

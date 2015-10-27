@@ -39,6 +39,7 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
         activity = getActivity();
         storage = new LocalStorage(activity);
         adapter = new EventListAdapter(activity);
+        adapter.setUser(storage.getUser());
 
         bus.register(this);
         setListAdapter(adapter);
