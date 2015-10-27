@@ -12,13 +12,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.EventDateTime;
 import com.biegajmy.events.EventMapBuilder;
-import com.biegajmy.events.form.dialogs.DistanceDialog;
-import com.biegajmy.events.form.dialogs.PaceDialog;
 import com.biegajmy.location.LocationActivity;
 import com.biegajmy.location.LocationActivity_;
 import com.biegajmy.tags.TagEditListFragment;
@@ -51,8 +48,6 @@ import org.androidannotations.annotations.ViewById;
     @Bean protected TextFormValidator validator;
     @Bean protected LocalStorage storage;
     @Bean protected EventMapBuilder eventMap;
-    @Bean protected DistanceDialog distanceDialog;
-    @Bean protected PaceDialog paceDialog;
 
     @ViewById(R.id.event_form) protected View mainView;
     @ViewById(R.id.form_event_headline) protected TextView headline;
@@ -89,27 +84,11 @@ import org.androidannotations.annotations.ViewById;
         location = location();
         eventDateTime = new EventDateTime();
         mainView.setOnTouchListener(this);
+
         setUpMap(location);
-
-        distanceDialog.setSelectionListener(new MaterialDialog.ListCallback() {
-            @Override
-            public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                distance.setText(distanceDialog.getSelection(i));
-                materialDialog.dismiss();
-            }
-        });
-
-        paceDialog.setSelectionListener(new MaterialDialog.ListCallback() {
-            @Override
-            public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                pace.setText(paceDialog.getSelection(i));
-                materialDialog.dismiss();
-            }
-        });
-
         afterViews();
-        ArrayList<String> value = setTags();
-        Fragment fr = TagEditListFragment_.builder().arg(TagEditListFragment.ARGS_TAGS, value).build();
+
+        Fragment fr = TagEditListFragment_.builder().arg(TagEditListFragment.ARGS_TAGS, setTags()).build();
         getChildFragmentManager().beginTransaction().replace(R.id.tags_container, fr).commit();
     }
 
@@ -138,14 +117,6 @@ import org.androidannotations.annotations.ViewById;
 
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
         datePicker.show();
-    }
-
-    @Click(R.id.form_event_distance) public void setDistance() {
-        distanceDialog.show();
-    }
-
-    @Click(R.id.form_event_pace) public void setPace() {
-        paceDialog.show();
     }
 
     @Override public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -177,8 +148,6 @@ import org.androidannotations.annotations.ViewById;
         super.onDestroy();
         eventMap.clear();
         mainView.setOnTouchListener(null);
-        distanceDialog.setSelectionListener(null);
-        paceDialog.setSelectionListener(null);
     }
 
     @Override public boolean onTouch(View v, MotionEvent event) {
