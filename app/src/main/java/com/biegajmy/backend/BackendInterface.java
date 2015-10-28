@@ -1,6 +1,7 @@
 package com.biegajmy.backend;
 
 import com.biegajmy.model.CommentList;
+import com.biegajmy.model.Device;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
 import com.biegajmy.model.Token;
@@ -65,6 +66,9 @@ public interface BackendInterface {
 
     @GET("/user/{user_id}/events") List<Event> listEvents(@Path("user_id") String userId, @Query("token") String token)
         throws BackendError;
+
+    @PUT("/user/{user_id}/device") Response updateDevice(@Body Device device, @Path("user_id") String userId,
+        @Query("token") String token) throws BackendError;
 
     //********************************************************************************************//
     // Token

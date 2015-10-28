@@ -5,6 +5,7 @@ import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
+import com.biegajmy.model.Device;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
 import com.biegajmy.utils.PhotoUtils;
@@ -100,6 +101,17 @@ import retrofit.mime.TypedFile;
                     userBus.post(new UserEventBus.UpdateUserPhotoFailed(error));
                 }
             });
+    }
+
+    @ServiceAction public void updateDevice(Device device) {
+        try {
+            Token token = localStorage.getToken();
+            if (token == null) return;
+            backend.updateDevice(device, token.id, token.token);
+            Log.d(TAG, String.format("Updated device info: %s", device));
+        } catch (Exception e) {
+            Log.d(TAG, "Failed to update device info", e);
+        }
     }
 
     @ServiceAction public void scalePhotoFromPath(String path) {
