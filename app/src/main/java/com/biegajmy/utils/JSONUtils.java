@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class JSONUtils {
 
@@ -19,6 +20,14 @@ public class JSONUtils {
             return list.toArray(array);
         } catch (JSONException e) {
             return array;
+        }
+    }
+
+    public static JSONObject toObject(String jsonString) {
+        try {
+            return new JSONObject(jsonString);
+        } catch (JSONException e) {
+            return null;
         }
     }
 }
