@@ -48,9 +48,10 @@ import org.json.JSONObject;
 
         try {
             String msg_type = msg.getString("msg_type");
+            String event_id = msg.getString("event_id");
             String event_name = msg.getString("event_name");
             String format = MESSAGES.get(msg_type);
-            notificationSender.send(String.format(format, event_name));
+            notificationSender.send(String.format(format, event_name), event_id, event_name);
         } catch (Exception e) {
             Log.e(TAG, "Failed to read push message", e);
         }

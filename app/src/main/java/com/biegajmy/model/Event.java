@@ -21,8 +21,9 @@ public class Event implements Serializable {
     @SerializedName("spots") public int spots;
     @SerializedName("comments") public List<Comment> comments = new ArrayList<>();
 
-    public static Event build(String headline, String description) {
+    public static Event build(String headline, String description, String id) {
         Event event = new Event();
+        event.id = id;
         event.headline = headline;
         event.description = description;
         return event;
