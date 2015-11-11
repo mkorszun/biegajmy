@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
+import java.util.Collections;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -183,6 +184,7 @@ public class EventDetailFragment extends Fragment
         isMember = event.participants.contains(storage.getUser());
         owner = event.user.equals(storage.getUser()) && storage.hasToken();
         if (delete != null) delete.setTitle(msgForAction());
+        ArrayList tags = new ArrayList(event.tags != null ? event.tags : Collections.EMPTY_LIST);
 
         getChildFragmentManager().beginTransaction()
             .replace(R.id.event_participants_container, EventParticipantsFragment_.builder()
@@ -195,7 +197,7 @@ public class EventDetailFragment extends Fragment
                 .arg(CommentsListPlaceholderFragment.COMMENTS_READ_ONLY_ARG, !isMember)
                 .build())
             .replace(R.id.event_tags,
-                TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, new ArrayList(event.tags)).build())
+                TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, tags).build())
             .replace(R.id.event_owner,
                 UserBasicDetailsFragment_.builder().arg(UserBasicDetailsFragment.ARG_USER, event.user).build())
             .commitAllowingStateLoss();
