@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
     private static final String TAG = AppGcmListenerService.class.getName();
     private static final String MESSAGE = "default";
+    private static final String PAYLOAD = "payload";
+    private static final String APS = "aps";
 
     @StringRes(R.string.push_message_event_updated) protected String EVENT_UPDATED;
     @StringRes(R.string.push_message_new_participant) protected String NEW_PARTICIPANT;
@@ -47,9 +49,11 @@ import org.json.JSONObject;
         JSONObject msg = JSONUtils.toObject(string);
 
         try {
-            String msg_type = msg.getString("msg_type");
-            String event_id = msg.getString("event_id");
-            String event_name = msg.getString("event_name");
+            JSONObject aps = msg.getJSONObject(APS);
+            JSONObject payload = aps.getJSONObject(PAYLOAD);
+            String msg_type = payload.getString("msg_type");
+            String event_id = payload.getString("event_id");
+            String event_name = payload.getString("event_name");
             String format = MESSAGES.get(msg_type);
             notificationSender.send(String.format(format, event_name), event_id, event_name);
         } catch (Exception e) {
