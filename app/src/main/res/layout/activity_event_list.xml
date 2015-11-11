@@ -13,4 +13,10 @@
         android:id="@+id/event_main_pager"
         android:layout_below="@+id/event_main_tabs"/>
 
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        style="@style/event_main_fab"
+        android:id="@+id/event_add"
+        app:elevation="10dp"/>
+
 </RelativeLayout>
