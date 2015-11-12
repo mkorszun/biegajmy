@@ -27,18 +27,21 @@ android {
                 "\"https://development-biegajmyeventpage.cloudcontrolled.com/\""
             buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
             buildConfigField "String", "SENDER_ID", "\"658258673786\""
+            resValue "string", "ANDROID_KEY", "\"AIzaSyDE2dQgJNbOzFOgfnivQmIJ7_Fved_NiGA\""
         }
         stage {
             buildConfigField "String", "BACKEND_URL", "\"https://staging-biegajmy.cloudcontrolled.com/\""
             buildConfigField "String", "EVENT_PAGE_URL", "\"https://staging-biegajmyeventpage.cloudcontrolled.com/\""
             buildConfigField "String", "MINT_TOKEN", "\"49288ebc\""
-            buildConfigField "String", "SENDER_ID", "\"658258673786\""
+            buildConfigField "String", "SENDER_ID", "\"360988667636\""
+            resValue "string", "ANDROID_KEY", "\"AIzaSyD2K0yQsYAw6N4TL7DTID6Vy11sdzq1Ntw\""
         }
         prod {
             buildConfigField "String", "BACKEND_URL", "\"https://biegajmy.cloudcontrolled.com/\""
             buildConfigField "String", "EVENT_PAGE_URL", "\"https://staging-biegajmyeventpage.cloudcontrolled.com/\""
             buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
-            buildConfigField "String", "SENDER_ID", "\"658258673786\""
+            buildConfigField "String", "SENDER_ID", "\"360988667636\""
+            resValue "string", "ANDROID_KEY", "\"AIzaSyD2K0yQsYAw6N4TL7DTID6Vy11sdzq1Ntw\""
         }
     }
     dexOptions {
