@@ -46,6 +46,7 @@ import org.androidannotations.annotations.ViewById;
 
     @ViewById(R.id.new_comment_setting) protected SwitchCompat newCommentSetting;
     @ViewById(R.id.new_participant_setting) protected SwitchCompat newParticipantSetting;
+    @ViewById(R.id.leaving_participant_setting) protected SwitchCompat leavingParticipantSetting;
     @ViewById(R.id.event_updated_setting) protected SwitchCompat eventUpdatedSetting;
 
     private User user;
@@ -160,6 +161,7 @@ import org.androidannotations.annotations.ViewById;
         user.settings.onNewComment = newCommentSetting.isChecked();
         user.settings.onNewParticipant = newParticipantSetting.isChecked();
         user.settings.onUpdate = eventUpdatedSetting.isChecked();
+        user.settings.onLeavingParticipant = leavingParticipantSetting.isChecked();
         UserBackendService_.intent(getActivity()).updateUser(user).start();
     }
 
@@ -183,6 +185,7 @@ import org.androidannotations.annotations.ViewById;
         newCommentSetting.setChecked(settings.onNewComment);
         newParticipantSetting.setChecked(settings.onNewParticipant);
         eventUpdatedSetting.setChecked(settings.onUpdate);
+        leavingParticipantSetting.setChecked(settings.onLeavingParticipant);
     }
 
     //********************************************************************************************//

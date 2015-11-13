@@ -96,6 +96,11 @@
 
                 <android.support.v7.widget.SwitchCompat
                     style="@style/settings_switch"
+                    android:id="@+id/leaving_participant_setting"
+                    android:text="@string/push_message_leaving_participant_settings"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/settings_switch"
                     android:id="@+id/event_updated_setting"
                     android:text="@string/push_message_event_updated_settings"/>
 

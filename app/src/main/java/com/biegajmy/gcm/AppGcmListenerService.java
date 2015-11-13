@@ -23,11 +23,13 @@ import org.json.JSONObject;
 
     @StringRes(R.string.push_message_event_updated) protected String EVENT_UPDATED;
     @StringRes(R.string.push_message_new_participant) protected String NEW_PARTICIPANT;
+    @StringRes(R.string.push_message_leaving_participant) protected String LEAVING_PARTICIPANT;
     @StringRes(R.string.push_message_new_comment) protected String NEW_COMMENT;
 
     @StringRes(R.string.push_message_event_updated_type) protected String EVENT_UPDATED_TYPE;
     @StringRes(R.string.push_message_new_participant_type) protected String NEW_PARTICIPANT_TYPE;
     @StringRes(R.string.push_message_new_comment_type) protected String NEW_COMMENT_TYPE;
+    @StringRes(R.string.push_message_leaving_participant_type) protected String LEAVING_PARTICIPANT_TYPE;
 
     private Map<String, String> MESSAGES = new HashMap<>();
 
@@ -41,6 +43,7 @@ import org.json.JSONObject;
         MESSAGES.put(NEW_PARTICIPANT_TYPE, NEW_PARTICIPANT);
         MESSAGES.put(NEW_COMMENT_TYPE, NEW_COMMENT);
         MESSAGES.put(EVENT_UPDATED_TYPE, EVENT_UPDATED);
+        MESSAGES.put(LEAVING_PARTICIPANT_TYPE, LEAVING_PARTICIPANT);
     }
 
     @Override public void onMessageReceived(String from, Bundle data) {
