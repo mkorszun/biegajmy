@@ -1,12 +1,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/user_form"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout style="@style/user_form">
 
-        <android.support.v7.widget.CardView style="@style/user_form_card_view">
+        <android.support.v7.widget.CardView style="@style/user_form_card_view" android:id="@+id/details">
             <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView style="@style/user_photo"
@@ -76,5 +75,33 @@
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView style="@style/user_form_card_view"
+            android:layout_below="@+id/details">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/settings_switch"
+                    android:id="@+id/new_comment_setting"
+                    android:text="@string/push_message_new_comment_settings"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/settings_switch"
+                    android:id="@+id/new_participant_setting"
+                    android:text="@string/push_message_new_participant_settings"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/settings_switch"
+                    android:id="@+id/event_updated_setting"
+                    android:text="@string/push_message_event_updated_settings"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
     </RelativeLayout>
 </ScrollView>

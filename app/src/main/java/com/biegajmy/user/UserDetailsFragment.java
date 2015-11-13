@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.R;
 import com.biegajmy.model.User;
+import com.biegajmy.model.UserSettings;
 import com.biegajmy.utils.SystemUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
@@ -41,6 +43,10 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.telephone) EditText telephone;
     @ViewById(R.id.www) EditText www;
     @ViewById(R.id.email) EditText email;
+
+    @ViewById(R.id.new_comment_setting) protected SwitchCompat newCommentSetting;
+    @ViewById(R.id.new_participant_setting) protected SwitchCompat newParticipantSetting;
+    @ViewById(R.id.event_updated_setting) protected SwitchCompat eventUpdatedSetting;
 
     private User user;
 
@@ -70,6 +76,7 @@ import org.androidannotations.annotations.ViewById;
         www.setText(user.www);
         email.setText(user.email);
         mainView.setOnTouchListener(this);
+        setSettings(user.settings);
     }
 
     @Override public boolean onTouch(View v, MotionEvent event) {
@@ -150,6 +157,9 @@ import org.androidannotations.annotations.ViewById;
         user.telephone = telephone.getText().toString();
         user.www = www.getText().toString();
         user.email = email.getText().toString();
+        user.settings.onNewComment = newCommentSetting.isChecked();
+        user.settings.onNewParticipant = newParticipantSetting.isChecked();
+        user.settings.onUpdate = eventUpdatedSetting.isChecked();
         UserBackendService_.intent(getActivity()).updateUser(user).start();
     }
 
@@ -167,6 +177,12 @@ import org.androidannotations.annotations.ViewById;
     private void fromCamera() {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         getParentFragment().startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+    private void setSettings(UserSettings settings) {
+        newCommentSetting.setChecked(settings.onNewComment);
+        newParticipantSetting.setChecked(settings.onNewParticipant);
+        eventUpdatedSetting.setChecked(settings.onUpdate);
     }
 
     //********************************************************************************************//

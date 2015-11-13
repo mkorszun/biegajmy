@@ -2,8 +2,6 @@ package com.biegajmy.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 
 public class User implements Serializable {
 
@@ -17,7 +15,7 @@ public class User implements Serializable {
     @SerializedName("www") public String www = "";
     @SerializedName("email") public String email = "";
 
-    @SerializedName("tags") public List<String> tags = Collections.emptyList();
+    @SerializedName("settings") public UserSettings settings = new UserSettings();
 
     @Override public boolean equals(Object o) {
         if (o instanceof User) {

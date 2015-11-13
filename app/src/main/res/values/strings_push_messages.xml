@@ -8,4 +8,9 @@
     <string name="push_message_new_comment_type">new_comment</string>
     <string name="push_message_new_participant_type">new_participant</string>
     <string name="push_message_event_updated_type">event_updated</string>
+
+    <string name="push_message_new_comment_settings_group">Powiadomienia</string>
+    <string name="push_message_new_comment_settings">Komentarz do treningu w którym uczestniczę</string>
+    <string name="push_message_new_participant_settings">Dołączający biegacz do mojego treningu</string>
+    <string name="push_message_event_updated_settings">Zmiany ustaleń biegu w którym uczestniczę</string>
 </resources>
