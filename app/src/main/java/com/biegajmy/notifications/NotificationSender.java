@@ -25,7 +25,7 @@ import org.androidannotations.annotations.res.StringRes;
         int id = msg.hashCode();
 
         Intent intent = new Intent(context, EventMainActivity_.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         Intent intent2 = new Intent(context, EventDetailActivity_.class);
         intent2.putExtra(EventDetailFragment.ARG_EVENT, Event.build(headline, "", event_id));
