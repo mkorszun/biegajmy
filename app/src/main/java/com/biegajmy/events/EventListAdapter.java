@@ -50,7 +50,8 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         ((TextView) view.findViewById(R.id.event_date)).setText(dateTime.getTime().toString());
         ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance + " km");
 
-        int resId = item.user.equals(user) ? R.color.my_event_color : R.color.someone_else_event_color;
+        int resId = item.user.equals(user) ? R.color.my_event_color
+            : (item.official ? R.color.official_event : R.color.someone_else_event_color);
         view.findViewById(R.id.event_list_item_layout).setBackgroundResource(resId);
 
         Log.v(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));

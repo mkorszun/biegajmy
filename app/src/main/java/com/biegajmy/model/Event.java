@@ -20,6 +20,7 @@ public class Event implements Serializable {
     @SerializedName("deleted") public boolean deleted;
     @SerializedName("spots") public int spots;
     @SerializedName("comments") public List<Comment> comments = new ArrayList<>();
+    @SerializedName("official") public boolean official;
 
     public static Event build(String headline, String description, String id) {
         Event event = new Event();
