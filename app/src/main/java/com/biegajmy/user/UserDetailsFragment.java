@@ -94,8 +94,7 @@ import org.androidannotations.annotations.ViewById;
 
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
-                String path = SystemUtils.getPath(getActivity(), selectedImageUri);
-                UserBackendService_.intent(getActivity()).scalePhotoFromPath(path).start();
+                UserBackendService_.intent(getActivity()).scalePhotoFromPath(selectedImageUri).start();
             }
 
             if (requestCode == CAMERA_REQUEST) {
@@ -173,12 +172,12 @@ import org.androidannotations.annotations.ViewById;
         Intent intent = new Intent();
         intent.setType(IMAGE);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        getActivity().startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
+        getParentFragment().startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
     }
 
     private void fromCamera() {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        getActivity().startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        getParentFragment().startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
     private void setSettings(UserSettings settings) {

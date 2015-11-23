@@ -1,10 +1,13 @@
 package com.biegajmy.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 
 public class PhotoUtils {
 
@@ -40,6 +43,17 @@ public class PhotoUtils {
             FileOutputStream stream = new FileOutputStream(outputFile);
             bitmap.compress(Bitmap.CompressFormat.JPEG, COMPRESSION, stream);
             return outputFile;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static File scale(Context context, Uri uri) {
+        try {
+            ContentResolver contentResolver = context.getContentResolver();
+            InputStream is = contentResolver.openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            return scale(context, bitmap);
         } catch (Exception e) {
             return null;
         }

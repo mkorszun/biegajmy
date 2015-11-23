@@ -1,6 +1,7 @@
 package com.biegajmy.user;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.backend.BackendInterface;
@@ -114,14 +115,14 @@ import retrofit.mime.TypedFile;
         }
     }
 
-    @ServiceAction public void scalePhotoFromPath(String path) {
+    @ServiceAction public void scalePhotoFromPath(Uri path) {
         File file = PhotoUtils.scale(this, path);
-        userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
+        if (file != null) userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
     }
 
     @ServiceAction public void scalePhotoFromBitmap(Bitmap bitmap) {
         File file = PhotoUtils.scale(this, bitmap);
-        userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
+        if (file != null) userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
     }
 
     //********************************************************************************************//
