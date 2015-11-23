@@ -139,4 +139,16 @@ public class EventListBus extends Bus {
             this.exception = e;
         }
     }
+
+    public static class GetCommentsOK {
+        public List<Comment> comments;
+
+        public GetCommentsOK(List<Comment> comments) {
+            this.comments = comments;
+        }
+    }
+
+    public static class GetCommentsNOK {
+
+    }
 }

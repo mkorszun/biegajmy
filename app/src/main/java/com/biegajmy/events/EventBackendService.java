@@ -137,6 +137,17 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         }
     }
 
+    @ServiceAction public void getComments(String eventID) {
+        try {
+            BackendInterface backend = BackendInterfaceFactory.build();
+            List<Comment> comments = backend.getComments(eventID).comments;
+            EventListBus.getInstance().post(new EventListBus.GetCommentsOK(comments));
+        } catch (Exception e) {
+            Log.e(TAG, String.format("Failed to get comments for event %s", eventID));
+            EventListBus.getInstance().post(new EventListBus.GetCommentsNOK());
+        }
+    }
+
     //********************************************************************************************//
     //********************************************************************************************//
 }

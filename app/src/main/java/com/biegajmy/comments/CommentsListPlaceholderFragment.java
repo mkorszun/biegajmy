@@ -1,5 +1,6 @@
 package com.biegajmy.comments;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,23 +29,26 @@ import org.androidannotations.annotations.ViewById;
     private CommentsListAdapter adapter;
     private ArrayList<Comment> comments;
 
-    @ViewById(R.id.comment_add) Button addComment;
-    @ViewById(R.id.comment_list) ExpandableHeightListView commentList;
+    @ViewById(R.id.comment_add) protected Button addComment;
+    @ViewById(R.id.comment_list) protected ExpandableHeightListView commentList;
 
     //********************************************************************************************//
     // Callbacks
     //********************************************************************************************//
 
-    @AfterViews public void setup() {
+    @Override public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventListBus.getInstance().register(this);
         comments = (ArrayList<Comment>) getArguments().getSerializable(COMMENTS_ARG);
         readOnly = getArguments().getBoolean(COMMENTS_READ_ONLY_ARG);
         eventID = getArguments().getString(EVENT_ID_ARG);
+        adapter = new CommentsListAdapter(getActivity(), CommentsUtils.getLast(comments));
+    }
 
-        adapter = new CommentsListAdapter(getActivity(), comments);
+    @AfterViews public void setup() {
         commentList.setAdapter(adapter);
         commentList.setExpanded(true);
         commentList.setOnItemClickListener(this);
-        EventListBus.getInstance().register(this);
         addComment.setVisibility(readOnly ? View.GONE : View.VISIBLE);
     }
 
@@ -69,38 +73,19 @@ import org.androidannotations.annotations.ViewById;
 
     @Override public void onDestroy() {
         super.onDestroy();
-
         commentList.setAdapter(null);
         commentList.setOnItemClickListener(null);
         EventListBus.getInstance().unregister(this);
-
         adapter.clear();
-        eventID = null;
-        adapter = null;
-        comments = null;
-        commentList = null;
-    }
-
-    //********************************************************************************************//
-    // API
-    //********************************************************************************************//
-
-    public void setReadOnly(boolean readOnly) {
-        this.readOnly = readOnly;
-        addComment.setVisibility(readOnly ? View.GONE : View.VISIBLE);
-    }
-
-    public void update(ArrayList<Comment> comments) {
-        event(comments);
     }
 
     //********************************************************************************************//
     // Events
     //********************************************************************************************//
 
-    @Subscribe public void event(ArrayList<Comment> comments) {
+    @Subscribe public void update(ArrayList<Comment> comments) {
         adapter.clear();
-        adapter.addAll(comments);
+        adapter.addAll(CommentsUtils.getLast(comments));
         this.comments.clear();
         this.comments.addAll(comments);
     }

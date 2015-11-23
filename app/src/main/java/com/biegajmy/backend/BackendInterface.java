@@ -51,6 +51,8 @@ public interface BackendInterface {
     @PUT("/event/{event_id}/comment") CommentList comment(@Path("event_id") String eventId, @Query("msg") String msg,
         @Query("token") String token) throws BackendError;
 
+    @GET("/event/{event_id}/comment") CommentList getComments(@Path("event_id") String eventId) throws BackendError;
+
     //********************************************************************************************//
     // User
     //********************************************************************************************//

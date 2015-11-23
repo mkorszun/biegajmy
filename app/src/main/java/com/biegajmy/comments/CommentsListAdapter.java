@@ -12,6 +12,7 @@ import com.biegajmy.model.Comment;
 import com.biegajmy.utils.TimeUtils;
 import com.squareup.picasso.Picasso;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,11 @@ public class CommentsListAdapter extends ArrayAdapter<Comment> {
         Picasso.with(this.getContext()).load(item.photoURL).into(userPhoto);
 
         return view;
+    }
+
+    @Override public void addAll(Collection<? extends Comment> collection) {
+        this.clear();
+        super.addAll(collection);
     }
 
     //********************************************************************************************//

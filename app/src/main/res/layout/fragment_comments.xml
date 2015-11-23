@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/event_comment_layout">
 
-    <ListView style="@style/event_main_comment_list"
-        android:id="@+id/comment_list"
-        android:layout_above="@+id/event_comment_add_layout"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/event_comment_add_layout">
+
+        <ListView style="@style/event_main_comment_list" android:id="@+id/comment_list"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout style="@style/event_comment_add_layout"
         android:id="@+id/event_comment_add_layout">

@@ -15,7 +15,6 @@ import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.auth.LoginDialog;
 import com.biegajmy.comments.CommentsListPlaceholderFragment;
 import com.biegajmy.comments.CommentsListPlaceholderFragment_;
-import com.biegajmy.comments.CommentsUtils;
 import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventDateTime;
 import com.biegajmy.events.EventListBus;
@@ -193,11 +192,10 @@ public class EventDetailFragment extends Fragment
                 .build())
             .replace(R.id.event_comments, CommentsListPlaceholderFragment_.builder()
                 .arg(CommentsListPlaceholderFragment.EVENT_ID_ARG, event.id)
-                .arg(CommentsListPlaceholderFragment.COMMENTS_ARG, CommentsUtils.getLast(event.comments))
+                .arg(CommentsListPlaceholderFragment.COMMENTS_ARG, new ArrayList(event.comments))
                 .arg(CommentsListPlaceholderFragment.COMMENTS_READ_ONLY_ARG, !isMember)
                 .build())
-            .replace(R.id.event_tags,
-                TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, tags).build())
+            .replace(R.id.event_tags, TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, tags).build())
             .replace(R.id.event_owner,
                 UserBasicDetailsFragment_.builder().arg(UserBasicDetailsFragment.ARG_USER, event.user).build())
             .commitAllowingStateLoss();
