@@ -173,12 +173,12 @@ import org.androidannotations.annotations.ViewById;
         Intent intent = new Intent();
         intent.setType(IMAGE);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        getParentFragment().startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
+        getActivity().startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
     }
 
     private void fromCamera() {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        getParentFragment().startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        getActivity().startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
     private void setSettings(UserSettings settings) {

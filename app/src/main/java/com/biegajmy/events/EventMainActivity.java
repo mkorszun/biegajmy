@@ -71,8 +71,13 @@ import static java.util.Arrays.asList;
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == LoginActivity.AUTH_OK && requestCode == LoginDialog.CREATE_EVENT_REQUEST) {
             startActivity(new Intent(this, EventNewActivity_.class));
+        }
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 
