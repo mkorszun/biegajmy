@@ -1,6 +1,7 @@
 package com.biegajmy.comments;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,8 @@ public class CommentsListAdapter extends ArrayAdapter<Comment> {
         Date commentDate = new Date(item.timestamp);
 
         View view = convertView == null ? inflate(getContext(), parent) : convertView;
-        ((TextView) view.findViewById(R.id.comment_msg)).setText(item.userName + " " + item.msg);
+        String msg = getContext().getResources().getString(R.string.comment_format, item.userName, item.msg);
+        ((TextView) view.findViewById(R.id.comment_msg)).setText(Html.fromHtml(msg));
         ((TextView) view.findViewById(R.id.comment_date)).setText(TimeUtils.getDiff(commentDate, current).toString());
 
         ImageView userPhoto = (ImageView) view.findViewById(R.id.event_comment_user_photo);
