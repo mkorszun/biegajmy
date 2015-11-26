@@ -30,7 +30,7 @@
             android:id="@+id/twenty_five_km"/>
 
         <Button style="@style/distance_selector_button"
-            android:text="50 KM"
+            android:text="+50 KM"
             android:id="@+id/fifty_km"/>
     </LinearLayout>
 

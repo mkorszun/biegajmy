@@ -111,7 +111,7 @@ import org.androidannotations.annotations.ViewById;
 
     @Click(R.id.fifty_km) public void fifty_km() {
         setSelected(button50);
-        bus.post(new EventSearchRange(lastRange = 50000, addTag.getText().toString()));
+        bus.post(new EventSearchRange(lastRange = 500000, addTag.getText().toString()));
     }
 
     @Click(R.id.tag_add_confirmation) public void searchTag() {
