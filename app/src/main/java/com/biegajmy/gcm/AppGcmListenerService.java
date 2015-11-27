@@ -2,6 +2,7 @@ package com.biegajmy.gcm;
 
 import android.os.Bundle;
 import android.util.Log;
+import com.biegajmy.BuildConfig;
 import com.biegajmy.notifications.NotificationSender;
 import com.biegajmy.utils.JSONUtils;
 import com.google.android.gms.gcm.GcmListenerService;
@@ -25,6 +26,8 @@ import org.json.JSONObject;
 
     @Override public void onMessageReceived(String from, Bundle data) {
         Log.d(TAG, String.format("Received message %s from %s", data, from));
+        if (!from.equals(BuildConfig.SENDER_ID)) return;
+
         String string = data.getString(MESSAGE);
         JSONObject msg = JSONUtils.toObject(string);
 
