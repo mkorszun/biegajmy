@@ -1,8 +1,13 @@
 package com.biegajmy.utils;
 
 import java.util.Date;
-import org.joda.time.Interval;
-import org.joda.time.Period;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
+import org.joda.time.Months;
+import org.joda.time.Seconds;
+import org.joda.time.Years;
 
 public class TimeUtils {
 
@@ -36,15 +41,15 @@ public class TimeUtils {
     public static TimeDiff getDiff(Date date1, Date date2) {
 
         if (date1.after(date2)) return new TimeDiff(0, "");
-        Interval interval = new Interval(date1.getTime(), date2.getTime());
-        Period period = interval.toPeriod();
+        DateTime start1 = new DateTime(date1.getTime());
+        DateTime start2 = new DateTime(date2.getTime());
 
-        int yy = period.getYears();
-        int mm = period.getMonths();
-        int dd = period.getDays();
-        int hh = period.getHours();
-        int min = period.getMinutes();
-        int ss = period.getSeconds();
+        int yy = Years.yearsBetween(start1, start2).getYears();
+        int mm = Months.monthsBetween(start1, start2).getMonths();
+        int dd = Days.daysBetween(start1, start2).getDays();
+        int hh = Hours.hoursBetween(start1, start2).getHours();
+        int min = Minutes.minutesBetween(start1, start2).getMinutes();
+        int ss = Seconds.secondsBetween(start1, start2).getSeconds();
 
         if (yy > 0) {
             return new TimeDiff(yy, YEAR);
