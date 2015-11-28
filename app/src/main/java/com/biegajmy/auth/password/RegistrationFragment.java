@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.R;
-import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.model.NewUser;
 import com.biegajmy.user.UserBackendService_;
 import com.biegajmy.user.UserEventBus;
@@ -66,9 +66,10 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     @Subscribe public void event(UserEventBus.RegistrationOK event) {
-        UserBackendService_.intent(getActivity()).syncUser().start();
-        getActivity().setResult(LoginActivity.AUTH_OK);
-        getActivity().finish();
+        new MaterialDialog.Builder(getActivity()).content(R.string.registration_finish)
+            .positiveText(R.string.ok)
+            .show();
+        getActivity().onBackPressed();
     }
 
     @Subscribe public void event(UserEventBus.RegistrationNOK event) {

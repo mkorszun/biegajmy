@@ -14,4 +14,5 @@
     <string name="email_already_used">Taki E-Mail już istnieje</string>
 
     <string name="field_empty_error">Puste pole</string>
+    <string name="registration_finish">Aby dokonczyć rejestrację kliknij w link, który ci właśnie wysłaliśmy</string>
 </resources>
