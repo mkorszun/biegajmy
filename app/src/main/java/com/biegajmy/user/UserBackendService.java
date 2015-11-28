@@ -6,7 +6,10 @@ import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
+import com.biegajmy.backend.error.AuthError;
+import com.biegajmy.backend.error.ConflictError;
 import com.biegajmy.model.Device;
+import com.biegajmy.model.NewUser;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
 import com.biegajmy.utils.PhotoUtils;
@@ -21,12 +24,27 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
+import static com.biegajmy.user.UserEventBus.LoginNOK;
+import static com.biegajmy.user.UserEventBus.LoginOK;
+import static com.biegajmy.user.UserEventBus.RegistrationNOK;
+import static com.biegajmy.user.UserEventBus.RegistrationOK;
+import static com.biegajmy.user.UserEventBus.ScalePhotoOK;
+import static com.biegajmy.user.UserEventBus.SyncUserEventNOK;
+import static com.biegajmy.user.UserEventBus.SyncUserEventOK;
+import static com.biegajmy.user.UserEventBus.TokenNOKEvent;
+import static com.biegajmy.user.UserEventBus.TokenOKEvent;
+import static com.biegajmy.user.UserEventBus.UpdateUserEventFailed;
+import static com.biegajmy.user.UserEventBus.UpdateUserEventOk;
+import static com.biegajmy.user.UserEventBus.UpdateUserPhotoFailed;
+import static com.biegajmy.user.UserEventBus.UpdateUserPhotoOk;
+import static com.biegajmy.user.UserEventBus.getInstance;
+
 @EIntentService public class UserBackendService extends AbstractIntentService {
 
     private static final String TAG = UserBackendService.class.getName();
 
     @Bean LocalStorage localStorage;
-    private Bus userBus = UserEventBus.getInstance();
+    private Bus userBus = getInstance();
     private BackendInterface backend = BackendInterfaceFactory.build();
 
     public UserBackendService() {
@@ -43,10 +61,10 @@ import retrofit.mime.TypedFile;
             String token = localStorage.getToken().token;
             localStorage.updateUser(backend.getUser(id, token));
             Log.d(TAG, "Successfully synced user");
-            userBus.post(new UserEventBus.SyncUserEventOK());
+            userBus.post(new SyncUserEventOK());
         } catch (Exception e) {
             Log.e(TAG, "Failed to sync user data", e);
-            userBus.post(new UserEventBus.SyncUserEventNOK());
+            userBus.post(new SyncUserEventNOK());
         }
     }
 
@@ -57,10 +75,10 @@ import retrofit.mime.TypedFile;
             localStorage.updateUser(backend.updateUser(id, token, user));
 
             Log.d(TAG, "Successfully updated user");
-            userBus.post(new UserEventBus.UpdateUserEventOk());
+            userBus.post(new UpdateUserEventOk());
         } catch (Exception e) {
             Log.e(TAG, "Failed to update user", e);
-            userBus.post(new UserEventBus.UpdateUserEventFailed(e));
+            userBus.post(new UpdateUserEventFailed(e));
         }
     }
 
@@ -70,18 +88,18 @@ import retrofit.mime.TypedFile;
 
             try {
                 Token token = backend.createToken(socialToken);
-                localStorage.updateToke(token);
+                localStorage.updateToken(token);
 
                 Log.d(TAG, "Token request succeeded. Updating token locally");
-                localStorage.updateToke(token);
-                userBus.post(new UserEventBus.TokenOKEvent());
+                localStorage.updateToken(token);
+                userBus.post(new TokenOKEvent());
             } catch (Exception e) {
                 Log.e(TAG, "Token request failed", e);
-                userBus.post(new UserEventBus.TokenNOKEvent());
+                userBus.post(new TokenNOKEvent());
             }
         } else {
             Log.d(TAG, "Token already stored locally");
-            userBus.post(new UserEventBus.TokenOKEvent());
+            userBus.post(new TokenOKEvent());
         }
     }
 
@@ -94,12 +112,12 @@ import retrofit.mime.TypedFile;
                 @Override public void success(User user, Response response) {
                     Log.d(TAG, "Photo update successfully");
                     localStorage.updateUser(user);
-                    userBus.post(new UserEventBus.UpdateUserPhotoOk());
+                    userBus.post(new UpdateUserPhotoOk());
                 }
 
                 @Override public void failure(RetrofitError error) {
                     Log.e(TAG, "Failed to update photo", error);
-                    userBus.post(new UserEventBus.UpdateUserPhotoFailed(error));
+                    userBus.post(new UpdateUserPhotoFailed(error));
                 }
             });
     }
@@ -115,14 +133,43 @@ import retrofit.mime.TypedFile;
         }
     }
 
+    @ServiceAction public void login(String username, String password) {
+        try {
+            BackendInterface backend = BackendInterfaceFactory.build(username, password);
+            Token token = backend.createToken();
+            localStorage.updateToken(token);
+            userBus.post(new LoginOK());
+        } catch (AuthError e) {
+            Log.e(TAG, "Failed to login", e);
+            userBus.post(new LoginNOK(LoginNOK.Reason.NO_MATCH));
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to login", e);
+            userBus.post(new LoginNOK(LoginNOK.Reason.UNKNOWN));
+        }
+    }
+
+    @ServiceAction public void register(NewUser newUser) {
+        try {
+            Token token = backend.createUser(newUser);
+            localStorage.updateToken(token);
+            userBus.post(new RegistrationOK());
+        } catch (ConflictError e) {
+            Log.e(TAG, "Failed to register", e);
+            userBus.post(new RegistrationNOK(RegistrationNOK.Reason.USER_EXISTS));
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to register", e);
+            userBus.post(new RegistrationNOK(RegistrationNOK.Reason.UNKNOWN));
+        }
+    }
+
     @ServiceAction public void scalePhotoFromPath(Uri path) {
         File file = PhotoUtils.scale(this, path);
-        if (file != null) userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
+        if (file != null) userBus.post(new ScalePhotoOK(file.getAbsolutePath()));
     }
 
     @ServiceAction public void scalePhotoFromBitmap(Bitmap bitmap) {
         File file = PhotoUtils.scale(this, bitmap);
-        if (file != null) userBus.post(new UserEventBus.ScalePhotoOK(file.getAbsolutePath()));
+        if (file != null) userBus.post(new ScalePhotoOK(file.getAbsolutePath()));
     }
 
     //********************************************************************************************//

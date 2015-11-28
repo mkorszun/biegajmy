@@ -1,4 +1,4 @@
-package com.biegajmy.auth;
+package com.biegajmy.auth.facebook;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 import com.biegajmy.R;
+import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.user.UserBackendService_;
 import com.biegajmy.user.UserEventBus;
 import com.facebook.CallbackManager;

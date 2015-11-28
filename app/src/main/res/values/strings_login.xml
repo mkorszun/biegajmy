@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_button">LOGIN</string>
+    <string name="registration_button">ZAŁÓŻ KONTO</string>
+
+    <string name="email_hint">E-Mail</string>
+    <string name="password_hint">Hasło</string>
+    <string name="repassword_hint">Powtórz Hasło</string>
+
+    <string name="login_failed">Nie udało sie zalogować!</string>
+    <string name="registration_failed">Rejestracja niemożliwa!</string>
+    <string name="password_too_short">Hasło musi mieć przynajmniej 8 znaków</string>
+    <string name="password_do_not_match">Hasło sie różni</string>
+    <string name="email_already_used">Taki E-Mail już istnieje</string>
+
+    <string name="field_empty_error">Puste pole</string>
+</resources>

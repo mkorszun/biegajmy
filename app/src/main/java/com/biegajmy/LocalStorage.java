@@ -69,7 +69,7 @@ import org.androidannotations.annotations.RootContext;
         return this.get(TOKEN, Token.class);
     }
 
-    public void updateToke(Token token) {
+    public void updateToken(Token token) {
         this.put(TOKEN, token);
     }
 

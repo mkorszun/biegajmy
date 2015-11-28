@@ -1,7 +1,6 @@
 package com.biegajmy.auth;
 
 import android.app.Activity;
-import android.content.Intent;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.R;
 import org.androidannotations.annotations.EBean;
@@ -26,6 +25,6 @@ import org.androidannotations.annotations.RootContext;
     }
 
     @Override public void onPositive(MaterialDialog dialog) {
-        context.startActivityForResult(new Intent(context, LoginActivity.class), requestCode);
+        LoginActivity_.intent(context).startForResult(requestCode);
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="field">
+        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textColorHint">@color/accent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="email_field" parent="field">
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:hint">@string/email_hint</item>
+    </style>
+
+    <style name="password_field" parent="field">
+        <item name="android:inputType">textPassword</item>
+        <item name="android:hint">@string/password_hint</item>
+    </style>
+
+</resources>

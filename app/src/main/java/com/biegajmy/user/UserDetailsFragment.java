@@ -68,7 +68,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @AfterViews void setContent() {
-        Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
+        if (!user.photo_url.isEmpty()) Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
 
         firstName.setText(user.firstName);
         lastName.setText(user.lastName);

@@ -1,9 +1,11 @@
 package com.biegajmy.backend;
 
+import com.biegajmy.backend.error.BackendError;
 import com.biegajmy.model.CommentList;
 import com.biegajmy.model.Device;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
+import com.biegajmy.model.NewUser;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
 import java.util.List;
@@ -57,6 +59,8 @@ public interface BackendInterface {
     // User
     //********************************************************************************************//
 
+    @POST("/user") Token createUser(@Body NewUser newUser) throws BackendError;
+
     @PUT("/user/{user_id}") User updateUser(@Path("user_id") String userId, @Query("token") String token,
         @Body User user) throws BackendError;
 
@@ -77,6 +81,8 @@ public interface BackendInterface {
     //********************************************************************************************//
 
     @POST("/token") Token createToken(@Query("facebook_token") String facebook_token) throws BackendError;
+
+    @POST("/token/v2") Token createToken() throws BackendError;
 
     //********************************************************************************************//
     // Tags

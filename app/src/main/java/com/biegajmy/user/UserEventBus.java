@@ -94,5 +94,41 @@ public class UserEventBus extends Bus {
     }
 
     //********************************************************************************************//
+    // Login
+    //********************************************************************************************//
+
+    public static class LoginOK {
+
+    }
+
+    public static class LoginNOK {
+        public enum Reason {NO_MATCH, UNKNOWN}
+
+        public Reason reason;
+
+        public LoginNOK(Reason reason) {
+            this.reason = reason;
+        }
+    }
+
+    //********************************************************************************************//
+    // Registration
+    //********************************************************************************************//
+
+    public static class RegistrationOK {
+
+    }
+
+    public static class RegistrationNOK {
+        public enum Reason {USER_EXISTS, UNKNOWN}
+
+        public Reason reason;
+
+        public RegistrationNOK(Reason reason) {
+            this.reason = reason;
+        }
+    }
+
+    //********************************************************************************************//
     //********************************************************************************************//
 }

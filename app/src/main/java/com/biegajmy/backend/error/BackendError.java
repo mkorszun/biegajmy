@@ -1,4 +1,4 @@
-package com.biegajmy.backend;
+package com.biegajmy.backend.error;
 
 public class BackendError extends Exception {
     public BackendError(String msg) {
