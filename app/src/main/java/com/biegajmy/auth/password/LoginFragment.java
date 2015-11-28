@@ -63,7 +63,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Subscribe public void event(UserEventBus.LoginNOK event) {
-        Toast.makeText(getActivity(), R.string.login_failed, Toast.LENGTH_LONG).show();
+        showError(event.reason);
     }
 
     //********************************************************************************************//
@@ -75,6 +75,22 @@ import org.androidannotations.annotations.ViewById;
         fields.put(email, R.string.field_empty_error);
         fields.put(password, R.string.field_empty_error);
         return fields;
+    }
+
+    private void showError(UserEventBus.LoginNOK.Reason reason) {
+        int res;
+        switch (reason) {
+            case NO_MATCH:
+                res = R.string.login_no_match_error;
+                break;
+            case UNKNOWN:
+                res = R.string.login_unknown_error;
+                break;
+            default:
+                res = R.string.login_unknown_error;
+                break;
+        }
+        Toast.makeText(getActivity(), res, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//

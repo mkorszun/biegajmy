@@ -59,7 +59,7 @@ public interface BackendInterface {
     // User
     //********************************************************************************************//
 
-    @POST("/user") Token createUser(@Body NewUser newUser) throws BackendError;
+    @POST("/user") Response createUser(@Body NewUser newUser) throws BackendError;
 
     @PUT("/user/{user_id}") User updateUser(@Path("user_id") String userId, @Query("token") String token,
         @Body User user) throws BackendError;

@@ -7,11 +7,13 @@
     <string name="password_hint">Hasło</string>
     <string name="repassword_hint">Powtórz Hasło</string>
 
-    <string name="login_failed">Nie udało sie zalogować!</string>
+    <string name="login_no_match_error">Niepoprawny email/hasło</string>
+    <string name="login_unknown_error">Aktualnie niemożliwe</string>
     <string name="registration_failed">Rejestracja niemożliwa!</string>
     <string name="password_too_short">Hasło musi mieć przynajmniej 8 znaków</string>
     <string name="password_do_not_match">Hasło sie różni</string>
-    <string name="email_already_used">Taki E-Mail już istnieje</string>
+    <string name="email_already_used_error">Taki E-Mail już istnieje</string>
+    <string name="email_invalid_error">Niepoprawny E-Mail</string>
 
     <string name="field_empty_error">Puste pole</string>
     <string name="registration_finish">Aby dokonczyć rejestrację kliknij w link, który ci właśnie wysłaliśmy</string>

@@ -32,7 +32,7 @@ import org.androidannotations.annotations.res.StringRes;
     @ViewById(R.id.password) protected EditText password1;
     @ViewById(R.id.repassword) protected EditText password2;
 
-    @StringRes(R.string.email_already_used) protected String EMAIL_ALREADY_USED;
+    @StringRes(R.string.email_already_used_error) protected String EMAIL_ALREADY_USED;
 
     //********************************************************************************************//
     // Callbacks
@@ -53,7 +53,9 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Click(R.id.register_button) public void register() {
-        if (formValidator.validate(fields) && passwordValidator.validate(password1, password2)) {
+        if (formValidator.validate(fields)
+            && passwordValidator.validate(password1, password2)
+            && formValidator.validateEmail(email, R.string.email_invalid_error)) {
             NewUser user = new NewUser();
             user.email = email.getText().toString();
             user.password = password1.getText().toString();

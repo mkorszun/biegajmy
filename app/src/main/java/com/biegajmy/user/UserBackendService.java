@@ -140,7 +140,7 @@ import static com.biegajmy.user.UserEventBus.getInstance;
             localStorage.updateToken(token);
             userBus.post(new LoginOK());
         } catch (AuthError e) {
-            Log.e(TAG, "Failed to login", e);
+            Log.w(TAG, "Failed to login", e);
             userBus.post(new LoginNOK(LoginNOK.Reason.NO_MATCH));
         } catch (Exception e) {
             Log.e(TAG, "Failed to login", e);
@@ -150,11 +150,10 @@ import static com.biegajmy.user.UserEventBus.getInstance;
 
     @ServiceAction public void register(NewUser newUser) {
         try {
-            Token token = backend.createUser(newUser);
-            localStorage.updateToken(token);
+            backend.createUser(newUser);
             userBus.post(new RegistrationOK());
         } catch (ConflictError e) {
-            Log.e(TAG, "Failed to register", e);
+            Log.w(TAG, "Failed to register", e);
             userBus.post(new RegistrationNOK(RegistrationNOK.Reason.USER_EXISTS));
         } catch (Exception e) {
             Log.e(TAG, "Failed to register", e);

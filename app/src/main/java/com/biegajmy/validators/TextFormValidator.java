@@ -11,6 +11,15 @@ import org.androidannotations.annotations.RootContext;
 
     @RootContext Context context;
 
+    public boolean validateEmail(TextView email, int res) {
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+            return true;
+        } else {
+            email.setError(context.getResources().getString(res));
+            return false;
+        }
+    }
+
     public boolean validate(Map<TextView, Integer> form) {
         boolean result = true;
 
