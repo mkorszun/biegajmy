@@ -1,10 +1,9 @@
 package com.biegajmy.general;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import java.io.Serializable;
 
-public abstract class ModelFragment<T extends Serializable> extends Fragment {
+public abstract class ModelFragment<T extends Serializable> extends GenericFragment {
 
     protected T model;
 
@@ -13,6 +12,11 @@ public abstract class ModelFragment<T extends Serializable> extends Fragment {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = (T) getArguments().getSerializable(getModelKey());
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        model = null;
     }
 
     @Override public void onSaveInstanceState(Bundle state) {

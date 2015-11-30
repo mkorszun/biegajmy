@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,9 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.R;
+import com.biegajmy.general.ModelFragment;
 import com.biegajmy.model.User;
 import com.biegajmy.model.UserSettings;
-import com.biegajmy.utils.SystemUtils;
+import com.biegajmy.utils.PhotoUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import java.io.File;
@@ -26,63 +25,51 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_user_details) public class UserDetailsFragment extends Fragment
-    implements MaterialDialog.ListCallback, View.OnTouchListener {
-
-    private static final int CAMERA_REQUEST = 1888;
-    private static final int SELECT_PICTURE = 1;
-    private static final String IMAGE = "image/*";
+@EFragment(R.layout.fragment_user_details) public class UserDetailsFragment extends ModelFragment<User>
+    implements MaterialDialog.ListCallback {
 
     public static final String USER_ARG = "USER_ARG";
 
-    @ViewById(R.id.user_form) View mainView;
-    @ViewById(R.id.userPhoto) ImageView userPhoto;
-    @ViewById(R.id.firstname) TextView firstName;
-    @ViewById(R.id.lastname) TextView lastName;
-    @ViewById(R.id.bio) EditText bio;
-    @ViewById(R.id.telephone) EditText telephone;
-    @ViewById(R.id.www) EditText www;
-    @ViewById(R.id.email) EditText email;
+    @ViewById(R.id.userPhoto) protected ImageView userPhoto;
+    @ViewById(R.id.firstname) protected TextView firstName;
+    @ViewById(R.id.lastname) protected TextView lastName;
+    @ViewById(R.id.bio) protected EditText bio;
+    @ViewById(R.id.telephone) protected EditText telephone;
+    @ViewById(R.id.www) protected EditText www;
+    @ViewById(R.id.email) protected EditText email;
 
     @ViewById(R.id.new_comment_setting) protected SwitchCompat newCommentSetting;
     @ViewById(R.id.new_participant_setting) protected SwitchCompat newParticipantSetting;
     @ViewById(R.id.leaving_participant_setting) protected SwitchCompat leavingParticipantSetting;
     @ViewById(R.id.event_updated_setting) protected SwitchCompat eventUpdatedSetting;
 
-    private User user;
-
     //********************************************************************************************//
     // Callbacks
     //********************************************************************************************//
 
+    @Override protected String getModelKey() {
+        return USER_ARG;
+    }
+
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UserEventBus.getInstance().register(this);
-        user = (User) getArguments().getSerializable(USER_ARG);
     }
 
     @Override public void onDestroy() {
         super.onDestroy();
         UserEventBus.getInstance().unregister(this);
-        mainView.setOnTouchListener(null);
     }
 
     @AfterViews void setContent() {
-        if (!user.photo_url.isEmpty()) Picasso.with(getActivity()).load(user.photo_url).into(userPhoto);
-
-        firstName.setText(user.firstName);
-        lastName.setText(user.lastName);
-        bio.setText(user.bio);
-        telephone.setText(user.telephone);
-        www.setText(user.www);
-        email.setText(user.email);
-        mainView.setOnTouchListener(this);
-        setSettings(user.settings);
-    }
-
-    @Override public boolean onTouch(View v, MotionEvent event) {
-        SystemUtils.hideKeyboard(getActivity());
-        return false;
+        PhotoUtils.set(model.photo_url, getActivity(), userPhoto);
+        firstName.setText(model.firstName);
+        lastName.setText(model.lastName);
+        bio.setText(model.bio);
+        telephone.setText(model.telephone);
+        www.setText(model.www);
+        email.setText(model.email);
+        setSettings(model.settings);
     }
 
     @Click(R.id.userPhoto) public void selectPicture() {
@@ -90,27 +77,24 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK && requestCode == PhotoUtils.SELECT_PICTURE) {
+            Uri selectedImageUri = data.getData();
+            UserBackendService_.intent(getActivity()).scalePhotoFromPath(selectedImageUri).start();
+        }
 
-            if (requestCode == SELECT_PICTURE) {
-                Uri selectedImageUri = data.getData();
-                UserBackendService_.intent(getActivity()).scalePhotoFromPath(selectedImageUri).start();
-            }
-
-            if (requestCode == CAMERA_REQUEST) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                UserBackendService_.intent(getActivity()).scalePhotoFromBitmap(photo).start();
-            }
+        if (resultCode == Activity.RESULT_OK && requestCode == PhotoUtils.CAMERA_REQUEST) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            UserBackendService_.intent(getActivity()).scalePhotoFromBitmap(photo).start();
         }
     }
 
-    @Override public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+    @Override public void onSelection(MaterialDialog dialog, View view, int i, CharSequence c) {
         switch (i) {
             case 0:
-                fromGallery();
+                PhotoUtils.fromGallery(getParentFragment());
                 break;
             case 1:
-                fromCamera();
+                PhotoUtils.fromCamera(getParentFragment());
                 break;
         }
     }
@@ -146,39 +130,27 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     public void updateUser(User user) {
-        this.user = user;
+        this.model = user;
         setContent();
     }
 
     public void update() {
-        user.firstName = firstName.getText().toString();
-        user.lastName = lastName.getText().toString();
-        user.bio = bio.getText().toString();
-        user.telephone = telephone.getText().toString();
-        user.www = www.getText().toString();
-        user.email = email.getText().toString();
-        user.settings.onNewComment = newCommentSetting.isChecked();
-        user.settings.onNewParticipant = newParticipantSetting.isChecked();
-        user.settings.onUpdate = eventUpdatedSetting.isChecked();
-        user.settings.onLeavingParticipant = leavingParticipantSetting.isChecked();
-        UserBackendService_.intent(getActivity()).updateUser(user).start();
+        model.firstName = firstName.getText().toString();
+        model.lastName = lastName.getText().toString();
+        model.bio = bio.getText().toString();
+        model.telephone = telephone.getText().toString();
+        model.www = www.getText().toString();
+        model.email = email.getText().toString();
+        model.settings.onNewComment = newCommentSetting.isChecked();
+        model.settings.onNewParticipant = newParticipantSetting.isChecked();
+        model.settings.onUpdate = eventUpdatedSetting.isChecked();
+        model.settings.onLeavingParticipant = leavingParticipantSetting.isChecked();
+        UserBackendService_.intent(getActivity()).updateUser(model).start();
     }
 
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
-
-    private void fromGallery() {
-        Intent intent = new Intent();
-        intent.setType(IMAGE);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        getParentFragment().startActivityForResult(Intent.createChooser(intent, ""), SELECT_PICTURE);
-    }
-
-    private void fromCamera() {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        getParentFragment().startActivityForResult(cameraIntent, CAMERA_REQUEST);
-    }
 
     private void setSettings(UserSettings settings) {
         newCommentSetting.setChecked(settings.onNewComment);
