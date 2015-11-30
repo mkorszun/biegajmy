@@ -11,8 +11,7 @@ import com.biegajmy.model.Event;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 
-@EActivity(R.layout.activity_event_update) public class EventUpdateActivity
-    extends ActionBarActivity {
+@EActivity(R.layout.activity_event_update) public class EventUpdateActivity extends ActionBarActivity {
 
     @OptionsItem(android.R.id.home) public void backHome() {
         NavUtils.navigateUpTo(this, new Intent(this, EventMainActivity.class));
@@ -34,9 +33,7 @@ import org.androidannotations.annotations.OptionsItem;
             EventUpdateFragment_ fragment = new EventUpdateFragment_();
             fragment.setArguments(arguments);
 
-            getSupportFragmentManager().beginTransaction()
-                .add(R.id.event_update_container, fragment)
-                .commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.event_update_container, fragment).commit();
         }
     }
 }

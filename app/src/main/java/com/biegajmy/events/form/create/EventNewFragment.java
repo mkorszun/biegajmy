@@ -16,11 +16,15 @@ import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_event_form) public class EventNewFragment extends EventFormFragment {
 
-    @Bean LocalStorage storage;
+    @Bean protected LocalStorage storage;
 
     //********************************************************************************************//
     // Callbacks
     //********************************************************************************************//
+
+    @Override protected String getModelKey() {
+        return "";
+    }
 
     @Override public LatLng location() {
         return storage.getLastLocation().get();

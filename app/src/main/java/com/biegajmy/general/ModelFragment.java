@@ -11,7 +11,8 @@ public abstract class ModelFragment<T extends Serializable> extends GenericFragm
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = (T) getArguments().getSerializable(getModelKey());
+        Bundle arguments = getArguments();
+        if (arguments != null) model = (T) arguments.getSerializable(getModelKey());
     }
 
     @Override public void onDestroy() {
