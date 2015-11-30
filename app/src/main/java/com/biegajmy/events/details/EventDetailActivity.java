@@ -51,7 +51,7 @@ import org.androidannotations.annotations.OptionsMenuItem;
             Event basicEvent = (Event) getIntent().getSerializableExtra(EventDetailFragment.ARG_EVENT);
             Event fullEvent = storage.get(basicEvent.id, Event.class);
             this.event = fullEvent != null ? fullEvent : basicEvent;
-            this.owner = event.user.equals(storage.getUser()) && storage.hasToken();
+            this.owner = event.user != null ? event.user.equals(storage.getUser()) && storage.hasToken() : false;
         }
 
         setTitle(event.headline);

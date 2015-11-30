@@ -3,7 +3,6 @@ package com.biegajmy.model;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Event implements Serializable {
 
@@ -12,15 +11,15 @@ public class Event implements Serializable {
     @SerializedName("timestamp") public long timestamp;
     @SerializedName("headline") public String headline;
     @SerializedName("description") public String description;
-    @SerializedName("participants") public ArrayList<User> participants = new ArrayList<>();
     @SerializedName("loc") public EventLocation location;
-    @SerializedName("tags") public List<String> tags;
     @SerializedName("distance") public int distance;
     @SerializedName("pace") public double pace;
-    @SerializedName("deleted") public boolean deleted;
     @SerializedName("spots") public int spots;
-    @SerializedName("comments") public List<Comment> comments = new ArrayList<>();
     @SerializedName("official") public boolean official;
+
+    @SerializedName("tags") public ArrayList<String> tags = new ArrayList<>();
+    @SerializedName("comments") public ArrayList<Comment> comments = new ArrayList<>();
+    @SerializedName("participants") public ArrayList<User> participants = new ArrayList<>();
 
     public static Event build(String headline, String description, String id) {
         Event event = new Event();

@@ -24,4 +24,8 @@ public class User implements Serializable {
         }
         return false;
     }
+
+    @Override public String toString() {
+        return lastName != null ? String.format("%s %s", firstName, lastName) : String.format("%s", firstName);
+    }
 }
