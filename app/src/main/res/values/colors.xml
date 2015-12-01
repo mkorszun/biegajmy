@@ -28,5 +28,6 @@
     <color name="color_font_black">#585c5e</color>
     <color name="color_font_grey">#8b8b8b</color>
     <color name="color_font_hint">#808b8b8b</color>
+    <color name="color_font_button">#068d7b</color>
     <!-- -->
 </resources>

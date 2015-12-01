@@ -88,8 +88,10 @@
     </style>
 
     <style name="event_small_comment_add_button">
+        <item name="android:drawableLeft">@drawable/add_comment</item>
+        <item name="android:drawablePadding">10dp</item>
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:textColor">@color/primary_light</item>
+        <item name="android:textColor">@color/color_font_button</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
