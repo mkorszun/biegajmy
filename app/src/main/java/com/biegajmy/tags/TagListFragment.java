@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.IntArrayRes;
 import org.apmem.tools.layouts.FlowLayout;
 
 @EFragment(R.layout.tag_view) public class TagListFragment extends Fragment implements View.OnClickListener {
@@ -25,7 +24,6 @@ import org.apmem.tools.layouts.FlowLayout;
 
     @ViewById(R.id.tag_label) protected TextView tagLabel;
     @ViewById(R.id.tag_root_view) protected FlowLayout rootView;
-    @IntArrayRes(R.array.tag_colors) protected int[] COLORS;
 
     //********************************************************************************************//
     // Callbacks
@@ -75,13 +73,11 @@ import org.apmem.tools.layouts.FlowLayout;
     //********************************************************************************************//
 
     private TagListElement getTag(int i) {
-        int color = COLORS[i % COLORS.length];
-        return new TagListElement(getActivity(), tags.get(i), color, getListener(), isEditable);
+        return new TagListElement(getActivity(), tags.get(i), getListener(), isEditable);
     }
 
     private TagListElement newTag(String tag) {
-        int color = COLORS[(tags.size() - 1) % COLORS.length];
-        return new TagListElement(getActivity(), tag, color, getListener(), isEditable);
+        return new TagListElement(getActivity(), tag, getListener(), isEditable);
     }
 
     private View.OnClickListener getListener() {

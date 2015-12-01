@@ -8,15 +8,13 @@ import com.biegajmy.R;
 
 public class TagListElement extends LinearLayout {
 
-    public TagListElement(Context context, String text, int color, OnClickListener listener, boolean editable) {
+    public TagListElement(Context context, String text, OnClickListener listener, boolean editable) {
         super(context, null);
 
         View rootView = View.inflate(context, R.layout.tag_view_element, this);
         TextView tagView = (TextView) rootView.findViewById(R.id.tag_view);
-        LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.tag_view_layout);
 
         tagView.setText(text);
-        layout.setBackgroundColor(color);
 
         if (listener != null) {
             rootView.setOnClickListener(listener);

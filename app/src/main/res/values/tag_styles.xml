@@ -38,6 +38,7 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/tag_background</item>
     </style>
 
     <style name="tag_element_layout">
@@ -64,6 +65,7 @@
         <item name="android:visibility">gone</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">5dp</item>
         <item name="android:src">@drawable/ic_clear_white_18dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
