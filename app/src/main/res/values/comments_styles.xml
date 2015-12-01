@@ -34,7 +34,7 @@
     </style>
 
     <style name="event_comment_list_item_text_view">
-        <item name="android:textColor">@color/accent</item>
+        <item name="android:textColor">@color/color_font_grey</item>
         <item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -65,16 +65,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/comment_add_field_background</item>
     </style>
 
     <style name="event_main_comment_add_field" parent="event_comment_add_field">
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:textColorHint">#ffffff</item>
+        <item name="android:textColor">@color/color_font_grey</item>
+        <item name="android:textColorHint">@color/color_font_hint</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">5</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/primary_light</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="event_main_comment_add_button">

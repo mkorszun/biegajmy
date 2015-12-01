@@ -23,4 +23,10 @@
     <color name="official_event">#D1D2D4</color>
     <color name="background">#dee9e0</color>
     <color name="fab_color">@color/main_button_color</color>
+
+    <!-- FONTS -->
+    <color name="color_font_black">#585c5e</color>
+    <color name="color_font_grey">#8b8b8b</color>
+    <color name="color_font_hint">#808b8b8b</color>
+    <!-- -->
 </resources>
