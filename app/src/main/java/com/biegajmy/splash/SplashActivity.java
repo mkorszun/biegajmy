@@ -15,6 +15,7 @@ import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 
 import static com.biegajmy.location.LocationUpdatesBus.LastLocationRequestEvent;
 import static com.biegajmy.location.LocationUpdatesBus.LastLocationUpdatedEvent;
@@ -63,7 +64,7 @@ import static com.biegajmy.location.LocationUpdatesBus.LastLocationUpdatedEvent;
     // Events
     //********************************************************************************************//
 
-    @Subscribe public void event(LastLocationUpdatedEvent event) {
+    @Subscribe @UiThread(delay = 1000) public void event(LastLocationUpdatedEvent event) {
         if (locationServiceStatus.isEnabled()) {
             Log.d(TAG, "Last location obtained. Starting main activity");
             TagBackendService_.intent(this).getTagRecommendations().start();
