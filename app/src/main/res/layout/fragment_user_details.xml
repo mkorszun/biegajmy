@@ -22,6 +22,7 @@
                         style="@style/event_form_field_layout_split">
                         <EditText style="@style/user_form_field"
                             android:id="@+id/firstname"
+                            android:drawableLeft="@drawable/settings_user_name"
                             android:layout_weight="1"
                             android:hint="@string/user_form_first_name"/>
                     </android.support.design.widget.TextInputLayout>
@@ -30,6 +31,7 @@
                         style="@style/event_form_field_layout_split">
                         <EditText style="@style/user_form_field"
                             android:id="@+id/lastname"
+                            android:drawableLeft="@drawable/settings_user_name"
                             android:layout_weight="1"
                             android:hint="@string/user_form_last_name"/>
                     </android.support.design.widget.TextInputLayout>
@@ -41,6 +43,7 @@
                     android:layout_below="@+id/full_Name">
                     <EditText style="@style/user_form_field"
                         android:id="@+id/telephone"
+                        android:drawableLeft="@drawable/settings_mobile"
                         android:hint="@string/user_form_telephone"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -51,6 +54,7 @@
                     <EditText style="@style/user_form_field"
                         android:id="@+id/www"
                         android:layout_below="@+id/telephone_layout"
+                        android:drawableLeft="@drawable/settings_www"
                         android:hint="@string/user_form_www"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -61,6 +65,7 @@
                     android:layout_below="@+id/www_layout">
                     <EditText style="@style/user_form_field"
                         android:id="@+id/email"
+                        android:drawableLeft="@drawable/settings_email"
                         android:hint="@string/user_form_email"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -70,6 +75,7 @@
                     android:layout_below="@+id/email_layout">
                     <EditText style="@style/user_form_multiline_field"
                         android:id="@+id/bio"
+                        android:drawableLeft="@drawable/settings_bio"
                         android:hint="@string/user_form_bio"/>
                 </android.support.design.widget.TextInputLayout>
 
