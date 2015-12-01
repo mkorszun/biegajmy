@@ -14,8 +14,7 @@
     <color name="main_button_color">#ff9a2c</color>
 
     <integer-array name="tag_colors">
-        <item>0xff2D4F69</item>
-        <item>0xff649AC3</item>
+        <item>0xffa2d8a8</item>
     </integer-array>
 
     <color name="my_event_color">#ED8685</color>
