@@ -21,6 +21,6 @@
     <color name="my_event_color">#ED8685</color>
     <color name="someone_else_event_color">#649AC3</color>
     <color name="official_event">#D1D2D4</color>
-    <color name="date_label_backgrund">#dee9e0</color>
+    <color name="background">#dee9e0</color>
     <color name="fab_color">@color/main_button_color</color>
 </resources>

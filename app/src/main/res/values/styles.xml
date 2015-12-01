@@ -125,6 +125,7 @@
     </style>
 
     <style name="user_form_card_view" parent="event_form_card_view">
+        <item name="cardBackgroundColor">@color/background</item>
     </style>
 
     <style name="user_profile_call_to_action">
@@ -138,7 +139,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="user_profile_create_button" parent="tag_add_button">
+    <style name="user_profile_create_button" parent="main_button">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:text">@string/user_profile_create</item>
     </style>
