@@ -15,8 +15,7 @@
             android:id="@+id/event_icon">
 
             <ImageView style="@style/event_list_item_image"
-                android:id="@+id/event_list_item_image"
-                android:src="@drawable/list_icon"/>
+                android:id="@+id/event_list_item_image"/>
 
         </RelativeLayout>
 
@@ -39,6 +38,14 @@
                 android:paddingLeft="10dp"
                 android:layout_below="@+id/event_headline"
                 android:layout_toRightOf="@+id/event_date"/>
+
+            <ImageView style="@style/event_list_item_image"
+                android:id="@+id/event_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 

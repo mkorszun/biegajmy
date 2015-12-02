@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.model.Event;
@@ -50,9 +51,12 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         ((TextView) view.findViewById(R.id.event_date)).setText(dateTime.getTime().toString());
         ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance + " km");
 
-        int resId = item.user.equals(user) ? R.color.my_event_color
-            : (item.official ? R.color.official_event : R.color.someone_else_event_color);
-        view.findViewById(R.id.event_list_item_layout).setBackgroundResource(resId);
+        int i = item.spots == 2 ? R.drawable.two_runners : R.drawable.three_runners;
+        int participantsImg = item.spots == 1 ? R.drawable.one_runner : i;
+        int ownerImg = item.user.equals(user) ? R.drawable.my_event : (item.official ? R.drawable.official_event : 0);
+
+        ((ImageView) view.findViewById(R.id.event_list_item_image)).setImageResource(participantsImg);
+        ((ImageView) view.findViewById(R.id.event_indicator)).setImageResource(ownerImg);
 
         Log.v(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
         setLabel(position, view, dateTime.getDate().toString());

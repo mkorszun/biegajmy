@@ -4,6 +4,7 @@
     <style name="event_list_item_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="event_list_item_text_view">
@@ -19,12 +20,13 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/participant_icon</item>
     </style>
 
 
     <style name="event_list_item_image">
         <item name="android:padding">5dp</item>
-        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
     </style>
