@@ -4,6 +4,7 @@
 
     <style name="search_address_field" parent="search_tag_add_field">
         <item name="android:imeOptions">actionSearch</item>
+        <item name="android:background">@color/primary</item>
     </style>
 
     <style name="search_address_button" parent="event_main_comment_add_button">
