@@ -9,6 +9,7 @@
 
     <RelativeLayout style="@style/event_list_item_layout"
         android:id="@+id/event_list_item_layout"
+        android:paddingLeft="5dp"
         android:layout_below="@+id/event_list_label">
 
         <RelativeLayout style="@style/event_list_item_image_layout"
