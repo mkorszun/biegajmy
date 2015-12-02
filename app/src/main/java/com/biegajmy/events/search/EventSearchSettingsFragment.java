@@ -3,8 +3,6 @@ package com.biegajmy.events.search;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,7 +26,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_event_search_settings) public class EventSearchSettingsFragment extends Fragment
-    implements TextView.OnEditorActionListener, TextWatcher, View.OnClickListener {
+    implements TextView.OnEditorActionListener, View.OnClickListener {
 
     private int lastRange = 5000;
     private Bus bus = EventListBus.getInstance();
@@ -77,7 +75,6 @@ import org.androidannotations.annotations.ViewById;
 
         addTag.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, recommendations));
         addTag.setOnEditorActionListener(this);
-        addTag.addTextChangedListener(this);
 
         fr.setOnClickListener(this);
         FragmentManager childFragmentManager = getChildFragmentManager();
@@ -127,18 +124,6 @@ import org.androidannotations.annotations.ViewById;
         return false;
     }
 
-    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override public void afterTextChanged(Editable s) {
-
-    }
-
     @Override public void onClick(View v) {
         TextView tag = (TextView) v.findViewById(R.id.tag_view);
         addTag.setText(tag.getText().toString());
@@ -176,6 +161,7 @@ import org.androidannotations.annotations.ViewById;
         if (addTag.getText().length() == 0 && !clearMode) return;
         if (clearMode) addTag.setText(null);
 
+        addTag.setSelection(addTag.getText().length());
         addTag.dismissDropDown();
         addTag.clearFocus();
         setButton(clearMode = !clearMode);
@@ -183,7 +169,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     private void setButton(boolean clearMode) {
-        int res = clearMode ? R.drawable.ic_clear_white_18dp : R.drawable.ic_check_white_36dp;
+        int res = clearMode ? R.drawable.ic_clear_white_18dp : R.drawable.ic_done_white_24dp;
         confirmationButton.setImageResource(res);
     }
 

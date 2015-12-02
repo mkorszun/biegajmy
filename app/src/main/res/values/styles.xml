@@ -185,7 +185,9 @@
 
     <style name="distance_selector_button">
         <item name="android:layout_margin">2dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:textColor">@drawable/distance_selector_font_color</item>
         <item name="android:background">@drawable/distance_selector</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
@@ -194,9 +196,10 @@
 
     <style name="distance_selector_label">
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textColor">@color/primary_light</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textColor">@color/color_font_black</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:gravity">left</item>
         <item name="android:text">@string/distance_selector_label</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>

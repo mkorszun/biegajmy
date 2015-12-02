@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="false" android:drawable="@color/primary_light"/>
-    <item android:state_selected="true" android:drawable="@color/primary"/>
+    <stroke android:width="2dip" android:color="#D1D2D4"/>
+    <item android:state_selected="false" android:drawable="@color/color_button_distance_default"/>
+    <item android:state_selected="true" android:drawable="@color/color_button_distance_pressed"/>
 </selector>

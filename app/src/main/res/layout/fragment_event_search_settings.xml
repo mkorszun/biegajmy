@@ -9,28 +9,28 @@
 
     <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent">
         <Button style="@style/distance_selector_button"
-            android:text="1 KM"
+            android:text="1"
             android:id="@+id/one_km"/>
 
         <Button style="@style/distance_selector_button"
-            android:text="3 KM"
+            android:text="3"
             android:id="@+id/three_km"/>
 
         <Button style="@style/distance_selector_button"
-            android:text="5 KM"
+            android:text="5"
             android:id="@+id/five_km"/>
     </LinearLayout>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent">
         <Button style="@style/distance_selector_button"
-            android:text="10 KM"
+            android:text="10"
             android:id="@+id/ten_km"/>
 
         <Button style="@style/distance_selector_button"
-            android:text="25 KM"
+            android:text="25"
             android:id="@+id/twenty_five_km"/>
 
         <Button style="@style/distance_selector_button"
-            android:text="+50 KM"
+            android:text="+ 25"
             android:id="@+id/fifty_km"/>
     </LinearLayout>
 
@@ -50,7 +50,8 @@
                 android:id="@+id/tag_edit_text"/>
 
             <ImageButton style="@style/event_main_comment_add_button"
-                android:id="@+id/tag_add_confirmation"/>
+                android:id="@+id/tag_add_confirmation"
+                android:background="@color/main_button_color"/>
 
         </LinearLayout>
 

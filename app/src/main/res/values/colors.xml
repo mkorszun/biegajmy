@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="white">#ffffff</color>
     <color name="primary">#dd3e5c</color>
     <color name="primary_dark">#b83850</color>
     <color name="primary_light">#649AC3</color>
@@ -29,5 +30,11 @@
     <color name="color_font_grey">#8b8b8b</color>
     <color name="color_font_hint">#808b8b8b</color>
     <color name="color_font_button">#068d7b</color>
+    <color name="color_font_white">@color/white</color>
+    <!-- -->
+
+    <!-- BUTTONS -->
+    <color name="color_button_distance_pressed">#068d7b</color>
+    <color name="color_button_distance_default">@color/white</color>
     <!-- -->
 </resources>
