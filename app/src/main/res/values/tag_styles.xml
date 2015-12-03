@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="tag_add_button" >
+    <style name="tag_add_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/primary</item>
@@ -69,5 +69,10 @@
         <item name="android:src">@drawable/ic_clear_white_18dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="tag_set_button" parent="event_main_comment_add_button">
+        <item name="android:src">@drawable/ic_done_white_24dp</item>
+        <item name="android:background">@color/main_button_color</item>
     </style>
 </resources>

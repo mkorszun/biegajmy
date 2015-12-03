@@ -49,9 +49,8 @@
             <AutoCompleteTextView style="@style/search_tag_add_field"
                 android:id="@+id/tag_edit_text"/>
 
-            <ImageButton style="@style/event_main_comment_add_button"
-                android:id="@+id/tag_add_confirmation"
-                android:background="@color/main_button_color"/>
+            <ImageButton style="@style/tag_set_button"
+                android:id="@+id/tag_add_confirmation"/>
 
         </LinearLayout>
 

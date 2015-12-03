@@ -70,7 +70,7 @@
 
     <style name="event_main_comment_add_field" parent="event_comment_add_field">
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:textColor">@color/color_font_grey</item>
+        <item name="android:textColor">@color/color_font_black</item>
         <item name="android:textColorHint">@color/color_font_hint</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">5</item>
