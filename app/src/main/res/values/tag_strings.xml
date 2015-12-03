@@ -2,4 +2,5 @@
 <resources>
     <string name="tag_label">ZNACZNIKI</string>
     <string name="tag_add">Dodaj znacznik</string>
+    <string name="tag_search_hint">Wpisz znacznik</string>
 </resources>

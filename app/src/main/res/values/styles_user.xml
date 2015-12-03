@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="user_form" parent="event_form"/>
+    <style name="user_form_card_view" parent="event_form_card_view"/>
+
+    <style name="user_photo">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">160dp</item>
+        <item name="civ_border_width">5dp</item>
+        <item name="civ_border_color">#80ffffff</item>
+    </style>
+
+    <style name="user_form_field" parent="event_form_field">
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+    <style name="user_form_multiline_field" parent="user_form_field">
+        <item name="android:maxLength">300</item>
+        <item name="android:inputType">textMultiLine</item>
+    </style>
+
+    <style name="user_profile_call_to_action">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">@string/user_profile_call_to_action</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="user_profile_create_button" parent="main_button">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:text">@string/user_profile_create</item>
+    </style>
+
+    <style name="user_profile_empty_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="user_full_name_layout">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

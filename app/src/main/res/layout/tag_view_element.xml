@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/tag_element_layout_main">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/tag_element_layout_main">
     <LinearLayout style="@style/tag_element_layout" android:id="@+id/tag_view_layout">
-        <TextView style="@style/tag_element" android:id="@+id/tag_view"/>
+        <TextView style="@style/tag_element" android:id="@+id/tag_view" android:text="asdasdasdsadsa"/>
         <ImageView style="@style/tag_element_remove_icon" android:id="@+id/delete_tag"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
 

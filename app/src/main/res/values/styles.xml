@@ -104,63 +104,6 @@
     <style name="event_details_card_view" parent="event_form_card_view"/>
     <!-- -->
 
-    <!-- User Form -->
-
-    <style name="user_form" parent="event_form">
-
-    </style>
-
-    <style name="user_photo">
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_width">160dp</item>
-        <item name="android:layout_height">160dp</item>
-        <item name="civ_border_width">5dp</item>
-        <item name="civ_border_color">#80ffffff</item>
-    </style>
-
-    <style name="user_form_field" parent="event_form_field">
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:textSize">14dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-    </style>
-
-    <style name="user_form_multiline_field" parent="user_form_field">
-        <item name="android:maxLength">300</item>
-        <item name="android:inputType">textMultiLine</item>
-    </style>
-
-    <style name="user_form_card_view" parent="event_form_card_view">
-
-    </style>
-
-    <style name="user_profile_call_to_action">
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:textColor">@color/primary</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:text">@string/user_profile_call_to_action</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="user_profile_create_button" parent="main_button">
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:text">@string/user_profile_create</item>
-    </style>
-
-    <style name="user_profile_empty_layout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-    </style>
-
-    <style name="user_full_name_layout">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-    <!-- -->
-
     <!-- -->
 
     <style name="main_button">
@@ -178,7 +121,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:background">@android:color/white</item>
         <item name="android:layout_gravity">right</item>
-        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:orientation">horizontal</item>
     </style>
@@ -192,6 +135,7 @@
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:textColor">@drawable/distance_selector_font_color</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:background">@drawable/distance_selector</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
@@ -199,10 +143,10 @@
     </style>
 
     <style name="distance_selector_label">
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginBottom">25dp</item>
         <item name="android:textColor">@color/color_font_black</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:gravity">left</item>
         <item name="android:text">@string/distance_selector_label</item>
         <item name="android:layout_width">fill_parent</item>
@@ -215,7 +159,6 @@
 
     <style name="tag_recommendation_label" parent="distance_selector_label">
         <item name="android:text">@string/tag_recommendation_label</item>
-        <item name="android:layout_marginTop">15dp</item>
     </style>
 
     <style name="tag_selector_edit_text">

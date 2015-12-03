@@ -9,7 +9,7 @@
 
     <RelativeLayout style="@style/event_list_item_layout"
         android:id="@+id/event_list_item_layout"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:layout_below="@+id/event_list_label">
 
         <RelativeLayout style="@style/event_list_item_image_layout"
@@ -29,12 +29,12 @@
                 android:id="@+id/event_headline"/>
 
             <com.biegajmy.general.textview.CustomTextView
-                style="@style/event_list_item_text_view"
+                style="@style/event_list_item_text_view_small"
                 android:id="@+id/event_date"
                 android:layout_below="@+id/event_headline"/>
 
             <com.biegajmy.general.textview.CustomTextView
-                style="@style/event_list_item_text_view"
+                style="@style/event_list_item_text_view_small"
                 android:id="@+id/event_distance"
                 android:paddingLeft="10dp"
                 android:layout_below="@+id/event_headline"
