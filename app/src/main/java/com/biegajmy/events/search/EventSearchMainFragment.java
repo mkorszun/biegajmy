@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
 import com.biegajmy.R;
+import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.utils.SystemUtils;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -42,8 +43,10 @@ import org.androidannotations.annotations.ViewById;
     @OptionsItem(R.id.action_search_settings) public void settings() {
         if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
             drawerLayout.closeDrawer(Gravity.RIGHT);
+            ((EventMainActivity) getActivity()).enableFAB(true);
         } else {
             drawerLayout.openDrawer(Gravity.RIGHT);
+            ((EventMainActivity) getActivity()).enableFAB(false);
         }
     }
 
