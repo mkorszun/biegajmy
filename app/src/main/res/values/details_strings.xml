@@ -7,6 +7,8 @@
     <string name="event_description">OPIS</string>
     <string name="event_owner">ORGANIZATOR</string>
     <string name="event_participants">INNI UCZESTNICY</string>
+    <string name="event_participants_count_1">%1$d BIEGACZ</string>
+    <string name="event_participants_count_2">%1$d BIEGACZY</string>
     <string name="event_day">DZIEŃ</string>
     <string name="event_time">GODZINA</string>
     <string name="event_distance">DYSTANS</string>

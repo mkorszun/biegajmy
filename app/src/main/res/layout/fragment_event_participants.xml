@@ -5,9 +5,20 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
-    <TextView style="@style/event_details_label"
-        android:id="@+id/comment_label"
-        android:text="@string/event_participants"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView style="@style/event_details_label"
+            android:id="@+id/comment_label"
+            android:text="@string/event_participants"/>
+
+        <TextView style="@style/event_details_label"
+            android:id="@+id/comment_label_count"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/color_font_grey"/>
+    </LinearLayout>
 
     <org.apmem.tools.layouts.FlowLayout
         android:id="@+id/event_participants"

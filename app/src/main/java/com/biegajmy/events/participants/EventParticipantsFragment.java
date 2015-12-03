@@ -1,51 +1,34 @@
 package com.biegajmy.events.participants;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.widget.TextView;
 import com.biegajmy.R;
-import com.biegajmy.events.EventListBus;
-import com.biegajmy.model.Event;
+import com.biegajmy.general.ModelFragment;
 import com.biegajmy.model.User;
-import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.apmem.tools.layouts.FlowLayout;
 
-@EFragment(R.layout.fragment_event_participants) public class EventParticipantsFragment extends Fragment {
+@EFragment(R.layout.fragment_event_participants) public class EventParticipantsFragment
+    extends ModelFragment<ArrayList<User>> {
 
     public static final String ARG_EVENT_ID = "ARG_EVENT_ID";
     public static final String ARG_PARTICIPANTS = "ARG_PARTICIPANTS";
 
-    private String eventId;
-    @ViewById(R.id.event_participants) FlowLayout flowLayout;
+    @ViewById(R.id.event_participants) protected FlowLayout flowLayout;
+    @ViewById(R.id.comment_label_count) protected TextView count;
 
     //********************************************************************************************//
     // Callbacks
     //********************************************************************************************//
 
-    @Override public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventListBus.getInstance().register(this);
-        eventId = getArguments().getString(ARG_EVENT_ID);
-    }
-
-    @Override public void onDestroy() {
-        super.onDestroy();
-        EventListBus.getInstance().unregister(this);
+    @Override protected String getModelKey() {
+        return ARG_PARTICIPANTS;
     }
 
     @AfterViews public void setup() {
-        update((ArrayList<User>) getArguments().getSerializable(ARG_PARTICIPANTS));
-    }
-
-    //********************************************************************************************//
-    // Events
-    //********************************************************************************************//
-
-    @Subscribe public void eventUpdated(Event event) {
-        if (eventId.equals(event.id)) update(event.participants);
+        update(model);
     }
 
     //********************************************************************************************//
@@ -54,9 +37,13 @@ import org.apmem.tools.layouts.FlowLayout;
 
     private void update(ArrayList<User> participants) {
         flowLayout.removeAllViews();
-        for (User u : participants) {
-            flowLayout.addView(new EventParticipantsLayout(getActivity(), u.photo_url));
-        }
+
+        int res1 = R.string.event_participants_count_1;
+        int res2 = R.string.event_participants_count_2;
+        int res = participants.size() == 1 ? res1 : res2;
+        count.setText(getString(res, participants.size()));
+
+        for (User u : participants) flowLayout.addView(new EventParticipantsLayout(getActivity(), u.photo_url));
     }
 
     //********************************************************************************************//
