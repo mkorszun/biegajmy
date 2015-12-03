@@ -38,6 +38,7 @@ import org.androidannotations.annotations.ViewById;
         EventSearchSettingsFragment fr =
             (EventSearchSettingsFragment) childFragmentManager.findFragmentById(R.id.event_search_settings);
         fr.setClearMode();
+        ((EventMainActivity) getActivity()).enableFAB(true);
     }
 
     @OptionsItem(R.id.action_search_settings) public void settings() {
