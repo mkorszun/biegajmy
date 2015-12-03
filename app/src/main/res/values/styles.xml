@@ -113,8 +113,10 @@
 
     <style name="user_photo">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">160dp</item>
+        <item name="civ_border_width">5dp</item>
+        <item name="civ_border_color">#80ffffff</item>
     </style>
 
     <style name="user_form_field" parent="event_form_field">
@@ -127,7 +129,7 @@
     </style>
 
     <style name="user_form_card_view" parent="event_form_card_view">
-        <item name="cardBackgroundColor">@color/background</item>
+
     </style>
 
     <style name="user_profile_call_to_action">
