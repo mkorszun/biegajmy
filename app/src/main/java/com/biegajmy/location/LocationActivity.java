@@ -3,7 +3,7 @@ package com.biegajmy.location;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +24,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_event_location) @OptionsMenu(R.menu.menu_event_location) public class LocationActivity
-    extends ActionBarActivity implements TextView.OnEditorActionListener {
+    extends AppCompatActivity implements TextView.OnEditorActionListener {
 
     public static final int LOCATION_PROVIDED = 456;
     public static final String LOCATION_ARG = "LOCATION_ARG";
@@ -48,6 +48,7 @@ import org.androidannotations.annotations.ViewById;
 
         address.setOnEditorActionListener(this);
         address.setText(localStorage.getCurrentCity());
+        address.setSelection(address.getText().length());
     }
 
     @OptionsItem(android.R.id.home) public void close() {
