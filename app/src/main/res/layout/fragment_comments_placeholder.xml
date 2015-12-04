@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/event_comment_layout"
-    android:layout_margin="16dp">
+    android:padding="16dp">
 
     <TextView style="@style/event_details_label"
         android:id="@+id/comment_label"
@@ -10,6 +10,7 @@
     <com.biegajmy.general.ExpandableHeightListView
         style="@style/event_comment_list"
         android:id="@+id/comment_list"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/comment_label"/>
 
     <Button style="@style/event_small_comment_add_button"

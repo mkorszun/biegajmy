@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="16dp"
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
@@ -8,16 +10,15 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView style="@style/event_details_label"
             android:id="@+id/comment_label"
             android:text="@string/event_participants"/>
 
-        <TextView style="@style/event_details_label"
+        <TextView style="@style/event_details_field"
             android:id="@+id/comment_label_count"
-            android:layout_marginLeft="8dp"
-            android:textColor="@color/color_font_grey"/>
+            android:textColor="@color/color_font_black"/>
     </LinearLayout>
 
     <org.apmem.tools.layouts.FlowLayout

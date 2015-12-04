@@ -31,7 +31,7 @@ public class TimeUtils {
 
         @Override public String toString() {
             if (value > 0) {
-                return String.format("%d%s", value, unit);
+                return String.format("%d %s", value, unit);
             } else {
                 return NOW;
             }

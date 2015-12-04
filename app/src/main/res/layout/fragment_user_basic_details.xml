@@ -18,22 +18,38 @@
         android:layout_alignParentTop="true"/>
 
     <TextView style="@style/event_details_field"
-        android:id="@+id/user_name"
+        android:id="@+id/user_firstname"
         android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/user_photo"
         android:layout_below="@+id/owner_label"/>
 
     <TextView style="@style/event_details_field"
+        android:id="@+id/user_lastname"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/user_photo"
+        android:layout_below="@+id/user_firstname"/>
+
+    <TextView style="@style/event_details_field_small"
         android:id="@+id/user_www"
-        android:layout_below="@+id/user_name"
+        android:layout_below="@+id/user_lastname"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/user_photo"
         android:layout_toStartOf="@+id/user_photo"/>
 
-    <TextView style="@style/event_details_field"
+    <TextView style="@style/event_details_field_small"
         android:id="@+id/user_email"
         android:autoLink="email|web"
         android:layout_below="@+id/user_www"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/user_photo"
+        android:layout_toStartOf="@+id/user_photo"/>
+
+    <TextView style="@style/event_details_field_small"
+        android:id="@+id/user_description"
+        android:autoLink="email|web"
+        android:layout_below="@+id/user_email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/user_photo"

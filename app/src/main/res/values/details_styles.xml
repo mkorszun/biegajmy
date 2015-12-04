@@ -26,6 +26,10 @@
         <item name="android:autoLink">web|email</item>
     </style>
 
+    <style name="event_details_field_small" parent="event_details_field">
+        <item name="android:textSize">15dp</item>
+    </style>
+
     <style name="event_details_datetime_field" parent="event_details_field">
         <item name="android:layout_weight">1</item>
     </style>
@@ -37,11 +41,9 @@
     <style name="event_details_description" parent="event_details_field">
     </style>
 
-    <style name="event_details_description_layout">
+    <style name="event_details_description_layout" parent="event_details_basic_info">
         <item name="android:padding">16dp</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="event_details_frame_layout">

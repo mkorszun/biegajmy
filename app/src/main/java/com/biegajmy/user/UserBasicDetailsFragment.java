@@ -15,9 +15,11 @@ import org.androidannotations.annotations.ViewById;
     public static final String ARG_USER = "ARG_USER";
 
     @ViewById(R.id.user_photo) CircleImageView userPhoto;
-    @ViewById(R.id.user_name) TextView userName;
+    @ViewById(R.id.user_firstname) TextView firstName;
+    @ViewById(R.id.user_lastname) TextView lastName;
     @ViewById(R.id.user_www) TextView userWWW;
     @ViewById(R.id.user_email) TextView userEmail;
+    @ViewById(R.id.user_description) TextView userDescription;
 
     //********************************************************************************************//
     // Callbacks
@@ -30,9 +32,11 @@ import org.androidannotations.annotations.ViewById;
     @AfterViews public void setContent() {
         if (model != null) {
             Picasso.with(getActivity()).load(model.photo_url).into(userPhoto);
-            userName.setText(model.toString());
+            firstName.setText(model.firstName);
+            lastName.setText(model.lastName);
             userWWW.setText(model.www);
             userEmail.setText(model.email);
+            userDescription.setText(model.bio);
         }
     }
 
