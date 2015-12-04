@@ -7,6 +7,7 @@
     </style>
 
     <style name="event_details_basic_info" parent="event_details">
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="event_details_join_button">
@@ -18,7 +19,8 @@
     </style>
 
     <style name="event_details_field">
-        <item name="android:textColor">@color/accent</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/color_font_black</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:autoLink">web|email</item>
@@ -32,10 +34,7 @@
         <item name="android:layout_weight">1</item>
     </style>
 
-    <style name="event_details_description">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/accent</item>
+    <style name="event_details_description" parent="event_details_field">
     </style>
 
     <style name="event_details_description_layout">
@@ -52,9 +51,10 @@
 
     <style name="event_details_label">
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/color_font_black</item>
+        <item name="android:textColor">@color/color_font_grey</item>
     </style>
 
 </resources>

@@ -3,7 +3,8 @@
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/event_details_background">
         <android.support.v7.widget.CardView style="@style/event_details_card_view" android:id="@+id/event_base_info">
             <RelativeLayout style="@style/event_details_basic_info">
 
@@ -18,7 +19,6 @@
                     android:layout_below="@+id/event_location">
 
                     <LinearLayout style="@style/event_form_field"
-                        android:layout_marginBottom="1dp"
                         android:id="@+id/event_date_time_labels">
 
                         <TextView style="@style/event_details_label"
@@ -35,7 +35,6 @@
 
                     <LinearLayout style="@style/event_form_field"
                         android:layout_below="@+id/event_date_time_labels"
-                        android:layout_marginBottom="1dp"
                         android:id="@+id/event_date_time">
 
                         <TextView style="@style/event_details_datetime_field"
@@ -47,8 +46,7 @@
                     </LinearLayout>
 
                     <LinearLayout style="@style/event_form_field"
-                        android:layout_marginBottom="1dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="16dp"
                         android:layout_below="@+id/event_date_time"
                         android:id="@+id/form_event_distance_pace_labels">
 
@@ -123,6 +121,7 @@
 
         <android.support.v7.widget.CardView
             style="@style/event_details_card_view"
+            android:layout_marginBottom="0dp"
             android:layout_below="@+id/event_owner_card">
             <FrameLayout style="@style/event_details_frame_layout"
                 android:id="@+id/event_comments"

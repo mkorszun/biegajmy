@@ -37,4 +37,8 @@
     <color name="color_button_distance_pressed">#068d7b</color>
     <color name="color_button_distance_default">#a2d8a8</color>
     <!-- -->
+
+    <!-- BACKGROUNDS-->
+    <color name="event_details_background">@color/background</color>
+    <!-- -->
 </resources>
