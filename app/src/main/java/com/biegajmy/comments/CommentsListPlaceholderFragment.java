@@ -42,7 +42,7 @@ import org.androidannotations.annotations.ViewById;
         comments = (ArrayList<Comment>) getArguments().getSerializable(COMMENTS_ARG);
         readOnly = getArguments().getBoolean(COMMENTS_READ_ONLY_ARG);
         eventID = getArguments().getString(EVENT_ID_ARG);
-        adapter = new CommentsListAdapter(getActivity(), CommentsUtils.getLast(comments));
+        adapter = new CommentsListAdapter(getActivity(), CommentsUtils.getLast(comments), R.layout.comment_list_item2);
     }
 
     @AfterViews public void setup() {

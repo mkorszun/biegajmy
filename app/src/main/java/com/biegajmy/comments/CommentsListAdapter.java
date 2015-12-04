@@ -19,11 +19,19 @@ import java.util.List;
 
 public class CommentsListAdapter extends ArrayAdapter<Comment> {
 
+    private int resID;
     private LayoutInflater inflater;
     private List<Comment> comments;
 
     public CommentsListAdapter(Context context, List<Comment> comments) {
         super(context, R.layout.comment_list_item, comments);
+        this.comments = comments;
+        this.resID = R.layout.comment_list_item;
+    }
+
+    public CommentsListAdapter(Context context, List<Comment> comments, int resID) {
+        super(context, resID, comments);
+        this.resID = resID;
         this.comments = comments;
     }
 
@@ -69,7 +77,7 @@ public class CommentsListAdapter extends ArrayAdapter<Comment> {
         if (inflater == null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
-        return inflater.inflate(R.layout.comment_list_item, parent, false);
+        return inflater.inflate(resID, parent, false);
     }
 
     //********************************************************************************************//
