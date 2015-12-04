@@ -182,6 +182,7 @@ public class EventDetailFragment extends Fragment
         description.setText(event.description);
         isMember = event.participants.contains(storage.getUser());
         owner = event.user != null ? event.user.equals(storage.getUser()) && storage.hasToken() : false;
+        ArrayList<String> tags = event.tags == null ? new ArrayList<String>() : event.tags;
         if (delete != null) delete.setTitle(msgForAction());
 
         getChildFragmentManager().beginTransaction()
@@ -194,7 +195,7 @@ public class EventDetailFragment extends Fragment
                 .arg(CommentsListPlaceholderFragment.COMMENTS_ARG, new ArrayList(event.comments))
                 .arg(CommentsListPlaceholderFragment.COMMENTS_READ_ONLY_ARG, !isMember)
                 .build())
-            .replace(R.id.event_tags, TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, event.tags).build())
+            .replace(R.id.event_tags, TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, tags).build())
             .replace(R.id.event_owner,
                 UserBasicDetailsFragment_.builder().arg(UserBasicDetailsFragment.ARG_USER, event.user).build())
             .commitAllowingStateLoss();
