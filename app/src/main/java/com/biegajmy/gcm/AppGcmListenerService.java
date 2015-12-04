@@ -8,15 +8,14 @@ import com.biegajmy.utils.JSONUtils;
 import com.google.android.gms.gcm.GcmListenerService;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 @EService public class AppGcmListenerService extends GcmListenerService {
 
     private static final String TAG = AppGcmListenerService.class.getName();
-    private static final String MESSAGE = "default";
-    private static final String PAYLOAD = "payload";
-    private static final String APS = "aps";
-    private static final String ALERT = "alert";
+    private static final String MESSAGE = "message";
+    private static final String PARAMS = "params";
 
     @Bean NotificationSender notificationSender;
 
@@ -28,15 +27,13 @@ import org.json.JSONObject;
         Log.d(TAG, String.format("Received message %s from %s", data, from));
         if (!from.equals(BuildConfig.SENDER_ID)) return;
 
-        String string = data.getString(MESSAGE);
-        JSONObject msg = JSONUtils.toObject(string);
-
         try {
-            JSONObject aps = msg.getJSONObject(APS);
-            String message = aps.getString(ALERT);
-            JSONObject payload = msg.getJSONObject(PAYLOAD);
-            String event_id = payload.getString("event_id");
-            String event_name = payload.getString("event_name");
+            String message = data.getString(MESSAGE);
+            String paramsStr = data.getString(PARAMS);
+            JSONObject params = JSONUtils.toObject(paramsStr);
+
+            String event_id = params.getString("event_id");
+            String event_name = params.getString("event_name");
             notificationSender.send(message, event_id, event_name);
         } catch (Exception e) {
             Log.e(TAG, "Failed to read push message", e);
