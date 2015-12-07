@@ -78,6 +78,7 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
 
     @Subscribe public void event(EventListBus.ListUserEventsOK event) {
         adapter.setData(event.events);
+        setEmpty(event.events.isEmpty());
         setRefreshing(false);
     }
 

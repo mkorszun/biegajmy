@@ -2,6 +2,7 @@ package com.biegajmy.general;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,13 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import com.biegajmy.R;
 
 public class RefreshableListFragment extends ListFragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View listFragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
@@ -25,8 +26,7 @@ public class RefreshableListFragment extends ListFragment {
             ViewGroup.LayoutParams.MATCH_PARENT);
 
         swipeRefreshLayout.setLayoutParams(
-            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         return swipeRefreshLayout;
     }
@@ -49,6 +49,11 @@ public class RefreshableListFragment extends ListFragment {
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return swipeRefreshLayout;
+    }
+
+    public void setEmpty(boolean empty) {
+        int resID = empty ? R.drawable.empty_placeholder : 0;
+        ((ViewGroup) getListView().getParent()).setBackgroundResource(resID);
     }
 
     private class ListFragmentSwipeRefreshLayout extends SwipeRefreshLayout {

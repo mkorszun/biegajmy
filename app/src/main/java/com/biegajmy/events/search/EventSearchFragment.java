@@ -91,6 +91,7 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
 
     @Subscribe public void event(EventListBus.SearchEventsOK event) {
         setRefreshing(false);
+        setEmpty(event.events.isEmpty());
         adapter.setData(event.events);
     }
 
