@@ -17,4 +17,41 @@
         <item name="android:hint">@string/password_hint</item>
     </style>
 
+    <style name="facebook_login_button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:text">Facebook</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="com_facebook_login_text">@string/social_login_facebook</item>
+    </style>
+
+    <style name="login_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="social_login_layout">
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/login_background</item>
+    </style>
+
+    <style name="login_option">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:text">@string/login_option</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/color_font_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:layout_marginTop">-25dp</item>
+        <item name="android:background">@drawable/login_option</item>
+    </style>
+
 </resources>

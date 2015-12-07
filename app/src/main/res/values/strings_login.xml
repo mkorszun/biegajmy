@@ -17,4 +17,8 @@
 
     <string name="field_empty_error">Puste pole</string>
     <string name="registration_finish">Aby dokonczyć rejestrację kliknij w link, który ci właśnie wysłaliśmy</string>
+    <string name="social_login">ZALOGUJ SIĘ\nPRZEZ TWOJE KONTO</string>
+    <string name="social_login_facebook">Facebook</string>
+    <string name="login_option">lub</string>
+    <string name="email_login">WPISZ SWÓJ EMAIL I HASŁO</string>
 </resources>
