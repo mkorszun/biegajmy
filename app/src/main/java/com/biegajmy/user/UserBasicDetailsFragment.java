@@ -1,5 +1,6 @@
 package com.biegajmy.user;
 
+import android.view.View;
 import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.general.ModelFragment;
@@ -37,7 +38,20 @@ import org.androidannotations.annotations.ViewById;
             userWWW.setText(model.www);
             userEmail.setText(model.email);
             userDescription.setText(model.bio);
+            hideEmpty(model);
         }
+    }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    private void hideEmpty(User user) {
+        firstName.setVisibility(user.firstName == null || user.firstName.isEmpty() ? View.GONE : View.VISIBLE);
+        lastName.setVisibility(user.lastName == null || user.lastName.isEmpty() ? View.GONE : View.VISIBLE);
+        userWWW.setVisibility(user.www == null || user.www.isEmpty() ? View.GONE : View.VISIBLE);
+        userEmail.setVisibility(user.email == null || user.email.isEmpty() ? View.GONE : View.VISIBLE);
+        userDescription.setVisibility(user.bio == null || user.bio.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     //********************************************************************************************//
