@@ -38,10 +38,10 @@ android {
         }
         prod {
             buildConfigField "String", "BACKEND_URL", "\"https://biegajmy.cloudcontrolled.com/\""
-            buildConfigField "String", "EVENT_PAGE_URL", "\"https://staging-biegajmyeventpage.cloudcontrolled.com/\""
-            buildConfigField "String", "MINT_TOKEN", "\"446a17c6\""
-            buildConfigField "String", "SENDER_ID", "\"360988667636\""
-            resValue "string", "ANDROID_KEY", "\"AIzaSyD2K0yQsYAw6N4TL7DTID6Vy11sdzq1Ntw\""
+            buildConfigField "String", "EVENT_PAGE_URL", "\"https://biegajmyeventpage.cloudcontrolled.com/\""
+            buildConfigField "String", "MINT_TOKEN", "\"765e410d\""
+            buildConfigField "String", "SENDER_ID", "\"409498874697\""
+            resValue "string", "ANDROID_KEY", "\"AIzaSyAxBO3DUamkhAidbhENqRk_5ZCzB2T5A0g\""
         }
     }
     dexOptions {
