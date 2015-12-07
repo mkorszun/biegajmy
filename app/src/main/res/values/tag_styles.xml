@@ -2,13 +2,12 @@
 <resources>
 
     <style name="tag_add_button">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:drawableLeft">@drawable/add_tag</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/color_font_button</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/primary</item>
-        <item name="android:text">@string/tag_add</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">16dp</item>
-        <item name="android:layout_marginBottom">16dp</item>
     </style>
 
     <style name="tag_view_layout">
