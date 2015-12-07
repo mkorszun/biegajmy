@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.biegajmy.R;
 import com.biegajmy.auth.LoginActivity;
+import com.biegajmy.gcm.AppRegistrationService_;
 import com.biegajmy.user.UserBackendService_;
 import com.biegajmy.user.UserEventBus;
 import com.biegajmy.validators.TextFormValidator;
@@ -58,6 +59,7 @@ import org.androidannotations.annotations.ViewById;
 
     @Subscribe public void event(UserEventBus.LoginOK event) {
         UserBackendService_.intent(getActivity()).syncUser().start();
+        AppRegistrationService_.intent(getActivity()).registration().start();
         getActivity().setResult(LoginActivity.AUTH_OK);
         getActivity().finish();
     }

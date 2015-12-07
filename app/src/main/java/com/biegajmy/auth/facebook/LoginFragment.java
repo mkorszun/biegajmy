@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 import com.biegajmy.R;
 import com.biegajmy.auth.LoginActivity;
+import com.biegajmy.gcm.AppRegistrationService_;
 import com.biegajmy.user.UserBackendService_;
 import com.biegajmy.user.UserEventBus;
 import com.facebook.CallbackManager;
@@ -56,6 +57,7 @@ import org.androidannotations.annotations.res.StringArrayRes;
         String accessToken = loginResult.getAccessToken().getToken();
         Log.d(TAG, String.format("Login successful: %s", accessToken));
         UserBackendService_.intent(getActivity()).checkToken(accessToken).start();
+        AppRegistrationService_.intent(getActivity()).registration().start();
     }
 
     @Override public void onCancel() {
