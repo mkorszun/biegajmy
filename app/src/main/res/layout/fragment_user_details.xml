@@ -27,21 +27,25 @@
 
                 <LinearLayout
                     android:id="@+id/firstname_layout"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/photo_layout"
                     style="@style/event_form_field_layout">
+                    <ImageView style="@style/user_form_field_icon"
+                        android:src="@drawable/settings_user_name"/>
                     <EditText style="@style/user_form_field"
                         android:id="@+id/firstname"
-                        android:drawableLeft="@drawable/settings_user_name"
                         android:hint="@string/user_form_first_name"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/lastname_layout"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/firstname_layout"
                     style="@style/event_form_field_layout">
+                    <ImageView style="@style/user_form_field_icon"
+                        android:src="@drawable/settings_user_name"/>
                     <EditText style="@style/user_form_field"
                         android:id="@+id/lastname"
-                        android:drawableLeft="@drawable/settings_user_name"
                         android:hint="@string/user_form_last_name"/>
                 </LinearLayout>
 
@@ -49,20 +53,23 @@
                     style="@style/event_form_field_layout"
                     android:id="@+id/telephone_layout"
                     android:layout_below="@+id/lastname_layout">
+                    <ImageView style="@style/user_form_field_icon"
+                        android:src="@drawable/settings_mobile"/>
                     <EditText style="@style/user_form_field"
                         android:id="@+id/telephone"
-                        android:drawableLeft="@drawable/settings_mobile"
                         android:hint="@string/user_form_telephone"/>
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/event_form_field_layout"
                     android:id="@+id/www_layout"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/telephone_layout">
+                    <ImageView style="@style/user_form_field_icon"
+                        android:src="@drawable/settings_email"/>
                     <EditText style="@style/user_form_field"
                         android:id="@+id/www"
                         android:layout_below="@+id/telephone_layout"
-                        android:drawableLeft="@drawable/settings_www"
                         android:hint="@string/user_form_www"/>
                 </LinearLayout>
 
@@ -70,20 +77,24 @@
                 <LinearLayout
                     style="@style/event_form_field_layout"
                     android:id="@+id/email_layout"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/www_layout">
+                    <ImageView style="@style/user_form_field_icon"
+                        android:src="@drawable/settings_email"/>
                     <EditText style="@style/user_form_field"
                         android:id="@+id/email"
-                        android:drawableLeft="@drawable/settings_email"
                         android:hint="@string/user_form_email"/>
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/event_form_field_layout"
                     android:id="@+id/bio_layout"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/email_layout">
+                    <ImageView style="@style/user_form_field_icon"
+                        android:src="@drawable/settings_bio"/>
                     <EditText style="@style/user_form_multiline_field"
                         android:id="@+id/bio"
-                        android:drawableLeft="@drawable/settings_bio"
                         android:hint="@string/user_form_bio"/>
                 </LinearLayout>
 
@@ -97,6 +108,8 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TextView style="@style/user_settings_label"/>
 
                 <android.support.v7.widget.SwitchCompat
                     style="@style/settings_switch"

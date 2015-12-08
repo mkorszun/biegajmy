@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <style name="user_form" parent="event_form"/>
     <style name="user_form_card_view" parent="event_form_card_view"/>
 
@@ -14,8 +14,15 @@
     </style>
 
     <style name="user_form_field" parent="event_form_field">
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">9</item>
+    </style>
+
+    <style name="user_form_field_icon">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="user_form_multiline_field" parent="user_form_field">
@@ -47,5 +54,15 @@
     <style name="user_full_name_layout">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="user_settings_label">
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/color_font_black</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">POWIADOMIENIA</item>
     </style>
 </resources>
