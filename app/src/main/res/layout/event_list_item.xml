@@ -28,25 +28,27 @@
                 style="@style/event_list_item_text_view"
                 android:id="@+id/event_headline"/>
 
-            <com.biegajmy.general.textview.CustomTextView
-                style="@style/event_list_item_text_view_small"
-                android:id="@+id/event_date"
-                android:layout_below="@+id/event_headline"/>
-
-            <com.biegajmy.general.textview.CustomTextView
-                style="@style/event_list_item_text_view_small"
-                android:id="@+id/event_distance"
-                android:paddingLeft="10dp"
-                android:layout_below="@+id/event_headline"
-                android:layout_toRightOf="@+id/event_date"/>
-
-            <ImageView style="@style/event_list_item_image"
-                android:id="@+id/event_indicator"
+            <LinearLayout
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_below="@+id/event_headline">
+
+                <ImageView style="@style/event_list_item_image"
+                    android:id="@+id/event_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.biegajmy.general.textview.CustomTextView
+                    style="@style/event_list_item_text_view_small"
+                    android:id="@+id/event_date"/>
+
+                <com.biegajmy.general.textview.CustomTextView
+                    style="@style/event_list_item_text_view_small"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/event_distance"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

@@ -56,7 +56,9 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         int ownerImg = item.user.equals(user) ? R.drawable.my_event : (item.official ? R.drawable.official_event : 0);
 
         ((ImageView) view.findViewById(R.id.event_list_item_image)).setImageResource(participantsImg);
-        ((ImageView) view.findViewById(R.id.event_indicator)).setImageResource(ownerImg);
+        ImageView eventIndicator = (ImageView) view.findViewById(R.id.event_indicator);
+        eventIndicator.setVisibility(ownerImg != 0 ? View.VISIBLE : View.GONE);
+        eventIndicator.setImageResource(ownerImg);
 
         Log.v(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
         setLabel(position, view, dateTime.getDate().toString());
