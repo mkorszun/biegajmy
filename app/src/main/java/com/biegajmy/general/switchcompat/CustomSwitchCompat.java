@@ -1,25 +1,25 @@
-package com.biegajmy.general.textview;
+package com.biegajmy.general.switchcompat;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-public class CustomTextView extends TextView {
+public class CustomSwitchCompat extends SwitchCompat {
 
     private static final String FONT = "fonts/Lato-Regular.ttf";
 
-    public CustomTextView(Context context) {
+    public CustomSwitchCompat(Context context) {
         super(context);
         setTypeFace(context);
     }
 
-    public CustomTextView(Context context, AttributeSet attrs) {
+    public CustomSwitchCompat(Context context, AttributeSet attrs) {
         super(context, attrs);
         setTypeFace(context);
     }
 
-    public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomSwitchCompat(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setTypeFace(context);
     }

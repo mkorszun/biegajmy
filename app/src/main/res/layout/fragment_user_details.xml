@@ -37,7 +37,8 @@
                     style="@style/event_form_field_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_user_name"/>
-                    <EditText style="@style/user_form_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/user_form_field"
                         android:id="@+id/firstname"
                         android:hint="@string/user_form_first_name"/>
                 </LinearLayout>
@@ -49,7 +50,8 @@
                     style="@style/event_form_field_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_user_name"/>
-                    <EditText style="@style/user_form_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/user_form_field"
                         android:id="@+id/lastname"
                         android:hint="@string/user_form_last_name"/>
                 </LinearLayout>
@@ -60,7 +62,8 @@
                     android:layout_below="@+id/lastname_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_mobile"/>
-                    <EditText style="@style/user_form_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/user_form_field"
                         android:id="@+id/telephone"
                         android:hint="@string/user_form_telephone"/>
                 </LinearLayout>
@@ -72,7 +75,8 @@
                     android:layout_below="@+id/telephone_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_email"/>
-                    <EditText style="@style/user_form_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/user_form_field"
                         android:id="@+id/www"
                         android:layout_below="@+id/telephone_layout"
                         android:hint="@string/user_form_www"/>
@@ -86,7 +90,8 @@
                     android:layout_below="@+id/www_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_email"/>
-                    <EditText style="@style/user_form_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/user_form_field"
                         android:id="@+id/email"
                         android:hint="@string/user_form_email"/>
                 </LinearLayout>
@@ -98,7 +103,8 @@
                     android:layout_below="@+id/email_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_bio"/>
-                    <EditText style="@style/user_form_multiline_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/user_form_multiline_field"
                         android:id="@+id/bio"
                         android:hint="@string/user_form_bio"/>
                 </LinearLayout>
@@ -114,24 +120,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView style="@style/user_settings_label"/>
+                <com.biegajmy.general.textview.CustomTextViewBold style="@style/user_settings_label"/>
 
-                <android.support.v7.widget.SwitchCompat
+                <com.biegajmy.general.switchcompat.CustomSwitchCompat
                     style="@style/settings_switch"
                     android:id="@+id/new_comment_setting"
                     android:text="@string/push_message_new_comment_settings"/>
 
-                <android.support.v7.widget.SwitchCompat
+                <com.biegajmy.general.switchcompat.CustomSwitchCompat
                     style="@style/settings_switch"
                     android:id="@+id/new_participant_setting"
                     android:text="@string/push_message_new_participant_settings"/>
 
-                <android.support.v7.widget.SwitchCompat
+                <com.biegajmy.general.switchcompat.CustomSwitchCompat
                     style="@style/settings_switch"
                     android:id="@+id/leaving_participant_setting"
                     android:text="@string/push_message_leaving_participant_settings"/>
 
-                <android.support.v7.widget.SwitchCompat
+                <com.biegajmy.general.switchcompat.CustomSwitchCompat
                     style="@style/settings_switch"
                     android:id="@+id/event_updated_setting"
                     android:text="@string/push_message_event_updated_settings"/>

@@ -1,11 +1,12 @@
 package com.biegajmy.general.textview;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 
 public class CustomTextViewBold extends CustomTextView {
 
-    private static final String FONT = "";
+    private static final String FONT = "fonts/Lato-Semibold.ttf";
 
     public CustomTextViewBold(Context context) {
         super(context);
@@ -20,6 +21,6 @@ public class CustomTextViewBold extends CustomTextView {
     }
 
     protected void setTypeFace(Context context) {
-        //this.setTypeface(Typeface.createFromAsset(context.getAssets(), FONT));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), FONT));
     }
 }

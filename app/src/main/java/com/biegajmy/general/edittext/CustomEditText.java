@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 public class CustomEditText extends EditText {
 
-    private static final String FONTS_ISTOK_REGULAR_TTF = "fonts/OpenSans-CondLight.ttf";
+    private static final String FONTS_ISTOK_REGULAR_TTF = "fonts/Lato-Regular.ttf";
 
     public CustomEditText(Context context) {
         super(context);
