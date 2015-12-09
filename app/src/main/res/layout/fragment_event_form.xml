@@ -24,7 +24,8 @@
                     style="@style/event_form_field_layout"
                     android:id="@+id/form_event_headline_layout"
                     android:layout_below="@+id/event_location">
-                    <EditText style="@style/event_form_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/event_form_field"
                         android:id="@+id/form_event_headline"
                         android:hint="@string/event_form_headline"/>
                 </android.support.design.widget.TextInputLayout>
@@ -36,7 +37,8 @@
                     <android.support.design.widget.TextInputLayout
                         style="@style/event_form_field_layout_split"
                         android:id="@+id/form_event_date_layout">
-                        <EditText style="@style/event_form_datetime_field"
+                        <com.biegajmy.general.edittext.CustomEditText
+                            style="@style/event_form_datetime_field"
                             android:id="@+id/form_event_date"
                             android:hint="@string/event_form_date"/>
                     </android.support.design.widget.TextInputLayout>
@@ -44,7 +46,8 @@
                     <android.support.design.widget.TextInputLayout
                         style="@style/event_form_field_layout_split"
                         android:id="@+id/form_event_time_layout">
-                        <EditText style="@style/event_form_datetime_field"
+                        <com.biegajmy.general.edittext.CustomEditText
+                            style="@style/event_form_datetime_field"
                             android:id="@+id/form_event_time"
                             android:hint="@string/event_form_time"/>
                     </android.support.design.widget.TextInputLayout>
@@ -58,7 +61,8 @@
                     <android.support.design.widget.TextInputLayout
                         style="@style/event_form_field_layout_split"
                         android:id="@+id/form_event_distance_layout">
-                        <EditText style="@style/event_form_numeric_field"
+                        <com.biegajmy.general.edittext.CustomEditText
+                            style="@style/event_form_numeric_field"
                             android:layout_weight="1"
                             android:id="@+id/form_event_distance"
                             android:hint="@string/event_form_distance"
@@ -68,7 +72,8 @@
                     <android.support.design.widget.TextInputLayout
                         style="@style/event_form_field_layout_split"
                         android:id="@+id/form_event_pace_layout">
-                        <EditText style="@style/event_form_decimal_field"
+                        <com.biegajmy.general.edittext.CustomEditText
+                            style="@style/event_form_decimal_field"
                             android:layout_weight="1"
                             android:id="@+id/form_event_pace"
                             android:hint="@string/event_form_pace"
@@ -81,7 +86,8 @@
                     style="@style/event_form_field_layout"
                     android:id="@+id/form_event_description_layout"
                     android:layout_below="@+id/form_event_distance_pace">
-                    <EditText style="@style/event_form_multiline_field"
+                    <com.biegajmy.general.edittext.CustomEditText
+                        style="@style/event_form_multiline_field"
                         android:id="@+id/form_event_description"
                         android:hint="@string/event_form_description"/>
                 </android.support.design.widget.TextInputLayout>
