@@ -1,13 +1,17 @@
 package com.biegajmy.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import com.biegajmy.R;
+import com.biegajmy.events.EventMainActivity;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_login) public class LoginActivity extends AppCompatActivity {
@@ -39,6 +43,10 @@ import org.androidannotations.annotations.ViewById;
             .addToBackStack(null)
             .commit();
         registrationButton.setVisibility(View.GONE);
+    }
+
+    @OptionsItem(android.R.id.home) public void backHome() {
+        NavUtils.navigateUpTo(this, new Intent(this, EventMainActivity.class));
     }
 
     @Override public void onBackPressed() {

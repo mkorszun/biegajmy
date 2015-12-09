@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
-    <TextView style="@style/login_option"/>
+    <com.biegajmy.general.textview.CustomTextView style="@style/login_option"/>
 
     <LinearLayout
         android:padding="16dp"
@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-        <TextView style="@style/login_label"
+        <com.biegajmy.general.textview.CustomTextView
+            style="@style/login_label"
             android:text="@string/email_login"
             android:textColor="@color/color_font_black"/>
 
@@ -28,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <Button style="@style/main_button"
+        <com.biegajmy.general.button.CustomButton
+            style="@style/main_button"
             android:id="@+id/registration_button"
             android:text="@string/registration_button"/>
 

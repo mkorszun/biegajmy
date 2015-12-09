@@ -89,8 +89,12 @@
         </activity>
 
         <activity
+            android:label="@string/registration_label"
             android:name=".auth.LoginActivity_"
             android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".events.EventMainActivity"/>
         </activity>
 
         <activity

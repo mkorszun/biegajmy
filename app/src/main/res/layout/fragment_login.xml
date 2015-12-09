@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/social_login_layout">
 
-    <TextView style="@style/login_label"
+    <com.biegajmy.general.textview.CustomTextView
+        style="@style/login_label"
         android:text="@string/social_login"
         android:textColor="@color/color_font_white"
         android:layout_above="@+id/authButton"/>

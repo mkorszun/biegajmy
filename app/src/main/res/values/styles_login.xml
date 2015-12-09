@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="field">
-        <item name="android:textColor">@color/primary_dark</item>
-        <item name="android:textColorHint">@color/accent</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/color_font_black</item>
+        <item name="android:textColorHint">@color/color_font_hint</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
