@@ -30,7 +30,7 @@ import org.androidannotations.annotations.ViewById;
 
     public static final String USER_ARG = "USER_ARG";
 
-    @ViewById(R.id.userPhoto) protected ImageView userPhoto;
+    @ViewById(R.id.user_photo) protected ImageView userPhoto;
     @ViewById(R.id.firstname) protected TextView firstName;
     @ViewById(R.id.lastname) protected TextView lastName;
     @ViewById(R.id.bio) protected EditText bio;
@@ -72,7 +72,7 @@ import org.androidannotations.annotations.ViewById;
         setSettings(model.settings);
     }
 
-    @Click(R.id.userPhoto) public void selectPicture() {
+    @Click({R.id.user_photo, R.id.user_photo_button}) public void selectPicture() {
         new MaterialDialog.Builder(getActivity()).items(R.array.photo_sources).itemsCallback(this).show();
     }
 

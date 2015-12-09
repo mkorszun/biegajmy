@@ -6,8 +6,8 @@
 
     <style name="user_photo">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_width">160dp</item>
-        <item name="android:layout_height">160dp</item>
+        <item name="android:layout_width">130dp</item>
+        <item name="android:layout_height">130dp</item>
         <item name="civ_border_width">5dp</item>
         <item name="civ_border_color">#80ffffff</item>
         <item name="android:src">@drawable/profile_placeholder</item>
@@ -64,5 +64,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:text">POWIADOMIENIA</item>
+    </style>
+
+    <style name="user_photo_button">
+        <item name="android:padding">10dp</item>
+        <item name="android:src">@drawable/photo_pick</item>
+        <item name="android:background">@drawable/photo_selector</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
     </style>
 </resources>

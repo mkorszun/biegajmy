@@ -13,15 +13,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <LinearLayout android:background="@drawable/settings_pattern"
-                        android:layout_width="match_parent"
+                    <ImageView android:src="@drawable/settings_pattern"
+                        android:adjustViewBounds="true"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         style="@style/user_photo"
-                        android:id="@+id/userPhoto"
+                        android:id="@+id/user_photo"
                         android:layout_centerInParent="true"
-                        android:layout_marginTop="40dp"/>
+                        android:layout_marginTop="20dp"/>
+
+                    <ImageButton style="@style/user_photo_button"
+                        android:id="@+id/user_photo_button"
+                        android:layout_alignBottom="@+id/user_photo"/>
 
                 </RelativeLayout>
 
