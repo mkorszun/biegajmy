@@ -12,11 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView style="@style/event_details_label"
+        <com.biegajmy.general.textview.CustomTextView
+            style="@style/event_details_label"
             android:id="@+id/comment_label"
             android:text="@string/event_participants"/>
 
-        <TextView style="@style/event_details_field"
+        <com.biegajmy.general.textview.CustomTextView
+            style="@style/event_details_field"
             android:id="@+id/comment_label_count"
             android:textColor="@color/color_font_black"/>
     </LinearLayout>

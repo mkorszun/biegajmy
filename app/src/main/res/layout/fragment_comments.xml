@@ -15,7 +15,8 @@
     <LinearLayout style="@style/event_comment_add_layout"
         android:id="@+id/event_comment_add_layout">
 
-        <EditText style="@style/event_main_comment_add_field"
+        <com.biegajmy.general.edittext.CustomEditText
+            style="@style/event_main_comment_add_field"
             android:id="@+id/comment_add"/>
 
         <ImageButton style="@style/event_main_comment_add_button"

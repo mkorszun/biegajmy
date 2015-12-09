@@ -5,7 +5,8 @@
     android:layout_margin="16dp"
     tools:context="com.biegajmy.user.UserBasicDetailsFragment">
 
-    <TextView style="@style/event_details_label"
+    <com.biegajmy.general.textview.CustomTextView
+        style="@style/event_details_label"
         android:id="@+id/owner_label"
         android:text="@string/event_owner"/>
 
@@ -17,19 +18,22 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"/>
 
-    <TextView style="@style/event_details_field"
+    <com.biegajmy.general.textview.CustomTextView
+        style="@style/event_details_field"
         android:id="@+id/user_firstname"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/user_photo"
         android:layout_below="@+id/owner_label"/>
 
-    <TextView style="@style/event_details_field"
+    <com.biegajmy.general.textview.CustomTextView
+        style="@style/event_details_field"
         android:id="@+id/user_lastname"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/user_photo"
         android:layout_below="@+id/user_firstname"/>
 
-    <TextView style="@style/event_details_field_small"
+    <com.biegajmy.general.textview.CustomTextView
+        style="@style/event_details_field_small"
         android:id="@+id/user_www"
         android:layout_below="@+id/user_lastname"
         android:layout_alignParentLeft="true"
@@ -37,7 +41,8 @@
         android:layout_toLeftOf="@+id/user_photo"
         android:layout_toStartOf="@+id/user_photo"/>
 
-    <TextView style="@style/event_details_field_small"
+    <com.biegajmy.general.textview.CustomTextView
+        style="@style/event_details_field_small"
         android:id="@+id/user_email"
         android:autoLink="email|web"
         android:layout_below="@+id/user_www"
@@ -46,7 +51,8 @@
         android:layout_toLeftOf="@+id/user_photo"
         android:layout_toStartOf="@+id/user_photo"/>
 
-    <TextView style="@style/event_details_field_small"
+    <com.biegajmy.general.textview.CustomTextView
+        style="@style/event_details_field_small"
         android:id="@+id/user_description"
         android:autoLink="email|web"
         android:layout_below="@+id/user_email"

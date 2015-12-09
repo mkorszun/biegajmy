@@ -21,12 +21,14 @@
                     <LinearLayout style="@style/event_form_field"
                         android:id="@+id/event_date_time_labels">
 
-                        <TextView style="@style/event_details_label"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_label"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/event_day"/>
 
-                        <TextView style="@style/event_details_label"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_label"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/event_time"/>
@@ -37,10 +39,12 @@
                         android:layout_below="@+id/event_date_time_labels"
                         android:id="@+id/event_date_time">
 
-                        <TextView style="@style/event_details_datetime_field"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_datetime_field"
                             android:id="@+id/event_date"/>
 
-                        <TextView style="@style/event_details_datetime_field"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_datetime_field"
                             android:id="@+id/event_time"/>
 
                     </LinearLayout>
@@ -50,12 +54,14 @@
                         android:layout_below="@+id/event_date_time"
                         android:id="@+id/form_event_distance_pace_labels">
 
-                        <TextView style="@style/event_details_label"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_label"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/event_distance"/>
 
-                        <TextView style="@style/event_details_label"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_label"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="@string/event_pace"/>
@@ -66,11 +72,13 @@
                         android:id="@+id/form_event_distance_pace"
                         android:layout_below="@+id/form_event_distance_pace_labels">
 
-                        <TextView style="@style/event_details_numeric_field"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_numeric_field"
                             android:id="@+id/event_distance"
                             android:layout_below="@+id/form_event_date_time"/>
 
-                        <TextView style="@style/event_details_numeric_field"
+                        <com.biegajmy.general.textview.CustomTextView
+                            style="@style/event_details_numeric_field"
                             android:id="@+id/event_pace"
                             android:layout_below="@+id/event_distance"/>
 
@@ -87,11 +95,13 @@
 
             <LinearLayout style="@style/event_details_description_layout">
 
-                <TextView style="@style/event_details_label"
+                <com.biegajmy.general.textview.CustomTextView
+                    style="@style/event_details_label"
                     android:id="@+id/comment_label"
                     android:text="@string/event_description"/>
 
-                <TextView style="@style/event_details_description"
+                <com.biegajmy.general.textview.CustomTextView
+                    style="@style/event_details_description"
                     android:id="@+id/event_description"/>
 
                 <FrameLayout style="@style/event_details_frame_layout"
