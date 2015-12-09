@@ -41,12 +41,14 @@
 
                 <com.biegajmy.general.textview.CustomTextView
                     style="@style/event_list_item_text_view_small"
-                    android:id="@+id/event_date"/>
+                    android:drawableLeft="@drawable/distance"
+                    android:id="@+id/event_distance"/>
 
                 <com.biegajmy.general.textview.CustomTextView
                     style="@style/event_list_item_text_view_small"
                     android:paddingLeft="10dp"
-                    android:id="@+id/event_distance"/>
+                    android:drawableLeft="@drawable/time"
+                    android:id="@+id/event_date"/>
 
             </LinearLayout>
 
