@@ -2,6 +2,7 @@ package com.biegajmy;
 
 import android.content.Context;
 import com.biegajmy.gcm.AppRegistrationService_;
+import com.biegajmy.gcm.UserMessageService_;
 import com.biegajmy.location.LocationService_;
 import com.crashlytics.android.Crashlytics;
 import com.splunk.mint.Mint;
@@ -18,5 +19,11 @@ import org.androidannotations.annotations.RootContext;
         LocationService_.intent(context).start();
         Mint.initAndStartSession(context, BuildConfig.MINT_TOKEN);
         AppRegistrationService_.intent(context).registration().start();
+        UserMessageService_.intent(context).start();
+    }
+
+    public void stop() {
+        LocationService_.intent(context).stop();
+        UserMessageService_.intent(context).stop();
     }
 }

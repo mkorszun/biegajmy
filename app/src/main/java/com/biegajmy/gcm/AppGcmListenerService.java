@@ -8,7 +8,6 @@ import com.biegajmy.utils.JSONUtils;
 import com.google.android.gms.gcm.GcmListenerService;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 @EService public class AppGcmListenerService extends GcmListenerService {
@@ -34,6 +33,10 @@ import org.json.JSONObject;
 
             String event_id = params.getString("event_id");
             String event_name = params.getString("event_name");
+            String msg_type = params.getString("msg_type");
+
+            MessageType type = MessageType.valueOf(msg_type);
+            UserMessageBus.getInstance().post(new UserMessageBus.NewMessage(event_id, type));
             notificationSender.send(message, event_id, event_name);
         } catch (Exception e) {
             Log.e(TAG, "Failed to read push message", e);

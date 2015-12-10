@@ -42,15 +42,40 @@
                 <com.biegajmy.general.textview.CustomTextView
                     style="@style/event_list_item_text_view_small"
                     android:drawableLeft="@drawable/distance"
+                    android:drawablePadding="2dp"
                     android:id="@+id/event_distance"/>
 
                 <com.biegajmy.general.textview.CustomTextView
                     style="@style/event_list_item_text_view_small"
                     android:paddingLeft="10dp"
+                    android:drawablePadding="2dp"
                     android:drawableLeft="@drawable/time"
                     android:id="@+id/event_date"/>
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView style="@style/event_list_item_image"
+                    android:id="@+id/alert"
+                    android:visibility="gone"
+                    android:layout_toLeftOf="@+id/message"
+                    android:src="@drawable/alert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView style="@style/event_list_item_image"
+                    android:id="@+id/message"
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/alert_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

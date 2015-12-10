@@ -1,6 +1,7 @@
 package com.biegajmy;
 
 import android.content.Context;
+import com.biegajmy.gcm.MessageType;
 import com.biegajmy.location.LastLocation;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
@@ -9,7 +10,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -25,6 +28,7 @@ import org.androidannotations.annotations.RootContext;
     private static final String TAG_POPULAR = "tag_popular";
     private static final String CACHE_BREAKER = "CACHE_BREAKER";
     private static final String CURRENT_CITY = "CURRENT_CITY";
+    private static final String MESSAGES = "MESSAGES";
 
     @RootContext Context context;
 
@@ -148,6 +152,18 @@ import org.androidannotations.annotations.RootContext;
 
     public String getCurrentCity() {
         return has(CURRENT_CITY) ? get(CURRENT_CITY, String.class) : null;
+    }
+
+    //********************************************************************************************//
+    // Messages
+    //********************************************************************************************//
+
+    public void updateMessages(HashMap<String, Set<MessageType>> messages) {
+        this.put(MESSAGES, messages);
+    }
+
+    public HashMap<String, Set<MessageType>> getMessages() {
+        return has(MESSAGES) ? get(MESSAGES, HashMap.class) : new HashMap<>();
     }
 
     //********************************************************************************************//

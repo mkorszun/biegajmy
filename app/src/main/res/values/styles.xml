@@ -10,6 +10,8 @@
         <item name="colorControlHighlight">@color/accent</item>
         <item name="android:dialogTheme">@style/Theme.Dialog</item>
         <item name="actionBarStyle">@style/Theme.ActionBar</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="Theme.ActionBar" parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">

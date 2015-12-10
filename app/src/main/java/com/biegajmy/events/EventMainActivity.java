@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.ServiceManager;
 import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.auth.LoginDialog;
 import com.biegajmy.events.form.create.EventNewActivity_;
@@ -16,7 +17,6 @@ import com.biegajmy.events.search.EventSearchMainFragment_;
 import com.biegajmy.events.user.EventUserListMainFragment_;
 import com.biegajmy.general.SlidingTabLayout;
 import com.biegajmy.general.ViewPagerAdapter;
-import com.biegajmy.location.LocationService_;
 import com.biegajmy.user.UserDetailsMainFragment_;
 import java.util.List;
 import org.androidannotations.annotations.AfterViews;
@@ -38,6 +38,7 @@ import static java.util.Arrays.asList;
 
     @Bean protected LoginDialog loginDialog;
     @Bean protected LocalStorage localStorage;
+    @Bean protected ServiceManager serviceManager;
 
     //********************************************************************************************//
     // Callbacks
@@ -59,7 +60,7 @@ import static java.util.Arrays.asList;
         super.onDestroy();
         tabs.setViewPager(null);
         pager.addOnPageChangeListener(null);
-        LocationService_.intent(getApplication()).stop();
+        serviceManager.stop();
     }
 
     @Click(R.id.event_add) public void newEvent() {

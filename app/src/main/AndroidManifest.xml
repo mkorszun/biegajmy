@@ -144,6 +144,12 @@
         </service>
 
         <service
+            android:name=".gcm.UserMessageService_"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <service
             android:name=".gcm.AppGcmListenerService_"
             android:exported="false">
             <intent-filter>

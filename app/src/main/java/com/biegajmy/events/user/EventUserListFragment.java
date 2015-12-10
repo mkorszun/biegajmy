@@ -12,6 +12,7 @@ import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventListAdapter;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.details.EventDetailActivity_;
+import com.biegajmy.gcm.UserMessageBus;
 import com.biegajmy.general.RefreshableListFragment;
 import com.squareup.otto.Subscribe;
 
@@ -32,7 +33,8 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
 
         activity = getActivity();
         storage = new LocalStorage(getActivity());
-        adapter = new EventListAdapter(activity);
+        adapter = new EventListAdapter(activity, storage.getMessages());
+        adapter.registerForMessages();
 
         EventListBus.getInstance().register(this);
         setListAdapter(adapter);
@@ -70,6 +72,7 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
 
     @Override public void onListItemClick(ListView listView, View view, int position, long id) {
         EventDetailActivity_.intent(activity).extra(ARG_EVENT, adapter.get(position)).start();
+        UserMessageBus.getInstance().post(new UserMessageBus.RemoveMessages(adapter.get(position).id));
     }
 
     //********************************************************************************************//
