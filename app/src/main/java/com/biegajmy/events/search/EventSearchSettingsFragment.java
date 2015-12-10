@@ -23,6 +23,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_event_search_settings) public class EventSearchSettingsFragment extends Fragment
@@ -62,7 +63,7 @@ import org.androidannotations.annotations.ViewById;
         addTag.addTextChangedListener(null);
     }
 
-    @AfterViews public void setup() {
+    @AfterViews @UiThread public void setup() {
         button5.setSelected(true);
 
         List<String> popular = localStorage.getPopularTags();

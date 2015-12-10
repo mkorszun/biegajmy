@@ -23,6 +23,7 @@ import java.io.File;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_user_details) public class UserDetailsFragment extends ModelFragment<User>
@@ -72,7 +73,7 @@ import org.androidannotations.annotations.ViewById;
         setSettings(model.settings);
     }
 
-    @Click({R.id.user_photo, R.id.user_photo_button}) public void selectPicture() {
+    @Click({ R.id.user_photo, R.id.user_photo_button }) public void selectPicture() {
         new MaterialDialog.Builder(getActivity()).items(R.array.photo_sources).itemsCallback(this).show();
     }
 
@@ -119,7 +120,7 @@ import org.androidannotations.annotations.ViewById;
         Toast.makeText(getActivity(), R.string.user_photo_update_failed_msg, Toast.LENGTH_LONG).show();
     }
 
-    @Subscribe public void event(UserEventBus.ScalePhotoOK event) {
+    @Subscribe @UiThread public void event(UserEventBus.ScalePhotoOK event) {
         UserBackendService_.intent(getActivity()).updatePhoto(event.path).start();
         Uri uri = Uri.fromFile(new File(event.path));
         Picasso.with(getActivity()).load(uri).into(userPhoto);
@@ -129,12 +130,12 @@ import org.androidannotations.annotations.ViewById;
     // API
     //********************************************************************************************//
 
-    public void updateUser(User user) {
+    @UiThread public void updateUser(User user) {
         this.model = user;
         setContent();
     }
 
-    public void update() {
+    @UiThread public void update() {
         model.firstName = firstName.getText().toString();
         model.lastName = lastName.getText().toString();
         model.bio = bio.getText().toString();

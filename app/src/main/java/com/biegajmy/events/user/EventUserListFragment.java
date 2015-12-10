@@ -15,10 +15,13 @@ import com.biegajmy.events.details.EventDetailActivity_;
 import com.biegajmy.gcm.UserMessageBus;
 import com.biegajmy.general.RefreshableListFragment;
 import com.squareup.otto.Subscribe;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 
 import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
-public class EventUserListFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
+@EFragment public class EventUserListFragment extends RefreshableListFragment
+    implements SwipeRefreshLayout.OnRefreshListener {
 
     private Activity activity;
     private LocalStorage storage;
@@ -79,13 +82,13 @@ public class EventUserListFragment extends RefreshableListFragment implements Sw
     // Events
     //********************************************************************************************//
 
-    @Subscribe public void event(EventListBus.ListUserEventsOK event) {
+    @Subscribe @UiThread public void event(EventListBus.ListUserEventsOK event) {
         adapter.setData(event.events);
         setEmpty(event.events.isEmpty());
         setRefreshing(false);
     }
 
-    @Subscribe public void event(EventListBus.ListUserEventsNOK event) {
+    @Subscribe @UiThread public void event(EventListBus.ListUserEventsNOK event) {
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
         setRefreshing(false);
     }

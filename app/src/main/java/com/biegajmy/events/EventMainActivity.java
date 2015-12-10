@@ -23,6 +23,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import static java.util.Arrays.asList;
@@ -44,7 +45,7 @@ import static java.util.Arrays.asList;
     // Callbacks
     //********************************************************************************************//
 
-    @AfterViews public void initialize() {
+    @AfterViews @UiThread public void initialize() {
         FragmentManager fm = getSupportFragmentManager();
         pager.setAdapter(new ViewPagerAdapter(fm, OPTIONS, getFragments()));
         pager.setOffscreenPageLimit(3);

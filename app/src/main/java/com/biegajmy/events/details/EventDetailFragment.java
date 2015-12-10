@@ -41,6 +41,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -82,7 +83,7 @@ public class EventDetailFragment extends Fragment
         EventBackendService_.intent(getActivity()).getEvent(event.id).start();
     }
 
-    @AfterViews public void setContent() {
+    @AfterViews @UiThread public void setContent() {
         if (event != null) {
             updateEventContent();
             updateEventLocation();
@@ -149,7 +150,7 @@ public class EventDetailFragment extends Fragment
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
     }
 
-    @Subscribe public void event(EventListBus.GetEventDetailsOK event) {
+    @Subscribe  public void event(EventListBus.GetEventDetailsOK event) {
         this.event = event.event;
         setContent();
     }

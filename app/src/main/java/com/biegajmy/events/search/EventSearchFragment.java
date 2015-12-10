@@ -17,10 +17,13 @@ import com.biegajmy.general.RefreshableListFragment;
 import com.biegajmy.location.LastLocation;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 
 import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
-public class EventSearchFragment extends RefreshableListFragment implements SwipeRefreshLayout.OnRefreshListener {
+@EFragment public class EventSearchFragment extends RefreshableListFragment
+    implements SwipeRefreshLayout.OnRefreshListener {
 
     private int lastRange = 5000;
     private String lastTag = "";
@@ -85,17 +88,17 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
     // Events
     //********************************************************************************************//
 
-    @Subscribe public void event(EventSearchRange range) {
+    @Subscribe @UiThread public void event(EventSearchRange range) {
         loadData(lastRange = range.getMax(), lastTag = range.getTags());
     }
 
-    @Subscribe public void event(EventListBus.SearchEventsOK event) {
+    @Subscribe @UiThread public void event(EventListBus.SearchEventsOK event) {
         setRefreshing(false);
         setEmpty(event.events.isEmpty());
         adapter.setData(event.events);
     }
 
-    @Subscribe public void event(EventListBus.SearchEventsNOK event) {
+    @Subscribe @UiThread public void event(EventListBus.SearchEventsNOK event) {
         setRefreshing(false);
         Toast.makeText(getActivity(), R.string.event_search_error_msg, Toast.LENGTH_LONG).show();
     }
@@ -104,7 +107,7 @@ public class EventSearchFragment extends RefreshableListFragment implements Swip
     // Helpers
     //********************************************************************************************//
 
-    private void loadData(int max, String tag) {
+    @UiThread protected void loadData(int max, String tag) {
         LastLocation pos = storage.getLastLocation();
         EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max, tag).start();
     }

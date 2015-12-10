@@ -17,6 +17,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
+import org.androidannotations.annotations.UiThread;
 
 @EFragment(R.layout.fragment_user_details_main) @OptionsMenu(R.menu.menu_user_details)
 public class UserDetailsMainFragment extends Fragment {
@@ -39,7 +40,7 @@ public class UserDetailsMainFragment extends Fragment {
         userEventBus.unregister(this);
     }
 
-    @AfterInject public void setup() {
+    @AfterInject @UiThread public void setup() {
         setContent();
     }
 
@@ -65,7 +66,7 @@ public class UserDetailsMainFragment extends Fragment {
     // Events
     //********************************************************************************************//
 
-    @Subscribe public void event(UserEventBus.SyncUserEventOK event) {
+    @Subscribe @UiThread public void event(UserEventBus.SyncUserEventOK event) {
         User user = storage.getUser();
         Fragment fr = getChildFragment();
         if (fr != null && fr instanceof UserDetailsFragment) {
