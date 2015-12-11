@@ -182,13 +182,10 @@
     </style>
 
     <style name="event_main_fab">
+        <item name="android:layout_margin">16dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_add_white_24dp</item>
-        <item name="android:layout_gravity">bottom|right</item>
-        <item name="android:layout_margin">16dp</item>
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:layout_alignParentRight">true</item>
         <item name="backgroundTint">@color/main_button_color</item>
     </style>
 
