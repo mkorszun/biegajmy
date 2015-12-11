@@ -46,10 +46,10 @@
     <!-- User -->
     <string name="user_form_first_name">Imię</string>
     <string name="user_form_last_name">Nazwisko</string>
-    <string name="user_form_bio">O mnie</string>
-    <string name="user_form_telephone">Tel</string>
-    <string name="user_form_www">WWW</string>
-    <string name="user_form_email">Email</string>
+    <string name="user_form_bio">Kilka słów o Tobie</string>
+    <string name="user_form_telephone">Telefon</string>
+    <string name="user_form_www">Strona WWW</string>
+    <string name="user_form_email">E-mail</string>
 
     <string name="user_update_ok_msg">Profil zaktualizowany</string>
     <string name="user_update_failed_msg">Aktualnie niemożliwe</string>

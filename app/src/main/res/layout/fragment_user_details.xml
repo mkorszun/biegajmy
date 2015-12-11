@@ -6,7 +6,7 @@
     <RelativeLayout style="@style/user_form">
 
         <android.support.v7.widget.CardView style="@style/user_form_card_view" android:id="@+id/details">
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingBottom="20dp">
 
                 <RelativeLayout android:id="@+id/photo_layout"
                     android:layout_alignParentTop="true"
