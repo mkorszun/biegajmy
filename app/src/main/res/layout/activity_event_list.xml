@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabIndicatorColor="@color/white"
-        app:tabPaddingStart="-2dp"
-        app:tabPaddingEnd="-2dp"
+        app:tabPaddingStart="1dp"
+        app:tabPaddingEnd="1dp"
         app:tabMode="scrollable"/>
 
     <android.support.v4.view.ViewPager
