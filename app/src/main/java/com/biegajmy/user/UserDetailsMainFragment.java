@@ -91,10 +91,14 @@ public class UserDetailsMainFragment extends Fragment {
         User user;
         if (storage.hasToken() && (user = storage.getUser()) != null) {
             Fragment userDetails = UserDetailsFragment_.builder().arg(UserDetailsFragment.USER_ARG, user).build();
-            getChildFragmentManager().beginTransaction().replace(R.id.user_details_container, userDetails).commit();
+            getChildFragmentManager().beginTransaction()
+                .replace(R.id.user_details_container, userDetails)
+                .commitAllowingStateLoss();
         } else {
             Fragment emptyDetails = UserDetailsEmptyFragment_.builder().build();
-            getChildFragmentManager().beginTransaction().replace(R.id.user_details_container, emptyDetails).commit();
+            getChildFragmentManager().beginTransaction()
+                .replace(R.id.user_details_container, emptyDetails)
+                .commitAllowingStateLoss();
         }
     }
 
