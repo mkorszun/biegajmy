@@ -29,15 +29,15 @@ import org.androidannotations.annotations.ViewById;
 @EFragment(R.layout.fragment_event_search_settings) public class EventSearchSettingsFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnClickListener {
 
-    private int lastRange = 5000;
+    private int lastRange = 10000;
     private Bus bus = EventListBus.getInstance();
 
-    @ViewById(R.id.one_km) protected Button button1;
-    @ViewById(R.id.three_km) protected Button button3;
-    @ViewById(R.id.five_km) protected Button button5;
-    @ViewById(R.id.ten_km) protected Button button10;
-    @ViewById(R.id.twenty_five_km) protected Button button25;
-    @ViewById(R.id.fifty_km) protected Button button50;
+    @ViewById(R.id.dist1) protected Button dist1;
+    @ViewById(R.id.dist2) protected Button dist2;
+    @ViewById(R.id.dist3) protected Button dist3;
+    @ViewById(R.id.dist4) protected Button dist4;
+    @ViewById(R.id.dist5) protected Button dist5;
+    @ViewById(R.id.dist6) protected Button dist6;
     @ViewById(R.id.tag_edit_text) protected AutoCompleteTextView addTag;
     @ViewById(R.id.tag_add_confirmation) protected ImageButton confirmationButton;
 
@@ -64,7 +64,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @AfterViews @UiThread public void setup() {
-        button5.setSelected(true);
+        dist3.setSelected(true);
 
         List<String> popular = localStorage.getPopularTags();
         List<String> recommendations = localStorage.getTagRecommendations();
@@ -82,33 +82,33 @@ import org.androidannotations.annotations.ViewById;
         childFragmentManager.beginTransaction().add(R.id.popular_tags, fr).commit();
     }
 
-    @Click(R.id.one_km) public void one_km() {
-        setSelected(button1);
+    @Click(R.id.dist1) public void one_km() {
+        setSelected(dist1);
         bus.post(new EventSearchRange(lastRange = 1000, addTag.getText().toString()));
     }
 
-    @Click(R.id.three_km) public void three_km() {
-        setSelected(button3);
-        bus.post(new EventSearchRange(lastRange = 3000, addTag.getText().toString()));
-    }
-
-    @Click(R.id.five_km) public void five_km() {
-        setSelected(button5);
+    @Click(R.id.dist2) public void three_km() {
+        setSelected(dist2);
         bus.post(new EventSearchRange(lastRange = 5000, addTag.getText().toString()));
     }
 
-    @Click(R.id.ten_km) public void ten_km() {
-        setSelected(button10);
+    @Click(R.id.dist3) public void five_km() {
+        setSelected(dist3);
         bus.post(new EventSearchRange(lastRange = 10000, addTag.getText().toString()));
     }
 
-    @Click(R.id.twenty_five_km) public void twenty_five_km() {
-        setSelected(button25);
+    @Click(R.id.dist4) public void ten_km() {
+        setSelected(dist4);
         bus.post(new EventSearchRange(lastRange = 25000, addTag.getText().toString()));
     }
 
-    @Click(R.id.fifty_km) public void fifty_km() {
-        setSelected(button50);
+    @Click(R.id.dist5) public void twenty_five_km() {
+        setSelected(dist5);
+        bus.post(new EventSearchRange(lastRange = 50000, addTag.getText().toString()));
+    }
+
+    @Click(R.id.dist6) public void fifty_km() {
+        setSelected(dist6);
         bus.post(new EventSearchRange(lastRange = 500000, addTag.getText().toString()));
     }
 
@@ -148,12 +148,12 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     private void setSelected(Button button) {
-        button1.setSelected(false);
-        button3.setSelected(false);
-        button5.setSelected(false);
-        button10.setSelected(false);
-        button25.setSelected(false);
-        button50.setSelected(false);
+        dist1.setSelected(false);
+        dist2.setSelected(false);
+        dist3.setSelected(false);
+        dist4.setSelected(false);
+        dist5.setSelected(false);
+        dist6.setSelected(false);
         button.setSelected(true);
     }
 

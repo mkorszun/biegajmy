@@ -14,31 +14,31 @@
         <Button style="@style/distance_selector_button"
             android:layout_marginRight="@dimen/distance_selector_padding"
             android:text="1"
-            android:id="@+id/one_km"/>
+            android:id="@+id/dist1"/>
 
         <Button style="@style/distance_selector_button"
             android:layout_marginRight="@dimen/distance_selector_padding"
-            android:text="3"
-            android:id="@+id/three_km"/>
+            android:text="5"
+            android:id="@+id/dist2"/>
 
         <Button style="@style/distance_selector_button"
-            android:text="5"
-            android:id="@+id/five_km"/>
+            android:text="10"
+            android:id="@+id/dist3"/>
     </LinearLayout>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent">
         <Button style="@style/distance_selector_button"
             android:layout_marginRight="@dimen/distance_selector_padding"
-            android:text="10"
-            android:id="@+id/ten_km"/>
+            android:text="25"
+            android:id="@+id/dist4"/>
 
         <Button style="@style/distance_selector_button"
             android:layout_marginRight="@dimen/distance_selector_padding"
-            android:text="25"
-            android:id="@+id/twenty_five_km"/>
+            android:text="50"
+            android:id="@+id/dist5"/>
 
         <Button style="@style/distance_selector_button"
-            android:text="+ 25"
-            android:id="@+id/fifty_km"/>
+            android:text="+ 50"
+            android:id="@+id/dist6"/>
     </LinearLayout>
 
     <RelativeLayout
