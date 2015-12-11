@@ -79,7 +79,7 @@ import org.androidannotations.annotations.ViewById;
 
         fr.setOnClickListener(this);
         FragmentManager childFragmentManager = getChildFragmentManager();
-        childFragmentManager.beginTransaction().add(R.id.popular_tags, fr).commit();
+        childFragmentManager.beginTransaction().add(R.id.popular_tags, fr).commitAllowingStateLoss();
     }
 
     @Click(R.id.dist1) public void one_km() {
