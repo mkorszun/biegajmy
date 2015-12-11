@@ -2,6 +2,7 @@ package com.biegajmy.events;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -15,7 +16,6 @@ import com.biegajmy.auth.LoginDialog;
 import com.biegajmy.events.form.create.EventNewActivity_;
 import com.biegajmy.events.search.EventSearchMainFragment_;
 import com.biegajmy.events.user.EventUserListMainFragment_;
-import com.biegajmy.general.SlidingTabLayout;
 import com.biegajmy.general.ViewPagerAdapter;
 import com.biegajmy.user.UserDetailsMainFragment_;
 import java.util.List;
@@ -31,10 +31,8 @@ import static java.util.Arrays.asList;
 @EActivity(R.layout.activity_event_list) public class EventMainActivity extends AppCompatActivity
     implements ViewPager.OnPageChangeListener {
 
-    private static final String[] OPTIONS = new String[] { "Szukaj", "Dodaj", "Profil" };
-
     @ViewById(R.id.event_main_pager) protected ViewPager pager;
-    @ViewById(R.id.event_main_tabs) protected SlidingTabLayout tabs;
+    @ViewById(R.id.event_main_tabs) protected TabLayout tabs;
     @ViewById(R.id.event_add) protected FloatingActionButton fab;
 
     @Bean protected LoginDialog loginDialog;
@@ -47,19 +45,19 @@ import static java.util.Arrays.asList;
 
     @AfterViews @UiThread public void initialize() {
         FragmentManager fm = getSupportFragmentManager();
-        pager.setAdapter(new ViewPagerAdapter(fm, OPTIONS, getFragments()));
+        pager.setAdapter(new ViewPagerAdapter(fm, getFragments()));
         pager.setOffscreenPageLimit(3);
         pager.addOnPageChangeListener(this);
 
-        tabs.setDistributeEvenly(true);
-        tabs.setCustomTabColorizer(null);
-        tabs.setCustomTabView(R.layout.tab_view_layout, R.id.tab_custom_layout);
-        tabs.setViewPager(pager);
+        tabs.setupWithViewPager(pager);
+
+        tabs.getTabAt(0).setIcon(R.drawable.search_selector);
+        tabs.getTabAt(1).setIcon(R.drawable.my_runs_selector);
+        tabs.getTabAt(2).setIcon(R.drawable.settings_selector);
     }
 
     @Override protected void onDestroy() {
         super.onDestroy();
-        tabs.setViewPager(null);
         pager.addOnPageChangeListener(null);
         serviceManager.stop();
     }

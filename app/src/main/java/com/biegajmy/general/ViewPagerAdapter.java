@@ -7,12 +7,10 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private CharSequence titles[];
     private List<Fragment> fragments;
 
-    public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], List<Fragment> fragments) {
+    public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
-        this.titles = mTitles;
         this.fragments = fragments;
     }
 
@@ -21,7 +19,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return null;
     }
 
     @Override public int getCount() {
