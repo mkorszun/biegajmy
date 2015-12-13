@@ -49,6 +49,7 @@
                         <com.biegajmy.general.edittext.CustomEditText
                             style="@style/user_form_field"
                             android:id="@+id/firstname"
+                            android:layout_marginBottom="16dp"
                             android:layout_width="match_parent"
                             android:hint="@string/user_form_first_name"/>
 
