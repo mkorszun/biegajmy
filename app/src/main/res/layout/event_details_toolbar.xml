@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/event_detail_toolbar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button style="@style/event_detail_toolbar_button"
+            android:id="@+id/event_join"
+            android:text="@string/event_join"
+            android:drawableTop="@drawable/event_join_selector"/>
+
+        <Button style="@style/event_detail_toolbar_button"
+            android:id="@+id/event_share"
+            android:text="@string/event_share"
+            android:drawableTop="@drawable/event_share"/>
+
+        <Button style="@style/event_detail_toolbar_button"
+            android:id="@+id/event_edit"
+            android:text="@string/event_edit"
+            android:drawableTop="@drawable/event_edit_selector"/>
+
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

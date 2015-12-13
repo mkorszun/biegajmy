@@ -4,6 +4,8 @@
     <string name="event_join">Dołącz</string>
     <string name="event_leave">Opuść</string>
     <string name="event_delete">Usuń</string>
+    <string name="event_edit">Edytuj</string>
+    <string name="event_share">Udostępnij</string>
     <string name="event_description">OPIS BIEGU</string>
     <string name="event_owner">ORGANIZATOR</string>
     <string name="event_participants">INNI UCZESTNICY</string>

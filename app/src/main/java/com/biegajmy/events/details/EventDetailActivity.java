@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import com.biegajmy.BuildConfig;
 import com.biegajmy.LocalStorage;
@@ -25,31 +26,29 @@ import com.biegajmy.model.User;
 import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.OptionsMenuItem;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
-@EActivity(R.layout.activity_event_detail) @OptionsMenu(R.menu.menu_event_detail) public class EventDetailActivity
-    extends ModelActivity<Event> {
-
-    @StringRes(R.string.share) protected String SHARE;
-    @StringRes(R.string.event_join) protected String JOIN_TXT;
-    @StringRes(R.string.event_leave) protected String LEAVE_TXT;
-    @StringRes(R.string.event_delete) protected String DELETE_TXT;
-
-    @OptionsMenuItem(R.id.action_edit_event) protected MenuItem edit;
-    @OptionsMenuItem(R.id.action_delete_event) protected MenuItem delete;
+@EActivity(R.layout.activity_event_detail) public class EventDetailActivity extends ModelActivity<Event> {
 
     private User user;
-
     private boolean owner;
     private boolean isMember;
     private boolean hasToken;
 
     @Bean protected LocalStorage storage;
     @Bean protected LoginDialog loginDialog;
+
+    @ViewById(R.id.event_edit) protected Button edit;
+    @ViewById(R.id.event_join) protected Button join;
+
+    @StringRes(R.string.share) protected String SHARE;
+    @StringRes(R.string.event_join) protected String JOIN_TXT;
+    @StringRes(R.string.event_leave) protected String LEAVE_TXT;
+    @StringRes(R.string.event_delete) protected String DELETE_TXT;
 
     //********************************************************************************************//
     // Callbacks
@@ -85,9 +84,9 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
-        edit.setVisible(owner);
+        edit.setVisibility(owner ? View.VISIBLE : View.GONE);
         edit.setEnabled(owner);
-        delete.setTitle(msgForAction());
+        join.setText(msgForAction());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -100,11 +99,11 @@ import org.androidannotations.annotations.res.StringRes;
         NavUtils.navigateUpTo(this, new Intent(this, EventMainActivity.class));
     }
 
-    @OptionsItem(R.id.action_edit_event) public void edit() {
+    @Click(R.id.event_edit) public void edit() {
         EventUpdateActivity_.intent(this).extra(EventUpdateFragment.ARG_EVENT, model).start();
     }
 
-    @OptionsItem(R.id.action_delete_event) public void action() {
+    @Click(R.id.event_join) public void action() {
         if (hasToken) {
             if (model.spots == 1 && owner && isMember) {
                 EventBackendService_.intent(this).deleteEvent(model.id).start();
@@ -116,7 +115,7 @@ import org.androidannotations.annotations.res.StringRes;
         }
     }
 
-    @OptionsItem(R.id.action_share_event) public void share() {
+    @Click(R.id.event_share) public void share() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TITLE, model.headline);
@@ -166,7 +165,9 @@ import org.androidannotations.annotations.res.StringRes;
         getSupportActionBar().setTitle(event.headline);
         isMember = event.participants.contains(storage.getUser());
         owner = event.user != null ? event.user.equals(user) && hasToken : false;
-        if (delete != null) delete.setTitle(msgForAction());
+
+        join.setText(msgForAction());
+        join.setSelected(isMember);
 
         Fragment fragment;
         FragmentManager fm = getSupportFragmentManager();
