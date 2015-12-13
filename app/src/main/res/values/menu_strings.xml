@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="save_location">Zapisz lokację</string>
+    <string name="save_location">Zapisz lokalizację</string>
     <string name="save">Zapisz</string>
     <string name="delete">Usuń</string>
     <string name="edit">Edytuj</string>
-    <string name="search">Szukaj</string>
+    <string name="search">Filtruj</string>
     <string name="add">Dodaj</string>
     <string name="share">Udostępnij</string>
 </resources>
