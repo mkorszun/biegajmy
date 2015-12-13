@@ -58,14 +58,21 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     @Subscribe public void event(UserEventBus.LoginOK event) {
-        UserBackendService_.intent(getActivity()).syncUser().start();
         AppRegistrationService_.intent(getActivity()).registration().start();
-        getActivity().setResult(LoginActivity.AUTH_OK);
-        getActivity().finish();
+        UserBackendService_.intent(getActivity()).syncUser().start();
     }
 
     @Subscribe public void event(UserEventBus.LoginNOK event) {
         showError(event.reason);
+    }
+
+    @Subscribe public void event(UserEventBus.SyncUserEventOK event) {
+        getActivity().setResult(LoginActivity.AUTH_OK);
+        getActivity().finish();
+    }
+
+    @Subscribe public void event(UserEventBus.SyncUserEventNOK event) {
+        Toast.makeText(getActivity(), R.string.login_unknown_error, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//

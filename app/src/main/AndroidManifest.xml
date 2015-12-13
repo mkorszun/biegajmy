@@ -61,7 +61,6 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".events.details.EventDetailActivity_"
             android:label="@string/title_event_detail"
-            android:launchMode="singleTop"
             android:parentActivityName=".events.EventMainActivity"
             android:screenOrientation="portrait">
             <meta-data

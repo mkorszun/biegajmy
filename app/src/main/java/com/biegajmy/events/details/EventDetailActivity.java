@@ -15,6 +15,7 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.auth.LoginDialog;
+import com.biegajmy.backend.error.ConflictError;
 import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.EventMainActivity;
@@ -22,7 +23,6 @@ import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.general.ModelActivity;
 import com.biegajmy.model.Event;
-import com.biegajmy.model.User;
 import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -34,10 +34,8 @@ import org.androidannotations.annotations.res.StringRes;
 
 @EActivity(R.layout.activity_event_detail) public class EventDetailActivity extends ModelActivity<Event> {
 
-    private User user;
     private boolean owner;
     private boolean isMember;
-    private boolean hasToken;
 
     @Bean protected LocalStorage storage;
     @Bean protected LoginDialog loginDialog;
@@ -66,8 +64,6 @@ import org.androidannotations.annotations.res.StringRes;
 
         if (savedInstanceState == null) {
             Event fullEvent = storage.get(model.id, Event.class);
-            this.user = storage.getUser();
-            this.hasToken = storage.hasToken();
             this.model = fullEvent != null ? fullEvent : model;
         }
     }
@@ -78,8 +74,10 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == LoginActivity.RESULT_OK && requestCode == LoginDialog.JOIN_EVENT_REQUEST) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == LoginActivity.AUTH_OK && requestCode == LoginDialog.JOIN_EVENT_REQUEST) {
             EventBackendService_.intent(this).joinEvent(model.id, !isMember).start();
+            refreshUserParticipation(model);
         }
     }
 
@@ -104,7 +102,7 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Click(R.id.event_join) public void action() {
-        if (hasToken) {
+        if (storage.hasToken()) {
             if (model.spots == 1 && owner && isMember) {
                 EventBackendService_.intent(this).deleteEvent(model.id).start();
             } else {
@@ -138,7 +136,9 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Subscribe public void event(EventListBus.EventJoinLeaveNOK event) {
-        Toast.makeText(this, R.string.event_error_msg, Toast.LENGTH_LONG).show();
+        boolean isConflict = event.exception instanceof ConflictError;
+        int resId = isConflict ? R.string.event_join_error_already_participating : R.string.event_error_msg;
+        Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
     }
 
     @Subscribe public void event(EventListBus.DeleteEventOK event) {
@@ -163,11 +163,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     private void setContent(Event event) {
         getSupportActionBar().setTitle(event.headline);
-        isMember = event.participants.contains(storage.getUser());
-        owner = event.user != null ? event.user.equals(user) && hasToken : false;
-
-        join.setText(msgForAction());
-        join.setSelected(isMember);
+        refreshUserParticipation(event);
 
         Fragment fragment;
         FragmentManager fm = getSupportFragmentManager();
@@ -178,6 +174,15 @@ import org.androidannotations.annotations.res.StringRes;
             fragment = EventDetailFragment_.builder().arg(EventDetailFragment.ARG_EVENT, event).build();
             getSupportFragmentManager().beginTransaction().add(R.id.event_detail_container, fragment).commit();
         }
+    }
+
+    private void refreshUserParticipation(Event event) {
+        isMember = event.participants.contains(storage.getUser());
+        boolean authenticated = event.user.equals(storage.getUser()) && storage.hasToken();
+        owner = event.user != null ? authenticated : false;
+
+        join.setText(msgForAction());
+        join.setSelected(isMember);
     }
 
     private String msgForAction() {
