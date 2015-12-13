@@ -6,7 +6,8 @@
     <RelativeLayout style="@style/user_form">
 
         <android.support.v7.widget.CardView style="@style/user_form_card_view" android:id="@+id/details">
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingBottom="20dp">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:paddingBottom="20dp">
 
                 <RelativeLayout android:id="@+id/photo_layout"
                     android:layout_alignParentTop="true"
@@ -30,36 +31,41 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/firstname_layout"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/photo_layout"
-                    style="@style/event_form_field_layout">
-                    <ImageView style="@style/user_form_field_icon"
-                        android:src="@drawable/settings_user_name"/>
-                    <com.biegajmy.general.edittext.CustomEditText
-                        style="@style/user_form_field"
-                        android:id="@+id/firstname"
-                        android:hint="@string/user_form_first_name"/>
-                </LinearLayout>
+                <LinearLayout style="@style/event_form_field_layout"
+                    android:id="@+id/name_surname_layout"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/photo_layout">
 
-                <LinearLayout
-                    android:id="@+id/lastname_layout"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/firstname_layout"
-                    style="@style/event_form_field_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_user_name"/>
-                    <com.biegajmy.general.edittext.CustomEditText
-                        style="@style/user_form_field"
-                        android:id="@+id/lastname"
-                        android:hint="@string/user_form_last_name"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="9"
+                        android:layout_height="wrap_content">
+
+                        <com.biegajmy.general.edittext.CustomEditText
+                            style="@style/user_form_field"
+                            android:id="@+id/firstname"
+                            android:layout_width="match_parent"
+                            android:hint="@string/user_form_first_name"/>
+
+                        <com.biegajmy.general.edittext.CustomEditText
+                            style="@style/user_form_field"
+                            android:id="@+id/lastname"
+                            android:layout_width="match_parent"
+                            android:layout_below="@+id/firstname"
+                            android:hint="@string/user_form_last_name"/>
+
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/event_form_field_layout"
                     android:id="@+id/telephone_layout"
-                    android:layout_below="@+id/lastname_layout">
+                    android:layout_below="@+id/name_surname_layout">
                     <ImageView style="@style/user_form_field_icon"
                         android:src="@drawable/settings_mobile"/>
                     <com.biegajmy.general.edittext.CustomEditText
