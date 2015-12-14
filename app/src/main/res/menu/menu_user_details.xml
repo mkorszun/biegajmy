@@ -4,6 +4,7 @@
     tools:context="com.biegajmy.user.UserDetailsFragment">
     <item android:id="@+id/action_user_save"
         android:title="@string/save"
+        android:visible="false"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 </menu>

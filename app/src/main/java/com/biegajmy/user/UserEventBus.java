@@ -2,6 +2,7 @@ package com.biegajmy.user;
 
 import android.os.Handler;
 import android.os.Looper;
+import com.biegajmy.model.User;
 import com.squareup.otto.Bus;
 
 public class UserEventBus extends Bus {
@@ -34,7 +35,11 @@ public class UserEventBus extends Bus {
     //********************************************************************************************//
 
     public static class SyncUserEventOK {
+        public User user;
 
+        public SyncUserEventOK(User user) {
+            this.user = user;
+        }
     }
 
     public static class SyncUserEventNOK {
@@ -46,6 +51,11 @@ public class UserEventBus extends Bus {
     //********************************************************************************************//
 
     public static class UpdateUserEventOk {
+        public User user;
+
+        public UpdateUserEventOk(User user) {
+            this.user = user;
+        }
     }
 
     public static class UpdateUserEventFailed {

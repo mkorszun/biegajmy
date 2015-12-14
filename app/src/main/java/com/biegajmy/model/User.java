@@ -28,4 +28,14 @@ public class User implements Serializable {
     @Override public String toString() {
         return lastName != null ? String.format("%s %s", firstName, lastName) : String.format("%s", firstName);
     }
+
+    @Override public int hashCode() {
+        return firstName.hashCode()
+            + lastName.hashCode()
+            + bio.hashCode()
+            + telephone.hashCode()
+            + www.hashCode()
+            + email.hashCode()
+            + settings.hashCode();
+    }
 }

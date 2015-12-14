@@ -33,7 +33,7 @@
 
                 <LinearLayout style="@style/event_form_field_layout"
                     android:id="@+id/name_surname_layout"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="35dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/photo_layout">

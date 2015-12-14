@@ -8,9 +8,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.auth.LoginActivity;
+import com.biegajmy.auth.LoginDialog;
 import com.biegajmy.model.User;
 import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -20,10 +21,13 @@ import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
 
 @EFragment(R.layout.fragment_user_details_main) @OptionsMenu(R.menu.menu_user_details)
-public class UserDetailsMainFragment extends Fragment {
+public class UserDetailsMainFragment extends Fragment implements UserDetailsChangedListener {
 
     @Bean protected LocalStorage storage;
     @OptionsMenuItem(R.id.action_user_save) protected MenuItem save;
+
+    private User user;
+    private int hashCode = -1;
     private Bus userEventBus = UserEventBus.getInstance();
 
     //********************************************************************************************//
@@ -46,13 +50,19 @@ public class UserDetailsMainFragment extends Fragment {
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         Fragment fr = getChildFragment();
         if (fr != null) fr.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == LoginActivity.AUTH_OK && requestCode == LoginDialog.CREATE_PROFILE_REQUEST) {
+            updateUserDetails(storage.getUser());
+        }
     }
 
     @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        save.setVisible(storage.hasToken() && storage.getUser() != null);
+        boolean visible = storage.hasToken() && user != null;
+        save.setVisible(visible && hashCode != user.hashCode());
     }
 
     @OptionsItem(R.id.action_user_save) public void save() {
@@ -62,21 +72,8 @@ public class UserDetailsMainFragment extends Fragment {
         }
     }
 
-    //********************************************************************************************//
-    // Events
-    //********************************************************************************************//
-
-    @Subscribe @UiThread public void event(UserEventBus.SyncUserEventOK event) {
-        User user = storage.getUser();
-        Fragment fr = getChildFragment();
-        if (fr != null && fr instanceof UserDetailsFragment) {
-            ((UserDetailsFragment) fr).updateUser(storage.getUser());
-        } else {
-            Fragment userDetails = UserDetailsFragment_.builder().arg(UserDetailsFragment.USER_ARG, user).build();
-            getChildFragmentManager().beginTransaction()
-                .replace(R.id.user_details_container, userDetails)
-                .commitAllowingStateLoss();
-        }
+    @Override public void onChanged(User user) {
+        if (save != null) save.setVisible(hashCode != (this.user = user).hashCode());
     }
 
     //********************************************************************************************//
@@ -88,18 +85,26 @@ public class UserDetailsMainFragment extends Fragment {
     }
 
     private void setContent() {
-        User user;
         if (storage.hasToken() && (user = storage.getUser()) != null) {
-            Fragment userDetails = UserDetailsFragment_.builder().arg(UserDetailsFragment.USER_ARG, user).build();
-            getChildFragmentManager().beginTransaction()
-                .replace(R.id.user_details_container, userDetails)
-                .commitAllowingStateLoss();
+            updateUserDetails(user);
         } else {
             Fragment emptyDetails = UserDetailsEmptyFragment_.builder().build();
             getChildFragmentManager().beginTransaction()
                 .replace(R.id.user_details_container, emptyDetails)
                 .commitAllowingStateLoss();
         }
+    }
+
+    private void updateUserDetails(User user) {
+        hashCode = user.hashCode();
+
+        UserDetailsFragment userDetails =
+            UserDetailsFragment_.builder().arg(UserDetailsFragment.USER_ARG, user).build();
+        userDetails.setUserDetailsChangedListener(this);
+
+        getChildFragmentManager().beginTransaction()
+            .replace(R.id.user_details_container, userDetails)
+            .commitAllowingStateLoss();
     }
 
     //********************************************************************************************//

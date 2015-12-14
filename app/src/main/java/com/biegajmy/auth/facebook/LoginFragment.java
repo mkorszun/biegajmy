@@ -57,7 +57,6 @@ import org.androidannotations.annotations.res.StringArrayRes;
         String accessToken = loginResult.getAccessToken().getToken();
         Log.d(TAG, String.format("Login successful: %s", accessToken));
         UserBackendService_.intent(getActivity()).checkToken(accessToken).start();
-        AppRegistrationService_.intent(getActivity()).registration().start();
     }
 
     @Override public void onCancel() {
@@ -80,15 +79,23 @@ import org.androidannotations.annotations.res.StringArrayRes;
     //********************************************************************************************//
 
     @Subscribe public void event(UserEventBus.TokenOKEvent event) {
+        AppRegistrationService_.intent(getActivity()).registration().start();
         UserBackendService_.intent(getActivity()).syncUser().start();
-        getActivity().setResult(LoginActivity.AUTH_OK);
-        getActivity().finish();
     }
 
     @Subscribe public void event(UserEventBus.TokenNOKEvent event) {
         Toast.makeText(getActivity(), R.string.user_token_request_failed_msg, Toast.LENGTH_LONG).show();
         getActivity().setResult(LoginActivity.AUTH_FAILED);
         getActivity().finish();
+    }
+
+    @Subscribe public void event(UserEventBus.SyncUserEventOK event) {
+        getActivity().setResult(LoginActivity.AUTH_OK);
+        getActivity().finish();
+    }
+
+    @Subscribe public void event(UserEventBus.SyncUserEventNOK event) {
+        Toast.makeText(getActivity(), R.string.login_unknown_error, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//

@@ -59,9 +59,10 @@ import static com.biegajmy.user.UserEventBus.getInstance;
         try {
             String id = localStorage.getToken().id;
             String token = localStorage.getToken().token;
-            localStorage.updateUser(backend.getUser(id, token));
+            User user = backend.getUser(id, token);
+            localStorage.updateUser(user);
             Log.d(TAG, "Successfully synced user");
-            userBus.post(new SyncUserEventOK());
+            userBus.post(new SyncUserEventOK(user));
         } catch (Exception e) {
             Log.e(TAG, "Failed to sync user data", e);
             userBus.post(new SyncUserEventNOK());
@@ -72,10 +73,10 @@ import static com.biegajmy.user.UserEventBus.getInstance;
         try {
             String id = localStorage.getToken().id;
             String token = localStorage.getToken().token;
-            localStorage.updateUser(backend.updateUser(id, token, user));
-
+            User updated = backend.updateUser(id, token, user);
+            localStorage.updateUser(user);
             Log.d(TAG, "Successfully updated user");
-            userBus.post(new UpdateUserEventOk());
+            userBus.post(new UpdateUserEventOk(updated));
         } catch (Exception e) {
             Log.e(TAG, "Failed to update user", e);
             userBus.post(new UpdateUserEventFailed(e));

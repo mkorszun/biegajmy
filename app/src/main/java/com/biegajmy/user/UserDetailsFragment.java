@@ -15,14 +15,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.R;
 import com.biegajmy.general.ModelFragment;
 import com.biegajmy.model.User;
-import com.biegajmy.model.UserSettings;
 import com.biegajmy.utils.PhotoUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import java.io.File;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -43,6 +44,8 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.new_participant_setting) protected SwitchCompat newParticipantSetting;
     @ViewById(R.id.leaving_participant_setting) protected SwitchCompat leavingParticipantSetting;
     @ViewById(R.id.event_updated_setting) protected SwitchCompat eventUpdatedSetting;
+
+    private UserDetailsChangedListener userDetailsChangedListener;
 
     //********************************************************************************************//
     // Callbacks
@@ -70,7 +73,17 @@ import org.androidannotations.annotations.ViewById;
         telephone.setText(model.telephone);
         www.setText(model.www);
         email.setText(model.email);
-        setSettings(model.settings);
+        newCommentSetting.setChecked(model.settings.onNewComment);
+        newParticipantSetting.setChecked(model.settings.onNewParticipant);
+        eventUpdatedSetting.setChecked(model.settings.onUpdate);
+        leavingParticipantSetting.setChecked(model.settings.onLeavingParticipant);
+    }
+
+    @TextChange({ R.id.firstname, R.id.lastname, R.id.bio, R.id.telephone, R.id.www, R.id.email }) @CheckedChange({
+        R.id.new_comment_setting, R.id.new_participant_setting, R.id.leaving_participant_setting,
+        R.id.event_updated_setting
+    }) public void onDataChanged() {
+        if (userDetailsChangedListener != null) userDetailsChangedListener.onChanged(getUser());
     }
 
     @Click({ R.id.user_photo, R.id.user_photo_button }) public void selectPicture() {
@@ -105,6 +118,7 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     @Subscribe public void event(UserEventBus.UpdateUserEventOk event) {
+        if (userDetailsChangedListener != null) userDetailsChangedListener.onChanged(event.user);
         Toast.makeText(getActivity(), R.string.user_update_ok_msg, Toast.LENGTH_LONG).show();
     }
 
@@ -130,34 +144,31 @@ import org.androidannotations.annotations.ViewById;
     // API
     //********************************************************************************************//
 
-    @UiThread public void updateUser(User user) {
-        this.model = user;
-        setContent();
+    public void update() {
+        UserBackendService_.intent(getActivity()).updateUser(getUser()).start();
     }
 
-    @UiThread public void update() {
-        model.firstName = firstName.getText().toString();
-        model.lastName = lastName.getText().toString();
-        model.bio = bio.getText().toString();
-        model.telephone = telephone.getText().toString();
-        model.www = www.getText().toString();
-        model.email = email.getText().toString();
-        model.settings.onNewComment = newCommentSetting.isChecked();
-        model.settings.onNewParticipant = newParticipantSetting.isChecked();
-        model.settings.onUpdate = eventUpdatedSetting.isChecked();
-        model.settings.onLeavingParticipant = leavingParticipantSetting.isChecked();
-        UserBackendService_.intent(getActivity()).updateUser(model).start();
+    public void setUserDetailsChangedListener(UserDetailsChangedListener userDetailsChangedListener) {
+        this.userDetailsChangedListener = userDetailsChangedListener;
     }
 
     //********************************************************************************************//
     // Helpers
     //********************************************************************************************//
 
-    private void setSettings(UserSettings settings) {
-        newCommentSetting.setChecked(settings.onNewComment);
-        newParticipantSetting.setChecked(settings.onNewParticipant);
-        eventUpdatedSetting.setChecked(settings.onUpdate);
-        leavingParticipantSetting.setChecked(settings.onLeavingParticipant);
+    private User getUser() {
+        User user = new User();
+        user.firstName = firstName.getText().toString();
+        user.lastName = lastName.getText().toString();
+        user.bio = bio.getText().toString();
+        user.telephone = telephone.getText().toString();
+        user.www = www.getText().toString();
+        user.email = email.getText().toString();
+        user.settings.onNewComment = newCommentSetting.isChecked();
+        user.settings.onNewParticipant = newParticipantSetting.isChecked();
+        user.settings.onUpdate = eventUpdatedSetting.isChecked();
+        user.settings.onLeavingParticipant = leavingParticipantSetting.isChecked();
+        return user;
     }
 
     //********************************************************************************************//
