@@ -15,6 +15,10 @@ import org.androidannotations.annotations.RootContext;
     @RootContext Activity context;
     private int requestCode;
 
+    public void actionConfirmation(int requestCode) {
+        actionConfirmation(R.string.auth_required_create, requestCode);
+    }
+
     public void actionConfirmation(int res, int requestCode) {
         this.requestCode = requestCode;
         new MaterialDialog.Builder(context).content(res)
