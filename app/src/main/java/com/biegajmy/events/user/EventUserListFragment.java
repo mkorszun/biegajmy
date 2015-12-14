@@ -37,7 +37,9 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
         activity = getActivity();
         storage = new LocalStorage(getActivity());
         adapter = new EventListAdapter(activity, storage.getMessages());
+
         adapter.registerForMessages();
+        adapter.setUser(storage.getUser());
 
         EventListBus.getInstance().register(this);
         setListAdapter(adapter);
