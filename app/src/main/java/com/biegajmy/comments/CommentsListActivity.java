@@ -3,12 +3,15 @@ package com.biegajmy.comments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import com.biegajmy.R;
+import com.biegajmy.events.details.EventDetailActivity;
 import com.biegajmy.model.Comment;
 import java.util.ArrayList;
 import java.util.List;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 
 @EActivity(R.layout.activity_comments_list) public class CommentsListActivity extends ActionBarActivity {
 
@@ -35,6 +38,10 @@ import org.androidannotations.annotations.EActivity;
             .build();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.comments_container, fr).commit();
+    }
+
+    @OptionsItem(android.R.id.home) public void backHome() {
+        NavUtils.navigateUpTo(this, new Intent(this, EventDetailActivity.class));
     }
 
     //********************************************************************************************//
