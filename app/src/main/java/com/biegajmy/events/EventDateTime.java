@@ -4,10 +4,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class EventDateTime {
 
+    private static final Locale PL = new Locale("pl", "PL");
     private static final SimpleDateFormat DT_FORMAT = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    private static final SimpleDateFormat D_FORMAT = new SimpleDateFormat("EEEE dd/MM/yyyy", PL);
 
     private Calendar calendar;
 
@@ -142,6 +145,10 @@ public class EventDateTime {
 
         @Override public String toString() {
             return String.format("%02d/%02d/%04d", getDay(), getMonth(), getYear());
+        }
+
+        public String toLongString() {
+            return D_FORMAT.format(calendar.getTime()).toUpperCase();
         }
     }
 }

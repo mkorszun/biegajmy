@@ -77,7 +77,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         eventIndicator.setImageResource(ownerImg);
 
         Log.v(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
-        setLabel(position, view, dateTime.getDate().toString());
+        setLabel(position, view, dateTime.getDate().toLongString());
 
         return view;
     }
@@ -140,7 +140,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         EventDateTime dateTime = new EventDateTime();
         for (int i = 0; i < events.size(); i++) {
             dateTime.set(events.get(i).timestamp);
-            String label = dateTime.getDate().toString();
+            String label = dateTime.getDate().toLongString();
             if (!labels.containsKey(label)) labels.put(label, i);
         }
     }
