@@ -2,11 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/event_comment_layout">
 
-    <com.biegajmy.general.textview.CustomTextView
+    <com.biegajmy.general.textview.CustomTextViewBold
         style="@style/event_details_label"
         android:padding="16dp"
         android:id="@+id/comment_label"
         android:background="@color/background"
+        android:textColor="@color/color_font_black"
         android:text="@string/comment_label"/>
 
     <com.biegajmy.general.ExpandableHeightListView
