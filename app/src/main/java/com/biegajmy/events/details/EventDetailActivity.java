@@ -23,6 +23,7 @@ import com.biegajmy.events.form.update.EventUpdateActivity_;
 import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.general.ModelActivity;
 import com.biegajmy.model.Event;
+import com.biegajmy.model.User;
 import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -77,14 +78,12 @@ import org.androidannotations.annotations.res.StringRes;
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == LoginActivity.AUTH_OK && requestCode == LoginDialog.JOIN_EVENT_REQUEST) {
             EventBackendService_.intent(this).joinEvent(model.id, !isMember).start();
-            refreshUserParticipation(model);
+            updateActions(model);
         }
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
-        edit.setVisibility(owner ? View.VISIBLE : View.GONE);
-        edit.setEnabled(owner);
-        join.setText(msgForAction());
+        updateActions(model);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -163,7 +162,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     private void setContent(Event event) {
         getSupportActionBar().setTitle(event.headline);
-        refreshUserParticipation(event);
+        updateActions(event);
 
         Fragment fragment;
         FragmentManager fm = getSupportFragmentManager();
@@ -176,13 +175,19 @@ import org.androidannotations.annotations.res.StringRes;
         }
     }
 
-    private void refreshUserParticipation(Event event) {
-        isMember = event.participants.contains(storage.getUser());
-        boolean authenticated = event.user.equals(storage.getUser()) && storage.hasToken();
-        owner = event.user != null ? authenticated : false;
+    private void updateActions(Event event) {
+        User user = storage.getUser();
+        User eventOwner = event.user;
+        boolean authenticated = storage.hasToken();
+
+        isMember = event.participants.contains(user);
+        owner = eventOwner != null ? eventOwner.equals(user) && authenticated : false;
 
         join.setText(msgForAction());
         join.setSelected(isMember);
+
+        edit.setVisibility(owner ? View.VISIBLE : View.GONE);
+        edit.setEnabled(owner);
     }
 
     private String msgForAction() {
