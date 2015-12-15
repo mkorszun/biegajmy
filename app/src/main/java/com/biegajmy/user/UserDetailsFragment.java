@@ -35,17 +35,17 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.user_photo) protected ImageView userPhoto;
     @ViewById(R.id.firstname) protected TextView firstName;
     @ViewById(R.id.lastname) protected TextView lastName;
-    @ViewById(R.id.bio) protected EditText bio;
     @ViewById(R.id.telephone) protected EditText telephone;
     @ViewById(R.id.www) protected EditText www;
     @ViewById(R.id.email) protected EditText email;
+    @ViewById(R.id.bio) protected EditText bio;
 
     @ViewById(R.id.new_comment_setting) protected SwitchCompat newCommentSetting;
     @ViewById(R.id.new_participant_setting) protected SwitchCompat newParticipantSetting;
     @ViewById(R.id.leaving_participant_setting) protected SwitchCompat leavingParticipantSetting;
     @ViewById(R.id.event_updated_setting) protected SwitchCompat eventUpdatedSetting;
 
-    private UserDetailsChangedListener userDetailsChangedListener;
+    private UserDetailsChangeListener userDetailsChangeListener;
 
     //********************************************************************************************//
     // Callbacks
@@ -83,7 +83,7 @@ import org.androidannotations.annotations.ViewById;
         R.id.new_comment_setting, R.id.new_participant_setting, R.id.leaving_participant_setting,
         R.id.event_updated_setting
     }) public void onDataChanged() {
-        if (userDetailsChangedListener != null) userDetailsChangedListener.onChanged(getUser());
+        if (userDetailsChangeListener != null) userDetailsChangeListener.onChange(getUser());
     }
 
     @Click({ R.id.user_photo, R.id.user_photo_button }) public void selectPicture() {
@@ -118,7 +118,7 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     @Subscribe public void event(UserEventBus.UpdateUserEventOk event) {
-        if (userDetailsChangedListener != null) userDetailsChangedListener.onChanged(event.user);
+        if (userDetailsChangeListener != null) userDetailsChangeListener.onUpdate(event.user);
         Toast.makeText(getActivity(), R.string.user_update_ok_msg, Toast.LENGTH_LONG).show();
     }
 
@@ -148,8 +148,8 @@ import org.androidannotations.annotations.ViewById;
         UserBackendService_.intent(getActivity()).updateUser(getUser()).start();
     }
 
-    public void setUserDetailsChangedListener(UserDetailsChangedListener userDetailsChangedListener) {
-        this.userDetailsChangedListener = userDetailsChangedListener;
+    public void setUserDetailsChangeListener(UserDetailsChangeListener userDetailsChangeListener) {
+        this.userDetailsChangeListener = userDetailsChangeListener;
     }
 
     //********************************************************************************************//
@@ -158,6 +158,9 @@ import org.androidannotations.annotations.ViewById;
 
     private User getUser() {
         User user = new User();
+        user.id = model.id;
+        user.photo_url = model.photo_url;
+
         user.firstName = firstName.getText().toString();
         user.lastName = lastName.getText().toString();
         user.bio = bio.getText().toString();

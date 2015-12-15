@@ -21,7 +21,7 @@ import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
 
 @EFragment(R.layout.fragment_user_details_main) @OptionsMenu(R.menu.menu_user_details)
-public class UserDetailsMainFragment extends Fragment implements UserDetailsChangedListener {
+public class UserDetailsMainFragment extends Fragment implements UserDetailsChangeListener {
 
     @Bean protected LocalStorage storage;
     @OptionsMenuItem(R.id.action_user_save) protected MenuItem save;
@@ -72,8 +72,13 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
         }
     }
 
-    @Override public void onChanged(User user) {
+    @Override public void onChange(User user) {
         if (save != null) save.setVisible(hashCode != (this.user = user).hashCode());
+    }
+
+    @Override public void onUpdate(User user) {
+        hashCode = user.hashCode();
+        onChange(user);
     }
 
     //********************************************************************************************//
@@ -100,7 +105,7 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
 
         UserDetailsFragment userDetails =
             UserDetailsFragment_.builder().arg(UserDetailsFragment.USER_ARG, user).build();
-        userDetails.setUserDetailsChangedListener(this);
+        userDetails.setUserDetailsChangeListener(this);
 
         getChildFragmentManager().beginTransaction()
             .replace(R.id.user_details_container, userDetails)
