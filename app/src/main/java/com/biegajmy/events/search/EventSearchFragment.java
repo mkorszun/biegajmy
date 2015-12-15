@@ -74,7 +74,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
         setListAdapter(null);
     }
 
-    @Override public void onListItemClick(ListView listView, View view, int position, long id) {
+    @Override @UiThread public void onListItemClick(ListView listView, View view, int position, long id) {
         Intent detailIntent = new Intent(activity, EventDetailActivity_.class);
         detailIntent.putExtra(ARG_EVENT, adapter.get(position));
         startActivity(detailIntent);

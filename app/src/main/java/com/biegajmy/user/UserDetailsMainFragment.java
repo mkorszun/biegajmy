@@ -8,10 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
-import com.biegajmy.auth.LoginActivity;
-import com.biegajmy.auth.LoginDialog;
 import com.biegajmy.model.User;
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -50,13 +49,8 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         Fragment fr = getChildFragment();
         if (fr != null) fr.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == LoginActivity.AUTH_OK && requestCode == LoginDialog.CREATE_PROFILE_REQUEST) {
-            updateUserDetails(storage.getUser());
-        }
     }
 
     @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -79,6 +73,14 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
     @Override public void onUpdate(User user) {
         hashCode = user.hashCode();
         onChange(user);
+    }
+
+    //********************************************************************************************//
+    // Events
+    //********************************************************************************************//
+
+    @Subscribe public void event(UserEventBus.SyncUserEventOK event) {
+        updateUserDetails(event.user);
     }
 
     //********************************************************************************************//

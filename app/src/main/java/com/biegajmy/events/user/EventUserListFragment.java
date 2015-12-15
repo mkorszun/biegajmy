@@ -75,7 +75,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
         EventListBus.getInstance().unregister(this);
     }
 
-    @Override public void onListItemClick(ListView listView, View view, int position, long id) {
+    @Override @UiThread public void onListItemClick(ListView listView, View view, int position, long id) {
         EventDetailActivity_.intent(activity).extra(ARG_EVENT, adapter.get(position)).start();
         UserMessageBus.getInstance().post(new UserMessageBus.RemoveMessages(adapter.get(position).id));
     }

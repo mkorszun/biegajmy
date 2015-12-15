@@ -118,6 +118,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     private void updateEventLocation() {
+        if (model.location == null) return;
         double lat = model.location.coordinates.get(1);
         double lng = model.location.coordinates.get(0);
         setUpMap(new LatLng(lat, lng));
