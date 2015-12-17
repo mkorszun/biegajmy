@@ -4,7 +4,7 @@
     <string name="login_button">LOGIN</string>
     <string name="registration_button">ZAŁÓŻ KONTO</string>
     <string name="password_forget_button">ZAPOMNIAŁEM HASŁA</string>
-    <string name="reset_button">RESETUJ</string>
+    <string name="reset_button">RESETUJ HASŁO</string>
     <string name="registration_login">MAM JUŻ KONTO</string>
 
     <string name="email_hint">E-Mail</string>
@@ -28,5 +28,5 @@
     <string name="email_reset">WPISZ SWÓJ EMAIL W CELU WERYFIKACJI</string>
 
     <string name="password_reset_ok">Wysłaliśmy email z dalszymi instrukcjami na podany adres</string>
-    <string name="password_reset_user_not_found_error">Użytkownik z podanym emailem nie istnieje</string>
+    <string name="password_reset_user_not_found_error">Użytkownik z podanym adresem nie istnieje</string>
 </resources>
