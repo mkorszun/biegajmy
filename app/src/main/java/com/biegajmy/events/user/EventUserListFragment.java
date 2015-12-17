@@ -66,6 +66,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
         if (storage.hasToken()) {
             EventBackendService_.intent(getActivity()).listUserEvents().start();
         } else {
+            setEmpty(true);
             setRefreshing(false);
         }
     }
