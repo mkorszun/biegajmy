@@ -76,6 +76,8 @@ public interface BackendInterface {
     @PUT("/user/{user_id}/device") Response updateDevice(@Body Device device, @Path("user_id") String userId,
         @Query("token") String token) throws BackendError;
 
+    @POST("/user/password_reset") Response resetPassword(@Query("email") String email) throws BackendError;
+
     //********************************************************************************************//
     // Token
     //********************************************************************************************//

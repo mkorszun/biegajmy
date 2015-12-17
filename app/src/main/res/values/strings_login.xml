@@ -26,4 +26,7 @@
     <string name="login_option">lub</string>
     <string name="email_login">WPISZ SWÓJ EMAIL I HASŁO</string>
     <string name="email_reset">WPISZ SWÓJ EMAIL W CELU WERYFIKACJI</string>
+
+    <string name="password_reset_ok">Wysłaliśmy email z dalszymi instrukcjami na podany adres</string>
+    <string name="password_reset_user_not_found_error">Użytkownik z podanym emailem nie istnieje</string>
 </resources>

@@ -140,5 +140,23 @@ public class UserEventBus extends Bus {
     }
 
     //********************************************************************************************//
+    // Password reset
+    //********************************************************************************************//
+
+    public static class PasswordResetOK {
+
+    }
+
+    public static class PasswordResetNOK {
+        public enum Reason {USER_NOT_FOUND, UNKNOWN}
+
+        public Reason reason;
+
+        public PasswordResetNOK(Reason reason) {
+            this.reason = reason;
+        }
+    }
+
+    //********************************************************************************************//
     //********************************************************************************************//
 }

@@ -8,6 +8,7 @@ import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
 import com.biegajmy.backend.error.AuthError;
 import com.biegajmy.backend.error.ConflictError;
+import com.biegajmy.backend.error.NotFoundError;
 import com.biegajmy.model.Device;
 import com.biegajmy.model.NewUser;
 import com.biegajmy.model.Token;
@@ -26,6 +27,8 @@ import retrofit.mime.TypedFile;
 
 import static com.biegajmy.user.UserEventBus.LoginNOK;
 import static com.biegajmy.user.UserEventBus.LoginOK;
+import static com.biegajmy.user.UserEventBus.PasswordResetNOK;
+import static com.biegajmy.user.UserEventBus.PasswordResetOK;
 import static com.biegajmy.user.UserEventBus.RegistrationNOK;
 import static com.biegajmy.user.UserEventBus.RegistrationOK;
 import static com.biegajmy.user.UserEventBus.ScalePhotoOK;
@@ -159,6 +162,19 @@ import static com.biegajmy.user.UserEventBus.getInstance;
         } catch (Exception e) {
             Log.e(TAG, "Failed to register", e);
             userBus.post(new RegistrationNOK(RegistrationNOK.Reason.UNKNOWN));
+        }
+    }
+
+    @ServiceAction public void resetPassword(String email) {
+        try {
+            backend.resetPassword(email);
+            userBus.post(new PasswordResetOK());
+        } catch (NotFoundError e) {
+            Log.w(TAG, "Failed to reset password", e);
+            userBus.post(new PasswordResetNOK(PasswordResetNOK.Reason.USER_NOT_FOUND));
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to reset password", e);
+            userBus.post(new PasswordResetNOK(PasswordResetNOK.Reason.UNKNOWN));
         }
     }
 

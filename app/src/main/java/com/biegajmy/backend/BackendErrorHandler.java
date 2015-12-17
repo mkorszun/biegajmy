@@ -4,6 +4,7 @@ import android.util.Log;
 import com.biegajmy.backend.error.AuthError;
 import com.biegajmy.backend.error.BackendError;
 import com.biegajmy.backend.error.ConflictError;
+import com.biegajmy.backend.error.NotFoundError;
 import com.biegajmy.model.Error;
 import retrofit.ErrorHandler;
 import retrofit.RetrofitError;
@@ -18,6 +19,8 @@ public class BackendErrorHandler implements ErrorHandler {
             switch (cause.getResponse().getStatus()) {
                 case 401:
                     return new AuthError(error.reason);
+                case 404:
+                    return new NotFoundError(error.reason);
                 case 409:
                     return new ConflictError(error.reason);
                 default:
