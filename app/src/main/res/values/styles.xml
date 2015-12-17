@@ -16,6 +16,13 @@
         <item name="elevation">0dp</item>
     </style>
 
+    <style name="Theme.AppCompat.NoActionBar" parent="@style/Theme.Base">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:actionMenuTextColor">@color/color_font_white</item>
+        <item name="actionMenuTextColor">@color/color_font_white</item>
+    </style>
+
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -173,7 +180,11 @@
     <style name="event_main_tabs">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/primary_material_light</item>
+        <item name="android:background">@color/primary</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabPaddingStart">1dp</item>
+        <item name="tabPaddingEnd">1dp</item>
+        <item name="tabMode">scrollable</item>
     </style>
 
     <style name="event_main_pager">
@@ -188,6 +199,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_add_white_24dp</item>
         <item name="backgroundTint">@color/main_button_color</item>
+    </style>
+
+    <style name="event_main_toolbar">
+        <item name="contentInsetLeft">0dp</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetRight">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?actionBarSize</item>
     </style>
 
     <!-- -->

@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
@@ -37,6 +38,7 @@ import static java.util.Arrays.asList;
     @ViewById(R.id.event_main_pager) protected ViewPager pager;
     @ViewById(R.id.event_main_tabs) protected TabLayout tabs;
     @ViewById(R.id.event_add) protected FloatingActionButton fab;
+    @ViewById(R.id.event_main_toolbar) protected Toolbar toolbar;
 
     @Bean protected LoginDialog loginDialog;
     @Bean protected LocalStorage localStorage;
@@ -73,6 +75,8 @@ import static java.util.Arrays.asList;
         tabs.getTabAt(0).setIcon(R.drawable.search_selector);
         tabs.getTabAt(1).setIcon(myRunsIconResource);
         tabs.getTabAt(2).setIcon(R.drawable.settings_selector);
+
+        setSupportActionBar(toolbar);
     }
 
     @Click(R.id.event_add) public void newEvent() {
