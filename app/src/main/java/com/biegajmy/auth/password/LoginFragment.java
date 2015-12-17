@@ -53,6 +53,14 @@ import org.androidannotations.annotations.ViewById;
         }
     }
 
+    @Click(R.id.password_forget_button) public void reset() {
+        Fragment fragment = com.biegajmy.auth.password.ResetFragment_.builder().build();
+        getActivity().getSupportFragmentManager().beginTransaction()
+            .replace(R.id.password_auth_container, fragment)
+            .addToBackStack(null)
+            .commit();
+    }
+
     //********************************************************************************************//
     // Events
     //********************************************************************************************//

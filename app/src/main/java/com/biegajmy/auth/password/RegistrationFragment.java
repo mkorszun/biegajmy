@@ -63,6 +63,15 @@ import org.androidannotations.annotations.res.StringRes;
         }
     }
 
+    @Click(R.id.login_button) public void login() {
+        Fragment fragment = com.biegajmy.auth.password.LoginFragment_.builder().build();
+        getActivity().getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.password_auth_container, fragment)
+            .addToBackStack(null)
+            .commit();
+    }
+
     //********************************************************************************************//
     // Events
     //********************************************************************************************//

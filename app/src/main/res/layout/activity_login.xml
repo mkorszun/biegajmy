@@ -12,27 +12,11 @@
 
     <com.biegajmy.general.textview.CustomTextView style="@style/login_option"/>
 
-    <LinearLayout
+    <FrameLayout
         android:padding="16dp"
-        android:orientation="vertical"
+        android:id="@+id/password_auth_container"
         android:layout_weight="6"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"/>
 
-        <com.biegajmy.general.textview.CustomTextView
-            style="@style/login_label"
-            android:text="@string/email_login"
-            android:textColor="@color/color_font_black"/>
-
-        <FrameLayout
-            android:id="@+id/password_auth_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.biegajmy.general.button.CustomButton
-            style="@style/main_button"
-            android:id="@+id/registration_button"
-            android:text="@string/registration_button"/>
-
-    </LinearLayout>
 </LinearLayout>
