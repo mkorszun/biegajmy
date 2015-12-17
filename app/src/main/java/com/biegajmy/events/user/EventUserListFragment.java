@@ -66,7 +66,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
         if (storage.hasToken()) {
             EventBackendService_.intent(getActivity()).listUserEvents().start();
         } else {
-            setEmpty(true);
+            setEmptyPlaceholder(true);
             setRefreshing(false);
         }
     }
@@ -87,13 +87,22 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
     @Subscribe @UiThread public void event(EventListBus.ListUserEventsOK event) {
         adapter.setData(event.events);
-        setEmpty(event.events.isEmpty());
+        setEmptyPlaceholder(event.events.isEmpty());
         setRefreshing(false);
     }
 
     @Subscribe @UiThread public void event(EventListBus.ListUserEventsNOK event) {
         Toast.makeText(getActivity(), R.string.event_error_msg, Toast.LENGTH_LONG).show();
         setRefreshing(false);
+    }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    private void setEmptyPlaceholder(boolean empty) {
+        setEmpty(empty);
+        ((EventUserListMainFragment) getParentFragment()).onEmpty(empty);
     }
 
     //********************************************************************************************//

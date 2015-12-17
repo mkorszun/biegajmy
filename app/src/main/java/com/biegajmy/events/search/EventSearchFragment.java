@@ -94,7 +94,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
     @Subscribe @UiThread public void event(EventListBus.SearchEventsOK event) {
         setRefreshing(false);
-        setEmpty(event.events.isEmpty());
+        setEmptyPlaceholder(event.events.isEmpty());
         adapter.setData(event.events);
     }
 
@@ -110,6 +110,11 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
     @UiThread protected void loadData(int max, String tag) {
         LastLocation pos = storage.getLastLocation();
         EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max, tag).start();
+    }
+
+    private void setEmptyPlaceholder(boolean empty) {
+        setEmpty(empty);
+        ((EventSearchMainFragment) getParentFragment()).onEmpty(empty);
     }
 
     //********************************************************************************************//

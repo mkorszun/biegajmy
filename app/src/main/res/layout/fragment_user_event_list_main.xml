@@ -12,4 +12,8 @@
         tools:context="com.biegajmy.events.EventMainActivity"
         tools:layout="@android:layout/list_content"/>
 
+    <com.biegajmy.general.textview.CustomTextView style="@style/event_list_info"
+        android:id="@+id/empty_list_label"
+        android:text="@string/no_user_events"/>
+
 </RelativeLayout>

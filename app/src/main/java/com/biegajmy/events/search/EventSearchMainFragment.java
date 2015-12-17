@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 import com.biegajmy.R;
 import com.biegajmy.events.EventMainActivity;
 import com.biegajmy.utils.SystemUtils;
@@ -18,6 +19,7 @@ import org.androidannotations.annotations.ViewById;
     extends Fragment implements DrawerLayout.DrawerListener {
 
     @ViewById(R.id.drawer_layout) protected DrawerLayout drawerLayout;
+    @ViewById(R.id.empty_list_label) protected TextView emptyLabel;
 
     //********************************************************************************************//
     // Callbacks
@@ -61,6 +63,10 @@ import org.androidannotations.annotations.ViewById;
 
     @Override public void onDrawerStateChanged(int newState) {
 
+    }
+
+    public void onEmpty(boolean empty) {
+        emptyLabel.setVisibility(empty ? View.VISIBLE : View.GONE);
     }
 
     //********************************************************************************************//
