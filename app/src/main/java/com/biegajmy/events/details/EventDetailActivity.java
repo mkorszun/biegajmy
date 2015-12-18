@@ -1,6 +1,7 @@
 package com.biegajmy.events.details;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -63,9 +64,16 @@ import org.androidannotations.annotations.res.StringRes;
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         EventListBus.getInstance().register(this);
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && model != null) {
             Event fullEvent = storage.get(model.id, Event.class);
             this.model = fullEvent != null ? fullEvent : model;
+        }
+
+        if (this.model == null) {
+            Uri data = getIntent().getData();
+            String[] segments = data.getPath().split("/");
+            String id = segments[segments.length - 1];
+            this.model = Event.build("", "", id);
         }
     }
 
