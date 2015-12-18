@@ -52,6 +52,7 @@ import static java.util.Arrays.asList;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        serviceManager.start();
         UserMessageBus.getInstance().register(this);
     }
 
