@@ -114,6 +114,7 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     private void addComment(String comment) {
+        if (comment == null || comment.isEmpty()) return;
         EventBackendService_.intent(getActivity()).addComment(eventID, comment).start();
     }
 
