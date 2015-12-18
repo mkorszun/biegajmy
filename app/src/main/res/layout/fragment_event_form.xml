@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/event_form"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
@@ -91,17 +90,14 @@
                         android:id="@+id/form_event_description"
                         android:hint="@string/event_form_description"/>
                 </android.support.design.widget.TextInputLayout>
+
+                <FrameLayout
+                    android:id="@+id/tags_container"
+                    android:layout_margin="16dp"
+                    android:layout_below="@+id/form_event_description_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView style="@style/event_form_card_view" android:layout_below="@+id/card_view">
-
-            <FrameLayout
-                android:id="@+id/tags_container"
-                android:layout_margin="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
         </android.support.v7.widget.CardView>
 
