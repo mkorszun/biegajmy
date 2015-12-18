@@ -58,6 +58,7 @@ import org.androidannotations.annotations.res.StringRes;
         commentList.setAdapter(adapter);
         commentAdd.setOnEditorActionListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(SystemUtils.progressBarColors());
         if (editMode) SystemUtils.requestFocus(getActivity(), commentAdd);
     }
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import com.biegajmy.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
@@ -57,5 +58,11 @@ public class SystemUtils {
         }
 
         return true;
+    }
+
+    public static int[] progressBarColors() {
+        return new int[] {
+            R.color.progress_1, R.color.progress_2, R.color.progress_3, R.color.progress_4
+        };
     }
 }

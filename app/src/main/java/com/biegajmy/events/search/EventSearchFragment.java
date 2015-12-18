@@ -108,6 +108,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
     //********************************************************************************************//
 
     @UiThread protected void loadData(int max, String tag) {
+        setRefreshing(true);
         LastLocation pos = storage.getLastLocation();
         EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max, tag).start();
     }

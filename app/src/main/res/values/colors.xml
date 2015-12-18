@@ -43,4 +43,11 @@
     <!-- BACKGROUNDS-->
     <color name="event_details_background">@color/background</color>
     <!-- -->
+
+    <!-- Progess Bar -->
+    <color name="progress_1">#dd3e5c</color>
+    <color name="progress_2">#ff9a2c</color>
+    <color name="progress_3">#068d7b</color>
+    <color name="progress_4">#a2d8a8</color>
+    <!-- -->
 </resources>
