@@ -70,7 +70,6 @@
     </style>
 
     <style name="user_photo_button">
-        <item name="android:padding">10dp</item>
         <item name="android:src">@drawable/photo_pick</item>
         <item name="android:background">@drawable/photo_selector</item>
         <item name="android:layout_width">wrap_content</item>
