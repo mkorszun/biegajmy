@@ -12,8 +12,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_photo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"/>
@@ -35,7 +35,7 @@
     <com.biegajmy.general.textview.CustomTextView
         style="@style/event_details_field_small"
         android:id="@+id/user_www"
-        android:layout_below="@+id/user_lastname"
+        android:layout_below="@+id/user_photo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/user_photo"
