@@ -16,7 +16,7 @@
         <Button style="@style/event_detail_toolbar_button"
             android:id="@+id/event_share"
             android:text="@string/event_share"
-            android:drawableTop="@drawable/event_share"/>
+            android:drawableTop="@drawable/event_share_selector"/>
 
         <Button style="@style/event_detail_toolbar_button"
             android:id="@+id/event_edit"
