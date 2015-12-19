@@ -30,7 +30,6 @@ public class EventListAdapter extends ArrayAdapter<Event> {
     private LayoutInflater inflater;
     private Map<String, Integer> labels = new HashMap<>();
     private Map<String, Set<MessageType>> messages;
-    private EventComparator comparator = new EventComparator();
 
     public EventListAdapter(Context context) {
         this(context, R.layout.event_list_item, new ArrayList<Event>(), new HashMap<String, Set<MessageType>>());
@@ -89,7 +88,6 @@ public class EventListAdapter extends ArrayAdapter<Event> {
     public void setData(List<Event> events) {
         clear();
         addAll(events);
-        sort(comparator);
         prepareLabels();
     }
 
