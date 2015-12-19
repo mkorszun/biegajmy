@@ -62,7 +62,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance + " km");
 
         int spotsImg = item.spots == 2 ? R.drawable.two_runners : R.drawable.three_runners;
-        int participantsImg = item.spots == 1 ? R.drawable.one_runner : spotsImg;
+        int participantsImg = item.spots <= 1 ? R.drawable.one_runner : spotsImg;
         int ownerImg = item.user.equals(user) ? R.drawable.my_event : (item.official ? R.drawable.official_event : 0);
 
         if (messagesEnabled) {
