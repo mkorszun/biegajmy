@@ -80,7 +80,7 @@ import org.androidannotations.annotations.res.StringRes;
         new MaterialDialog.Builder(getActivity()).content(R.string.registration_finish)
             .positiveText(R.string.ok)
             .show();
-        getActivity().onBackPressed();
+        login();
     }
 
     @Subscribe public void event(UserEventBus.RegistrationNOK event) {
