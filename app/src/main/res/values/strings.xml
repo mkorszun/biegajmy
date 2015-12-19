@@ -2,7 +2,7 @@
 <resources>
 
     <string name="ok">OK</string>
-    <string name="app_name">Biegajmy</string>
+    <string name="app_name">Biegaj.my</string>
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">1002789146420412</string>
     <string name="title_activity_maps">Map</string>
