@@ -18,6 +18,13 @@
             <ImageView style="@style/event_list_item_image"
                 android:id="@+id/event_list_item_image"/>
 
+            <com.biegajmy.general.textview.CustomTextView
+                style="@style/event_list_item_spots"
+                android:id="@+id/spots"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
         </RelativeLayout>
 
         <RelativeLayout style="@style/event_list_item_details_layout"
