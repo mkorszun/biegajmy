@@ -174,7 +174,7 @@
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1002789146420412"
+            android:authorities="com.facebook.app.FacebookContentProvider948936338472360"
             android:exported="true"/>
 
         <receiver
