@@ -64,8 +64,9 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
     @Override public void onRefresh() {
         if (storage.hasToken()) {
-            EventBackendService_.intent(getActivity()).listUserEvents().start();
             setRefreshing(true);
+            adapter.setUser(storage.getUser());
+            EventBackendService_.intent(getActivity()).listUserEvents().start();
         } else {
             setEmptyPlaceholder(true);
             setRefreshing(false);

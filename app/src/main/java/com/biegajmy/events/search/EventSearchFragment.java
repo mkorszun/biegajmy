@@ -9,12 +9,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
+import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventListAdapter;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.details.EventDetailActivity_;
 import com.biegajmy.general.RefreshableListFragment;
 import com.biegajmy.location.LastLocation;
+import com.biegajmy.user.UserEventBus;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.EFragment;
@@ -109,6 +111,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
     @UiThread protected void loadData(int max, String tag) {
         setRefreshing(true);
+        adapter.setUser(storage.getUser());
         LastLocation pos = storage.getLastLocation();
         EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max, tag).start();
     }
