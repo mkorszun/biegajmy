@@ -144,7 +144,7 @@ public class EventDateTime {
         }
 
         @Override public String toString() {
-            return String.format("%02d/%02d/%04d", getDay(), getMonth(), getYear());
+            return String.format("%02d.%02d.%04d", getDay(), getMonth(), getYear());
         }
 
         public String toLongString() {
