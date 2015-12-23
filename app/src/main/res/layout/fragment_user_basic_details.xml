@@ -38,9 +38,7 @@
         android:id="@+id/user_www"
         android:layout_below="@+id/user_photo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/user_photo"
-        android:layout_toStartOf="@+id/user_photo"/>
+        android:layout_alignParentStart="true"/>
 
     <com.biegajmy.general.textview.CustomTextView
         style="@style/event_details_field_small"
@@ -48,9 +46,7 @@
         android:autoLink="email|web"
         android:layout_below="@+id/user_www"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/user_photo"
-        android:layout_toStartOf="@+id/user_photo"/>
+        android:layout_alignParentStart="true"/>
 
     <com.biegajmy.general.textview.CustomTextView
         style="@style/event_details_field_small"
@@ -58,8 +54,6 @@
         android:autoLink="email|web"
         android:layout_below="@+id/user_email"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/user_photo"
-        android:layout_toStartOf="@+id/user_photo"/>
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

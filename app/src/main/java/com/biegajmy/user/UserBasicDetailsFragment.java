@@ -32,7 +32,7 @@ import org.androidannotations.annotations.ViewById;
 
     @AfterViews public void setContent() {
         if (model != null) {
-            Picasso.with(getActivity()).load(model.photo_url).into(userPhoto);
+            if (model.photo_url != null) Picasso.with(getActivity()).load(model.photo_url).into(userPhoto);
             firstName.setText(model.firstName);
             lastName.setText(model.lastName);
             userWWW.setText(model.www);
