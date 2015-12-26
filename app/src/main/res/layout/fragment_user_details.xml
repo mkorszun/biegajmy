@@ -88,7 +88,7 @@
                     android:orientation="horizontal"
                     android:layout_below="@+id/telephone_layout">
                     <ImageView style="@style/user_form_field_icon"
-                        android:src="@drawable/settings_email"/>
+                        android:src="@drawable/settings_www"/>
                     <com.biegajmy.general.edittext.CustomEditText
                         style="@style/user_form_field"
                         android:id="@+id/www"
@@ -130,11 +130,13 @@
             android:layout_below="@+id/details">
 
             <LinearLayout
+                android:paddingBottom="16dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.biegajmy.general.textview.CustomTextViewBold style="@style/user_settings_label"/>
+                <com.biegajmy.general.textview.CustomTextViewBold style="@style/user_settings_label"
+                    android:layout_marginBottom="16dp"/>
 
                 <com.biegajmy.general.switchcompat.CustomSwitchCompat
                     style="@style/settings_switch"
