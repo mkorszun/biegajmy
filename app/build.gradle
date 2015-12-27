@@ -3,7 +3,7 @@ apply plugin: 'android-apt'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 23
     buildToolsVersion "23.0.0"
 
     defaultConfig {
@@ -70,7 +70,7 @@ dependencies {
 
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
-    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:23.0.+'
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     compile 'com.google.android.gms:play-services:7.5.+'
     compile 'com.squareup.retrofit:retrofit:1.4.1'
@@ -83,11 +83,11 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.7.8.1'
     compile 'com.android.support:multidex:1.0.0'
     compile 'io.paperdb:paperdb:1.0'
-    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:design:23.0.+'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
-    compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.android.support:cardview-v7:23.0.+'
 }
 
 apt {
