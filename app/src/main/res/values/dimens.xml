@@ -8,4 +8,5 @@
     <dimen name="details_section_big_margin">20dp</dimen>
     <dimen name="details_section_small_margin">1dp</dimen>
     <dimen name="distance_selector_padding">16dp</dimen>
+    <dimen name="map_height">200dp</dimen>
 </resources>

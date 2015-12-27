@@ -92,7 +92,7 @@
 
     <style name="event_form_map_small">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_height">@dimen/map_height</item>
         <item name="android:name">com.google.android.gms.maps.SupportMapFragment</item>
     </style>
 
