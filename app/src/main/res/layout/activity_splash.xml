@@ -10,4 +10,20 @@
         android:layout_centerInParent="true"
         android:src="@drawable/splash_screen_logo"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_above="@+id/label"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"/>
+
+    <com.biegajmy.general.textview.CustomTextViewBold
+        android:id="@+id/label"
+        android:layout_margin="16dp"
+        android:text="@string/splash_location_services_waiting"
+        android:textColor="@color/primary"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>
