@@ -16,7 +16,7 @@
 
                     <ImageView android:src="@drawable/settings_pattern"
                         android:adjustViewBounds="true"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                     <RelativeLayout style="@style/user_photo_basic"
@@ -51,6 +51,7 @@
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_weight="9"
+                        android:layout_marginTop="16dp"
                         android:layout_height="wrap_content">
 
                         <com.biegajmy.general.edittext.CustomEditText
