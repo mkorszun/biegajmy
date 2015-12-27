@@ -33,7 +33,10 @@
 
             <com.biegajmy.general.textview.CustomTextView
                 style="@style/event_list_item_text_view"
-                android:id="@+id/event_headline"/>
+                android:layout_width="match_parent"
+                android:id="@+id/event_headline"
+                android:layout_toLeftOf="@+id/alerts"
+                android:layout_toStartOf="@+id/alerts"/>
 
             <LinearLayout
                 android:gravity="center_vertical"
@@ -61,7 +64,8 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/alerts"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
@@ -82,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 
