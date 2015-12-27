@@ -5,9 +5,7 @@ import android.util.Log;
 import com.biegajmy.gcm.AppRegistrationService_;
 import com.biegajmy.gcm.UserMessageService_;
 import com.biegajmy.location.LocationService_;
-import com.crashlytics.android.Crashlytics;
 import com.splunk.mint.Mint;
-import io.fabric.sdk.android.Fabric;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -19,7 +17,6 @@ import org.androidannotations.annotations.RootContext;
     @RootContext Context context;
 
     @AfterInject public void initialize() {
-        Fabric.with(context, new Crashlytics());
         Mint.initAndStartSession(context, BuildConfig.MINT_TOKEN);
         AppRegistrationService_.intent(context).registration().start();
         Log.d(TAG, "Started monitoring services");
