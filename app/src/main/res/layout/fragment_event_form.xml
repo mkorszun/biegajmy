@@ -61,7 +61,7 @@
                         style="@style/event_form_field_layout_split"
                         android:id="@+id/form_event_distance_layout">
                         <com.biegajmy.general.edittext.CustomEditText
-                            style="@style/event_form_numeric_field"
+                            style="@style/event_form_decimal_field"
                             android:layout_weight="1"
                             android:id="@+id/form_event_distance"
                             android:hint="@string/event_form_distance"
