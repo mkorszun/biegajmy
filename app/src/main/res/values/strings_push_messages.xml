@@ -14,6 +14,6 @@
     <string name="push_message_new_comment_settings_group">Powiadomienia</string>
     <string name="push_message_new_comment_settings">Komentarz do treningu w którym uczestniczę</string>
     <string name="push_message_new_participant_settings">Dołączający biegacz do mojego treningu</string>
-    <string name="push_message_leaving_participant_settings">Rezygnujący biegacz do mojego treningu</string>
+    <string name="push_message_leaving_participant_settings">Rezygnujący biegacz z mojego treningu</string>
     <string name="push_message_event_updated_settings">Zmiany ustaleń biegu w którym uczestniczę</string>
 </resources>
