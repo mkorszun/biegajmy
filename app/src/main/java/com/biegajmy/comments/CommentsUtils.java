@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CommentsUtils {
 
-    private static final int COMMENTS_LIMIT = 3;
+    public static final int COMMENTS_LIMIT = 3;
 
     public static ArrayList<Comment> getLast(List<Comment> comments) {
         int size = comments.size();

@@ -2,6 +2,7 @@
 <resources>
     <string name="comment_add_failed_msg">Aktualnie niemożliwe</string>
     <string name="comment_add_hint">Dodaj komentarz</string>
+    <string name="comment_view">Zobacz wszystkie komentarze</string>
     <string name="comment_label">KOMENTARZE</string>
     <string name="comment_format"><![CDATA[<font color=\'#585c5e\'>%1$s</font> %2$s]]></string>
 </resources>

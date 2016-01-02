@@ -10,12 +10,20 @@
         android:textColor="@color/color_font_black"
         android:text="@string/comment_label"/>
 
+    <com.biegajmy.general.button.CustomButton
+        style="@style/event_small_comment_view_button"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:id="@+id/comment_view"
+        android:text="@string/comment_view"
+        android:layout_below="@+id/comment_label"/>
+
     <com.biegajmy.general.ExpandableHeightListView
         style="@style/event_comment_list"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:id="@+id/comment_list"
-        android:layout_below="@+id/comment_label"/>
+        android:layout_below="@+id/comment_view"/>
 
     <com.biegajmy.general.button.CustomButton
         style="@style/event_small_comment_add_button"

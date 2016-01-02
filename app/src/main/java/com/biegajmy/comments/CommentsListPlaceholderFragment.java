@@ -30,6 +30,7 @@ import org.androidannotations.annotations.ViewById;
     private ArrayList<Comment> comments;
 
     @ViewById(R.id.comment_add) protected Button addComment;
+    @ViewById(R.id.comment_view) protected Button viewComment;
     @ViewById(R.id.comment_list) protected ExpandableHeightListView commentList;
 
     //********************************************************************************************//
@@ -50,6 +51,9 @@ import org.androidannotations.annotations.ViewById;
         commentList.setExpanded(true);
         commentList.setOnItemClickListener(this);
         addComment.setVisibility(readOnly ? View.GONE : View.VISIBLE);
+
+        boolean moreComments = !readOnly && comments.size() > CommentsUtils.COMMENTS_LIMIT;
+        viewComment.setVisibility(moreComments ? View.VISIBLE : View.GONE);
     }
 
     @Click(R.id.comment_add) public void onClick() {
@@ -61,14 +65,12 @@ import org.androidannotations.annotations.ViewById;
         }
     }
 
+    @Click(R.id.comment_view) public void viewAll() {
+        if (!readOnly) viewAllComments();
+    }
+
     @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (!readOnly) {
-            CommentsListActivity_.intent(getActivity())
-                .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
-                .extra(CommentsListActivity.COMMENTS_ARG, comments)
-                .extra(CommentsListActivity.EDIT_MODE_ARG, false)
-                .start();
-        }
+        if (!readOnly) viewAllComments();
     }
 
     @Override public void onDestroy() {
@@ -88,6 +90,21 @@ import org.androidannotations.annotations.ViewById;
         adapter.addAll(CommentsUtils.getLast(comments));
         this.comments.clear();
         this.comments.addAll(comments);
+
+        boolean moreComments = !readOnly && comments.size() > CommentsUtils.COMMENTS_LIMIT;
+        viewComment.setVisibility(moreComments ? View.VISIBLE : View.GONE);
+    }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    private void viewAllComments() {
+        CommentsListActivity_.intent(getActivity())
+            .extra(CommentsListActivity.EVENT_ID_ARG, eventID)
+            .extra(CommentsListActivity.COMMENTS_ARG, comments)
+            .extra(CommentsListActivity.EDIT_MODE_ARG, false)
+            .start();
     }
 
     //********************************************************************************************//
