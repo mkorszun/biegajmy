@@ -5,6 +5,7 @@
     <string name="delete">Usuń</string>
     <string name="edit">Edytuj</string>
     <string name="search">Filtruj</string>
+    <string name="search_close">Zwiń</string>
     <string name="add">Dodaj</string>
     <string name="share">Udostępnij</string>
 </resources>
