@@ -12,7 +12,7 @@ public class Event implements Serializable {
     @SerializedName("headline") public String headline;
     @SerializedName("description") public String description;
     @SerializedName("loc") public EventLocation location;
-    @SerializedName("distance") public int distance;
+    @SerializedName("distance") public double distance;
     @SerializedName("pace") public double pace;
     @SerializedName("spots") public int spots;
     @SerializedName("official") public boolean official;

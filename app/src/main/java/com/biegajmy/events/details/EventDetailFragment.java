@@ -95,8 +95,7 @@ import org.androidannotations.annotations.ViewById;
 
         String paceString = StringUtils.doubleToString(model.pace);
         pace.setText(paceString != null ? paceString + " min/km" : "-");
-
-        distance.setText(model.distance + " km");
+        distance.setText(StringUtils.doubleToString(model.distance)+ " km");
         description.setText(model.description);
         boolean isMember = model.participants.contains(storage.getUser());
         ArrayList<String> tags = model.tags == null ? new ArrayList<String>() : model.tags;

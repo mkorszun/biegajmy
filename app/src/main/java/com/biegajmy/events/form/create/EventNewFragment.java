@@ -47,7 +47,7 @@ import org.androidannotations.annotations.EFragment;
         event.tags = getTags();
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;
-        event.distance = Integer.valueOf(distance.getText().toString());
+        event.distance = StringUtils.stringToDouble(distance.getText().toString());
         event.pace = StringUtils.stringToDouble(pace.getText().toString());
         EventBackendService_.intent(getActivity()).createEvent(event).start();
     }

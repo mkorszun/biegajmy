@@ -13,6 +13,7 @@ import com.biegajmy.gcm.MessageType;
 import com.biegajmy.gcm.UserMessageBus;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.User;
+import com.biegajmy.utils.StringUtils;
 import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         View view = convertView == null ? inflate(getContext(), parent) : convertView;
         ((TextView) view.findViewById(R.id.event_headline)).setText(item.headline);
         ((TextView) view.findViewById(R.id.event_date)).setText(dateTime.getTime().toString());
-        ((TextView) view.findViewById(R.id.event_distance)).setText(item.distance + " km");
+        ((TextView) view.findViewById(R.id.event_distance)).setText(StringUtils.doubleToString(item.distance) + " km");
 
         TextView spots = (TextView) view.findViewById(R.id.spots);
         spots.setVisibility(item.spots > 3 ? View.VISIBLE : View.GONE);
