@@ -1,6 +1,7 @@
 package com.biegajmy;
 
 import android.content.Context;
+import android.util.Log;
 import com.biegajmy.gcm.MessageType;
 import com.biegajmy.location.LastLocation;
 import com.biegajmy.model.Token;
@@ -20,6 +21,7 @@ import org.androidannotations.annotations.RootContext;
 @EBean public class LocalStorage {
 
     private static final String BOOK_NAME = "biegaj.my";
+    private static final String TAG = LocalStorage.class.getName();
 
     private static final String USER = "user";
     private static final String TOKEN = "token";
@@ -42,7 +44,12 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public <T> T get(String key, Class<T> clazz) {
-        return Paper.book(BOOK_NAME).read(key);
+        try {
+            return Paper.book(BOOK_NAME).read(key);
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to get object", e);
+            return null;
+        }
     }
 
     public void put(String key, Serializable value) {
