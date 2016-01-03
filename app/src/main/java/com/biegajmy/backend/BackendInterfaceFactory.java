@@ -24,7 +24,7 @@ public class BackendInterfaceFactory {
 
     public static BackendInterface build(String url) {
         RestAdapter restAdapter = new RestAdapter.Builder().setErrorHandler(new BackendErrorHandler())
-            .setLogLevel(RestAdapter.LogLevel.BASIC)
+            .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.BASIC : RestAdapter.LogLevel.NONE)
             .setEndpoint(url)
             .build();
         return restAdapter.create(BackendInterface.class);
@@ -32,7 +32,7 @@ public class BackendInterfaceFactory {
 
     public static BackendInterface build(String url, String username, String password) {
         RestAdapter restAdapter = new RestAdapter.Builder().setErrorHandler(new BackendErrorHandler())
-            .setLogLevel(RestAdapter.LogLevel.BASIC)
+            .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.BASIC : RestAdapter.LogLevel.NONE)
             .setRequestInterceptor(requestInterceptor(username, password))
             .setEndpoint(url)
             .build();
