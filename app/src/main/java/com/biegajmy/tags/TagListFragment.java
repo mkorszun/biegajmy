@@ -16,7 +16,9 @@ import org.apmem.tools.layouts.FlowLayout;
     public static final String ARGS_TAGS = "ARGS_TAGS";
     public static final String ARGS_HIDE_LABEL = "ARGS_HIDE_LABEL";
     public static final String ARGS_EDITABLE = "ARGS_EDITABLE";
+    public static final String ARGS_TAG_RES_ID = "ARGS_TAG_RES_ID";
 
+    private int tagResId = -1;
     private boolean isEditable;
     private boolean hideLabel;
     private View.OnClickListener onClickListener;
@@ -32,6 +34,7 @@ import org.apmem.tools.layouts.FlowLayout;
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tags.addAll((ArrayList<String>) getArguments().getSerializable(ARGS_TAGS));
+        tagResId = getArguments().getInt(ARGS_TAG_RES_ID, R.layout.tag_view_element);
         isEditable = getArguments().getBoolean(ARGS_EDITABLE);
         hideLabel = getArguments().getBoolean(ARGS_HIDE_LABEL);
     }
@@ -73,11 +76,11 @@ import org.apmem.tools.layouts.FlowLayout;
     //********************************************************************************************//
 
     private TagListElement getTag(int i) {
-        return new TagListElement(getActivity(), tags.get(i), getListener(), isEditable);
+        return new TagListElement(getActivity(), tags.get(i), getListener(), isEditable, tagResId);
     }
 
     private TagListElement newTag(String tag) {
-        return new TagListElement(getActivity(), tag, getListener(), isEditable);
+        return new TagListElement(getActivity(), tag, getListener(), isEditable, tagResId);
     }
 
     private View.OnClickListener getListener() {

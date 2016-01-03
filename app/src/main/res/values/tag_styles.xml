@@ -37,6 +37,10 @@
         <item name="android:background">@drawable/tag_selector</item>
     </style>
 
+    <style name="tag_element_layout_main_read_only" parent="tag_element_layout_main">
+        <item name="android:background">@drawable/tag_background_read_only</item>
+    </style>
+
     <style name="tag_element_layout">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:paddingLeft">15dp</item>
@@ -47,6 +51,10 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="tag_element_layout_read_only" parent="tag_element_layout">
+        <item name="android:textColor">@color/color_font_grey</item>
+    </style>
+
     <style name="tag_element">
         <item name="android:textSize">15dp</item>
         <item name="android:textColor">#ffffff</item>
@@ -54,6 +62,10 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="tag_element_read_only" parent="tag_element">
+        <item name="android:textColor">@color/color_font_grey</item>
     </style>
 
     <style name="tag_element_remove_icon">

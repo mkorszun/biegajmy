@@ -95,7 +95,7 @@ import org.androidannotations.annotations.ViewById;
 
         String paceString = StringUtils.doubleToString(model.pace);
         pace.setText(paceString != null ? paceString + " min/km" : "-");
-        distance.setText(StringUtils.doubleToString(model.distance)+ " km");
+        distance.setText(StringUtils.doubleToString(model.distance) + " km");
         description.setText(model.description);
         boolean isMember = model.participants.contains(storage.getUser());
         ArrayList<String> tags = model.tags == null ? new ArrayList<String>() : model.tags;
@@ -110,7 +110,10 @@ import org.androidannotations.annotations.ViewById;
                 .arg(CommentsListPlaceholderFragment.COMMENTS_ARG, new ArrayList(model.comments))
                 .arg(CommentsListPlaceholderFragment.COMMENTS_READ_ONLY_ARG, !isMember)
                 .build())
-            .replace(R.id.event_tags, TagListFragment_.builder().arg(TagListFragment.ARGS_TAGS, tags).build())
+            .replace(R.id.event_tags, TagListFragment_.builder()
+                .arg(TagListFragment.ARGS_TAGS, tags)
+                .arg(TagListFragment.ARGS_TAG_RES_ID, R.layout.tag_view_element_read_only)
+                .build())
             .replace(R.id.event_owner,
                 UserBasicDetailsFragment_.builder().arg(UserBasicDetailsFragment.ARG_USER, model.user).build())
             .commitAllowingStateLoss();

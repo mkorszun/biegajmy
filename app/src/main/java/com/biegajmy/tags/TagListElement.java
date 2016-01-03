@@ -9,9 +9,13 @@ import com.biegajmy.R;
 public class TagListElement extends LinearLayout {
 
     public TagListElement(Context context, String text, OnClickListener listener, boolean editable) {
+        this(context, text, listener, editable, R.layout.tag_view_element);
+    }
+
+    public TagListElement(Context context, String text, OnClickListener listener, boolean editable, int resID) {
         super(context, null);
 
-        View rootView = View.inflate(context, R.layout.tag_view_element, this);
+        View rootView = View.inflate(context, resID, this);
         TextView tagView = (TextView) rootView.findViewById(R.id.tag_view);
 
         tagView.setText(text);

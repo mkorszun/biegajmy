@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/tag_element_layout_main">
-    <LinearLayout style="@style/tag_element_layout"
+    style="@style/tag_element_layout_main_read_only">
+    <LinearLayout style="@style/tag_element_layout_read_only"
         android:id="@+id/tag_view_layout">
         <com.biegajmy.general.textview.CustomTextView
-            style="@style/tag_element"
+            style="@style/tag_element_read_only"
             android:id="@+id/tag_view"/>
-        <ImageView
-            style="@style/tag_element_remove_icon"
-            android:id="@+id/delete_tag"/>
     </LinearLayout>
 </RelativeLayout>
 
