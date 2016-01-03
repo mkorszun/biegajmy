@@ -15,8 +15,8 @@ import java.io.InputStream;
 
 public class PhotoUtils {
 
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 800;
+    private static final int WIDTH = 300;
+    private static final int HEIGHT = 400;
     private static final int COMPRESSION = 85;
     private static final String EXT = ".jpg";
     private static final String IMAGE = "image/*";

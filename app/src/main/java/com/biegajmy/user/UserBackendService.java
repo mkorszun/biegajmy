@@ -109,9 +109,8 @@ import static com.biegajmy.user.UserEventBus.getInstance;
 
     @ServiceAction public void updatePhoto(String path) {
         if (path == null) return;
-        File scaledFile = PhotoUtils.scale(getApplicationContext(), path);
         backend.updatePhoto(localStorage.getToken().id, localStorage.getToken().token,
-            new TypedFile("application/octet-stream", scaledFile), new Callback<User>() {
+            new TypedFile("application/octet-stream", new File(path)), new Callback<User>() {
 
                 @Override public void success(User user, Response response) {
                     Log.d(TAG, "Photo update successfully");
