@@ -59,10 +59,12 @@ public class UserEventBus extends Bus {
     }
 
     public static class UpdateUserEventFailed {
-        public Exception exception;
+        public enum Reason {EMAIL_EXISTS, UNKNOWN}
 
-        public UpdateUserEventFailed(Exception e) {
-            this.exception = e;
+        public Reason reason;
+
+        public UpdateUserEventFailed(Reason reason) {
+            this.reason = reason;
         }
     }
 

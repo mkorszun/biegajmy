@@ -54,9 +54,12 @@
 
     <string name="user_update_ok_msg">Profil zaktualizowany</string>
     <string name="user_update_failed_msg">Aktualnie niemożliwe</string>
+    <string name="user_update_failed_email_exists">Taki email już istnieje</string>
     <string name="user_photo_update_ok_msg">Zdjęcie zaktualizowane</string>
     <string name="user_photo_update_failed_msg">Nie udało się zaktualizować zdjęcia</string>
     <string name="user_token_request_failed_msg">Weryfikacja aktualnie nie możliwa</string>
+
+    <string name="user_form_field_missing">Pole wymagane</string>
 
     <string-array name="photo_sources">
         <item>Wybierz z galerii</item>

@@ -13,6 +13,7 @@ import com.biegajmy.model.Device;
 import com.biegajmy.model.NewUser;
 import com.biegajmy.model.Token;
 import com.biegajmy.model.User;
+import com.biegajmy.user.UserEventBus.UpdateUserEventFailed.Reason;
 import com.biegajmy.utils.PhotoUtils;
 import com.squareup.otto.Bus;
 import java.io.File;
@@ -80,9 +81,12 @@ import static com.biegajmy.user.UserEventBus.getInstance;
             localStorage.updateUser(user);
             Log.d(TAG, "Successfully updated user");
             userBus.post(new UpdateUserEventOk(updated));
+        } catch (ConflictError e) {
+            Log.w(TAG, "Failed to update user", e);
+            userBus.post(new UpdateUserEventFailed(Reason.EMAIL_EXISTS));
         } catch (Exception e) {
             Log.e(TAG, "Failed to update user", e);
-            userBus.post(new UpdateUserEventFailed(e));
+            userBus.post(new UpdateUserEventFailed(Reason.UNKNOWN));
         }
     }
 

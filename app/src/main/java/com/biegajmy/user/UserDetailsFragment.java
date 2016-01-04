@@ -15,17 +15,23 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.biegajmy.R;
 import com.biegajmy.general.ModelFragment;
 import com.biegajmy.model.User;
+import com.biegajmy.user.UserEventBus.UpdateUserEventFailed.Reason;
 import com.biegajmy.utils.PhotoUtils;
+import com.biegajmy.validators.TextFormValidator;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 @EFragment(R.layout.fragment_user_details) public class UserDetailsFragment extends ModelFragment<User>
     implements MaterialDialog.ListCallback {
@@ -33,8 +39,8 @@ import org.androidannotations.annotations.ViewById;
     public static final String USER_ARG = "USER_ARG";
 
     @ViewById(R.id.user_photo) protected ImageView userPhoto;
-    @ViewById(R.id.firstname) protected TextView firstName;
-    @ViewById(R.id.lastname) protected TextView lastName;
+    @ViewById(R.id.firstname) protected EditText firstName;
+    @ViewById(R.id.lastname) protected EditText lastName;
     @ViewById(R.id.telephone) protected EditText telephone;
     @ViewById(R.id.www) protected EditText www;
     @ViewById(R.id.email) protected EditText email;
@@ -44,6 +50,9 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.new_participant_setting) protected SwitchCompat newParticipantSetting;
     @ViewById(R.id.leaving_participant_setting) protected SwitchCompat leavingParticipantSetting;
     @ViewById(R.id.event_updated_setting) protected SwitchCompat eventUpdatedSetting;
+
+    @Bean protected TextFormValidator textFormValidator;
+    @StringRes(R.string.user_update_failed_email_exists) protected String EMAIL_EXISTS;
 
     private UserDetailsChangeListener userDetailsChangeListener;
 
@@ -123,7 +132,7 @@ import org.androidannotations.annotations.ViewById;
     }
 
     @Subscribe public void event(UserEventBus.UpdateUserEventFailed event) {
-        Toast.makeText(getActivity(), R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
+        errorForReason(event.reason);
     }
 
     @Subscribe public void event(UserEventBus.UpdateUserPhotoOk event) {
@@ -145,7 +154,10 @@ import org.androidannotations.annotations.ViewById;
     //********************************************************************************************//
 
     public void update() {
-        UserBackendService_.intent(getActivity()).updateUser(getUser()).start();
+        if (textFormValidator.validate(fields()) && textFormValidator.validateEmail(email,
+            R.string.email_invalid_error)) {
+            UserBackendService_.intent(getActivity()).updateUser(getUser()).start();
+        }
     }
 
     public void setUserDetailsChangeListener(UserDetailsChangeListener userDetailsChangeListener) {
@@ -172,6 +184,28 @@ import org.androidannotations.annotations.ViewById;
         user.settings.onUpdate = eventUpdatedSetting.isChecked();
         user.settings.onLeavingParticipant = leavingParticipantSetting.isChecked();
         return user;
+    }
+
+    private Map<TextView, Integer> fields() {
+        Map<TextView, Integer> map = new HashMap<>();
+        map.put(firstName, R.string.user_form_field_missing);
+        map.put(lastName, R.string.user_form_field_missing);
+        map.put(email, R.string.user_form_field_missing);
+        return map;
+    }
+
+    private void errorForReason(Reason reason) {
+        switch (reason) {
+            case EMAIL_EXISTS:
+                email.setError(EMAIL_EXISTS);
+                break;
+            case UNKNOWN:
+                Toast.makeText(getActivity(), R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
+                break;
+            default:
+                Toast.makeText(getActivity(), R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 
     //********************************************************************************************//

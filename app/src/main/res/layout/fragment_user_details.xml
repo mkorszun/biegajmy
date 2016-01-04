@@ -80,6 +80,7 @@
                     <com.biegajmy.general.edittext.CustomEditText
                         style="@style/user_form_field"
                         android:id="@+id/telephone"
+                        android:inputType="phone"
                         android:hint="@string/user_form_telephone"/>
                 </LinearLayout>
 
