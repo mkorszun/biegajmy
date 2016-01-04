@@ -85,5 +85,8 @@
     <string name="location_not_found">Nie można znaleźć podanego adresu</string>
     <string name="no_user_events">Nie masz zaplanowanych żadnych biegów. Dołącz do innych lub dodaj swój trening.</string>
     <string name="no_events">Brak biegów w Twojej okolicy. Zmień promień wyszukiwania w zakładce "Filtruj" lub dodaj swój trening.</string>
+    <string name="event_deletion">Czy na pewno chcesz usunąć ten trening?</string>
+    <string name="yes">TAK</string>
+    <string name="no">NIE</string>
 
 </resources>

@@ -25,6 +25,7 @@ import com.biegajmy.events.form.update.EventUpdateFragment;
 import com.biegajmy.general.ModelActivity;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.User;
+import com.biegajmy.utils.DialogUtils;
 import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -111,7 +112,11 @@ import org.androidannotations.annotations.res.StringRes;
     @Click(R.id.event_join) public void action() {
         if (storage.hasToken()) {
             if (model.spots == 1 && owner && isMember) {
-                EventBackendService_.intent(this).deleteEvent(model.id).start();
+                DialogUtils.actionConfirmation(this, R.string.event_deletion, new DialogUtils.ActionCallback() {
+                    @Override public void ok() {
+                        EventBackendService_.intent(getApplicationContext()).deleteEvent(model.id).start();
+                    }
+                });
             } else {
                 EventBackendService_.intent(this).joinEvent(model.id, !isMember).start();
             }
