@@ -36,7 +36,7 @@ import org.androidannotations.annotations.res.StringRes;
         Notification n = new Notification.Builder(context).setContentTitle(TITLE)
             .setContentText(msg)
             .setContentIntent(pIntent)
-            .setSmallIcon(R.drawable.oval_icon)
+            .setSmallIcon(R.drawable.push_notification)
             .setAutoCancel(true)
             .setStyle(new Notification.BigTextStyle().bigText(msg))
             .build();
