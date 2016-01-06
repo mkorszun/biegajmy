@@ -181,13 +181,13 @@ import static com.biegajmy.user.UserEventBus.getInstance;
         }
     }
 
-    @ServiceAction public void scalePhotoFromPath(Uri path) {
-        File file = PhotoUtils.scale(this, path);
+    @ServiceAction public void scalePhotoFromPath(Uri path, int orientation) {
+        File file = PhotoUtils.scale(this, path, orientation);
         if (file != null) userBus.post(new ScalePhotoOK(file.getAbsolutePath()));
     }
 
     @ServiceAction public void scalePhotoFromBitmap(Bitmap bitmap) {
-        File file = PhotoUtils.scale(this, bitmap);
+        File file = PhotoUtils.scale(this, bitmap, 0);
         if (file != null) userBus.post(new ScalePhotoOK(file.getAbsolutePath()));
     }
 

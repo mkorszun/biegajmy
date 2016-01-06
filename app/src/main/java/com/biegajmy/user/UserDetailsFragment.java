@@ -102,7 +102,8 @@ import org.androidannotations.annotations.res.StringRes;
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == PhotoUtils.SELECT_PICTURE) {
             Uri selectedImageUri = data.getData();
-            UserBackendService_.intent(getActivity()).scalePhotoFromPath(selectedImageUri).start();
+            int orientation = PhotoUtils.getOrientation(getActivity(), selectedImageUri);
+            UserBackendService_.intent(getActivity()).scalePhotoFromPath(selectedImageUri, orientation).start();
         }
 
         if (resultCode == Activity.RESULT_OK && requestCode == PhotoUtils.CAMERA_REQUEST) {

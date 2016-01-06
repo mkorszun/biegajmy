@@ -12,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import com.biegajmy.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import java.io.File;
+import java.io.IOException;
 
 public class SystemUtils {
 
@@ -58,6 +60,10 @@ public class SystemUtils {
         }
 
         return true;
+    }
+
+    public static File createTMPFile(Context context, String name, String ext) throws IOException {
+        return File.createTempFile(name, ext, context.getCacheDir());
     }
 
     public static int[] progressBarColors() {
