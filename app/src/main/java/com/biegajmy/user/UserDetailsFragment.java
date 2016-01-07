@@ -21,7 +21,6 @@ import com.biegajmy.utils.PhotoUtils;
 import com.biegajmy.validators.TextFormValidator;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import org.androidannotations.annotations.AfterViews;
@@ -144,6 +143,7 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Subscribe public void event(UserEventBus.UpdateUserPhotoOk event) {
+        Picasso.with(this.context).load(event.user.photo_url).into(userPhoto);
         Toast.makeText(this.context, R.string.user_photo_update_ok_msg, Toast.LENGTH_LONG).show();
     }
 
@@ -153,8 +153,6 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Subscribe @UiThread public void event(UserEventBus.ScalePhotoOK event) {
         UserBackendService_.intent(this.context).updatePhoto(event.path).start();
-        Uri uri = Uri.fromFile(new File(event.path));
-        Picasso.with(this.context).load(uri).into(userPhoto);
     }
 
     //********************************************************************************************//

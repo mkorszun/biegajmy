@@ -83,6 +83,11 @@ public class UserEventBus extends Bus {
     //********************************************************************************************//
 
     public static class UpdateUserPhotoOk {
+        public User user;
+
+        public UpdateUserPhotoOk(User user) {
+            this.user = user;
+        }
     }
 
     public static class UpdateUserPhotoFailed {

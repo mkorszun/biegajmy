@@ -119,7 +119,7 @@ import static com.biegajmy.user.UserEventBus.getInstance;
                 @Override public void success(User user, Response response) {
                     Log.d(TAG, "Photo update successfully");
                     localStorage.updateUser(user);
-                    userBus.post(new UpdateUserPhotoOk());
+                    userBus.post(new UpdateUserPhotoOk(user));
                 }
 
                 @Override public void failure(RetrofitError error) {
