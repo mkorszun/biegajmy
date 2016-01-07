@@ -19,9 +19,9 @@ import java.io.InputStream;
 
 public class PhotoUtils {
 
-    private static final int WIDTH = 300;
     private static final int HEIGHT = 400;
     private static final int COMPRESSION = 85;
+
     private static final String EXT = ".jpg";
     private static final String IMAGE = "image/*";
 
@@ -30,12 +30,12 @@ public class PhotoUtils {
 
     public static File scale(Context context, Bitmap bitmap, int orientation) {
         try {
-            File outputFile = getFileForImage(context);
-            bitmap = Bitmap.createScaledBitmap(bitmap, WIDTH, HEIGHT, true);
-
             Matrix matrix = new Matrix();
             matrix.postRotate(orientation);
+            File outputFile = getFileForImage(context);
 
+            float aspectRatio = ((float) bitmap.getHeight() / (float) bitmap.getWidth());
+            bitmap = Bitmap.createScaledBitmap(bitmap, (int) (HEIGHT / aspectRatio), HEIGHT, true);
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
             FileOutputStream stream = new FileOutputStream(outputFile);
