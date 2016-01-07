@@ -1,6 +1,7 @@
 package com.biegajmy.user;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -54,6 +55,7 @@ import org.androidannotations.annotations.res.StringRes;
     @Bean protected TextFormValidator textFormValidator;
     @StringRes(R.string.user_update_failed_email_exists) protected String EMAIL_EXISTS;
 
+    private Context context;
     private UserDetailsChangeListener userDetailsChangeListener;
 
     //********************************************************************************************//
@@ -74,8 +76,13 @@ import org.androidannotations.annotations.res.StringRes;
         UserEventBus.getInstance().unregister(this);
     }
 
+    @Override public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     @AfterViews void setContent() {
-        PhotoUtils.set(model.photo_url, getActivity(), userPhoto);
+        PhotoUtils.set(model.photo_url, this.context, userPhoto);
         firstName.setText(model.firstName);
         lastName.setText(model.lastName);
         bio.setText(model.bio);
@@ -96,19 +103,19 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Click({ R.id.user_photo, R.id.user_photo_button }) public void selectPicture() {
-        new MaterialDialog.Builder(getActivity()).items(R.array.photo_sources).itemsCallback(this).show();
+        new MaterialDialog.Builder(this.context).items(R.array.photo_sources).itemsCallback(this).show();
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == PhotoUtils.SELECT_PICTURE) {
             Uri selectedImageUri = data.getData();
-            int orientation = PhotoUtils.getOrientation(getActivity(), selectedImageUri);
-            UserBackendService_.intent(getActivity()).scalePhotoFromPath(selectedImageUri, orientation).start();
+            int orientation = PhotoUtils.getOrientation(this.context, selectedImageUri);
+            UserBackendService_.intent(this.context).scalePhotoFromPath(selectedImageUri, orientation).start();
         }
 
         if (resultCode == Activity.RESULT_OK && requestCode == PhotoUtils.CAMERA_REQUEST) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            UserBackendService_.intent(getActivity()).scalePhotoFromBitmap(photo).start();
+            UserBackendService_.intent(this.context).scalePhotoFromBitmap(photo).start();
         }
     }
 
@@ -129,7 +136,7 @@ import org.androidannotations.annotations.res.StringRes;
 
     @Subscribe public void event(UserEventBus.UpdateUserEventOk event) {
         if (userDetailsChangeListener != null) userDetailsChangeListener.onUpdate(event.user);
-        Toast.makeText(getActivity(), R.string.user_update_ok_msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.context, R.string.user_update_ok_msg, Toast.LENGTH_LONG).show();
     }
 
     @Subscribe public void event(UserEventBus.UpdateUserEventFailed event) {
@@ -137,17 +144,17 @@ import org.androidannotations.annotations.res.StringRes;
     }
 
     @Subscribe public void event(UserEventBus.UpdateUserPhotoOk event) {
-        Toast.makeText(getActivity(), R.string.user_photo_update_ok_msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.context, R.string.user_photo_update_ok_msg, Toast.LENGTH_LONG).show();
     }
 
     @Subscribe public void event(UserEventBus.UpdateUserPhotoFailed event) {
-        Toast.makeText(getActivity(), R.string.user_photo_update_failed_msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.context, R.string.user_photo_update_failed_msg, Toast.LENGTH_LONG).show();
     }
 
     @Subscribe @UiThread public void event(UserEventBus.ScalePhotoOK event) {
-        UserBackendService_.intent(getActivity()).updatePhoto(event.path).start();
+        UserBackendService_.intent(this.context).updatePhoto(event.path).start();
         Uri uri = Uri.fromFile(new File(event.path));
-        Picasso.with(getActivity()).load(uri).into(userPhoto);
+        Picasso.with(this.context).load(uri).into(userPhoto);
     }
 
     //********************************************************************************************//
@@ -157,7 +164,7 @@ import org.androidannotations.annotations.res.StringRes;
     public void update() {
         if (textFormValidator.validate(fields()) && textFormValidator.validateEmail(email,
             R.string.email_invalid_error)) {
-            UserBackendService_.intent(getActivity()).updateUser(getUser()).start();
+            UserBackendService_.intent(this.context).updateUser(getUser()).start();
         }
     }
 
@@ -201,10 +208,10 @@ import org.androidannotations.annotations.res.StringRes;
                 email.setError(EMAIL_EXISTS);
                 break;
             case UNKNOWN:
-                Toast.makeText(getActivity(), R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(this.context, R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
                 break;
             default:
-                Toast.makeText(getActivity(), R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(this.context, R.string.user_update_failed_msg, Toast.LENGTH_LONG).show();
                 break;
         }
     }

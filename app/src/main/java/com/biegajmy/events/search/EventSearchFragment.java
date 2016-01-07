@@ -1,6 +1,6 @@
 package com.biegajmy.events.search;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,16 +9,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
-import com.biegajmy.auth.LoginActivity;
 import com.biegajmy.events.EventBackendService_;
 import com.biegajmy.events.EventListAdapter;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.details.EventDetailActivity_;
 import com.biegajmy.general.RefreshableListFragment;
 import com.biegajmy.location.LastLocation;
-import com.biegajmy.user.UserEventBus;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 
@@ -27,12 +27,14 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 @EFragment public class EventSearchFragment extends RefreshableListFragment
     implements SwipeRefreshLayout.OnRefreshListener {
 
-    private int lastRange = 5000;
     private String lastTag = "";
-    private Activity activity;
+    private int lastRange = 5000;
+
+    private Context context;
     private EventListAdapter adapter;
-    private LocalStorage storage;
     private Bus bus = EventListBus.getInstance();
+
+    @Bean protected LocalStorage storage;
 
     //********************************************************************************************//
     // Callbacks
@@ -40,13 +42,17 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        activity = getActivity();
-        storage = new LocalStorage(activity);
-        adapter = new EventListAdapter(activity);
-        adapter.setUser(storage.getUser());
-
         bus.register(this);
+    }
+
+    @Override public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @AfterInject public void setup() {
+        adapter = new EventListAdapter(this.context);
+        adapter.setUser(storage.getUser());
         setListAdapter(adapter);
     }
 
@@ -77,7 +83,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
     }
 
     @Override @UiThread public void onListItemClick(ListView listView, View view, int position, long id) {
-        Intent detailIntent = new Intent(activity, EventDetailActivity_.class);
+        Intent detailIntent = new Intent(this.context, EventDetailActivity_.class);
         detailIntent.putExtra(ARG_EVENT, adapter.get(position));
         startActivity(detailIntent);
     }
@@ -102,7 +108,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
 
     @Subscribe @UiThread public void event(EventListBus.SearchEventsNOK event) {
         setRefreshing(false);
-        Toast.makeText(getActivity(), R.string.event_search_error_msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.context, R.string.event_search_error_msg, Toast.LENGTH_LONG).show();
     }
 
     //********************************************************************************************//
@@ -113,7 +119,7 @@ import static com.biegajmy.events.details.EventDetailFragment.ARG_EVENT;
         setRefreshing(true);
         adapter.setUser(storage.getUser());
         LastLocation pos = storage.getLastLocation();
-        EventBackendService_.intent(getActivity()).searchEvents(pos.lat, pos.lng, max, tag).start();
+        EventBackendService_.intent(this.context).searchEvents(pos.lat, pos.lng, max, tag).start();
     }
 
     private void setEmptyPlaceholder(boolean empty) {
