@@ -14,6 +14,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.otto.Subscribe;
@@ -84,7 +85,8 @@ import org.androidannotations.annotations.res.StringArrayRes;
     }
 
     @Subscribe public void event(UserEventBus.TokenNOKEvent event) {
-        Toast.makeText(getActivity(), R.string.user_token_request_failed_msg, Toast.LENGTH_LONG).show();
+        showError(event.reason);
+        LoginManager.getInstance().logOut();
         getActivity().setResult(LoginActivity.AUTH_FAILED);
         getActivity().finish();
     }
@@ -95,7 +97,25 @@ import org.androidannotations.annotations.res.StringArrayRes;
     }
 
     @Subscribe public void event(UserEventBus.SyncUserEventNOK event) {
+        LoginManager.getInstance().logOut();
         Toast.makeText(getActivity(), R.string.login_unknown_error, Toast.LENGTH_LONG).show();
+    }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    private void showError(UserEventBus.TokenNOKEvent.Reason reason) {
+        switch (reason) {
+            case EMAIL_EXISTS:
+                Toast.makeText(getActivity(), R.string.email_already_used_error, Toast.LENGTH_LONG).show();
+                break;
+            case UNKNOWN:
+                Toast.makeText(getActivity(), R.string.user_token_request_failed_msg, Toast.LENGTH_LONG).show();
+                break;
+            default:
+                break;
+        }
     }
 
     //********************************************************************************************//

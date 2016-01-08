@@ -36,6 +36,8 @@ import static com.biegajmy.user.UserEventBus.ScalePhotoOK;
 import static com.biegajmy.user.UserEventBus.SyncUserEventNOK;
 import static com.biegajmy.user.UserEventBus.SyncUserEventOK;
 import static com.biegajmy.user.UserEventBus.TokenNOKEvent;
+import static com.biegajmy.user.UserEventBus.TokenNOKEvent.Reason.EMAIL_EXISTS;
+import static com.biegajmy.user.UserEventBus.TokenNOKEvent.Reason.UNKNOWN;
 import static com.biegajmy.user.UserEventBus.TokenOKEvent;
 import static com.biegajmy.user.UserEventBus.UpdateUserEventFailed;
 import static com.biegajmy.user.UserEventBus.UpdateUserEventOk;
@@ -101,9 +103,12 @@ import static com.biegajmy.user.UserEventBus.getInstance;
                 Log.d(TAG, "Token request succeeded. Updating token locally");
                 localStorage.updateToken(token);
                 userBus.post(new TokenOKEvent());
+            } catch (ConflictError e) {
+                Log.e(TAG, "Token request failed", e);
+                userBus.post(new TokenNOKEvent(EMAIL_EXISTS));
             } catch (Exception e) {
                 Log.e(TAG, "Token request failed", e);
-                userBus.post(new TokenNOKEvent());
+                userBus.post(new TokenNOKEvent(UNKNOWN));
             }
         } else {
             Log.d(TAG, "Token already stored locally");

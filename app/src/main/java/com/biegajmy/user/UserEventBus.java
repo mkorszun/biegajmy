@@ -76,6 +76,13 @@ public class UserEventBus extends Bus {
     }
 
     public static class TokenNOKEvent {
+        public enum Reason {EMAIL_EXISTS, UNKNOWN}
+
+        public Reason reason;
+
+        public TokenNOKEvent(Reason reason) {
+            this.reason = reason;
+        }
     }
 
     //********************************************************************************************//
