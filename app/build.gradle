@@ -10,7 +10,7 @@ android {
         applicationId "com.biegajmy"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 8
+        versionCode 9
         versionName "1.68"
         multiDexEnabled true
     }
