@@ -40,10 +40,14 @@ import org.apmem.tools.layouts.FlowLayout;
 
         int res1 = R.string.event_participants_count_1;
         int res2 = R.string.event_participants_count_2;
-        int res = participants.size() == 1 ? res1 : res2;
-        count.setText(getString(res, participants.size()));
+        int size = participants.size();
+        int res = size == 1 ? res1 : res2;
+        count.setText(getString(res, size));
+        int count = size > 20 ? 20 : size;
 
-        for (User u : participants) flowLayout.addView(new EventParticipantsLayout(getActivity(), u.photo_url));
+        for (User u : participants.subList(0, count)) {
+            flowLayout.addView(new EventParticipantsLayout(getActivity(), u.photo_url));
+        }
     }
 
     //********************************************************************************************//
