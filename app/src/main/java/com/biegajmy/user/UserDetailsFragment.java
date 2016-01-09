@@ -160,8 +160,8 @@ import org.androidannotations.annotations.res.StringRes;
     //********************************************************************************************//
 
     public void update() {
-        if (textFormValidator.validate(fields()) && textFormValidator.validateEmail(email,
-            R.string.email_invalid_error)) {
+        if (textFormValidator.validate(fields()) && (email.length() == 0
+            || email.length() > 0 && textFormValidator.validateEmail(email, R.string.email_invalid_error))) {
             UserBackendService_.intent(this.context).updateUser(getUser()).start();
         }
     }
@@ -196,7 +196,6 @@ import org.androidannotations.annotations.res.StringRes;
         Map<TextView, Integer> map = new HashMap<>();
         map.put(firstName, R.string.user_form_field_missing);
         map.put(lastName, R.string.user_form_field_missing);
-        map.put(email, R.string.user_form_field_missing);
         return map;
     }
 
