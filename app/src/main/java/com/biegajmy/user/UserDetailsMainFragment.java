@@ -44,6 +44,7 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
     }
 
     @AfterInject @UiThread public void setup() {
+        UserBackendService_.intent(getActivity()).syncUser().start();
         setContent();
     }
 

@@ -80,7 +80,7 @@ import static com.biegajmy.user.UserEventBus.getInstance;
             String id = localStorage.getToken().id;
             String token = localStorage.getToken().token;
             User updated = backend.updateUser(id, token, user);
-            localStorage.updateUser(user);
+            localStorage.updateUser(updated);
             Log.d(TAG, "Successfully updated user");
             userBus.post(new UpdateUserEventOk(updated));
         } catch (ConflictError e) {
