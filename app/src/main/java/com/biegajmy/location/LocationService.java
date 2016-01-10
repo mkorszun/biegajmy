@@ -22,7 +22,7 @@ import org.androidannotations.annotations.EService;
 
     private static final String TAG = LocationService.class.getName();
     private static final int LOCATION_UPDATE_INTERVAL = 4 * 60 * 1000;
-    private static final int LOCATION_UPDATE_FASTEST_INTERVAL = 2 * 60 * 1000;
+    private static final int LOCATION_UPDATE_FASTEST_INTERVAL = 30 * 1000;
 
     @Bean LocalStorage localStorage;
     @Bean LocationResolver locationResolver;
@@ -39,8 +39,8 @@ import org.androidannotations.annotations.EService;
     @Override public void onCreate() {
         Log.d(TAG, "Starting location service");
         googleApiClient = buildGoogleApiClient();
-        googleApiClient.connect();
         locationRequest = buildLocationRequest();
+        googleApiClient.connect();
         locationUpdatesBus.register(this);
     }
 
@@ -110,7 +110,7 @@ import org.androidannotations.annotations.EService;
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(LOCATION_UPDATE_INTERVAL);
         locationRequest.setFastestInterval(LOCATION_UPDATE_FASTEST_INTERVAL);
-        locationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         return locationRequest;
     }
 
