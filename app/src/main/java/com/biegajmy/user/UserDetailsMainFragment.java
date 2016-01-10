@@ -44,7 +44,6 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
     }
 
     @AfterInject @UiThread public void setup() {
-        UserBackendService_.intent(getActivity()).syncUser().start();
         setContent();
     }
 
@@ -94,6 +93,7 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
 
     private void setContent() {
         if (storage.hasToken() && (user = storage.getUser()) != null) {
+            UserBackendService_.intent(getActivity()).syncUser().start();
             updateUserDetails(user);
         } else {
             Fragment emptyDetails = UserDetailsEmptyFragment_.builder().build();
