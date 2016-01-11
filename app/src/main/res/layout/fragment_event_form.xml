@@ -26,6 +26,7 @@
                     <com.biegajmy.general.edittext.CustomEditText
                         style="@style/event_form_field"
                         android:id="@+id/form_event_headline"
+                        android:inputType="textCapSentences"
                         android:hint="@string/event_form_headline"/>
                 </android.support.design.widget.TextInputLayout>
 
