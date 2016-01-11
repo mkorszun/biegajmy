@@ -78,7 +78,7 @@ public class EventListAdapter extends ArrayAdapter<Event> {
         ((ImageView) view.findViewById(R.id.event_list_item_image)).setImageResource(participantsImg);
         ImageView eventIndicator = (ImageView) view.findViewById(R.id.event_indicator);
         eventIndicator.setVisibility(ownerImg != 0 ? View.VISIBLE : View.GONE);
-        eventIndicator.setImageResource(ownerImg);
+        if (ownerImg != 0) eventIndicator.setImageResource(ownerImg);
 
         Log.v(TAG, String.format("Position %d date %s", position, dateTime.getDate().toString()));
         setLabel(position, view, dateTime.getDate().toLongString());
