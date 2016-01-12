@@ -71,6 +71,7 @@
                 <data android:scheme="https" android:host="development-biegajmyeventpage.cloudcontrolled.com"/>
                 <data android:scheme="https" android:host="staging-biegajmyeventpage.cloudcontrolled.com"/>
                 <data android:scheme="https" android:host="biegajmyeventpage.cloudcontrolled.com"/>
+                <data android:scheme="https" android:host="trening.biegaj.my"/>
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
