@@ -3,6 +3,8 @@ package com.biegajmy.gcm;
 import android.os.Bundle;
 import android.util.Log;
 import com.biegajmy.BuildConfig;
+import com.biegajmy.LocalStorage;
+import com.biegajmy.model.UserSettings;
 import com.biegajmy.notifications.NotificationSender;
 import com.biegajmy.utils.JSONUtils;
 import com.google.android.gms.gcm.GcmListenerService;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
     private static final String MESSAGE = "message";
     private static final String PARAMS = "params";
 
+    @Bean LocalStorage localStorage;
     @Bean NotificationSender notificationSender;
 
     //********************************************************************************************//
@@ -37,10 +40,34 @@ import org.json.JSONObject;
 
             MessageType type = MessageType.valueOf(msg_type);
             UserMessageBus.getInstance().post(new UserMessageBus.NewMessage(event_id, type));
-            notificationSender.send(message, event_id, event_name);
+
+            UserSettings settings = localStorage.getUser().settings;
+            if (shouldNotify(type, settings)) notificationSender.send(message, event_id, event_name);
         } catch (Exception e) {
             Log.e(TAG, "Failed to read push message", e);
         }
+    }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    private boolean shouldNotify(MessageType type, UserSettings settings) {
+        switch (type) {
+            case new_participant:
+                if (settings.onNewParticipant) return true;
+                break;
+            case new_comment:
+                if (settings.onNewComment) return true;
+                break;
+            case event_updated:
+                if (settings.onUpdate) return true;
+                break;
+            case leaving_participant:
+                if (settings.onLeavingParticipant) return true;
+                break;
+        }
+        return false;
     }
 
     //********************************************************************************************//
