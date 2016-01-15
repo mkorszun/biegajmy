@@ -75,10 +75,13 @@ public class PhotoUtils {
 
     public static int getOrientation(Context context, Uri image) {
         int orientation = 0;
-        String[] orientationColumn = { MediaStore.Images.Media.ORIENTATION };
-        Cursor cur = context.getContentResolver().query(image, orientationColumn, null, null, null);
-        if (cur != null && cur.moveToFirst()) orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
-        return orientation;
+        try {
+            String[] orientationColumn = { MediaStore.Images.Media.ORIENTATION };
+            Cursor cur = context.getContentResolver().query(image, orientationColumn, null, null, null);
+            if (cur != null && cur.moveToFirst()) orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+        } finally {
+            return orientation;
+        }
     }
 
     public static File getFileForImage(Context context) throws IOException {
