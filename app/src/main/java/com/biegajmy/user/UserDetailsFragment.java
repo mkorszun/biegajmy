@@ -184,7 +184,7 @@ import org.androidannotations.annotations.res.StringRes;
         user.bio = bio.getText().toString();
         user.telephone = telephone.getText().toString();
         user.www = www.getText().toString();
-        user.email = email.getText().toString();
+        user.email = email.getText().toString().trim();
         user.settings.onNewComment = newCommentSetting.isChecked();
         user.settings.onNewParticipant = newParticipantSetting.isChecked();
         user.settings.onUpdate = eventUpdatedSetting.isChecked();
