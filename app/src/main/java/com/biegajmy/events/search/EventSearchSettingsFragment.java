@@ -109,7 +109,7 @@ import org.androidannotations.annotations.ViewById;
 
     @Click(R.id.dist6) public void fifty_km() {
         setSelected(dist6);
-        bus.post(new EventSearchRange(lastRange = 1000000, addTag.getText().toString()));
+        bus.post(new EventSearchRange(lastRange = 3000000, addTag.getText().toString()));
     }
 
     @Click(R.id.tag_add_confirmation) public void searchTag() {
