@@ -6,9 +6,12 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import com.biegajmy.LocalStorage;
+import com.biegajmy.model.Event;
 import com.squareup.otto.Subscribe;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -20,6 +23,7 @@ import org.androidannotations.annotations.EService;
 
     @Bean protected LocalStorage localStorage;
 
+    private final Event EVENT = new Event();
     private HashMap<String, Set<MessageType>> messages;
 
     //********************************************************************************************//
@@ -39,6 +43,8 @@ import org.androidannotations.annotations.EService;
         super.onCreate();
         Log.d(TAG, "Starting user message service");
         this.messages = localStorage.getMessages();
+
+        checkMessages();
         UserMessageBus.getInstance().register(this);
     }
 
@@ -46,6 +52,8 @@ import org.androidannotations.annotations.EService;
         super.onDestroy();
         Log.d(TAG, "Stopping user message service");
         UserMessageBus.getInstance().unregister(this);
+
+        checkMessages();
         localStorage.updateMessages(messages);
     }
 
@@ -73,6 +81,28 @@ import org.androidannotations.annotations.EService;
 
             Log.d(TAG, String.format("Removing messages for event: %s", event.id));
             UserMessageBus.getInstance().post(new UserMessageBus.UpdateMessages(event.id, null));
+        }
+    }
+
+    @Subscribe @Background public void event(UserMessageBus.CheckMessages event) {
+        Log.d(TAG, "Checking messages for user");
+        checkMessages();
+    }
+
+    //********************************************************************************************//
+    // Helpers
+    //********************************************************************************************//
+
+    @Background protected void checkMessages() {
+        List<Event> myEvents = localStorage.get("USER_EVENTS", ArrayList.class);
+        if (myEvents == null) return;
+
+        for (String id : messages.keySet()) {
+            EVENT.id = id;
+            if (!myEvents.contains(EVENT)) {
+                Log.d(TAG, String.format("Removing messages for event: %s", id));
+                messages.remove(id);
+            }
         }
     }
 

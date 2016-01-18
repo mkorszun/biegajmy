@@ -4,9 +4,11 @@ import android.util.Log;
 import com.biegajmy.LocalStorage;
 import com.biegajmy.backend.BackendInterface;
 import com.biegajmy.backend.BackendInterfaceFactory;
+import com.biegajmy.gcm.UserMessageBus;
 import com.biegajmy.model.Comment;
 import com.biegajmy.model.Event;
 import com.biegajmy.model.NewEvent;
+import java.util.ArrayList;
 import java.util.List;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EIntentService;
@@ -80,7 +82,9 @@ import org.androidannotations.api.support.app.AbstractIntentService;
         try {
             BackendInterface backend = BackendInterfaceFactory.build();
             List<Event> events = backend.listEvents(localStorage.getToken().id, localStorage.getToken().token);
+            localStorage.put("USER_EVENTS", new ArrayList(events));
             EventListBus.getInstance().post(new EventListBus.ListUserEventsOK(events));
+            UserMessageBus.getInstance().post(new UserMessageBus.CheckMessages());
         } catch (Exception e) {
             Log.e(TAG, "List user events failed", e);
             EventListBus.getInstance().post(new EventListBus.ListUserEventsNOK());
