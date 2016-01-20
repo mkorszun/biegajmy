@@ -7,9 +7,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import java.io.File;
@@ -18,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class PhotoUtils {
+
+    private static final String TAG = PhotoUtils.class.getName();
 
     private static final int HEIGHT = 400;
     private static final int COMPRESSION = 85;
@@ -74,18 +78,61 @@ public class PhotoUtils {
     }
 
     public static int getOrientation(Context context, Uri image) {
-        int orientation = 0;
-        try {
-            String[] orientationColumn = { MediaStore.Images.Media.ORIENTATION };
-            Cursor cur = context.getContentResolver().query(image, orientationColumn, null, null, null);
-            if (cur != null && cur.moveToFirst()) orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
-        } finally {
-            return orientation;
+        int orientation = getOrientationFromExif(image.getPath());
+        if (orientation <= 0) {
+            orientation = getOrientationFromMediaStore(context, image);
         }
+
+        return orientation;
     }
 
     public static File getFileForImage(Context context) throws IOException {
         String name = String.valueOf(System.currentTimeMillis());
         return SystemUtils.createTMPFile(context, name, EXT);
+    }
+
+    private static int getOrientationFromExif(String imagePath) {
+        int orientation = -1;
+        try {
+            ExifInterface exif = new ExifInterface(imagePath);
+            int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+            switch (exifOrientation) {
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    orientation = 270;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    orientation = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    orientation = 90;
+                    break;
+                case ExifInterface.ORIENTATION_NORMAL:
+                    orientation = 0;
+                    break;
+                default:
+                    break;
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Unable to get image exif orientation", e);
+        }
+
+        return orientation;
+    }
+
+    private static int getOrientationFromMediaStore(Context context, Uri imageUri) {
+        if (imageUri == null) return -1;
+
+        String[] projection = { MediaStore.Images.ImageColumns.ORIENTATION };
+        Cursor cursor = context.getContentResolver().query(imageUri, projection, null, null, null);
+
+        int orientation = -1;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            orientation = cursor.getInt(0);
+            cursor.close();
+        }
+
+        return orientation;
     }
 }
