@@ -14,6 +14,7 @@ import com.biegajmy.LocalStorage;
 import com.biegajmy.R;
 import com.biegajmy.events.EventDateTime;
 import com.biegajmy.events.EventMapBuilder;
+import com.biegajmy.events.EventPace;
 import com.biegajmy.general.ModelFragment;
 import com.biegajmy.location.LocationActivity;
 import com.biegajmy.location.LocationActivity_;
@@ -43,6 +44,7 @@ import org.androidannotations.annotations.ViewById;
 
     private LatLng location;
     protected EventDateTime eventDateTime;
+    protected EventPace eventPace;
 
     @Bean protected TextFormValidator validator;
     @Bean protected LocalStorage storage;
@@ -81,6 +83,7 @@ import org.androidannotations.annotations.ViewById;
     @AfterViews public void setContent() {
         location = location();
         eventDateTime = new EventDateTime();
+        eventPace = new EventPace(6, 0);
 
         setUpMap(location);
         afterViews();
@@ -114,6 +117,21 @@ import org.androidannotations.annotations.ViewById;
 
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
         datePicker.show();
+    }
+
+    @Click(R.id.form_event_pace) public void setPace() {
+
+        int mm = eventPace.getMinutes();
+        int ss = eventPace.getSeconds();
+
+        TimePickerDialog timePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+            @Override public void onTimeSet(TimePicker view, int minutes, int seconds) {
+                eventPace.setMinutes(minutes);
+                eventPace.setSeconds(seconds);
+                pace.setText(eventPace.toString());
+            }
+        }, mm, ss, true);
+        timePicker.show();
     }
 
     @Override public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

@@ -74,6 +74,9 @@
                         android:id="@+id/form_event_pace_layout">
                         <com.biegajmy.general.edittext.CustomEditText
                             style="@style/event_form_decimal_field"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:layout_weight="1"
                             android:id="@+id/form_event_pace"
                             android:hint="@string/event_form_pace"

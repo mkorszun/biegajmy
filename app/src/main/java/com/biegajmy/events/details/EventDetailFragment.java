@@ -9,6 +9,7 @@ import com.biegajmy.comments.CommentsListPlaceholderFragment;
 import com.biegajmy.comments.CommentsListPlaceholderFragment_;
 import com.biegajmy.events.EventDateTime;
 import com.biegajmy.events.EventMapBuilder;
+import com.biegajmy.events.EventPace;
 import com.biegajmy.events.participants.EventParticipantsFragment;
 import com.biegajmy.events.participants.EventParticipantsFragment_;
 import com.biegajmy.general.ModelFragment;
@@ -93,8 +94,8 @@ import org.androidannotations.annotations.ViewById;
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
 
-        String paceString = StringUtils.doubleToString(model.pace);
-        pace.setText(paceString != null ? paceString + " min/km" : "-");
+        String pace = new EventPace(model.pace).toString();
+        this.pace.setText(pace != null ? pace + " min/km" : "-");
         distance.setText(StringUtils.doubleToString(model.distance) + " km");
         description.setText(model.description);
         boolean isMember = model.participants.contains(storage.getUser());

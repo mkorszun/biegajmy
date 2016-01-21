@@ -37,12 +37,14 @@ import org.androidannotations.annotations.EFragment;
 
     @Override public void afterViews() {
         eventDateTime.set(model.timestamp);
+        eventPace.setPace(model.pace);
+
         headline.setText(model.headline);
         description.setText(model.description);
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
         distance.setText(String.valueOf(model.distance));
-        pace.setText(StringUtils.doubleToString(model.pace));
+        pace.setText(eventPace.toString());
     }
 
     @Override public void save() {
@@ -54,7 +56,7 @@ import org.androidannotations.annotations.EFragment;
         event.x = eventMap.getCurrentPosition().latitude;
         event.y = eventMap.getCurrentPosition().longitude;
         event.distance = StringUtils.stringToDouble(distance.getText().toString());
-        event.pace = StringUtils.stringToDouble(pace.getText().toString());
+        event.pace = eventPace.getPace();
         EventBackendService_.intent(getActivity()).updateEvent(this.model.id, event).start();
     }
 
