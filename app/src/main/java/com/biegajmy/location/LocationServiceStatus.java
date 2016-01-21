@@ -9,7 +9,11 @@ import org.androidannotations.annotations.SystemService;
     @SystemService LocationManager locationManager;
 
     public boolean isEnabled() {
-        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-            || locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        try {
+            return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (SecurityException e) {
+            return false;
+        }
     }
 }
