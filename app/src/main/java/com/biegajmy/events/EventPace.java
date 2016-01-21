@@ -43,7 +43,7 @@ public class EventPace {
     }
 
     private void update(int mm, int ss) {
-        this.pace = (double) mm + round((double) ss / 60d, 2);
+        this.pace = (double) mm + (double) ss / 60d;
     }
 
     private void update(double pace) {
@@ -51,7 +51,7 @@ public class EventPace {
         this.seconds = (int) round(((pace - minutes) * 60), 0);
     }
 
-    public static double round(double value, int places) {
+    private static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
         long factor = (long) Math.pow(10, places);

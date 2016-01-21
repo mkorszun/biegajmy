@@ -83,7 +83,7 @@ import org.androidannotations.annotations.ViewById;
     @AfterViews public void setContent() {
         location = location();
         eventDateTime = new EventDateTime();
-        eventPace = new EventPace(6, 0);
+        eventPace = new EventPace(0, 0);
 
         setUpMap(location);
         afterViews();
