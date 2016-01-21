@@ -59,6 +59,7 @@ import org.androidannotations.annotations.EBean;
     }
 
     public void setEmpty(boolean empty) {
+        if (getView() == null) return;
         int resID = empty ? R.drawable.empty_placeholder : 0;
         ((ViewGroup) getListView().getParent()).setBackgroundResource(resID);
     }
