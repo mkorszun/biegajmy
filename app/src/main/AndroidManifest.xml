@@ -107,6 +107,7 @@
         </activity>
 
         <activity
+            android:label=""
             android:name=".location.LocationActivity_"
             android:screenOrientation="portrait">
         </activity>
