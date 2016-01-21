@@ -70,18 +70,19 @@ import org.androidannotations.annotations.RootContext;
     }
 
     public EventMapBuilder setOnClickListener(GoogleMap.OnMapClickListener l) {
-        map.getUiSettings().setAllGesturesEnabled(false);
-        map.setOnMapClickListener(l);
+        if (map != null) map.getUiSettings().setAllGesturesEnabled(false);
+        if (map != null) map.setOnMapClickListener(l);
         return this;
     }
 
     public EventMapBuilder setOnMarkerClickListener(GoogleMap.OnMarkerClickListener l) {
-        map.setOnMarkerClickListener(l);
+        if (map != null) map.setOnMarkerClickListener(l);
         return this;
     }
 
     public void updateMarker(LatLng loc) {
         currentPosition = loc;
+        if (marker == null) marker = map.addMarker(new MarkerOptions().position(loc).title(title));
         marker.setPosition(loc);
         animate(loc);
     }

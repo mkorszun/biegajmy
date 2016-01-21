@@ -1,5 +1,6 @@
 package com.biegajmy.user;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
     @OptionsMenuItem(R.id.action_user_save) protected MenuItem save;
 
     private User user;
+    private Context context;
     private int hashCode = -1;
     private Bus userEventBus = UserEventBus.getInstance();
 
@@ -41,6 +43,11 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
     @Override public void onDestroy() {
         super.onDestroy();
         userEventBus.unregister(this);
+    }
+
+    @Override public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @AfterInject @UiThread public void setup() {
@@ -93,7 +100,7 @@ public class UserDetailsMainFragment extends Fragment implements UserDetailsChan
 
     private void setContent() {
         if (storage.hasToken() && (user = storage.getUser()) != null) {
-            UserBackendService_.intent(getActivity()).syncUser().start();
+            UserBackendService_.intent(context).syncUser().start();
             updateUserDetails(user);
         } else {
             Fragment emptyDetails = UserDetailsEmptyFragment_.builder().build();

@@ -127,7 +127,7 @@ import static java.util.Arrays.asList;
     //********************************************************************************************//
 
     public void enableFAB(boolean enable) {
-        fab.setVisibility(enable ? View.VISIBLE : View.GONE);
+        if (fab != null) fab.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
 
     //********************************************************************************************//

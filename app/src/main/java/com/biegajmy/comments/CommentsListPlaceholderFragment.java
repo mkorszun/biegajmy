@@ -75,10 +75,13 @@ import org.androidannotations.annotations.ViewById;
 
     @Override public void onDestroy() {
         super.onDestroy();
-        commentList.setAdapter(null);
-        commentList.setOnItemClickListener(null);
         EventListBus.getInstance().unregister(this);
         adapter.clear();
+
+        if (commentList != null) {
+            commentList.setAdapter(null);
+            commentList.setOnItemClickListener(null);
+        }
     }
 
     //********************************************************************************************//
