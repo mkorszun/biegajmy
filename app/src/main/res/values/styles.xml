@@ -10,6 +10,8 @@
         <item name="colorControlHighlight">@color/accent</item>
         <item name="android:dialogTheme">@style/Theme.Dialog</item>
         <item name="actionBarStyle">@style/Theme.ActionBar</item>
+        <item name="android:actionMenuTextAppearance">@style/CustomActionBar</item>
+        <item name="actionMenuTextAppearance">@style/CustomActionBar</item>
     </style>
 
     <style name="Theme.ActionBar" parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
@@ -34,6 +36,10 @@
         <item name="colorAccent">@color/primary</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Menu">
+        <item name="android:textSize">12sp</item>
     </style>
 
     <!-- Event Form -->
