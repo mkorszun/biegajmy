@@ -34,7 +34,8 @@
     <string name="event_form_distance_error_msg">Dystans wymagany</string>
     <string name="event_form_pace_error_msg">Tempo wymagane</string>
     <string name="event_form_tags_error_msg">Dodaj tagi</string>
-
+    <string name="event_form_button_possitive">OK</string>
+    <string name="event_form_button_negative">ANULUJ</string>
     <!-- -->
 
     <!-- Splash -->

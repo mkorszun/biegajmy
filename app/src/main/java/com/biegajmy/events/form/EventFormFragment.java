@@ -2,6 +2,7 @@ package com.biegajmy.events.form;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -38,6 +39,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 @EFragment(R.layout.fragment_event_form) @OptionsMenu(R.menu.menu_event_new) public abstract class EventFormFragment
     extends ModelFragment<Event> implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
@@ -63,6 +65,9 @@ import org.androidannotations.annotations.ViewById;
     @ViewById(R.id.form_event_time_layout) protected TextInputLayout timeLayout;
     @ViewById(R.id.form_event_distance_layout) protected TextInputLayout distanceLayout;
     @ViewById(R.id.form_event_pace_layout) protected TextInputLayout paceLayout;
+
+    @StringRes(R.string.event_form_button_possitive) protected String POSITIVE;
+    @StringRes(R.string.event_form_button_negative) protected String NEGATIVE;
 
     //********************************************************************************************//
     // CALLBACKS
@@ -104,6 +109,8 @@ import org.androidannotations.annotations.ViewById;
         int minute = eventTime.getMinute();
 
         TimePickerDialog timePicker = new TimePickerDialog(getActivity(), this, hour, minute, true);
+        timePicker.setButton(DialogInterface.BUTTON_POSITIVE, POSITIVE, timePicker);
+        timePicker.setButton(DialogInterface.BUTTON_NEGATIVE, NEGATIVE, timePicker);
         timePicker.show();
     }
 
@@ -116,6 +123,8 @@ import org.androidannotations.annotations.ViewById;
         int day = eventDate.getDay();
 
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePicker.setButton(DialogInterface.BUTTON_POSITIVE, POSITIVE, datePicker);
+        datePicker.setButton(DialogInterface.BUTTON_NEGATIVE, NEGATIVE, datePicker);
         datePicker.show();
     }
 
@@ -124,13 +133,16 @@ import org.androidannotations.annotations.ViewById;
         int mm = eventPace.getMinutes();
         int ss = eventPace.getSeconds();
 
-        TimePickerDialog timePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-            @Override public void onTimeSet(TimePicker view, int minutes, int seconds) {
-                eventPace.setMinutes(minutes);
-                eventPace.setSeconds(seconds);
-                pace.setText(eventPace.toString());
-            }
-        }, mm, ss, true);
+        TimePickerDialog timePicker = new TimePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog,
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override public void onTimeSet(TimePicker view, int minutes, int seconds) {
+                    eventPace.setMinutes(minutes);
+                    eventPace.setSeconds(seconds);
+                    pace.setText(eventPace.toString());
+                }
+            }, mm, ss, true);
+        timePicker.setButton(DialogInterface.BUTTON_POSITIVE, POSITIVE, timePicker);
+        timePicker.setButton(DialogInterface.BUTTON_NEGATIVE, NEGATIVE, timePicker);
         timePicker.show();
     }
 
