@@ -8,6 +8,7 @@ import com.biegajmy.R;
 import com.biegajmy.comments.CommentsListPlaceholderFragment;
 import com.biegajmy.comments.CommentsListPlaceholderFragment_;
 import com.biegajmy.events.EventDateTime;
+import com.biegajmy.events.EventDistance;
 import com.biegajmy.events.EventMapBuilder;
 import com.biegajmy.events.EventPace;
 import com.biegajmy.events.participants.EventParticipantsFragment;
@@ -96,7 +97,7 @@ import org.androidannotations.annotations.ViewById;
 
         String pace = new EventPace(model.pace).toString();
         this.pace.setText(pace != null ? pace + " min/km" : "-");
-        distance.setText(StringUtils.doubleToString(model.distance) + " km");
+        distance.setText(new EventDistance(model.distance).toString("-"));
         description.setText(model.description);
         boolean isMember = model.participants.contains(storage.getUser());
         ArrayList<String> tags = model.tags == null ? new ArrayList<String>() : model.tags;

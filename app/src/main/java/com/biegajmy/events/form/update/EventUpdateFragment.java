@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import com.biegajmy.R;
 import com.biegajmy.events.EventBackendService_;
+import com.biegajmy.events.EventDistance;
 import com.biegajmy.events.EventListBus;
 import com.biegajmy.events.form.EventFormFragment;
 import com.biegajmy.model.NewEvent;
@@ -43,7 +44,7 @@ import org.androidannotations.annotations.EFragment;
         description.setText(model.description);
         date.setText(eventDateTime.getDate().toString());
         time.setText(eventDateTime.getTime().toString());
-        distance.setText(String.valueOf(model.distance));
+        distance.setText(new EventDistance(model.distance).toString(null));
         pace.setText(eventPace.toString());
     }
 
