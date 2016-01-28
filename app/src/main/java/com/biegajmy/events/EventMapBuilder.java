@@ -22,6 +22,7 @@ import org.androidannotations.annotations.RootContext;
 
     @RootContext Context context;
 
+    private int zoom = -1;
     private GoogleMap map;
     private LatLng initialPosition;
     private LatLng currentPosition;
@@ -80,6 +81,11 @@ import org.androidannotations.annotations.RootContext;
         return this;
     }
 
+    public EventMapBuilder setZoom(int zoom) {
+        this.zoom = zoom;
+        return this;
+    }
+
     public void updateMarker(LatLng loc) {
         currentPosition = loc;
         if (marker == null) marker = map.addMarker(new MarkerOptions().position(loc).title(title));
@@ -125,9 +131,9 @@ import org.androidannotations.annotations.RootContext;
     }
 
     private void animate(LatLng position) {
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(position, ZOOM));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(position, zoom != -1 ? zoom : ZOOM));
         CameraPosition.Builder builder = new CameraPosition.Builder();
-        CameraPosition cameraPosition = builder.target(position).zoom(ZOOM).build();
+        CameraPosition cameraPosition = builder.target(position).zoom(zoom != -1 ? zoom : ZOOM).build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 

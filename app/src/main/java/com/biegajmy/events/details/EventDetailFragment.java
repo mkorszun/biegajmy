@@ -140,6 +140,7 @@ import org.androidannotations.annotations.ViewById;
                 eventMap.setInitialPosition(loc)
                     .setMap(googleMap)
                     .setTitle("")
+                    .setZoom(11)
                     .setOnMarkerClickListener(EventDetailFragment.this)
                     .setOnClickListener(EventDetailFragment.this)
                     .build();
